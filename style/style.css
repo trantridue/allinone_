@@ -8,7 +8,7 @@
 	font-family: Arial, sans-serif;
 	font-size: 0.9em;
 	line-height: 150%;
-	background-color: #c8f7bf;
+	background-color: bisque;
 }
 
 #main_page_wrap h2 {
@@ -25,7 +25,7 @@
 #main_page_menu {
 	float: left;
 	width: 10%;
-	background-color: #008080;
+	background-color: bisque;
 	min-height: 550px;
 }
 
@@ -37,7 +37,7 @@
 }
 
 #main_page_header {
-	background-color: #e3cbe7;
+	background-color: bisque;
 }
 
 .wrappadding {
