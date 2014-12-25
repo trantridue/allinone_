@@ -16,7 +16,7 @@ $fgmembersite->SetAdminEmail('user11@user11.com');
 $fgmembersite->InitDB(/*hostname*/'localhost',
                       /*username*/'root',
                       /*password*/'123456',
-                      /*database name*/'shopnews',
+                      /*database name*/'allinone',
                       /*table name*/'user');
 
 //For better security. Get a random string from this link: http://tinyurl.com/randstr
