@@ -11,7 +11,7 @@ if(isset($_POST['submitted']))
 {
    if($fgmembersite->ChangePassword())
    {
-        $fgmembersite->RedirectToURL("changed-pwd.html");
+        $fgmembersite->RedirectToURL("login-home.php");
    }
 }
 
