@@ -1,0 +1,39 @@
+#main_page_wrap li
+{
+font-family : Arial, sans-serif;
+padding-top:10px;
+padding-bottom:10px;
+}
+#main_page_wrap
+{
+    font-family : Arial, sans-serif;
+    font-size: 0.9em;
+    line-height: 150%;
+    background-color:#c8f7bf;
+}
+
+#main_page_wrap h2
+{
+   font-family : Arial, sans-serif;
+   font-size: 1.5em;
+   font-weight:bold;
+   color:#333;
+}
+#main_page_body{
+	min-height: 550px;
+}
+#main_page_menu {
+	float: left;
+	width: 10%;
+	background-color: #2bf314;
+	min-height: 550px;
+}
+#main_page_content {
+	float: right;
+	width: 90%;
+	min-height: 550px;
+	background-color: white;
+}
+#main_page_header{
+	background-color: #e3cbe7;
+}
