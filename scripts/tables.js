@@ -25,8 +25,9 @@ $(document).ready(
 							});
 
 							// Update footer
-							$(api.column(3).footer()).html(
-									pageTotal + "-" + TotalMarks);
+							$(api.column(1).footer()).html(
+									'All:' + TotalMarks + "-- Current:" + pageTotal);
+							
 						}
 					});
 		});
