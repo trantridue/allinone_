@@ -6,9 +6,9 @@
 
 #main_page_wrap {
 	font-family: Arial, sans-serif;
-	font-size: 0.9em;
-	line-height: 150%;
-	background-color: bisque;
+	font-size: 0.8em;
+	line-height: 100%;
+	background-color: #d3d6ff;
 }
 
 #main_page_wrap h2 {
@@ -25,7 +25,6 @@
 #main_page_menu {
 	float: left;
 	width: 10%;
-	background-color: bisque;
 	min-height: 550px;
 }
 
@@ -37,7 +36,6 @@
 }
 
 #main_page_header {
-	background-color: bisque;
 }
 
 .wrappadding {
@@ -54,5 +52,6 @@
 	width: 100%;
 	height: 40px;
 	margin-top: 10px;
+	font-weight: bold;
 }
 /* MENU END*/

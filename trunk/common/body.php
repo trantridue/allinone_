@@ -1,7 +1,9 @@
 <?php
-// echo $_REQUEST ['module'];
+echo $_REQUEST ['module'];
+
+?>
+<hr>
+<?php
 include 'test.php';
-
-
 
 ?>
