@@ -2,9 +2,11 @@
 require_once("constant.php");
 require_once("./include/fg_membersite.php");
 require_once("./include/importService.php");
+require_once("./include/userService.php");
 
 $fgmembersite = new FGMembersite(hostname, username, password, database,tablename);
 $importService = new ImportService(hostname, username, password, database);
+$userService = new UserService(hostname, username, password, database);
 
 //Provide your site name here
 $fgmembersite->SetWebsiteName('user11.com');
