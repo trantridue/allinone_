@@ -48,7 +48,7 @@ if (! $fgmembersite->CheckLogin ()) {
 			</div>
 		</div>
 		<div id="main_page_footer">
-			<div class="wrappadding">The footer: <?php $importService->test();?></div>
+			<div class="wrappadding">The footer: </div>
 		</div>
 	</div>
 </body>

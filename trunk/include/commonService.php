@@ -1,8 +1,7 @@
 <?php
-class ImportService {
-	
+class CommonService {
 	// -----Initialization -------
-	function ImportService($hostname, $username, $password, $database) {
+	function CommonService($hostname, $username, $password, $database) {
 		$this->InitDB ( $hostname, $username, $password, $database );
 	}
 	function InitDB($host, $uname, $pwd, $database) {
@@ -31,6 +30,9 @@ class ImportService {
 	}
 	function HandleDBError($err) {
 		$this->HandleError ( $err . "\r\n mysqlerror:" . mysql_error () );
+	}
+	function test(){
+		echo "test";
 	}
 }
 ?>
