@@ -6,7 +6,8 @@ $module = $_REQUEST['module'] ;
 <?php
 $arr = array (
 		"list" => "LIST",
-		"add" => "ADD" 
+		"sale" => "UPDATE SALE" ,
+		"promotion" => "PROMOTION" 
 );
 
 foreach ( $arr as $value => $key ) {
