@@ -1,7 +1,7 @@
 <?PHP
 require_once("constant.php");
 
-require_once("./include/import.php");
-$import = new Import(hostname, username, password, database);
+require_once("./include/importService.php");
+$importService = new ImportService(hostname, username, password, database);
 
 ?>

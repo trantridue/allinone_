@@ -7,8 +7,8 @@ $totalline = 100;
 		<tr>
 		<?php
 		
-for($i = 1; $i <= $totalcolum; $i ++) {
-			if ($i == 5) {
+		for($i = 1; $i <= $totalcolum; $i ++) {
+			if ($i != 5) {
 				?>
 		
 			<th>Colum <?php echo $i;?></th>
@@ -32,7 +32,7 @@ for($i = 1; $i <= $totalcolum; $i ++) {
 			<td>Edinburgh <?php echo $j;?></td>
 			<td><?php echo $j;?></td>
 			<td style="display: none;"><?php echo $j;?></td>
-			<td>2011/04/25</td>
+			<td><?php echo 2000+$j;?>/04/25</td>
 			<td><?php echo $j*$j;?></td>
 		</tr>
 		<?php } ?>
