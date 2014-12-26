@@ -1,6 +1,5 @@
 <?php
 echo $_REQUEST ['module'];
-
 ?>
 <hr>
 <?php

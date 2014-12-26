@@ -1,5 +1,6 @@
 <?PHP
 require_once ("./include/membersite_config.php");
+require_once ("./include/services_config.php");
 
 if (! $fgmembersite->CheckLogin ()) {
 	$fgmembersite->RedirectToURL ( "login.php" );
@@ -48,7 +49,7 @@ if (! $fgmembersite->CheckLogin ()) {
 			</div>
 		</div>
 		<div id="main_page_footer">
-			<div class="wrappadding">The footer</div>
+			<div class="wrappadding">The footer<?php $import->test();?></div>
 		</div>
 	</div>
 </body>
