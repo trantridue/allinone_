@@ -1,9 +1,12 @@
+<div id='submenucontent'>
 <?php
-echo $_REQUEST ['module'];
-include 'topbody.php';
+$module = isset ( $_REQUEST ['module'] ) ? $_REQUEST ['module'] : defaultmodule;
+include 'modules/' . $module . '/submenu.php';
 ?>
-<hr>
+
+</div>
+<div id='bodycontent'>
 <?php
-//include 'test.php';
-include 'mainbody.php';
+include 'modules/' . $module . '/main.php';
 ?>
+</div>

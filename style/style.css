@@ -20,6 +20,7 @@
 
 #main_page_body {
 	min-height: 550px;
+	overflow: auto;
 }
 
 #main_page_menu {
@@ -33,6 +34,7 @@
 	width: 90%;
 	min-height: 550px;
 	background-color: white;
+	
 }
 
 #main_page_header {
@@ -40,6 +42,16 @@
 
 .wrappadding {
 	padding: 5px;
+}
+#submenucontent {
+	width: 100%;
+	background-color: bisque;
+}
+#bodycontent {
+	width: 100%;
+	background-color: yellow;
+	margin-top:5px;
+	min-height: 520px;
 }
 /* MENU START */
 .active_btn {
@@ -54,4 +66,16 @@
 	margin-top: 10px;
 	font-weight: bold;
 }
+.menu_btn_sub {
+	height: 30px;
+	margin-left: 10px;
+	font-weight: bold;
+	/*float: left;*/
+}
+.active_btn_sub {
+	border-color: red;
+	border-radius: 5px;
+	background-color: yellow;
+}
+
 /* MENU END*/
