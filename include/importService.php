@@ -1,10 +1,10 @@
 <?php
-class Import {
+class ImportService {
 	function test(){
 		echo "test";
 	}
 	// -----Initialization -------
-	function Import($hostname, $username, $password, $database) {
+	function ImportService($hostname, $username, $password, $database) {
 		$this->InitDB ( $hostname, $username, $password, $database );
 	}
 	function InitDB($host, $uname, $pwd, $database) {
