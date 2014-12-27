@@ -13,7 +13,5 @@ define('tab4', tab2.tab2);
 define('tab8', tab4.tab4);
 define('tab16', tab8.tab8);
 //Default param
-define('defaultmodule','import');
-//Module name
-define('importmodule','import');
+define('defaultmodule','user');
 ?>

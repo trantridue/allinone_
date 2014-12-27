@@ -1,13 +1,12 @@
 <?php
 $submenu = $_REQUEST['submenu'] ;
-$module = $_REQUEST['module'] ;
+$module = isset ( $_REQUEST ['module'] ) ? $_REQUEST ['module'] : defaultmodule;
 ?>
 
 <?php
 $arr = array (
 		"list" => "LIST",
-		"sale" => "UPDATE SALE" ,
-		"promotion" => "PROMOTION" 
+		"add" => "ADD" 
 );
 
 foreach ( $arr as $value => $key ) {

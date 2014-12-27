@@ -1,6 +1,6 @@
 <?php
 $submenu = $_REQUEST['submenu'] ;
-$module = $_REQUEST['module'] ;
+$module = isset ( $_REQUEST ['module'] ) ? $_REQUEST ['module'] : defaultmodule;
 ?>
 
 <?php
