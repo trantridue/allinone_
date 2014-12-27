@@ -15,4 +15,6 @@ define('tab16', tab8.tab8);
 //Default param
 define('defaultmodule','user');
 define('defaultsubmodule','search');
+//datatableid
+define('userdatatable','table_list_user');
 ?>
