@@ -11,6 +11,8 @@ $arr = array (
 		"config" => "CONFIG",
 		"news" => "NEWS",
 		"report" => "REPORT",
+		"provider" => "PROVIDER",
+		"customer" => "CUSTOMER",
 		"user" => "USER",
 		"fund" => "FUND" 
 );

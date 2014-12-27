@@ -1,6 +1,6 @@
 <?php
 $submenu = $_REQUEST['submenu'] ;
-$module = isset ( $_REQUEST ['module'] ) ? $_REQUEST ['module'] : importmodule;
+$module = $_REQUEST['module'] ;
 ?>
 
 <?php
