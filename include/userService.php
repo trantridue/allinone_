@@ -31,5 +31,8 @@ class UserService {
 	function HandleDBError($err) {
 		$this->HandleError ( $err . "\r\n mysqlerror:" . mysql_error () );
 	}
+	//
+	function listUser($username) {
+	}
 }
 ?>

@@ -1,6 +1,6 @@
 <?php
 $totalcolum = 7;
-$totalline = 100;
+$totalline = 8;
 ?>
 <table id="example" class="display" cellspacing="0" width="100%">
 	<thead>
