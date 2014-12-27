@@ -40,9 +40,16 @@ class UserService {
 	}
 	//
 	function listUser($username) {
-		$this->commonService->generateJqueryDatatable($username);
 		$qry = "select * from user";
 		$result = mysql_query ( $qry, $this->connection );
+		$array_column = array (
+				"id" => "hidden_field",
+				"username" => "UserName",
+				"password" => "hidden_field",
+				"email" => "Mail",
+				"name" => "Name"
+		);
+		$this->commonService->generateJqueryDatatable($result,userdatatable,$array_column);
 	}
 }
 ?>

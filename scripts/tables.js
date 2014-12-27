@@ -1,6 +1,7 @@
 $(document).ready(
+		
 		function() {
-			$('#example').dataTable(
+			$('#table_list_user').dataTable(
 					{
 						"footerCallback" : function(row, data, start, end,
 								display) {
@@ -30,4 +31,7 @@ $(document).ready(
 							
 						}
 					});
+			
+			
+			
 		});
