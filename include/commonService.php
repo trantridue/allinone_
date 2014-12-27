@@ -29,8 +29,7 @@ class CommonService {
 		echo "</tr>";
 		echo "</tfoot>";
 		echo "<tbody";
-		
-		
+				
 		// generate content
 		while ( $rows = mysql_fetch_array ( $result ) ) {
 			echo "<tr>";
