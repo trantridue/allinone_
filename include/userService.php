@@ -40,7 +40,7 @@ class UserService {
 	}
 	//
 	function listUser($username) {
-		$qry = "SELECT t1.*, t2.name as shopname FROM user t1 LEFT JOIN shop t2 ON t1.shop_id=t2.id";
+		$qry = "SELECT t1.*, t2.name as shopname FROM user t1 LEFT JOIN shop t2 ON t1.shop_id=t2.id where t1.username like '%".$username."%'";
 		$result = mysql_query ( $qry, $this->connection );
 		$array_column = array (
 				"username" => "User Name",

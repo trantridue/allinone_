@@ -1,6 +1,11 @@
 <?php
 class CommonService {
 	function generateJqueryDatatable($result, $userdatatable, $array_column) {
+		echo "<script>";
+		echo "$(document).ready(function() { $('#table_list_user').dataTable();	});";
+		echo "</script>";
+		
+		
 		$num_colum = sizeof ( $array_column );
 		// generate header
 		echo "<table id='" . $userdatatable . "' class='display' cellspacing='0' class='order-column' width='100%'>";
