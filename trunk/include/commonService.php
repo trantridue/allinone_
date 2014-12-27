@@ -31,7 +31,7 @@ class CommonService {
 	function HandleDBError($err) {
 		$this->HandleError ( $err . "\r\n mysqlerror:" . mysql_error () );
 	}
-	function test(){
+	function generateJqueryDatatable(){
 		echo "test";
 	}
 }
