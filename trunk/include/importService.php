@@ -1,9 +1,15 @@
 <?php
 class ImportService {
-	
+	var $host;
+	var $username;
+	var $pwd;
+	var $database;
+	var $connection;
+	var $commonService;
 	// -----Initialization -------
-	function ImportService($hostname, $username, $password, $database) {
+	function ImportService($hostname, $username, $password, $database,$commonService) {
 		$this->InitDB ( $hostname, $username, $password, $database );
+		$this->commonService = $commonService;
 	}
 	function InitDB($host, $uname, $pwd, $database) {
 		$this->db_host = $host;
@@ -31,6 +37,12 @@ class ImportService {
 	}
 	function HandleDBError($err) {
 		$this->HandleError ( $err . "\r\n mysqlerror:" . mysql_error () );
+	}
+	//
+	function listProduct($username) {
+		$this->commonService->generateJqueryDatatable($username);
+		$qry = "select * from user";
+		$result = mysql_query ( $qry, $this->connection );
 	}
 }
 ?>
