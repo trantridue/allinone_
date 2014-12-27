@@ -40,14 +40,18 @@ class UserService {
 	}
 	//
 	function listUser($username) {
-		$qry = "select * from user";
+		$qry = "SELECT t1.*, t2.name as shopname FROM user t1 LEFT JOIN shop t2 ON t1.shop_id=t2.id";
 		$result = mysql_query ( $qry, $this->connection );
 		$array_column = array (
-				"id" => "hidden_field",
-				"username" => "UserName",
-				"password" => "hidden_field",
+				"username" => "User Name",
+				"name" => "Name",
 				"email" => "Mail",
-				"name" => "Name"
+				"phone_number" => "Tel",
+				"shopname" => "Shop",
+				"description" => "Description",
+				"id" => "hidden_field",
+				"password" => "hidden_field"
+				
 		);
 		$this->commonService->generateJqueryDatatable($result,userdatatable,$array_column);
 	}

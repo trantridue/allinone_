@@ -1,8 +1,16 @@
-$(document).ready(
-		
+$(document).ready(		
 		function() {
-			$('#table_list_user').dataTable(
+			$('#table_list_user').dataTable({
+					"order": [[ 0, "asc" ]]
+			
+			});
+		}
+);
+$(document).ready(
+		function() {
+			$('#example').dataTable(
 					{
+						"order": [[ 0, "asc" ]],
 						"footerCallback" : function(row, data, start, end,
 								display) {
 							var api = this.api(), data;
@@ -27,7 +35,7 @@ $(document).ready(
 
 							// Update footer
 							$(api.column(1).footer()).html(
-									'All:' + TotalMarks + "-- Current:" + pageTotal);
+									'Total :<strong>' + TotalMarks + "</strong> and Current page:<strong>" + pageTotal + "</strong>");
 							
 						}
 					});
@@ -35,3 +43,4 @@ $(document).ready(
 			
 			
 		});
+
