@@ -19,6 +19,7 @@ if (! $fgmembersite->CheckLogin ()) {
 			<script src="scripts/jquery.dataTables.min.js"></script>
 			<script src="scripts/tables.js"></script>
 			<script src="scripts/ui.js"></script>
+			<script src="scripts/ajax.js"></script>
 			<link rel="stylesheet" href="style/jquery-ui.css">
 				<script src="scripts/jquery-ui.js"></script>
 			
