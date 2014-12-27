@@ -9,4 +9,5 @@ if ($isdefault == "false") {
 	$userService = new UserService ( hostname, username, password, database, $commonService );
 }
 $userService->listUser ($username);
+include 'common/test.php';
 ?>
