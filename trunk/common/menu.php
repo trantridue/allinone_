@@ -1,5 +1,5 @@
 <?php
-$current_module = $_REQUEST ['module'];
+$module = isset ( $_REQUEST ['module'] ) ? $_REQUEST ['module'] : defaultmodule;
 ?>
 
 <?php
@@ -18,7 +18,7 @@ $arr = array (
 );
 
 foreach ( $arr as $value => $key ) {
-	if ($value == $current_module) {
+	if ($value == $module) {
 		echo "<input type='button' value='" . $key . "' class='menu_btn active_btn' onclick='goToPage(\"" . $value . "\");' /><br>";
 	} else {
 		echo "<input type='button' value='" . $key . "' class='menu_btn' onclick='goToPage(\"" . $value . "\");' /><br>";
