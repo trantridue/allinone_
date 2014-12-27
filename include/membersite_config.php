@@ -6,9 +6,9 @@ require_once ("./include/importService.php");
 require_once ("./include/userService.php");
 
 $fgmembersite = new FGMembersite ( hostname, username, password, database, tablename );
-$commonService = new CommonService ( hostname, username, password, database, tablename );
-$importService = new ImportService ( hostname, username, password, database );
-$userService = new UserService ( hostname, username, password, database );
+$commonService = new CommonService ();
+$importService = new ImportService ( hostname, username, password, database,$commonService );
+$userService = new UserService ( hostname, username, password, database,$commonService );
 
 // Provide your site name here
 $fgmembersite->SetWebsiteName ( 'user11.com' );
