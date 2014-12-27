@@ -19,9 +19,9 @@ $arr = array (
 
 foreach ( $arr as $value => $key ) {
 	if ($value == $module) {
-		echo "<input type='button' value='" . $key . "' class='menu_btn active_btn' onclick='goToPage(\"" . $value . "\");' /><br>";
+		echo "<input type='button' value='" . $key . "' class='menu_btn active_btn' onclick='goToPage(\"" . $value . "&submenu=search\");' /><br>";
 	} else {
-		echo "<input type='button' value='" . $key . "' class='menu_btn' onclick='goToPage(\"" . $value . "\");' /><br>";
+		echo "<input type='button' value='" . $key . "' class='menu_btn' onclick='goToPage(\"" . $value . "&submenu=search\");' /><br>";
 	}
 }
 ?>

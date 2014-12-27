@@ -1,5 +1,8 @@
 <div id="inputArea">
-<?php include 'input.php'?>
+<?php
+$submodule = isset ( $_REQUEST ['submenu'] ) ? $_REQUEST ['submenu'] : defaultsubmodule;
+include $submodule . '.php';
+?>
 </div>
 <hr>
 <div id="listArea">
