@@ -1,19 +1,20 @@
 <?php
 class CommonService {
-	function generateJqueryDatatable($result, $userdatatable, $array_column) {
+	function generateJSDatatableSimple($datatable_id,$ordercolumn,$ordertype){
 		echo "<script>";
-		echo "$(document).ready(function() { $('#table_list_user').dataTable();	});";
+		echo "$(document).ready(function() { $('#".$datatable_id."').dataTable({'order': [[ ".$ordercolumn.", '".$ordertype."' ]]});});";
 		echo "</script>";
-		
+	}
+	function generateJqueryDatatable($result, $datatable_id, $array_column) {
 		
 		$num_colum = sizeof ( $array_column );
 		// generate header
-		echo "<table id='" . $userdatatable . "' class='display' cellspacing='0' class='order-column' width='100%'>";
+		echo "<table id='" . $datatable_id . "' class='display' cellspacing='0' class='order-column' width='100%'>";
 		echo "<thead>";
 		echo "<tr>";
 		
 		foreach ( $array_column as $value => $key ) {
-			if ($key == 'hidden_field') {
+			if ($key == 'hidden_field' || $key == 'complex') {
 				echo "<th style='display: none;'>" . $key . "</th>";
 			} else {
 				echo "<th>" . $key . "</th>";
@@ -36,6 +37,9 @@ class CommonService {
 			foreach ( $array_column as $value => $key ) {
 				if ($key == 'hidden_field') {
 					echo "<td style='display: none;'>" . $rows[$value] . "</td>";
+				} else if ($key == 'complex') {
+					$fields = explode("*", $value);
+					echo "<td style='display: none;'>" . ($rows[$fields[0]] * $rows[$fields[1]]). "</td>";
 				} else {
 					echo "<td>" . $rows[$value] . "</td>";
 				}
