@@ -2,14 +2,14 @@
 class CommonService {
 	function generateJSDatatableSimple($datatable_id,$ordercolumn,$ordertype){
 		echo "<script>";
-		echo "$(document).ready(function() { $('#".$datatable_id."').dataTable({'order': [[ ".$ordercolumn.", '".$ordertype."' ]]});});";
+		echo "$(document).ready(function() { $('#".datatable_prefix.$datatable_id."').dataTable({'order': [[ ".$ordercolumn.", '".$ordertype."' ]]});});";
 		echo "</script>";
 	}
 	function generateJqueryDatatable($result, $datatable_id, $array_column) {
 		
 		$num_colum = sizeof ( $array_column );
 		// generate header
-		echo "<table id='" . $datatable_id . "' class='display' cellspacing='0' class='order-column' width='100%'>";
+		echo "<table id='" . datatable_prefix.$datatable_id . "' class='display' cellspacing='0' class='order-column' width='100%'>";
 		echo "<thead>";
 		echo "<tr>";
 		
@@ -39,6 +39,10 @@ class CommonService {
 				} else if ($key == 'complex') {
 					$fields = explode("*", $value);
 					echo "<td style='display: none;'>" . ($rows[$fields[0]] * $rows[$fields[1]]). "</td>";
+				} else if ($key == 'Edit') {
+					echo "<td><a>" . $key .$rows[$value]. "</a></td>";
+				} else if ($key == 'Delete') {
+					echo "<td><a>" . $key .$rows[$value]. "</a></td>";
 				} else {
 					echo "<td>" . $rows[$value] . "</td>";
 				}
