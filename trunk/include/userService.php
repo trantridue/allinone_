@@ -49,11 +49,10 @@ class UserService {
 				"phone_number" => "Tel",
 				"shopname" => "Shop",
 				"description" => "Description",
-				"id" => "hidden_field",
+				"id" => "Edit",
+				"id" => "Delete",
 				"password" => "hidden_field",
 				"shop_id*id" => "complex"
-				
-				
 		);
 		$this->commonService->generateJSDatatableSimple(userdatatable,1,'asc');
 		$this->commonService->generateJqueryDatatable($result,userdatatable,$array_column);
