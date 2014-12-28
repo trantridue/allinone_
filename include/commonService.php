@@ -40,7 +40,8 @@ class CommonService {
 					$fields = explode("*", $value);
 					echo "<td style='display: none;'>" . ($rows[$fields[0]] * $rows[$fields[1]]). "</td>";
 				} else if ($key == 'Edit') {
-					echo "<td><a>" . $key .$rows[$value]. "</a></td>";
+					$fields = explode(",", $value);
+					echo "<td onclick='alert(\"test\");'><a>" . $key .$rows[$fields[0]] .",". $rows[$fields[1]]. "</a></td>";
 				} else if ($key == 'Delete') {
 					echo "<td><a>" . $key .$rows[$value]. "</a></td>";
 				} else {
