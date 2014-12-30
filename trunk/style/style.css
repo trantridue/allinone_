@@ -81,19 +81,51 @@
 /* MENU END*/
 
 /* MESSAGE START*/
-#errorMessageId {
+.successMessage {
 	height: 20px;
-	width: 20%;
-	text-align: center;
-	margin-left: 40%;
+	width: 50%;
 	border-radius: 15px;
 	margin-bottom: 5px;
 	padding-top: 10px;
-	border-color: green;
-	color: red;
+	padding-left: 40px;
+	color: white;
+	font-size:12pt;
+	font-weight:bold;
+	font-style:italic;
 	border-width: 2px;
-	background-color: -moz-menuhover;
+	background-color: green;
 	background-image: url(../images/success_ico.png);
+	background-position:0px -1px;
+	background-repeat: no-repeat;
+}
+.errorMessage {
+	height: 20px;
+	width: 50%;
+	border-radius: 15px;
+	margin-bottom: 5px;
+	padding-top: 10px;
+	padding-left: 40px;
+	color: red;
+	font-size:12pt;
+	font-weight:bold;
+	font-style:italic;
+	border-width: 2px;
+	background-color: bisque;
+	background-image: url(../images/error_ico.png);
+	background-position:0px -1px;
 	background-repeat: no-repeat;
 }
 /* MESSAGE END*/
+
+/* ICON BEGIN*/
+.deleteIcon {
+	background-image: url(../images/delete_ico.png);
+	background-repeat: no-repeat;
+	height: 32px;
+}
+.editIcon {
+	background-image: url(../images/edit_ico.png);
+	background-repeat: no-repeat;
+	height: 32px;
+}
+/* ICON END*/
