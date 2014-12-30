@@ -79,3 +79,21 @@
 }
 
 /* MENU END*/
+
+/* MESSAGE START*/
+#errorMessageId {
+	height: 20px;
+	width: 20%;
+	text-align: center;
+	margin-left: 40%;
+	border-radius: 15px;
+	margin-bottom: 5px;
+	padding-top: 10px;
+	border-color: green;
+	color: red;
+	border-width: 2px;
+	background-color: -moz-menuhover;
+	background-image: url(../images/success_ico.png);
+	background-repeat: no-repeat;
+}
+/* MESSAGE END*/

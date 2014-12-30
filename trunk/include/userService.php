@@ -54,8 +54,13 @@ class UserService {
 				"password" => "hidden_field",
 				"shop_id*id" => "complex"
 		);
-		$this->commonService->generateJSDatatableSimple(userdatatable,1,'asc');
+		$this->commonService->generateJSDatatableSimple(userdatatable,0,'asc');
 		$this->commonService->generateJqueryDatatable($result,userdatatable,$array_column);
+	}
+	//delete user by id
+	function deleteUser($userid){
+		$qry = "update user set name = 'dddd' where id = ".$userid;
+		return mysql_query ( $qry, $this->connection );
 	}
 }
 ?>
