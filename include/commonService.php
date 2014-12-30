@@ -41,7 +41,13 @@ class CommonService {
 					echo "<td style='display: none;'>" . ($rows[$fields[0]] * $rows[$fields[1]]). "</td>";
 				} else if ($key == 'Edit') {
 					$fields = explode(",", $value);
-					echo "<td><a onclick='edit".$datatable_id."(".$rows[$value].");' href='javascript:void(0);'><div class='editIcon'></div></a></td>";
+					$str="";
+					for ($i = 0;$i<=sizeof($fields);$i++) {
+						$str = $str + sizeof($fields);
+// 						$str = $str + $rows[$fields[$i]] + ";" + sizeof($fields);
+					}
+					
+					echo "<td><a onclick='edit".$datatable_id."(\"".$str."\");' href='javascript:void(0);'><div class='editIcon'></div></a></td>";
 				} else if ($key == 'Delete') {
 					echo "<td><a onclick='delete".$datatable_id."(".$rows[$value].");' href='javascript:void(0);'><div class='deleteIcon'></div></a></td>";
 				} else {
