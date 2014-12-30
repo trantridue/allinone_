@@ -7,15 +7,23 @@ function listUser() {
 }
 
 function deleteuser(userid) {
-	var deleteuser = 'modules/user/deleteuser.php?userid='+userid;
-	$.ajax( {
+	var deleteuser = 'modules/user/deleteuser.php?userid=' + userid;
+	$.ajax({
 		url : deleteuser,
-		success : setTimeout(deleteusersuccess, 1000)
+		success : function(data) {
+			afterdeleteuser(data);
+		}
 	});
 }
 
-function deleteusersuccess(){
-	$('#listArea').load("modules/user/list.php?isdefault=false");
-	$('#errorMessageId').html('ok');
-	$('#errorMessageId').show();
+function afterdeleteuser(data) {
+	$('#serverMessage').show();
+	if (data) {
+		$('#listArea').load("modules/user/list.php?isdefault=false");
+		$('#serverMessage').html('Successful');
+		$('#serverMessage').addClass('successMessage');
+	}else {
+		$('#serverMessage').html('Error');
+		$('#serverMessage').addClass('errorMessage');
+	}
 }

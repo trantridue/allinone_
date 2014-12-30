@@ -7,7 +7,7 @@ class UserService {
 	var $connection;
 	var $commonService;
 	// -----Initialization -------
-	function UserService($hostname, $username, $password, $database,$commonService) {
+	function UserService($hostname, $username, $password, $database, $commonService) {
 		$this->InitDB ( $hostname, $username, $password, $database );
 		$this->commonService = $commonService;
 	}
@@ -40,7 +40,7 @@ class UserService {
 	}
 	//
 	function listUser($username) {
-		$qry = "SELECT t1.*, t2.name as shopname FROM user t1 LEFT JOIN shop t2 ON t1.shop_id=t2.id where t1.username like '%".$username."%'";
+		$qry = "SELECT t1.*, t2.name as shopname FROM user t1 LEFT JOIN shop t2 ON t1.shop_id=t2.id where t1.username like '%" . $username . "%'";
 		$result = mysql_query ( $qry, $this->connection );
 		$array_column = array (
 				"username" => "User Name",
@@ -52,15 +52,15 @@ class UserService {
 				"id,name" => "Edit",
 				"id" => "Delete",
 				"password" => "hidden_field",
-				"shop_id*id" => "complex"
+				"shop_id*id" => "complex" 
 		);
-		$this->commonService->generateJSDatatableSimple(userdatatable,0,'asc');
-		$this->commonService->generateJqueryDatatable($result,userdatatable,$array_column);
+		$this->commonService->generateJSDatatableSimple ( userdatatable, 0, 'asc' );
+		$this->commonService->generateJqueryDatatable ( $result, userdatatable, $array_column );
 	}
-	//delete user by id
-	function deleteUser($userid){
-		$qry = "update user set name = 'dddd' where id = ".$userid;
-		return mysql_query ( $qry, $this->connection );
+	// delete user by id
+	function deleteUser($userid) {
+		$qry = "delete from user where id = " . $userid;
+		echo mysql_query ( $qry, $this->connection );
 	}
 }
 ?>
