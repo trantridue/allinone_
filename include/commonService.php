@@ -43,7 +43,7 @@ class CommonService {
 					$fields = explode(",", $value);
 					echo "<td onclick='alert(\"test\");'><a>" . $key .$rows[$fields[0]] .",". $rows[$fields[1]]. "</a></td>";
 				} else if ($key == 'Delete') {
-					echo "<td><a>" . $key .$rows[$value]. "</a></td>";
+					echo "<td onclick='delete".$datatable_id."(".$rows[$value].");'><a>" . $key .$rows[$value]. "</a></td>";
 				} else {
 					echo "<td>" . $rows[$value] . "</td>";
 				}
