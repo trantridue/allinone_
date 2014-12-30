@@ -49,7 +49,7 @@
 }
 #bodycontent {
 	width: 100%;
-	background-color: yellow;
+	background-color: white;
 	margin-top:5px;
 	min-height: 520px;
 }
@@ -57,7 +57,7 @@
 .active_btn {
 	border-color: red;
 	border-radius: 5px;
-	background-color: yellow;
+	background-color: #70be76;
 }
 
 .menu_btn {
@@ -75,7 +75,7 @@
 .active_btn_sub {
 	border-color: red;
 	border-radius: 5px;
-	background-color: yellow;
+	background-color: #70be76;
 }
 
 /* MENU END*/
