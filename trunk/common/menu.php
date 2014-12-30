@@ -4,6 +4,7 @@ $module = isset ( $_REQUEST ['module'] ) ? $_REQUEST ['module'] : defaultmodule;
 
 <?php
 $arr = array (
+		"user" => "USER",
 		"import" => "IMPORT",
 		"export" => "EXPORT",
 		"sale" => "SALE",
@@ -12,8 +13,7 @@ $arr = array (
 		"news" => "NEWS",
 		"report" => "REPORT",
 		"provider" => "PROVIDER",
-		"customer" => "CUSTOMER",
-		"user" => "USER",
+		"customer" => "CUSTOMER",		
 		"fund" => "FUND" 
 );
 

@@ -31,9 +31,7 @@ if (! $fgmembersite->CheckLogin ()) {
 <body>
 	<div id='main_page_wrap'>
 		<div id="main_page_header">
-			<div class="wrappadding">Welcome back <?= $fgmembersite->UserFullName(); ?>!<a
-					href='logout.php'>Logout</a><a href='change-pwd.php'>Change
-					password</a>
+			<div class="wrappadding"><?php include 'common/header.php'?>
 			</div>
 		</div>
 		<div id="main_page_body">
