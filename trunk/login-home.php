@@ -22,9 +22,9 @@ if (! $fgmembersite->CheckLogin ()) {
 			<script src="scripts/ajax.js"></script>
 			<link rel="stylesheet" href="style/jquery-ui.css">
 				<script src="scripts/jquery-ui.js"></script>
-			
-			
-			<style>
+
+
+				<style>
 </style>
 
 </head>
@@ -47,7 +47,7 @@ if (! $fgmembersite->CheckLogin ()) {
 			</div>
 		</div>
 		<div id="main_page_footer">
-			<div class="wrappadding">The footer: </div>
+			<div class="wrappadding">The footer:</div>
 		</div>
 	</div>
 </body>

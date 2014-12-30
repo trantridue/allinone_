@@ -22,8 +22,14 @@ function afterdeleteuser(data) {
 		$('#listArea').load("modules/user/list.php?isdefault=false");
 		$('#serverMessage').html('Successful');
 		$('#serverMessage').addClass('successMessage');
-	}else {
+	} else {
 		$('#serverMessage').html('Error');
 		$('#serverMessage').addClass('errorMessage');
 	}
+}
+
+function edituser(userid, username) {
+	var url = 'modules/user/edituser.php?userid=' + userid + "&username="
+			+ username;
+	$('#inputArea').load(url);
 }
