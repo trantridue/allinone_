@@ -65,5 +65,8 @@ class CommonService {
 		header ( "Location: $url" );
 		exit ();
 	}
+	function dropDownList($table, $fieldname) {
+		
+	}
 }
 ?>

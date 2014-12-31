@@ -49,7 +49,7 @@ class UserService {
 				"phone_number" => "Tel",
 				"shopname" => "Shop",
 				"description" => "Description",
-				"id,name,email,phone_number,description" => "Edit",
+				"id,name,email,phone_number,description,shop_id" => "Edit",
 				"id" => "Delete",
 				"password" => "hidden_field",
 				"shop_id*id" => "complex" 
@@ -62,12 +62,38 @@ class UserService {
 		$qry = "delete from user where id = " . $userid;
 		echo mysql_query ( $qry, $this->connection );
 	}
-	function updateUser($user_id, $user_name, $user_email, $user_phone_number, $user_description) {
+	function updateUser($user_id, $user_name, $user_email, $user_phone_number, $user_description, $user_password) {
 		$actionType = 'update';
-		$qry = "update user set name='" . $user_name . "', email = '" . $user_email . "', phone_number = '" . $user_phone_number . "'
+		$new_password = md5 ( $user_password );
+		$qry = "";
+		if ($user_password != null && $user_password != '') {
+			$qry = "update user set name='" . $user_name . "', email = '" . $user_email . "', phone_number = '" . $user_phone_number . "'
+				,description='" . $user_description . "',password='" . $new_password . "'  where id = " . $user_id;
+		} else {
+			$qry = "update user set name='" . $user_name . "', email = '" . $user_email . "', phone_number = '" . $user_phone_number . "'
 				,description='" . $user_description . "'  where id = " . $user_id;
+		}
 		$result = mysql_query ( $qry, $this->connection );
 		echo "<script>userpostaction('" . $result . "','" . $actionType . "');</script>";
+	}
+	function dropDownList($table, $fieldname, $selectedId) {
+		$selected = "";
+		$sql = "select * from " . $table . " where 1 = 1";
+		if ($table == "user") {
+			$sql = $sql . " and status ='y'";
+		}
+		echo "<select name='" . $fieldname . "' style='width:140px;height:25px;'>";
+		$sql = $sql . " order by name asc";
+		$result = mysql_query ( $sql ) or die ( mysql_error () );
+		while ( $rows = mysql_fetch_array ( $result ) ) {
+			if ($selected == "") {
+				$selected = ($rows ['id'] == $selectedId) ? "selected='selected'" : "";
+				echo "<option value='" . $rows ['id'] . "' " . $selected . ">" . $rows ['name'] . "</option>";
+			} else {
+				echo "<option value='" . $rows ['id'] . "'>" . $rows ['name'] . "</option>";
+			}
+		}
+		echo "</select>";
 	}
 }
 ?>
