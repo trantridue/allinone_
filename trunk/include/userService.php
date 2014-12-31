@@ -49,7 +49,7 @@ class UserService {
 				"phone_number" => "Tel",
 				"shopname" => "Shop",
 				"description" => "Description",
-				"id,name,email" => "Edit",
+				"id,name,email,phone_number,description" => "Edit",
 				"id" => "Delete",
 				"password" => "hidden_field",
 				"shop_id*id" => "complex" 
@@ -62,11 +62,12 @@ class UserService {
 		$qry = "delete from user where id = " . $userid;
 		echo mysql_query ( $qry, $this->connection );
 	}
-	function updateUser($user_id,$user_name,$user_email){
+	function updateUser($user_id, $user_name, $user_email, $user_phone_number, $user_description) {
 		$actionType = 'update';
-		$qry = "qupdate user set name='". $user_name."'  where id = " . $user_id;
+		$qry = "update user set name='" . $user_name . "', email = '" . $user_email . "', phone_number = '" . $user_phone_number . "'
+				,description='" . $user_description . "'  where id = " . $user_id;
 		$result = mysql_query ( $qry, $this->connection );
-		echo "<script>userpostaction('".$result."','".$actionType."');</script>";
+		echo "<script>userpostaction('" . $result . "','" . $actionType . "');</script>";
 	}
 }
 ?>

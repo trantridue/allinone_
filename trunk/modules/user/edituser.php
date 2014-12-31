@@ -10,12 +10,13 @@
 				value="<?php echo $_REQUEST['email'];?>" /></td>
 		</tr>
 		<tr>
-			<td style="text-align: right;"></td>
-			<td></td>
-			<td style="text-align: right;"></td>
-			<td></td>
+			<td style="text-align: right;">Phone Number :</td>
+			<td><input type="text" name="user_phone_number"
+				value="<?php echo $_REQUEST['phone_number'];?>" /></td>
+			<td style="text-align: right;">Description :</td>
+			<td><input type="text" name="user_description"
+				value="<?php echo $_REQUEST['description'];?>" /></td>
 		</tr>
-
 		<tr>
 			<td style="text-align: right;" colspan="4"><input type="submit"
 				value="Update"></td>
