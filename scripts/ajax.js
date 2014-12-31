@@ -11,17 +11,20 @@ function deleteuser(userid) {
 	$.ajax({
 		url : deleteuser,
 		success : function(data) {
-			var errorMessage = "Cannot delete user";
-			afterdeleteuser(data,errorMessage);
+			var actionType = "delete";
+			userpostaction(data,actionType);
 		}
 	});
 }
 
-function afterdeleteuser(data,errorMessage) {
+function userpostaction(data,actionType) {
 	$('#serverMessage').show();
+	var errorMessage = actionType + " user error";
+	var successMessage = actionType + " user successful";
+	
 	if (data && data !='') {
 		$('#listArea').load("modules/user/list.php?isdefault=false");
-		$('#serverMessage').html('Successful');
+		$('#serverMessage').html(successMessage);
 		$('#serverMessage').addClass('successMessage');
 	} else {
 		$('#serverMessage').html(errorMessage);
