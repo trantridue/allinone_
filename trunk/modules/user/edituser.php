@@ -1,4 +1,4 @@
 <?php
-echo $_REQUEST['userid'];
-echo $_REQUEST['username'];
+echo $_REQUEST['id'];
+echo $_REQUEST['name'];
 ?>
