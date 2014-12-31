@@ -11,26 +11,26 @@ function deleteuser(userid) {
 	$.ajax({
 		url : deleteuser,
 		success : function(data) {
-			afterdeleteuser(data);
+			var errorMessage = "Cannot delete user";
+			afterdeleteuser(data,errorMessage);
 		}
 	});
 }
 
-function afterdeleteuser(data) {
+function afterdeleteuser(data,errorMessage) {
 	$('#serverMessage').show();
-	if (data) {
+	if (data && data !='') {
 		$('#listArea').load("modules/user/list.php?isdefault=false");
 		$('#serverMessage').html('Successful');
 		$('#serverMessage').addClass('successMessage');
 	} else {
-		$('#serverMessage').html('Error');
+		$('#serverMessage').html(errorMessage);
 		$('#serverMessage').addClass('errorMessage');
 	}
 }
 
 function edituser(str) {
-	
-	alert(inputUrl);
+	var inputUrl = processUrlString(str);
 	var url = 'modules/user/edituser.php?' + inputUrl;
 	$('#inputArea').load(url);
 }
@@ -46,4 +46,5 @@ function processUrlString(str) {
 	for (i in key) {
 		inputUrl = inputUrl + key[i] + "=" + value[i] + "&";
 	}
+	return inputUrl;
 }

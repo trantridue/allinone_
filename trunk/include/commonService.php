@@ -61,5 +61,9 @@ class CommonService {
 		echo "</tbody>";
 		echo "</table>";
 	}
+	function RedirectToURL($url) {
+		header ( "Location: $url" );
+		exit ();
+	}
 }
 ?>

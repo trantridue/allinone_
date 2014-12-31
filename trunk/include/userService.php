@@ -49,7 +49,7 @@ class UserService {
 				"phone_number" => "Tel",
 				"shopname" => "Shop",
 				"description" => "Description",
-				"id,name" => "Edit",
+				"id,name,email" => "Edit",
 				"id" => "Delete",
 				"password" => "hidden_field",
 				"shop_id*id" => "complex" 
@@ -57,10 +57,16 @@ class UserService {
 		$this->commonService->generateJSDatatableSimple ( userdatatable, 0, 'asc' );
 		$this->commonService->generateJqueryDatatable ( $result, userdatatable, $array_column );
 	}
-	// delete user by id
+	// delete user by idx
 	function deleteUser($userid) {
 		$qry = "delete from user where id = " . $userid;
 		echo mysql_query ( $qry, $this->connection );
+	}
+	function updateUser($user_id,$user_name,$user_email){
+		$errorMessage = 'An error occurs while update user!';
+		$qry = "qupdate user set name='". $user_name."'  where id = " . $user_id;
+		$result = mysql_query ( $qry, $this->connection );
+		echo "<script>afterdeleteuser('".$result."','".$errorMessage."');</script>";
 	}
 }
 ?>

@@ -77,6 +77,16 @@
 	border-radius: 5px;
 	background-color: #70be76;
 }
+input[type='submit'] {
+	height: 30px;
+	margin-left: 10px;
+	font-weight: bold;
+}
+input[type='reset'] {
+	height: 30px;
+	margin-left: 10px;
+	font-weight: bold;
+}
 
 /* MENU END*/
 
