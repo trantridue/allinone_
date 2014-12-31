@@ -63,10 +63,10 @@ class UserService {
 		echo mysql_query ( $qry, $this->connection );
 	}
 	function updateUser($user_id,$user_name,$user_email){
-		$errorMessage = 'An error occurs while update user!';
+		$actionType = 'update';
 		$qry = "qupdate user set name='". $user_name."'  where id = " . $user_id;
 		$result = mysql_query ( $qry, $this->connection );
-		echo "<script>afterdeleteuser('".$result."','".$errorMessage."');</script>";
+		echo "<script>userpostaction('".$result."','".$actionType."');</script>";
 	}
 }
 ?>
