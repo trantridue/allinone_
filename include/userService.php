@@ -62,16 +62,16 @@ class UserService {
 		$qry = "delete from user where id = " . $userid;
 		echo mysql_query ( $qry, $this->connection );
 	}
-	function updateUser($user_id, $user_name, $user_email, $user_phone_number, $user_description, $user_password) {
+	function updateUser($user_id, $user_name, $user_email, $user_phone_number, $user_description, $user_password, $shop_dropdown_user) {
 		$actionType = 'update';
 		$new_password = md5 ( $user_password );
 		$qry = "";
 		if ($user_password != null && $user_password != '') {
 			$qry = "update user set name='" . $user_name . "', email = '" . $user_email . "', phone_number = '" . $user_phone_number . "'
-				,description='" . $user_description . "',password='" . $new_password . "'  where id = " . $user_id;
+				,description='" . $user_description . "',password='" . $new_password . "',shop_id=" . $shop_dropdown_user . "  where id = " . $user_id;
 		} else {
 			$qry = "update user set name='" . $user_name . "', email = '" . $user_email . "', phone_number = '" . $user_phone_number . "'
-				,description='" . $user_description . "'  where id = " . $user_id;
+				,description='" . $user_description . "',shop_id=" . $shop_dropdown_user . "  where id = " . $user_id;
 		}
 		$result = mysql_query ( $qry, $this->connection );
 		echo "<script>userpostaction('" . $result . "','" . $actionType . "');</script>";

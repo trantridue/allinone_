@@ -28,7 +28,7 @@ $userService = new UserService ( hostname, username, password, database, $common
 			<td style="text-align: right;">Password :</td>
 			<td><input type="password" name="user_password" id="user_password"/></td>
 			<td style="text-align: right;"></td>
-			<td><?php $userService->dropDownList('shop','shop_dropdown',$_REQUEST['shop_id']);?></td>
+			<td><?php $userService->dropDownList('shop','shop_dropdown_user',$_REQUEST['shop_id']);?></td>
 		</tr>
 		<tr>
 			<td style="text-align: right;">Re-Password :</td>
