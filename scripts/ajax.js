@@ -28,8 +28,22 @@ function afterdeleteuser(data) {
 	}
 }
 
-function edituser(userid, username) {
-	var url = 'modules/user/edituser.php?userid=' + userid + "&username="
-			+ username;
+function edituser(str) {
+	
+	alert(inputUrl);
+	var url = 'modules/user/edituser.php?' + inputUrl;
 	$('#inputArea').load(url);
+}
+function processUrlString(str) {
+	var key = new Array();
+	var value = new Array();
+	key = str.split("&");
+	var inputUrl = "";
+	for (i in key) {
+		value[i] = encodeURIComponent(key[i].split("=")[1]);
+		key[i] = key[i].split("=")[0];
+	}
+	for (i in key) {
+		inputUrl = inputUrl + key[i] + "=" + value[i] + "&";
+	}
 }
