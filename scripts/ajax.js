@@ -20,6 +20,7 @@ function deleteuser(userid) {
 function userpostaction(data,actionType) {
 	$('#serverMessage').show();
 	var errorMessage = actionType + " user error";
+	if (actionType=='passwordnotmatch') errorMessage = "Password not match, please re-type!";
 	var successMessage = actionType + " user successful";
 	
 	if (data && data !='') {
