@@ -42,8 +42,14 @@ $(function() {
 		<tr>
 			<td style="text-align: right;">Re-Password :</td>
 			<td><input type="password" name="retype_user_password" id="retype_user_password"/></td>
-			<td style="text-align: right;">Start Date</td>
-			<td><input name="user_start_date" class="datefield"/> </td>
+			<td style="text-align: right;">Status : </td>
+			<td>
+			<?php if($_REQUEST['status']=='y') { ?>
+				<div id="user_status" name="user_status" class="status_on" onclick="alert('aaa');"></div>
+			<?php } else { ?>
+				<div id="user_status" name="user_status" class="status_off"></div>
+			<?php }?>
+			</td>
 		</tr>
 		<tr>
 			<td style="text-align: right;" colspan="4"><input type="submit"
