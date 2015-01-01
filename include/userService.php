@@ -49,7 +49,7 @@ class UserService {
 				"phone_number" => "Tel",
 				"shopname" => "Shop",
 				"description" => "Description",
-				"id,name,email,phone_number,description,shop_id" => "Edit",
+				"id,name,email,phone_number,description,shop_id,status" => "Edit",
 				"id" => "Delete",
 				"password" => "hidden_field",
 				"shop_id*id" => "complex" 
