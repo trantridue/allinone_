@@ -49,11 +49,13 @@ class UserService {
 				"phone_number" => "Tel",
 				"shopname" => "Shop",
 				"description" => "Description",
+				"status" => "Status",
 				"id,name,email,phone_number,description,shop_id,status" => "Edit",
 				"id" => "Delete",
 				"password" => "hidden_field",
 				"shop_id*id" => "complex" 
 		);
+// 		$this->commonService->generateJSDatatableComplex ( userdatatable, 0, 'asc' );
 		$this->commonService->generateJSDatatableSimple ( userdatatable, 0, 'asc' );
 		$this->commonService->generateJqueryDatatable ( $result, userdatatable, $array_column );
 	}
@@ -62,16 +64,16 @@ class UserService {
 		$qry = "delete from user where id = " . $userid;
 		echo mysql_query ( $qry, $this->connection );
 	}
-	function updateUser($user_id, $user_name, $user_email, $user_phone_number, $user_description, $user_password, $shop_dropdown_user) {
+	function updateUser($user_id, $user_name, $user_email, $user_phone_number, $user_description, $user_password, $shop_dropdown_user,$status_value) {
 		$actionType = 'update';
 		$new_password = md5 ( $user_password );
 		$qry = "";
 		if ($user_password != null && $user_password != '') {
 			$qry = "update user set name='" . $user_name . "', email = '" . $user_email . "', phone_number = '" . $user_phone_number . "'
-				,description='" . $user_description . "',password='" . $new_password . "',shop_id=" . $shop_dropdown_user . "  where id = " . $user_id;
+				,description='" . $user_description . "',password='" . $new_password . "',shop_id=" . $shop_dropdown_user . ",status='".$status_value."'  where id = " . $user_id;
 		} else {
 			$qry = "update user set name='" . $user_name . "', email = '" . $user_email . "', phone_number = '" . $user_phone_number . "'
-				,description='" . $user_description . "',shop_id=" . $shop_dropdown_user . "  where id = " . $user_id;
+				,description='" . $user_description . "',shop_id=" . $shop_dropdown_user . ",status='".$status_value."'  where id = " . $user_id;
 		}
 		$result = mysql_query ( $qry, $this->connection );
 		echo "<script>userpostaction('" . $result . "','" . $actionType . "');</script>";
