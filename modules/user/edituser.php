@@ -6,13 +6,7 @@ $commonService = new CommonService ();
 $userService = new UserService ( hostname, username, password, database, $commonService );
 ?>
 <script type="text/javascript">
-$(function() {
-	$(".datefield").datepicker({
-		dateFormat : "yy-mm-dd",
-		changeMonth : true,
-		changeYear : true
-	});
-});
+
 function changeStatusUser() {
 	var oldClass = $("#user_status").attr("class");
 	var newClass = "";
