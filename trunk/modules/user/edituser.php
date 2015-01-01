@@ -13,6 +13,21 @@ $(function() {
 		changeYear : true
 	});
 });
+function changeStatusUser() {
+	var oldClass = $("#user_status").attr("class");
+	var newClass = "";
+	var status_value = '';
+	if(oldClass=='status_on') { 
+		newClass = 'status_off';
+		status_value = 'n';
+	} else {
+		status_value = 'y';
+		newClass = 'status_on';
+	}
+	$("#user_status").addClass(newClass);
+	$("#user_status").removeClass(oldClass);
+	$("#user_status_hidden").val(status_value);
+}
 </script>
 <form action="?module=user&submenu=updateuser" method="post" onsubmit="return validateEditUserForm();">
 	<input type="hidden" name="user_id" value="<?php echo $_REQUEST['id'];?>" />
@@ -45,10 +60,11 @@ $(function() {
 			<td style="text-align: right;">Status : </td>
 			<td>
 			<?php if($_REQUEST['status']=='y') { ?>
-				<div id="user_status" name="user_status" class="status_on" onclick="alert('aaa');"></div>
+				<div id="user_status" name="user_status" class="status_on" onclick="changeStatusUser();"></div>
 			<?php } else { ?>
-				<div id="user_status" name="user_status" class="status_off"></div>
+				<div id="user_status" name="user_status" class="status_off" onclick="changeStatusUser();"></div>
 			<?php }?>
+			<input type="hidden" id="user_status_hidden" name="user_status_hidden" value="<?php echo $_REQUEST['status'];?>">
 			</td>
 		</tr>
 		<tr>
