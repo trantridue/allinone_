@@ -1,6 +1,7 @@
 
 <?php
 $username = isset ( $_REQUEST ['username'] ) ? $_REQUEST ['username'] : '';
+$name = isset ( $_REQUEST ['name'] ) ? $_REQUEST ['name'] : '';
 $isdefault = $_REQUEST ['isdefault'];
 if ($isdefault == "false") {
 	require_once ("../../include/constant.php");
@@ -9,5 +10,5 @@ if ($isdefault == "false") {
 	$commonService = new CommonService ();
 	$userService = new UserService ( hostname, username, password, database, $commonService );
 }
-$userService->listUser ( $username );
+$userService->listUser ( $username,$name);
 ?>
