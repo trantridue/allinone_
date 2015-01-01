@@ -39,8 +39,8 @@ class UserService {
 		$this->HandleError ( $err . "\r\n mysqlerror:" . mysql_error () );
 	}
 	//
-	function listUser($username) {
-		$qry = "SELECT t1.*, t2.name as shopname FROM user t1 LEFT JOIN shop t2 ON t1.shop_id=t2.id where t1.username like '%" . $username . "%'";
+	function listUser($username,$name) {
+		$qry = "SELECT t1.*, t2.name as shopname FROM user t1 LEFT JOIN shop t2 ON t1.shop_id=t2.id where t1.username like '%" . $username . "%'"."and t1.name like '%" . $name . "%'";
 		$result = mysql_query ( $qry, $this->connection );
 		$array_column = array (
 				"username" => "User Name",
@@ -75,6 +75,20 @@ class UserService {
 			$qry = "update user set name='" . $user_name . "', email = '" . $user_email . "', phone_number = '" . $user_phone_number . "'
 				,description='" . $user_description . "',shop_id=" . $shop_dropdown_user . ",status='".$status_value."'  where id = " . $user_id;
 		}
+		$result = mysql_query ( $qry, $this->connection );
+		echo "<script>userpostaction('" . $result . "','" . $actionType . "');</script>";
+	}
+	function addUser($user_id, $user_name, $user_email, $user_phone_number, $user_description, $user_password, $shop_dropdown_user,$status_value) {
+		$actionType = 'insert';
+		$new_password = '';
+		$date = date ( 'Y-m-d H:i:s' );
+		$qry = "";
+		if ($user_password != null && $user_password != '') {
+			$new_password = md5 ( $user_password );
+		} else {
+			$new_password = md5 ( default_password );
+		}
+		$qry ="insert into";
 		$result = mysql_query ( $qry, $this->connection );
 		echo "<script>userpostaction('" . $result . "','" . $actionType . "');</script>";
 	}

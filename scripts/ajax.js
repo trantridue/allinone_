@@ -1,8 +1,9 @@
 function listUser() {
 	var isdefault = "false";
-	var username = $('#user_name_id').val();
-	var url = "modules/user/list.php" + "?username=" + username + "&isdefault="
-			+ isdefault;
+	var username = $('#user_username').val();
+	var name = $('#user_name').val();
+	var url = "modules/user/list.php" + "?isdefault=" + isdefault
+			+ "&username=" + username+ "&name=" + encodeURIComponent(name);
 	$('#listArea').load(url);
 }
 
@@ -12,18 +13,19 @@ function deleteuser(userid) {
 		url : deleteuser,
 		success : function(data) {
 			var actionType = "delete";
-			userpostaction(data,actionType);
+			userpostaction(data, actionType);
 		}
 	});
 }
 
-function userpostaction(data,actionType) {
+function userpostaction(data, actionType) {
 	$('#serverMessage').show();
 	var errorMessage = actionType + " user error";
-	if (actionType=='passwordnotmatch') errorMessage = "Password not match, please re-type!";
+	if (actionType == 'passwordnotmatch')
+		errorMessage = "Password not match, please re-type!";
 	var successMessage = actionType + " user successful";
-	
-	if (data && data !='') {
+
+	if (data && data != '') {
 		$('#listArea').load("modules/user/list.php?isdefault=false");
 		$('#serverMessage').html(successMessage);
 		$('#serverMessage').addClass('successMessage');

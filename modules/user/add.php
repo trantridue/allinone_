@@ -22,7 +22,7 @@ function changeStatusUser() {
 	$("#user_status_hidden").val(status_value);
 }
 </script>
-<form action="?module=user&submenu=updateuser" method="post" onsubmit="return validateEditUserForm();">
+<form action="?module=user&submenu=adduser" method="post" onsubmit="return validateEditUserForm();">
 	<input type="hidden" name="user_id" value="<?php echo $_REQUEST['id'];?>" />
 	<table width="100%" style="background-color: bisque; padding-top: 10px;">
 		<tr>
