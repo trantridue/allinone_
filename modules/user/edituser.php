@@ -5,41 +5,23 @@ require_once ("../../include/commonService.php");
 $commonService = new CommonService ();
 $userService = new UserService ( hostname, username, password, database, $commonService );
 ?>
-<script type="text/javascript">
-
-function changeStatusUser() {
-	var oldClass = $("#user_status").attr("class");
-	var newClass = "";
-	var status_value = '';
-	if(oldClass=='status_on') { 
-		newClass = 'status_off';
-		status_value = 'n';
-	} else {
-		status_value = 'y';
-		newClass = 'status_on';
-	}
-	$("#user_status").addClass(newClass);
-	$("#user_status").removeClass(oldClass);
-	$("#user_status_hidden").val(status_value);
-}
-</script>
 <form action="?module=user&submenu=updateuser" method="post" onsubmit="return validateEditUserForm();">
 	<input type="hidden" name="user_id" value="<?php echo $_REQUEST['id'];?>" />
 	<table width="100%" style="background-color: bisque; padding-top: 10px;">
 		<tr>
 			<td style="text-align: right;">Name :</td>
-			<td><input type="text" name="user_name"
+			<td><input autocomplete="off" type="text" name="user_name"
 				value="<?php echo $_REQUEST['name'];?>" /></td>
 			<td style="text-align: right;">Email :</td>
-			<td><input type="text" name="user_email" id="user_email"
+			<td><input autocomplete="off" type="text" name="user_email" id="user_email"
 				value="<?php echo $_REQUEST['email'];?>" /></td>
 		</tr>
 		<tr>
 			<td style="text-align: right;">Phone Number :</td>
-			<td><input type="text" name="user_phone_number"
+			<td><input autocomplete="off" type="text" name="user_phone_number"
 				value="<?php echo $_REQUEST['phone_number'];?>" /></td>
 			<td style="text-align: right;">Description :</td>
-			<td><input type="text" name="user_description"
+			<td><input autocomplete="off" type="text" name="user_description"
 				value="<?php echo $_REQUEST['description'];?>" /></td>
 		</tr>
 		<tr>
