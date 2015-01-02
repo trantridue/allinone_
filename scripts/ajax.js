@@ -18,27 +18,7 @@ function deleteuser(userid) {
 	});
 }
 
-function userpostaction(data, actionType) {
-	$('#serverMessage').show();
-	var errorMessage = actionType + " user error";
-	if (actionType == 'passwordnotmatch') {
-		errorMessage = "Password not match, please re-type!";
-	} else if(actionType == 'email'){
-		errorMessage = "Email format not correct, please try again!";
-	}
-	var successMessage = actionType + " user successful";
 
-	if (data && data != '') {
-		$('#listArea').load("modules/user/list.php?isdefault=false");
-		$('#serverMessage').html(successMessage);
-		$('#serverMessage').addClass('successMessage');
-		$('#serverMessage').removeClass('errorMessage');
-	} else {
-		$('#serverMessage').html(errorMessage);
-		$('#serverMessage').addClass('errorMessage');
-		$('#serverMessage').removeClass('successMessage');
-	}
-}
 
 function edituser(str) {
 	var inputUrl = processUrlString(str);
