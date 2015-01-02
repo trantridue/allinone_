@@ -30,7 +30,7 @@ function changeStatusUser() {
 			<td><input type="text" name="user_name"
 				value="<?php echo $_REQUEST['name'];?>" /></td>
 			<td style="text-align: right;">Email :</td>
-			<td><input type="text" name="user_email"
+			<td><input type="text" name="user_email" id="user_email"
 				value="<?php echo $_REQUEST['email'];?>" /></td>
 		</tr>
 		<tr>
@@ -61,8 +61,14 @@ function changeStatusUser() {
 			</td>
 		</tr>
 		<tr>
+			<td style="text-align: right;">Username :</td>
+			<td><input type="text" name="user_username" id="user_username"/></td>
+			<td style="text-align: right;"></td>
+			<td></td>
+		</tr>
+		<tr>
 			<td style="text-align: right;" colspan="4"><input type="submit"
-				value="Update"></td>
+				value="Add"></td>
 		</tr>
 
 	</table>
