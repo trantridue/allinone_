@@ -39,8 +39,8 @@ class UserService {
 		$this->HandleError ( $err . "\r\n mysqlerror:" . mysql_error () );
 	}
 	//
-	function listUser($username,$name) {
-		$qry = "SELECT t1.*, t2.name as shopname FROM user t1 LEFT JOIN shop t2 ON t1.shop_id=t2.id where t1.username like '%" . $username . "%'"."and t1.name like '%" . $name . "%'";
+	function listUser($username, $name) {
+		$qry = "SELECT t1.*, t2.name as shopname FROM user t1 LEFT JOIN shop t2 ON t1.shop_id=t2.id where t1.username like '%" . $username . "%'" . "and t1.name like '%" . $name . "%'";
 		$result = mysql_query ( $qry, $this->connection );
 		$array_column = array (
 				"username" => "User Name",
@@ -55,7 +55,6 @@ class UserService {
 				"password" => "hidden_field",
 				"shop_id*id" => "complex" 
 		);
-// 		$this->commonService->generateJSDatatableComplex ( userdatatable, 0, 'asc' );
 		$this->commonService->generateJSDatatableSimple ( userdatatable, 0, 'asc' );
 		$this->commonService->generateJqueryDatatable ( $result, userdatatable, $array_column );
 	}
@@ -64,21 +63,22 @@ class UserService {
 		$qry = "delete from user where id = " . $userid;
 		echo mysql_query ( $qry, $this->connection );
 	}
-	function updateUser($user_id, $user_name, $user_email, $user_phone_number, $user_description, $user_password, $shop_dropdown_user,$status_value) {
+	function updateUser($user_id, $user_name, $user_email, $user_phone_number, $user_description, $user_password, $shop_dropdown_user, $status_value) {
 		$actionType = 'update';
 		$new_password = md5 ( $user_password );
 		$qry = "";
+		$date = date ( 'Y-m-d H:i:s' );
 		if ($user_password != null && $user_password != '') {
 			$qry = "update user set name='" . $user_name . "', email = '" . $user_email . "', phone_number = '" . $user_phone_number . "'
-				,description='" . $user_description . "',password='" . $new_password . "',shop_id=" . $shop_dropdown_user . ",status='".$status_value."'  where id = " . $user_id;
+				,description='" . $user_description . "',password='" . $new_password . "',shop_id=" . $shop_dropdown_user . ",status='" . $status_value . "',end_date='".$date."'  where id = " . $user_id;
 		} else {
 			$qry = "update user set name='" . $user_name . "', email = '" . $user_email . "', phone_number = '" . $user_phone_number . "'
-				,description='" . $user_description . "',shop_id=" . $shop_dropdown_user . ",status='".$status_value."'  where id = " . $user_id;
+				,description='" . $user_description . "',shop_id=" . $shop_dropdown_user . ",status='" . $status_value . "',end_date='".$date."'  where id = " . $user_id;
 		}
 		$result = mysql_query ( $qry, $this->connection );
 		echo "<script>userpostaction('" . $result . "','" . $actionType . "');</script>";
 	}
-	function addUser($user_id, $user_name, $user_email, $user_phone_number, $user_description, $user_password, $shop_dropdown_user,$status_value) {
+	function addUser($user_username, $user_name, $user_email, $user_phone_number, $user_description, $user_password, $shop_dropdown_user, $status_value) {
 		$actionType = 'insert';
 		$new_password = '';
 		$date = date ( 'Y-m-d H:i:s' );
@@ -88,7 +88,8 @@ class UserService {
 		} else {
 			$new_password = md5 ( default_password );
 		}
-		$qry ="insert into";
+		$qry = "insert into user(username,name,email,phone_number,shop_id,password,confirmcode,status,start_date,description) values ('" . $user_username . "',
+				'" . $user_name . "','" . $user_email . "','" . $user_phone_number . "'," . $shop_dropdown_user . ",'" . $new_password . "','y','" . $status_value . "','" . $date . "','" . $user_description . "')";
 		$result = mysql_query ( $qry, $this->connection );
 		echo "<script>userpostaction('" . $result . "','" . $actionType . "');</script>";
 	}

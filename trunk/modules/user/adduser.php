@@ -1,5 +1,5 @@
 <?php
-$user_id =  $_REQUEST['user_id'];
+$user_username =  $_REQUEST['user_username'];
 $user_name =  $_REQUEST['user_name'];
 $user_email =  $_REQUEST['user_email'];
 $user_phone_number =  $_REQUEST['user_phone_number'];
@@ -8,5 +8,5 @@ $user_password =  $_REQUEST['user_password'];
 $shop_dropdown_user =  $_REQUEST['shop_dropdown_user'];
 $status_value =  $_REQUEST['user_status_hidden'];
 
-$userService->addUser($user_id,$user_name,$user_email,$user_phone_number,$user_description,$user_password,$shop_dropdown_user,$status_value);
+$userService->addUser($user_username,$user_name,$user_email,$user_phone_number,$user_description,$user_password,$shop_dropdown_user,$status_value);
 ?>
