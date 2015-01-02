@@ -1,3 +1,12 @@
+$(function() {
+	$(".datefield").datepicker({
+		dateFormat : "yy-mm-dd",
+		changeMonth : true,
+		changeYear : true
+	});
+});
+
+
 function listUser() {
 	var isdefault = "false";
 	var username = $('#user_username').val();
@@ -17,9 +26,6 @@ function deleteuser(userid) {
 		}
 	});
 }
-
-
-
 function edituser(str) {
 	var inputUrl = processUrlString(str);
 	var url = 'modules/user/edituser.php?' + inputUrl;
@@ -38,4 +44,19 @@ function processUrlString(str) {
 		inputUrl = inputUrl + key[i] + "=" + value[i] + "&";
 	}
 	return inputUrl;
+}
+function changeStatusUser() {
+	var oldClass = $("#user_status").attr("class");
+	var newClass = "";
+	var status_value = '';
+	if(oldClass=='status_on') { 
+		newClass = 'status_off';
+		status_value = 'n';
+	} else {
+		status_value = 'y';
+		newClass = 'status_on';
+	}
+	$("#user_status").addClass(newClass);
+	$("#user_status").removeClass(oldClass);
+	$("#user_status_hidden").val(status_value);
 }
