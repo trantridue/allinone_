@@ -29,6 +29,5 @@ function validateEditUserForm() {
 		userpostaction("", "emailerror");
 		flag = false;
 	}
-	
 	return flag;
 };
