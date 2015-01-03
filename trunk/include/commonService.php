@@ -102,8 +102,37 @@ class CommonService {
 		header ( "Location: $url" );
 		exit ();
 	}
-	function dropDownList($table, $fieldname) {
-		
+function displayCodeProduct($code) {
+	if ($code < 10) {
+		return '000' . strval ( $code );
+	} else if ($code < 100 && $code >= 10) {
+		return '00' . strval ( $code );
+	} else if ($code < 1000 && $code >= 100) {
+		return '0' . strval ( $code );
+	} else {
+		return strval ( $code );
 	}
+}
+function getNextFactureCode($maxFactureCode) {
+	$str1 = substr ( $maxFactureCode, 0, 8 );
+	$str2 = substr ( $maxFactureCode, 9, 3 );
+	if ($str1 != $this->getCurrentDateYYYYMMDD ())
+		return $this->getCurrentDateYYYYMMDD () . "_001";
+	else
+		return $str1 . "_" . $this->displayTowDigit ( $str2 + 1 );
+}
+function getCurrentDateYYYYMMDD() {
+	return date ( 'Ymd' );
+}
+
+function displayTowDigit($str) {
+	if ($str < 10) {
+		return "00" . $str;
+	} else if ($str < 100) {
+		return "0" . $str;
+	}
+	return $str;
+}
+
 }
 ?>
