@@ -38,19 +38,16 @@ class ProviderService {
 	function HandleDBError($err) {
 		$this->HandleError ( $err . "\r\n mysqlerror:" . mysql_error () );
 	}
-	function listProvider($name){
+	function listProvider($name) {
 		$qry = "SELECT * FROM provider where name like '%" . $name . "%'";
 		$result = mysql_query ( $qry, $this->connection );
-		$array_column = array (
-				"name" => "Name",
-				"tel" => "Tel",
-				"address" => "Address",
-				"description" => "Description",
-				"id,name,tel,address,description" => "Edit",
-				"id" => "Delete"
-		);
+		$array_column = array ("name" => "Name", "tel" => "Tel", "address" => "Address", "description" => "Description", "id,name,tel,address,description" => "Edit", "id" => "Delete" );
 		$this->commonService->generateJSDatatableSimple ( providerdatatable, 0, 'asc' );
 		$this->commonService->generateJqueryDatatable ( $result, providerdatatable, $array_column );
+	}
+	function deleteProvider($providerid) {
+		$qry = "delete from provider where id = " . $providerid;
+		echo mysql_query ( $qry, $this->connection );
 	}
 }
 ?>

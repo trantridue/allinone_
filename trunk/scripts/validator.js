@@ -8,16 +8,7 @@ function userpostaction(data, actionType) {
 	}
 	var successMessage = actionType + " user successful";
 
-	if (data && data != '') {
-		$('#listArea').load("modules/user/list.php?isdefault=false");
-		$('#serverMessage').html(successMessage);
-		$('#serverMessage').addClass('successMessage');
-		$('#serverMessage').removeClass('errorMessage');
-	} else {
-		$('#serverMessage').html(errorMessage);
-		$('#serverMessage').addClass('errorMessage');
-		$('#serverMessage').removeClass('successMessage');
-	}
+	displayMessageServer(data,errorMessage,successMessage);
 }
 function validateEditUserForm() {
 	var flag = true;
@@ -66,4 +57,30 @@ function validateEditUserForm() {
 function validateImportForm() {
 	alert('import form');
 	return true;
+}
+/////////Provider Form
+
+function providerpostaction(data, actionType) {
+	$('#serverMessage').show();
+	var errorMessage = actionType + " Provider error";
+	if (actionType == 'passwordnotmatch') {
+		errorMessage = "Password not match, please re-type!";
+	} else if(actionType == 'emailerror'){
+		errorMessage = "Email format not correct, please try again!";
+	}
+	var successMessage = actionType + " provider successful";
+	displayMessageServer(data,errorMessage,successMessage);
+}
+//////////COMMON
+function displayMessageServer(data,errorMessage,successMessage) {
+	if (data && data != '') {
+		$('#listArea').load("modules/provider/list.php?isdefault=false");
+		$('#serverMessage').html(successMessage);
+		$('#serverMessage').addClass('successMessage');
+		$('#serverMessage').removeClass('errorMessage');
+	} else {
+		$('#serverMessage').html(errorMessage);
+		$('#serverMessage').addClass('errorMessage');
+		$('#serverMessage').removeClass('successMessage');
+	}
 }

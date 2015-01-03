@@ -75,3 +75,13 @@ function editprovider(str) {
 	var url = 'modules/provider/editprovider.php?' + inputUrl;
 	$('#inputArea').load(url);
 }
+function deleteprovider(providerid) {
+	var deleteprovider = 'modules/provider/deleteprovider.php?providerid=' + providerid;
+	$.ajax({
+		url : deleteprovider,
+		success : function(data) {
+			var actionType = "delete";
+			providerpostaction(data, actionType);
+		}
+	});
+}
