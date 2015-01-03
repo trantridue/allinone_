@@ -4,7 +4,7 @@
 	<table width="100%" style="background-color: bisque; padding-top: 10px;">
 		<tr>
 			<td style="text-align: right;">Name :</td>
-			<td><input autocomplete="off" type="text" name="user_name"
+			<td><input autocomplete="off" type="text" name="user_name" id="user_name"
 				value="<?php echo $_REQUEST['name'];?>" /></td>
 			<td style="text-align: right;">Email :</td>
 			<td><input autocomplete="off" type="text" name="user_email" id="user_email"
@@ -12,7 +12,7 @@
 		</tr>
 		<tr>
 			<td style="text-align: right;">Phone Number :</td>
-			<td><input autocomplete="off" type="text" name="user_phone_number"
+			<td><input autocomplete="off" type="text" name="user_phone_number" id="user_phone_number"
 				value="<?php echo $_REQUEST['phone_number'];?>" /></td>
 			<td style="text-align: right;">Description :</td>
 			<td><input autocomplete="off" type="text" name="user_description"
