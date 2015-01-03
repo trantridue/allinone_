@@ -297,6 +297,7 @@ class FGMembersite {
 		
 		$_SESSION ['name_of_user'] = $row ['name'];
 		$_SESSION ['email_of_user'] = $row ['email'];
+		$_SESSION ['import_number_row'] = 10;
 		
 		return true;
 	}

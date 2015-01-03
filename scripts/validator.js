@@ -61,3 +61,9 @@ function validateEditUserForm() {
 	}
 	return flag;
 };
+
+//////////Import form
+function validateImportForm() {
+	alert('import form');
+	return true;
+}
