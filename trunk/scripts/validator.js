@@ -23,10 +23,11 @@ function validateEditUserForm() {
 	var flag = true;
 	var emailReg = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 	if (!($("#retype_user_password").val() == $("#user_password").val())){
-		userpostaction("", "passwordnotmatch");
+		$("#retype_user_password").addClass("errorField");
 		flag = false;
-	} else if(!emailReg.test($("#user_email").val())){
-		userpostaction("", "emailerror");
+	} 
+	if(!emailReg.test($("#user_email").val())){
+		$("#user_email").addClass("errorField");
 		flag = false;
 	}
 	return flag;
