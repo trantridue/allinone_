@@ -163,4 +163,5 @@ input[type='reset'] {
 }
 .errorField {
 	background-color: yellow;
+	border-color:red;
 }
