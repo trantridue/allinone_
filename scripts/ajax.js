@@ -60,3 +60,18 @@ function changeStatusUser() {
 	$("#user_status").removeClass(oldClass);
 	$("#user_status_hidden").val(status_value);
 }
+
+///PROVIDER
+function listProvider() {
+	var isdefault = "false";
+	var name = $('#provider_name').val();
+	var url = "modules/provider/list.php" + "?isdefault=" + isdefault
+			+ "&name=" + encodeURIComponent(name);
+	$('#listArea').load(url);
+}
+
+function editprovider(str) {
+	var inputUrl = processUrlString(str);
+	var url = 'modules/provider/editprovider.php?' + inputUrl;
+	$('#inputArea').load(url);
+}
