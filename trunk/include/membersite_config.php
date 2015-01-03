@@ -4,11 +4,13 @@ require_once ("./include/fg_membersite.php");
 require_once ("./include/commonService.php");
 require_once ("./include/importService.php");
 require_once ("./include/userService.php");
+require_once ("./include/providerService.php");
 
 $fgmembersite = new FGMembersite ( hostname, username, password, database, tablename );
 $commonService = new CommonService ();
 $importService = new ImportService ( hostname, username, password, database,$commonService );
 $userService = new UserService ( hostname, username, password, database,$commonService );
+$providerService = new ProviderService ( hostname, username, password, database,$commonService );
 
 // Provide your site name here
 $fgmembersite->SetWebsiteName ( 'user11.com' );

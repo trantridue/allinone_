@@ -1,4 +1,3 @@
-
 <?php
 $username = isset ( $_REQUEST ['username'] ) ? $_REQUEST ['username'] : '';
 $name = isset ( $_REQUEST ['name'] ) ? $_REQUEST ['name'] : '';
