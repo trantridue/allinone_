@@ -44,5 +44,25 @@ class ImportService {
 		$qry = "select * from user";
 		$result = mysql_query ( $qry, $this->connection );
 	}
+	function currentMaxProductCode($i) {
+		$qry = "select max(code) as maxproductcode from product where code > 0000 and code <9999 and length(code)=4 limit 1";
+		$result = mysql_query ( $qry, $this->connection );
+		$rows = mysql_fetch_array ( $result );
+			if($i <=1 && $rows ['maxproductcode'] ==null) return '0001';
+		else
+			return $this->commonService->displayCodeProduct ( intval ( $rows ['maxproductcode'] ) + $i);
+	
+	}
+	function getImportFactureCode() {
+		$qry = "select max(code) as amount from import_facture where LENGTH(code)=12 limit 1";
+		$result = mysql_query ( $qry, $this->connection );
+		$rows = mysql_fetch_assoc ( $result );
+	
+		if ($rows ['amount']) {
+			return $this->commonService->getNextFactureCode ( $rows ['amount'] );
+		}
+		else
+			return $this->commonService->getCurrentDateYYYYMMDD () . "_001";
+	}
 }
 ?>
