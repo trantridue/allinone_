@@ -1,8 +1,7 @@
 <?php
-$provider_name = $_REQUEST ['provider_name'];
-$provider_address = $_REQUEST ['provider_address'];
-$provider_tel = $_REQUEST ['provider_tel'];
-$provider_description = $_REQUEST ['provider_description'];
+$customer_name = $_REQUEST ['customer_name'];
+$customer_tel = $_REQUEST ['customer_tel'];
+$customer_description = $_REQUEST ['customer_description'];
 
-$providerService->addProvider ( $provider_name, $provider_address, $provider_tel, $provider_description);
+$customerService->addCustomer ( $customer_name, $customer_tel, $customer_description);
 ?>
