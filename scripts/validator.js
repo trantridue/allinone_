@@ -57,7 +57,7 @@ function validateEditUserForm() {
 	var flag4 = validateField(phoneReg, 'user_phone_number');
 	var flag5 = validatePassword('user_password', 'retype_user_password');
 
-	return flag && flag1 && flag2 && flag3 && flag4 && flag5;;
+	return flag && flag1 && flag2 && flag3 && flag4 && flag5;
 };
 
 // ////////Import form
@@ -77,4 +77,14 @@ function providerpostaction(data, actionType) {
 	}
 	var successMessage = actionType + " provider successful";
 	displayMessageServer(data, errorMessage, successMessage);
+}
+function validateEditProviderForm() {
+	var nameReg = /^(?!\s*$).+$/;
+	var telReg = /^[0-9]{9,12}$/;
+	
+	var flag1 = validateField(nameReg, 'provider_address');
+	var flag2 = validateField(nameReg, 'provider_name');
+	var flag3 = validateField(telReg, 'provider_tel');
+
+	return flag1 && flag2 && flag3 ;
 }
