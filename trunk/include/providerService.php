@@ -41,13 +41,27 @@ class ProviderService {
 	function listProvider($name) {
 		$qry = "SELECT * FROM provider where name like '%" . $name . "%'";
 		$result = mysql_query ( $qry, $this->connection );
-		$array_column = array ("name" => "Name", "tel" => "Tel", "address" => "Address", "description" => "Description", "id,name,tel,address,description" => "Edit", "id" => "Delete" );
+		$array_column = array ("name" => "Name", "tel" => "Tel", "address" => "Address", "description" => "Description","date" => "Modify date", "id,name,tel,address,description" => "Edit", "id" => "Delete" );
 		$this->commonService->generateJSDatatableSimple ( providerdatatable, 0, 'asc' );
 		$this->commonService->generateJqueryDatatable ( $result, providerdatatable, $array_column );
 	}
 	function deleteProvider($providerid) {
 		$qry = "delete from provider where id = " . $providerid;
 		echo mysql_query ( $qry, $this->connection );
+	}
+	function updateProvider($provider_id, $provider_name, $provider_tel, $provider_description, $provider_address) {
+		$actionType = 'update';
+		$qry = "update provider set name='" . $provider_name . "', tel = '" . $provider_tel . "', description = '" . $provider_description . "'
+				,address='" . $provider_address . "',date=now()  where id = " . $provider_id;
+		$result = mysql_query ( $qry, $this->connection );
+		echo "<script>providerpostaction('" . $result . "','" . $actionType . "');</script>";
+	}
+	function addProvider ( $provider_name, $provider_address, $provider_tel, $provider_description){
+		$actionType = 'insert';
+		$qry = "insert into provider(name,tel,address,description,date) values ('" . $provider_name . "',
+				'" . $provider_address . "','" . $provider_tel . "','" . $provider_description . "',now())";
+		$result = mysql_query ( $qry, $this->connection );
+		echo "<script>providerpostaction('" . $result . "','" . $actionType . "');</script>";
 	}
 }
 ?>
