@@ -18,6 +18,7 @@ define('defaultsubmodule','search');
 //datatableid
 define('userdatatable','user');
 define('providerdatatable','provider');
+define('customerdatatable','customer');
 define('datatable_prefix','table_list_');
 //default password
 define('default_password','123456');

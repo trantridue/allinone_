@@ -34,26 +34,30 @@
 	width: 90%;
 	min-height: 550px;
 	background-color: white;
-	
 }
 
 #main_page_header {
+	
 }
 
 .wrappadding {
 	padding: 5px;
 }
+
 #submenucontent {
 	width: 100%;
 	background-color: bisque;
 }
+
 #bodycontent {
 	width: 100%;
 	background-color: #74DD89;
-	margin-top:5px;
+	margin-top: 5px;
 	min-height: 520px;
-	padding-top:5px;
+	padding-top: 5px;
+	overflow: auto;
 }
+
 /* MENU START */
 .active_btn {
 	border-color: red;
@@ -67,31 +71,33 @@
 	margin-top: 10px;
 	font-weight: bold;
 }
+
 .menu_btn_sub {
 	height: 30px;
 	margin-left: 10px;
 	font-weight: bold;
 	/*float: left;*/
 }
+
 .active_btn_sub {
 	border-color: red;
 	border-radius: 5px;
 	background-color: #70be76;
 }
+
 input[type='submit'] {
 	height: 30px;
 	margin-left: 10px;
 	font-weight: bold;
 }
+
 input[type='reset'] {
 	height: 30px;
 	margin-left: 10px;
 	font-weight: bold;
 }
 
-/* MENU END*/
-
-/* MESSAGE START*/
+/* MENU END*/ /* MESSAGE START*/
 .successMessage {
 	height: 20px;
 	width: 50%;
@@ -100,15 +106,16 @@ input[type='reset'] {
 	padding-top: 10px;
 	padding-left: 40px;
 	color: white;
-	font-size:12pt;
-	font-weight:bold;
-	font-style:italic;
+	font-size: 12pt;
+	font-weight: bold;
+	font-style: italic;
 	border-width: 2px;
 	background-color: green;
 	background-image: url(../images/success_ico.png);
-	background-position:0px -1px;
+	background-position: 0px -1px;
 	background-repeat: no-repeat;
 }
+
 .errorMessage {
 	height: 20px;
 	width: 50%;
@@ -117,52 +124,59 @@ input[type='reset'] {
 	padding-top: 10px;
 	padding-left: 40px;
 	color: red;
-	font-size:12pt;
-	font-weight:bold;
-	font-style:italic;
+	font-size: 12pt;
+	font-weight: bold;
+	font-style: italic;
 	border-width: 2px;
 	background-color: bisque;
 	background-image: url(../images/error_ico.png);
-	background-position:0px -1px;
+	background-position: 0px -1px;
 	background-repeat: no-repeat;
 }
-/* MESSAGE END*/
 
-/* ICON BEGIN*/
+/* MESSAGE END*/ /* ICON BEGIN*/
 .deleteIcon {
 	background-image: url(../images/delete_ico.png);
 	background-repeat: no-repeat;
 	height: 32px;
 }
+
 .editIcon {
 	background-image: url(../images/edit_ico.png);
 	background-repeat: no-repeat;
 	height: 32px;
 }
-/* ICON END*/
-/* FIELD START */
+
+/* ICON END*/ /* FIELD START */
 .datefield {
 	background-image: url(../images/date_ico.jpg);
 	background-repeat: no-repeat;
 	height: 24px;
 	background-position: 109px;
 }
+
 /* FIELD RND */
 .status_on {
 	background-image: url("../images/toggle.png");
-    background-position: -5px -2px;
-    background-repeat: no-repeat;
-    height: 33px;
-    width: 84px;
+	background-position: -5px -2px;
+	background-repeat: no-repeat;
+	height: 33px;
+	width: 84px;
 }
+
 .status_off {
 	background-image: url("../images/toggle.png");
-    background-position: -5px -49px;
-    background-repeat: no-repeat;
-    height: 33px;
-    width: 84px;
+	background-position: -5px -49px;
+	background-repeat: no-repeat;
+	height: 33px;
+	width: 84px;
 }
+
 .errorField {
 	background-color: yellow;
-	border-color:red;
+	border-color: red;
+}
+/* TABLE */
+.edittable {
+	background-color: bisque; padding-top: 10px;
 }

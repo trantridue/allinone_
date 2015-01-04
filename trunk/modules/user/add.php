@@ -1,7 +1,7 @@
 
 <form action="?module=user&submenu=adduser" method="post" onsubmit="return validateEditUserForm();">
 	<input type="hidden" name="user_id" value="<?php echo $_REQUEST['id'];?>" />
-	<table width="100%" style="background-color: bisque; padding-top: 10px;">
+	<table width="100%" class="edittable">
 		<tr>
 			<td style="text-align: right;">Name :</td>
 			<td><input autocomplete="off" type="text" name="user_name" id="user_name"
