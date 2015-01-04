@@ -41,7 +41,7 @@ class CustomerService {
 	function listCustomer($name) {
 		$qry = "SELECT * FROM customer where name like '%" . $name . "%'";
 		$result = mysql_query ( $qry, $this->connection );
-		$array_column = array ("name" => "Name", "tel" => "Tel",  "description" => "Description","date" => "Modify date", "id,name,tel,address,description" => "Edit", "id" => "Delete" );
+		$array_column = array ("name" => "Name", "tel" => "Tel",  "description" => "Description","date" => "Modify date", "id,name,tel,description" => "Edit", "id" => "Delete" );
 		$this->commonService->generateJSDatatableSimple ( customerdatatable, 0, 'asc' );
 		$this->commonService->generateJqueryDatatable ( $result, customerdatatable, $array_column );
 	}
@@ -49,17 +49,17 @@ class CustomerService {
 		$qry = "delete from customer where id = " . $customerid;
 		echo mysql_query ( $qry, $this->connection );
 	}
-	function updateCustomer($customer_id, $customer_name, $customer_tel, $customer_description, $customer_address) {
+	function updateCustomer($customer_id, $customer_name, $customer_tel, $customer_description) {
 		$actionType = 'update';
 		$qry = "update customer set name='" . $customer_name . "', tel = '" . $customer_tel . "', description = '" . $customer_description . "'
-				,address='" . $customer_address . "',date=now()  where id = " . $customer_id;
+				,date=now()  where id = " . $customer_id;
 		$result = mysql_query ( $qry, $this->connection );
 		echo "<script>customerpostaction('" . $result . "','" . $actionType . "');</script>";
 	}
-	function addCustomer ( $customer_name, $customer_address, $customer_tel, $customer_description){
+	function addCustomer ( $customer_name, $customer_tel, $customer_description){
 		$actionType = 'insert';
-		$qry = "insert into customer(name,address,tel,description,date) values ('" . $customer_name . "',
-				'" . $customer_address . "','" . $customer_tel . "','" . $customer_description . "',now())";
+		$qry = "insert into customer(name,tel,description,date) values ('" . $customer_name . "',
+				'" . $customer_tel . "','" . $customer_description . "',now())";
 		$result = mysql_query ( $qry, $this->connection );
 		echo "<script>customerpostaction('" . $result . "','" . $actionType . "');</script>";
 	}
