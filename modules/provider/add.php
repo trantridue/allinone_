@@ -1,5 +1,5 @@
 <form action="?module=provider&submenu=addprovider" method="post" onsubmit="return validateEditProviderForm();">
-	<table width="100%" style="background-color: bisque; padding-top: 10px;">
+	<table width="100%" class="edittable">
 		<tr>
 			<td style="text-align: right;">Name :</td>
 			<td><input autocomplete="off" type="text" name="provider_name" id="provider_name"

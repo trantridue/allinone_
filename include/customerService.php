@@ -1,5 +1,5 @@
 <?php
-class ProviderService {
+class CustomerService {
 	var $host;
 	var $username;
 	var $pwd;
@@ -7,7 +7,7 @@ class ProviderService {
 	var $connection;
 	var $commonService;
 	// -----Initialization -------
-	function ProviderService($hostname, $username, $password, $database, $commonService) {
+	function CustomerService($hostname, $username, $password, $database, $commonService) {
 		$this->InitDB ( $hostname, $username, $password, $database );
 		$this->commonService = $commonService;
 	}
@@ -38,30 +38,30 @@ class ProviderService {
 	function HandleDBError($err) {
 		$this->HandleError ( $err . "\r\n mysqlerror:" . mysql_error () );
 	}
-	function listProvider($name) {
-		$qry = "SELECT * FROM provider where name like '%" . $name . "%'";
+	function listCustomer($name) {
+		$qry = "SELECT * FROM customer where name like '%" . $name . "%'";
 		$result = mysql_query ( $qry, $this->connection );
-		$array_column = array ("name" => "Name", "tel" => "Tel", "address" => "Address", "description" => "Description","date" => "Modify date", "id,name,tel,address,description" => "Edit", "id" => "Delete" );
-		$this->commonService->generateJSDatatableSimple ( providerdatatable, 0, 'asc' );
-		$this->commonService->generateJqueryDatatable ( $result, providerdatatable, $array_column );
+		$array_column = array ("name" => "Name", "tel" => "Tel",  "description" => "Description","date" => "Modify date", "id,name,tel,address,description" => "Edit", "id" => "Delete" );
+		$this->commonService->generateJSDatatableSimple ( customerdatatable, 0, 'asc' );
+		$this->commonService->generateJqueryDatatable ( $result, customerdatatable, $array_column );
 	}
-	function deleteProvider($providerid) {
-		$qry = "delete from provider where id = " . $providerid;
+	function deleteCustomer($customerid) {
+		$qry = "delete from customer where id = " . $customerid;
 		echo mysql_query ( $qry, $this->connection );
 	}
-	function updateProvider($provider_id, $provider_name, $provider_tel, $provider_description, $provider_address) {
+	function updateCustomer($customer_id, $customer_name, $customer_tel, $customer_description, $customer_address) {
 		$actionType = 'update';
-		$qry = "update provider set name='" . $provider_name . "', tel = '" . $provider_tel . "', description = '" . $provider_description . "'
-				,address='" . $provider_address . "',date=now()  where id = " . $provider_id;
+		$qry = "update customer set name='" . $customer_name . "', tel = '" . $customer_tel . "', description = '" . $customer_description . "'
+				,address='" . $customer_address . "',date=now()  where id = " . $customer_id;
 		$result = mysql_query ( $qry, $this->connection );
-		echo "<script>providerpostaction('" . $result . "','" . $actionType . "');</script>";
+		echo "<script>customerpostaction('" . $result . "','" . $actionType . "');</script>";
 	}
-	function addProvider ( $provider_name, $provider_address, $provider_tel, $provider_description){
+	function addCustomer ( $customer_name, $customer_address, $customer_tel, $customer_description){
 		$actionType = 'insert';
-		$qry = "insert into provider(name,address,tel,description,date) values ('" . $provider_name . "',
-				'" . $provider_address . "','" . $provider_tel . "','" . $provider_description . "',now())";
+		$qry = "insert into customer(name,address,tel,description,date) values ('" . $customer_name . "',
+				'" . $customer_address . "','" . $customer_tel . "','" . $customer_description . "',now())";
 		$result = mysql_query ( $qry, $this->connection );
-		echo "<script>providerpostaction('" . $result . "','" . $actionType . "');</script>";
+		echo "<script>customerpostaction('" . $result . "','" . $actionType . "');</script>";
 	}
 }
 ?>

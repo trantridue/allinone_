@@ -1,3 +1,4 @@
+//////////COMMON
 $(function() {
 	$(".datefield").datepicker({
 		dateFormat : "yy-mm-dd",
@@ -5,8 +6,21 @@ $(function() {
 		changeYear : true
 	});
 });
-
-
+function processUrlString(str) {
+	var key = new Array();
+	var value = new Array();
+	key = str.split("&");
+	var inputUrl = "";
+	for (i in key) {
+		value[i] = encodeURIComponent(key[i].split("=")[1]);
+		key[i] = key[i].split("=")[0];
+	}
+	for (i in key) {
+		inputUrl = inputUrl + key[i] + "=" + value[i] + "&";
+	}
+	return inputUrl;
+}
+//////////USER
 function listUser() {
 	var isdefault = "false";
 	var username = $('#user_username').val();
@@ -31,20 +45,7 @@ function edituser(str) {
 	var url = 'modules/user/edituser.php?' + inputUrl;
 	$('#inputArea').load(url);
 }
-function processUrlString(str) {
-	var key = new Array();
-	var value = new Array();
-	key = str.split("&");
-	var inputUrl = "";
-	for (i in key) {
-		value[i] = encodeURIComponent(key[i].split("=")[1]);
-		key[i] = key[i].split("=")[0];
-	}
-	for (i in key) {
-		inputUrl = inputUrl + key[i] + "=" + value[i] + "&";
-	}
-	return inputUrl;
-}
+
 function changeStatusUser() {
 	var oldClass = $("#user_status").attr("class");
 	var newClass = "";
@@ -82,6 +83,30 @@ function deleteprovider(providerid) {
 		success : function(data) {
 			var actionType = "delete";
 			providerpostaction(data, actionType);
+		}
+	});
+}
+///CUSTOMER
+function listCustomer() {
+	var isdefault = "false";
+	var name = $('#customer_name').val();
+	var url = "modules/customer/list.php" + "?isdefault=" + isdefault
+			+ "&name=" + encodeURIComponent(name);
+	$('#listArea').load(url);
+}
+
+function editcustomer(str) {
+	var inputUrl = processUrlString(str);
+	var url = 'modules/customer/editcustomer.php?' + inputUrl;
+	$('#inputArea').load(url);
+}
+function deletecustomer(customerid) {
+	var deletecustomer = 'modules/customer/deletecustomer.php?customerid=' + customerid;
+	$.ajax({
+		url : deletecustomer,
+		success : function(data) {
+			var actionType = "delete";
+			customerpostaction(data, actionType);
 		}
 	});
 }
