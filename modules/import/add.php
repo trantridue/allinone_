@@ -1,6 +1,6 @@
 <form method="post" action="?module=import&submenu=addproduct" onsubmit="return validateImportForm();">
 	<label>Facture Code : </label><input name="import_facture_code" id="import_facture_code" value="<?php echo $importService->getImportFactureCode();?>"/><?php echo tab4;?>
-	<label>Provider : </label><input name="import_provider" id="import_provider" /><?php echo tab4;?>
+	<label>Provider : </label><input name="import_provider" id="import_provider" /><input type="hidden" name="id_provider" id="id_provider" /><?php echo tab4;?>
 	<label>Description : </label><input name="import_description" id="import_description" /><?php echo tab4;?>
 	<label>Season : </label><input name="import_season" id="import_season" /><?php echo tab4;?>
 	<?php $rowNum = $_SESSION ['import_number_row'];?>
