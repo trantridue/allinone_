@@ -110,3 +110,10 @@ function deletecustomer(customerid) {
 		}
 	});
 }
+///////SINGLE AUTOCOMPLETE
+$(function() {
+	$(".productcode").autocomplete( {
+		source : "autocomplete/productcode.php",
+		minLength : 1
+	});
+});

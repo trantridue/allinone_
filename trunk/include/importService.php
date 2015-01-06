@@ -121,9 +121,17 @@ class ImportService {
 		}
 		return $jsonArray;
 	}
+	function getJsonProductName($term) {
+		$qry = "select * from product where name like '%" . $term . "%' ";
+		$result = mysql_query ( $qry, $this->connection );
+		$jsonArray = array ();
+		while ( $rows = mysql_fetch_array ( $result ) ) {
+			$jsonArray[] = $rows['name'];
+		}
+		return $jsonArray;
+	}
 	function loadDefaultSeason() {
 		$season_time = date('Y-m-d');
-		echo $season_time;
 		$qry = "select * from season where '".$season_time."' between start_time and end_time ";
 		$result = mysql_query ( $qry, $this->connection );
 		while ( $rows = mysql_fetch_array ( $result ) ) {
