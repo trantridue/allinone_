@@ -64,5 +64,26 @@ class ImportService {
 		else
 			return $this->commonService->getCurrentDateYYYYMMDD () . "_001";
 	}
+	//AUTOCOMPLETE
+	function getJsonFactureImport($term) {
+		$qry = "select t1.*,t2.name as provider_name from import_facture t1,provider t2 where t1.code like '%" . $term . "%' and t1.provider_id = t2.id";
+		$result = mysql_query ( $qry, $this->connection );
+		$jsonArray = array ();
+	
+		while ( $rows = mysql_fetch_array ( $result ) ) {
+			$labelvalue = $rows ['code'] . ":" . $rows ['provider_name'] . ":" . $rows ['description'];
+			$element = array (
+					code => $rows ['code'],
+					description => $rows ['description'],
+					provider_id => $rows ['provider_id'],
+					provider_name => $rows ['provider_name'],
+					value => $rows ['code'],
+					label => $labelvalue
+			);
+				
+			$jsonArray [] = $element;
+		}
+		return $jsonArray;
+	}
 }
 ?>
