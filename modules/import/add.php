@@ -25,6 +25,17 @@ $(document).ready(function(){
 	};
 	$("#provider_name").autocomplete(ac_config_provider_name);
 });
+$(document).ready(function(){
+	var ac_config_season = {
+		source: "autocomplete/completed_import_season.php",
+		select: function(event, ui){
+			$("#season").val(ui.item.code);
+			$("#season_id").val(ui.item.season_id);
+		},
+		minLength:1
+	};
+	$("#season").autocomplete(ac_config_season);
+});
 
 function resetContinue(){ 
 	$("#continueImport").val(false);
@@ -35,7 +46,7 @@ $(document).ready(function() {
     $("#provider_name").focus(function() { $(this).select(); } );
     $("#season").focus(function() { $(this).select(); } );
 });
-
+<?php $importService->loadDefaultSeason();?>
 
 </script>
 <form method="post" action="?module=import&submenu=addproduct" onsubmit="return validateImportForm();">
@@ -43,7 +54,7 @@ $(document).ready(function() {
 	<label>Provider : </label><input name="provider_name" id="provider_name" /><input type="hidden" name="provider_id" id="provider_id" /><?php echo tab4;?>
 	<label>Description : </label><input name="description" id="description" /><?php echo tab4;?>
 	<input type="hidden" name="continueImport" id="continueImport" value="false"/>
-	<label>Season : </label><input name="season" id="season" /><?php echo tab4;?>
+	<label>Season : </label><input name="season" id="season" value="<?php echo $_SESSION['default_season_name'];?>"/><input name="season_id" id="season_id" type="hidden" value="<?php echo $_SESSION['default_season_id'];?>"/><?php echo tab4;?>
 	<?php $rowNum = $_SESSION ['import_number_row'];?>
 	<input type="submit" value="IMPORT">
 	<hr>
