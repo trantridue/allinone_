@@ -30,6 +30,13 @@ function resetContinue(){
 	$("#continueImport").val(false);
 }
 
+
+$(document).ready(function() {
+    $("#provider_name").focus(function() { $(this).select(); } );
+    $("#season").focus(function() { $(this).select(); } );
+});
+
+
 </script>
 <form method="post" action="?module=import&submenu=addproduct" onsubmit="return validateImportForm();">
 	<label>Facture Code : </label><input onkeydown="resetContinue();" name="import_facture_code" id="import_facture_code" value="<?php echo $importService->getImportFactureCode();?>"/><?php echo tab4;?>
