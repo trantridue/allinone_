@@ -16,7 +16,7 @@ class ImportService {
 		$this->username = $uname;
 		$this->pwd = $pwd;
 		$this->database = $database;
-		$this->DBLogin ();
+		$this->DBLogin ();	
 	}
 	function DBLogin() {
 		$this->connection = mysql_connect ( $this->db_host, $this->username, $this->pwd );
@@ -102,6 +102,34 @@ class ImportService {
 			$jsonArray [] = $element;
 		}
 		return $jsonArray;
+	}
+	function getJsonSeason($term) {
+		$qry = "select * from season where name like '%" . $term . "%' ";
+		$result = mysql_query ( $qry, $this->connection );
+		$jsonArray = array ();
+	
+		while ( $rows = mysql_fetch_array ( $result ) ) {
+			$labelvalue = $rows ['name'] . ":from " . $rows ['start_time'] . "-->" . $rows ['end_time'];
+			$element = array (
+					code => $rows ['name'],
+					season_id => $rows ['id'],
+					value => $rows ['name'],
+					label => $labelvalue
+			);
+				
+			$jsonArray [] = $element;
+		}
+		return $jsonArray;
+	}
+	function loadDefaultSeason() {
+		$season_time = date('Y-m-d');
+		echo $season_time;
+		$qry = "select * from season where '".$season_time."' between start_time and end_time ";
+		$result = mysql_query ( $qry, $this->connection );
+		while ( $rows = mysql_fetch_array ( $result ) ) {
+			$_SESSION['default_season_name'] = $rows['name'];
+			$_SESSION['default_season_id'] = $rows['id'];
+		}
 	}
 }
 ?>
