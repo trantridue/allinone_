@@ -14,9 +14,25 @@ $(document).ready(function(){
 	};
 	$("#import_facture_code").autocomplete(ac_config_import_facture);
 });
+$(document).ready(function(){
+	var ac_config_provider_name = {
+		source: "autocomplete/completed_import_provider_name.php",
+		select: function(event, ui){
+			$("#provider_name").val(ui.item.code);
+			$("#provider_id").val(ui.item.provider_id);
+		},
+		minLength:1
+	};
+	$("#provider_name").autocomplete(ac_config_provider_name);
+});
+
+function resetContinue(){ 
+	$("#continueImport").val(false);
+}
+
 </script>
 <form method="post" action="?module=import&submenu=addproduct" onsubmit="return validateImportForm();">
-	<label>Facture Code : </label><input name="import_facture_code" id="import_facture_code" value="<?php echo $importService->getImportFactureCode();?>"/><?php echo tab4;?>
+	<label>Facture Code : </label><input onkeydown="resetContinue();" name="import_facture_code" id="import_facture_code" value="<?php echo $importService->getImportFactureCode();?>"/><?php echo tab4;?>
 	<label>Provider : </label><input name="provider_name" id="provider_name" /><input type="hidden" name="provider_id" id="provider_id" /><?php echo tab4;?>
 	<label>Description : </label><input name="description" id="description" /><?php echo tab4;?>
 	<input type="hidden" name="continueImport" id="continueImport" value="false"/>

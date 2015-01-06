@@ -85,5 +85,23 @@ class ImportService {
 		}
 		return $jsonArray;
 	}
+	function getJsonProviderName($term) {
+		$qry = "select * from provider where name like '%" . $term . "%' ";
+		$result = mysql_query ( $qry, $this->connection );
+		$jsonArray = array ();
+	
+		while ( $rows = mysql_fetch_array ( $result ) ) {
+			$labelvalue = $rows ['name'] . ":" . $rows ['tel'] . ":" . $rows ['address'];
+			$element = array (
+					code => $rows ['name'],
+					provider_id => $rows ['id'],
+					value => $rows ['name'],
+					label => $labelvalue
+			);
+				
+			$jsonArray [] = $element;
+		}
+		return $jsonArray;
+	}
 }
 ?>
