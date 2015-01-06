@@ -41,14 +41,19 @@ function resetContinue(){
 	$("#continueImport").val(false);
 }
 
-
 $(document).ready(function() {
     $("#provider_name").focus(function() { $(this).select(); } );
     $("#season").focus(function() { $(this).select(); } );
 });
-<?php $importService->loadDefaultSeason();?>
 
+$(function() {
+	$(".product_name").autocomplete( {
+		source : "autocomplete/productname.php",
+		minLength : 1
+	});
+});
 </script>
+<?php $importService->loadDefaultSeason();?>
 <form method="post" action="?module=import&submenu=addproduct" onsubmit="return validateImportForm();">
 	<label>Facture Code : </label><input onkeydown="resetContinue();" name="import_facture_code" id="import_facture_code" value="<?php echo $importService->getImportFactureCode();?>"/><?php echo tab4;?>
 	<label>Provider : </label><input name="provider_name" id="provider_name" /><input type="hidden" name="provider_id" id="provider_id" /><?php echo tab4;?>
@@ -74,13 +79,13 @@ $(document).ready(function() {
     <?php for ($i=1;$i<=$rowNum;$i++) { ?>
     <tr>
     <td><input name="code_<?php echo $i;?>" id="code_<?php echo $i;?>" autocomplete="off" size="7" value="<?php echo $importService->currentMaxProductCode($i);?>"/></td>
-    <td><input name="name_<?php echo $i;?>" id="code_<?php echo $i;?>" autocomplete="off" size="40"/></td>
+    <td><input class="product_name" name="name_<?php echo $i;?>" id="code_<?php echo $i;?>" autocomplete="off" size="40"/></td>
     <td><input name="qty_<?php echo $i;?>" id="code_<?php echo $i;?>" autocomplete="off" size="7"/></td>
     <td><input name="post_<?php echo $i;?>" id="code_<?php echo $i;?>" autocomplete="off" size="7"/></td>
     <td><input name="impr_<?php echo $i;?>" id="code_<?php echo $i;?>" autocomplete="off" size="7"/></td>
-    <td><input name="sex_<?php echo $i;?>" id="code_<?php echo $i;?>" autocomplete="off" size="7"/></td>
-    <td><input name="category_<?php echo $i;?>" id="code_<?php echo $i;?>" autocomplete="off" size="20"/></td>
-    <td><input name="brand_<?php echo $i;?>" id="code_<?php echo $i;?>" autocomplete="off" size="15"/></td>
+    <td><input class="product_sex" name="sex_<?php echo $i;?>" id="code_<?php echo $i;?>" autocomplete="off" size="7"/></td>
+    <td><input class="product_category" name="category_<?php echo $i;?>" id="code_<?php echo $i;?>" autocomplete="off" size="20"/></td>
+    <td><input class="product_brand" name="brand_<?php echo $i;?>" id="code_<?php echo $i;?>" autocomplete="off" size="15"/></td>
     <td><input name="description_<?php echo $i;?>" id="code_<?php echo $i;?>" autocomplete="off" size="40"/></td>
     </tr>
     <?php 
