@@ -1,7 +1,7 @@
 //////////COMMON
-function displayMessageServer(data, errorMessage, successMessage) {
+function displayMessageServer(data, errorMessage, successMessage,module) {
 	if (data && data != '') {
-		$('#listArea').load("modules/provider/list.php?isdefault=false");
+		$('#listArea').load("modules/"+module+"/list.php?isdefault=false");
 		$('#serverMessage').html(successMessage);
 		$('#serverMessage').addClass('successMessage');
 		$('#serverMessage').removeClass('errorMessage');
@@ -42,7 +42,7 @@ function userpostaction(data, actionType) {
 	}
 	var successMessage = actionType + " user successful";
 
-	displayMessageServer(data, errorMessage, successMessage);
+	displayMessageServer(data, errorMessage, successMessage,"user");
 }
 function validateEditUserForm() {
 	var flag = true;
@@ -76,7 +76,7 @@ function providerpostaction(data, actionType) {
 		errorMessage = "Email format not correct, please try again!";
 	}
 	var successMessage = actionType + " provider successful";
-	displayMessageServer(data, errorMessage, successMessage);
+	displayMessageServer(data, errorMessage, successMessage,"provider");
 }
 function validateEditProviderForm() {
 	var nameReg = /^(?!\s*$).+$/;
@@ -99,7 +99,7 @@ function customerpostaction(data, actionType) {
 		errorMessage = "Email format not correct, please try again!";
 	}
 	var successMessage = actionType + " customer successful";
-	displayMessageServer(data, errorMessage, successMessage);
+	displayMessageServer(data, errorMessage, successMessage,"customer");
 }
 function validateEditCustomerForm() {
 	var nameReg = /^(?!\s*$).+$/;
