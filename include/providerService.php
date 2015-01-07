@@ -39,9 +39,16 @@ class ProviderService {
 		$this->HandleError ( $err . "\r\n mysqlerror:" . mysql_error () );
 	}
 	function listProvider($name) {
-		$qry = "SELECT * FROM provider where name like '%" . $name . "%'";
+		$qry = "SELECT t1.*,
+		(SELECT sum(import_price*quantity) 
+		FROM product_import where import_facture_code in 
+		(select code from import_facture where provider_id = t1.id)) as total
+		 FROM provider t1 where t1.name like '%" . $name . "%'";
 		$result = mysql_query ( $qry, $this->connection );
-		$array_column = array ("name" => "Name", "tel" => "Tel", "address" => "Address", "description" => "Description","date" => "Modify date", "id,name,tel,address,description" => "Edit", "id" => "Delete" );
+		$array_column = array ("name" => "Name","total" => "Tổng tiền hàng", 
+		"tel" => "Tel", "address" => "Address", 
+		"description" => "Description","date" => "Modify date", 
+		"id,name,tel,address,description" => "Edit", "id" => "Delete" );
 		$this->commonService->generateJSDatatableSimple ( providerdatatable, 0, 'asc' );
 		$this->commonService->generateJqueryDatatable ( $result, providerdatatable, $array_column );
 	}
