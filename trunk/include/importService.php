@@ -121,6 +121,24 @@ class ImportService {
 		}
 		return $jsonArray;
 	}
+	function getJsonCategory($term) {
+		$qry = "select * from category where name like '%" . $term . "%' ";
+		$result = mysql_query ( $qry, $this->connection );
+		$jsonArray = array ();
+	
+		while ( $rows = mysql_fetch_array ( $result ) ) {
+			$labelvalue = $rows ['name']." - " .$rows ['description'] ;
+			$element = array (
+					code => $rows ['name'],
+					category_id => $rows ['id'],
+					value => $rows ['name'],
+					label => $labelvalue
+			);
+				
+			$jsonArray [] = $element;
+		}
+		return $jsonArray;
+	}
 	function getJsonProductCode($term) {
 		$qry = "select t1.*, (select t2.import_price from product_import t2 where t2.product_code = t1.code limit 1) as impr 
 				from product t1 where t1.code like '%" . $term . "%' ";
