@@ -45,7 +45,24 @@ function edituser(str) {
 	var url = 'modules/user/edituser.php?' + inputUrl;
 	$('#inputArea').load(url);
 }
-
+function changeSex(i) {
+	var oldClass = $("#sex_"+i).attr("class");
+	var newClass = "";
+	var sex_value = "";
+	if(oldClass=='sex_man') { 
+		newClass = 'sex_woman';
+		sex_value = 'WOMAN';
+		sexval = '1';
+	} else {
+		sex_value = 'MAN';
+		sexval = '2';
+		newClass = 'sex_man';
+	}
+	$("#sex_"+i).addClass(newClass);
+	$("#sex_"+i).removeClass(oldClass);
+	$("#sex_"+i).html(sex_value);
+	$("#sex_value_"+i).val(sexval);
+}
 function changeStatusUser() {
 	var oldClass = $("#user_status").attr("class");
 	var newClass = "";
