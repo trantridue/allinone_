@@ -26,8 +26,6 @@ $(document).ready(function(){
 	$("#provider_name").autocomplete(ac_config_provider_name);
 });
 
-
-
 $(document).ready(function(){
 	var ac_config_season = {
 		source: "autocomplete/completed_import_season.php",
@@ -106,7 +104,10 @@ $(function() {
 					<input type="hidden" name="sex_value_<?php echo $i;?>"
 					id="sex_value_<?php echo $i;?>" value="1" /></td>
 				<td><input class="product_category" name="category_<?php echo $i;?>"
-					id="category_<?php echo $i;?>" autocomplete="off" size="20" /></td>
+					id="category_<?php echo $i;?>" autocomplete="off" size="20"/>
+					<input type="hidden" name="category_id_<?php echo $i;?>"
+					id="category_id_<?php echo $i;?>" value="0" />
+					</td>
 				<td><input class="product_brand" name="brand_<?php echo $i;?>"
 					id="brand_<?php echo $i;?>" autocomplete="off" size="15" /></td>
 				<td><input name="description_<?php echo $i;?>"
@@ -139,5 +140,17 @@ $(function() {
 	};
 	$("#code_<?php echo $i;?>").autocomplete(ac_config_product_code_<?php echo $i;?>);
 });
+
+	$(document).ready(function(){
+		var ac_config_category_<?php echo $i;?> = {
+			source: "autocomplete/completed_import_category.php",
+			select: function(event, ui){
+				$("#category_<?php echo $i;?>").val(ui.item.code);
+				$("#category_id_<?php echo $i;?>").val(ui.item.category_id);
+			},
+			minLength:1
+		};
+		$("#category_<?php echo $i;?>").autocomplete(ac_config_category_<?php echo $i;?>);
+	});
 	<?php }?>
 	</script>
