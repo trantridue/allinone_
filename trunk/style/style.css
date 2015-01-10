@@ -180,3 +180,19 @@ input[type='reset'] {
 .edittable {
 	background-color: bisque; padding-top: 10px;
 }
+.sex_man {
+	background-color: pink;
+	height: 18px;
+	width:60px;
+	padding-top:6px;
+	text-align: center;
+	font-weight: bold;
+}
+.sex_woman {
+	background-color: yellow;
+	height: 18px;
+	width:60px;
+	padding-top:6px;
+	text-align: center;
+	font-weight: bold;
+}

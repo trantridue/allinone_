@@ -121,6 +121,31 @@ class ImportService {
 		}
 		return $jsonArray;
 	}
+	function getJsonProductCode($term) {
+		$qry = "select t1.*, (select t2.import_price from product_import t2 where t2.product_code = t1.code limit 1) as impr 
+				from product t1 where t1.code like '%" . $term . "%' ";
+		$result = mysql_query ( $qry, $this->connection );
+		$jsonArray = array ();
+	
+		while ( $rows = mysql_fetch_array ( $result ) ) {
+			$labelvalue = "Code : " . $rows ['code'] . ", name :" . $rows ['name']. ", Sex: ".(($rows ['sex_id']==1)?"WOMAN":"MAN");
+			$element = array (
+					code => $rows ['code'],
+					name => $rows ['name'],
+					post => $rows ['export_price'],
+					sex_id => $rows ['sex_id'],
+					sextext => ($rows ['sex_id']==1)?"WOMAN":"MAN",
+					sexoldclass => ($rows ['sex_id']==2)?"sex_man":"sex_woman",
+					sexnewclass => ($rows ['sex_id']==2)?"sex_woman":"sex_man",
+					impr => $rows ['impr'],
+					value => $rows ['code'],
+					label => $labelvalue
+			);
+				
+			$jsonArray [] = $element;
+		}
+		return $jsonArray;
+	}
 	function getJsonProductName($term) {
 		$qry = "select * from product where name like '%" . $term . "%' ";
 		$result = mysql_query ( $qry, $this->connection );
@@ -131,8 +156,8 @@ class ImportService {
 		return $jsonArray;
 	}
 	function loadDefaultSeason() {
-		$season_time = date('Y-m-d');
-		$qry = "select * from season where '".$season_time."' between start_time and end_time ";
+		$season_time = date('m-d');
+		$qry = "select * from season where '".$season_time."' between DATE_FORMAT(start_time,'%m-%d') and DATE_FORMAT(end_time,'%m-%d') ";
 		$result = mysql_query ( $qry, $this->connection );
 		while ( $rows = mysql_fetch_array ( $result ) ) {
 			$_SESSION['default_season_name'] = $rows['name'];
