@@ -11,6 +11,6 @@ $module = isset ( $_REQUEST ['module'] ) ? $_REQUEST ['module'] : defaultmodule;
 include 'modules/' . $module . '/main.php';
 ?>
 <?php 
-// include 'test.php';
+ include 'test.php';
 ?>
 </div>

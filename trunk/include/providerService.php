@@ -42,10 +42,11 @@ class ProviderService {
 		$qry = "SELECT t1.*,
 		(SELECT sum(import_price*quantity) 
 		FROM product_import where import_facture_code in 
-		(select code from import_facture where provider_id = t1.id)) as total
+		(select code from import_facture where provider_id = t1.id)) as total, (select sum(amount) from provider_paid where provider_id=t1.id) as paid
 		 FROM provider t1 where t1.name like '%" . $name . "%'";
+		
 		$result = mysql_query ( $qry, $this->connection );
-		$array_column = array ("name" => "Name","total" => "Tổng tiền hàng", 
+		$array_column = array ("name" => "Name","total" => "Tổng", "paid" => "Paid", 
 		"tel" => "Tel", "address" => "Address", 
 		"description" => "Description","date" => "Modify date", 
 		"id,name,tel,address,description" => "Edit", "id" => "Delete" );
