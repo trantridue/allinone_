@@ -1,7 +1,16 @@
 //////////COMMON
-function displayMessageServer(data, errorMessage, successMessage,module) {
+function validateBlankField(fieldid) {
+	if ($("#" + fieldid).val() == "") {
+		$("#" + fieldid).addClass("errorField");
+		return false;
+	} else {
+		$("#" + fieldid).removeClass("errorField");
+		return true;
+	}
+}
+function displayMessageServer(data, errorMessage, successMessage, module) {
 	if (data && data != '') {
-		$('#listArea').load("modules/"+module+"/list.php?isdefault=false");
+		$('#listArea').load("modules/" + module + "/list.php?isdefault=false");
 		$('#serverMessage').html(successMessage);
 		$('#serverMessage').addClass('successMessage');
 		$('#serverMessage').removeClass('errorMessage');
@@ -42,7 +51,7 @@ function userpostaction(data, actionType) {
 	}
 	var successMessage = actionType + " user successful";
 
-	displayMessageServer(data, errorMessage, successMessage,"user");
+	displayMessageServer(data, errorMessage, successMessage, "user");
 }
 function validateEditUserForm() {
 	var flag = true;
@@ -50,7 +59,7 @@ function validateEditUserForm() {
 	var userNameReg = /^[a-z0-9_-]{3,15}$/;
 	var nameReg = /^(?!\s*$).+$/;
 	var phoneReg = /^[0-9]{9,12}$/;
-	
+
 	var flag1 = validateField(userNameReg, 'user_username');
 	var flag2 = validateField(emailReg, 'user_email');
 	var flag3 = validateField(nameReg, 'user_name');
@@ -62,8 +71,63 @@ function validateEditUserForm() {
 
 // ////////Import form
 function validateImportForm() {
-	alert('import form');
-	return true;
+	var flag = true;
+	var flagRowWrong = true;
+	var flg_provider_name = true;
+	var flg_description = true;
+	var dataRow = 0;
+	var totalRow = $("#totalRow").val();
+	var atLeastOneNotNul = false;
+	var allNotNull = false;
+	// validate the blank field
+	var flg_import_facture_code = validateBlankField("import_facture_code");
+	var flg_provider_name = validateBlankField("provider_name");
+	var flg_description = validateBlankField("description");
+	var flg_season = validateBlankField("season");
+
+	flag = flg_import_facture_code && flg_provider_name && flg_description
+			&& flg_season;
+	// if (!flag) return false;
+	// validate product line
+	for (var i = 1; i <= totalRow; i++) {
+		var code = '#code_' + i;
+		var name = '#name_' + i;
+		var qty = '#qty_' + i;
+		var post = '#post_' + i;
+		var impr = '#impr_' + i;
+
+		codeval = $(code).val();
+		nameval = $(name).val();
+		qtyval = $(qty).val();
+		postval = $(post).val();
+		imprval = $(impr).val();
+
+		if (codeval != '' && nameval != '') {
+			dataRow++;
+		}
+		$("#dataRow").val(dataRow);
+
+		allNotNull = !(nameval != '' && qtyval != '' && postval != '' && imprval != '');
+		atLeastOneNotNul = (nameval != '' || qtyval != '' || postval != '' || imprval != '');
+
+		if (allNotNull && atLeastOneNotNul) {
+			$(name).addClass("errorField");
+			$(qty).addClass("errorField");
+			$(impr).addClass("errorField");
+			$(post).addClass("errorField");
+			flagRowWrong = false;
+		} else {
+			$(name).removeClass("errorField");
+			$(qty).removeClass("errorField");
+			$(impr).removeClass("errorField");
+			$(post).removeClass("errorField");
+		}
+	}
+	if ($("#dataRow").val() == '0') {
+		alert("No product!");
+		flagdata = false;
+	}
+	return flagRowWrong && flag && flagdata;
 }
 // ///////Provider Form
 
@@ -76,19 +140,19 @@ function providerpostaction(data, actionType) {
 		errorMessage = "Email format not correct, please try again!";
 	}
 	var successMessage = actionType + " provider successful";
-	displayMessageServer(data, errorMessage, successMessage,"provider");
+	displayMessageServer(data, errorMessage, successMessage, "provider");
 }
 function validateEditProviderForm() {
 	var nameReg = /^(?!\s*$).+$/;
 	var telReg = /^[0-9]{9,12}$/;
-	
+
 	var flag1 = validateField(nameReg, 'provider_address');
 	var flag2 = validateField(nameReg, 'provider_name');
 	var flag3 = validateField(telReg, 'provider_tel');
 
-	return flag1 && flag2 && flag3 ;
+	return flag1 && flag2 && flag3;
 }
-/////////Customer Form
+// ///////Customer Form
 
 function customerpostaction(data, actionType) {
 	$('#serverMessage').show();
@@ -99,14 +163,14 @@ function customerpostaction(data, actionType) {
 		errorMessage = "Email format not correct, please try again!";
 	}
 	var successMessage = actionType + " customer successful";
-	displayMessageServer(data, errorMessage, successMessage,"customer");
+	displayMessageServer(data, errorMessage, successMessage, "customer");
 }
 function validateEditCustomerForm() {
 	var nameReg = /^(?!\s*$).+$/;
 	var telReg = /^[0-9]{9,12}$/;
-	
+
 	var flag2 = validateField(nameReg, 'customer_name');
 	var flag3 = validateField(telReg, 'customer_tel');
 
-	return flag2 && flag3 ;
+	return flag2 && flag3;
 }

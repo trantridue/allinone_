@@ -139,9 +139,28 @@ class ImportService {
 		}
 		return $jsonArray;
 	}
+	function getJsonBrand($term) {
+		$qry = "select * from brand where name like '%" . $term . "%' ";
+		$result = mysql_query ( $qry, $this->connection );
+		$jsonArray = array ();
+	
+		while ( $rows = mysql_fetch_array ( $result ) ) {
+			$labelvalue = $rows ['name'];
+			$element = array (
+					code => $rows ['name'],
+					brand_id => $rows ['id'],
+					value => $rows ['name'],
+					label => $labelvalue
+			);
+				
+			$jsonArray [] = $element;
+		}
+		return $jsonArray;
+	}
 	function getJsonProductCode($term) {
-		$qry = "select t1.*, (select t2.import_price from product_import t2 where t2.product_code = t1.code limit 1) as impr 
-				from product t1 where t1.code like '%" . $term . "%' ";
+		$qry = "select t1.*,t2.name as category,t2.id as category_id,t3.name as brand,t3.id as brand_id, 
+				(select t2.import_price from product_import t2 where t2.product_code = t1.code and t2.import_facture_code = (select max(import_facture_code) from product_import where product_code = t2.product_code)) as impr 
+				from product t1,category t2, brand t3 where t1.brand_id = t3.id and t1.category_id = t2.id and t1.code like '%" . $term . "%' ";
 		$result = mysql_query ( $qry, $this->connection );
 		$jsonArray = array ();
 	
@@ -156,6 +175,11 @@ class ImportService {
 					sexoldclass => ($rows ['sex_id']==2)?"sex_man":"sex_woman",
 					sexnewclass => ($rows ['sex_id']==2)?"sex_woman":"sex_man",
 					impr => $rows ['impr'],
+					category => $rows ['category'],
+					category_id => $rows ['category_id'],
+					brand => $rows ['brand'],
+					brand_id => $rows ['brand_id'],
+					description => $rows ['description'],
 					value => $rows ['code'],
 					label => $labelvalue
 			);
