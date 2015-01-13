@@ -50,7 +50,8 @@ class ProviderService {
 		"tel" => "Tel", "address" => "Address", 
 		"description" => "Description","date" => "Modify date", 
 		"id,name,tel,address,description" => "Edit", "id" => "Delete" );
-		$this->commonService->generateJSDatatableSimple ( providerdatatable, 0, 'asc' );
+		$this->commonService->generateJSDatatableComplex ( providerdatatable, 0, 'asc' );
+//		$this->commonService->generateJSDatatableSimple ( providerdatatable, 0, 'asc' );
 		$this->commonService->generateJqueryDatatable ( $result, providerdatatable, $array_column );
 	}
 	function deleteProvider($providerid) {
