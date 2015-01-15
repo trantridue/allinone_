@@ -98,12 +98,12 @@ $(function() {
 						class="sex_woman" onclick="changeSex('<?php echo $i;?>');">WOMAN</div>
 					<input type="hidden" name="sex_value_<?php echo $i;?>"
 					id="sex_value_<?php echo $i;?>" value="1" /></td>
-				<td><input name="category_<?php echo $i;?>"
+				<td><input name="category_<?php echo $i;?>" onkeypress="resetCategoryId('<?php echo $i;?>');"
 					id="category_<?php echo $i;?>" autocomplete="off" size="20" value="VAY"/>
 					<input type="hidden" name="category_id_<?php echo $i;?>"
 					id="category_id_<?php echo $i;?>" value="1" />
 					</td>
-				<td><input name="brand_<?php echo $i;?>" value="MADEVN"
+				<td><input name="brand_<?php echo $i;?>" value="MADEVN" onkeypress="resetBrandId('<?php echo $i;?>');"
 					id="brand_<?php echo $i;?>" autocomplete="off" size="15" />
 					<input type="hidden" name="brand_id_<?php echo $i;?>"
 					id="brand_id_<?php echo $i;?>" value="1" />
@@ -120,6 +120,8 @@ $(function() {
    
     </tbody>
 	</table>
+	<input type="hidden" id="totalRow" name="totalRow" value="<?php echo $rowNum;?>"/>
+	<input type="hidden" id="dataRow" name="dataRow" value="0"/>
 </form>
 <script type="text/javascript">
 $(document).ready(function() {
@@ -189,5 +191,4 @@ $(document).ready(function() {
 	});
 	<?php }?>
 	</script>
-	<input type="hidden" id="totalRow" value="<?php echo $rowNum;?>"/>
-	<input type="hidden" id="dataRow" value="0"/>
+	

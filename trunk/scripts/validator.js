@@ -124,10 +124,11 @@ function validateImportForm() {
 		}
 	}
 	if ($("#dataRow").val() == '0') {
-		alert("No product!");
+		alert("Please add some product!");
 		flagdata = false;
 	}
-	return flagRowWrong && flag && flagdata;
+//	return flagRowWrong && flag && flagdata;
+	return true;
 }
 // ///////Provider Form
 

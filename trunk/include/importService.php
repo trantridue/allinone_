@@ -206,5 +206,23 @@ class ImportService {
 			$_SESSION['default_season_id'] = $rows['id'];
 		}
 	}
+	function updateOrInsertCategory($categoryname,$categoryid) {
+		if($categoryid==null){
+			$qry = "insert into category(name) values ('".$categoryname."')";
+			mysql_query ( $qry, $this->connection );
+			return mysql_insert_id();
+		} else {
+			return $categoryid;
+		}
+	}
+	function updateOrInsertBrand($brandname,$brandid) {
+		if($brandid==null){
+			$qry = "insert into brand(name) values ('".$brandname."')";
+			mysql_query ( $qry, $this->connection );
+			return mysql_insert_id();
+		} else {
+			return $brandid;
+		}
+	}
 }
 ?>
