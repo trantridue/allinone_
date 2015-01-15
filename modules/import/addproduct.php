@@ -1,0 +1,90 @@
+<?php
+$totalRow = $_REQUEST ['totalRow'];
+$dataRow = $_REQUEST ['dataRow'];
+
+$continueImport = trim ( $_REQUEST ['continueImport'] );
+$provider_id = trim ( $_REQUEST ['provider'] );
+$import_facture_code = trim ( $_REQUEST ['import_facture_code'] );
+$description = trim ( $_REQUEST ['description'] );
+$season = trim ( $_REQUEST ['season_id'] );
+
+$codeArray = array (
+		$totalRow 
+);
+for($i = 1; $i <= $totalRow; $i ++) {
+	$codeArray [$i] = trim ( $_POST ['code_' . $i] );
+}
+$nameArray = array (
+		$totalRow 
+);
+for($i = 1; $i <= $totalRow; $i ++) {
+	$nameArray [$i] = trim ( $_POST ['name_' . $i] );
+	if ($nameArray [$i] == null) {
+		echo "===";
+	} else {
+		echo $nameArray [$i];
+	}
+}
+$qtyArray = array (
+		$totalRow 
+);
+for($i = 1; $i <= $totalRow; $i ++) {
+	$qtyArray [$i] = trim ( $_POST ['qty_' . $i] );
+}
+$postArray = array (
+		$totalRow 
+);
+for($i = 1; $i <= $totalRow; $i ++) {
+	$postArray [$i] = trim ( $_POST ['post_' . $i] );
+}
+$imprArray = array (
+		$totalRow 
+);
+for($i = 1; $i <= $totalRow; $i ++) {
+	$imprArray [$i] = trim ( $_POST ['impr_' . $i] );
+}
+$categoryNameArray = array (
+		$totalRow 
+);
+for($i = 1; $i <= $totalRow; $i ++) {
+	$categoryNameArray [$i] = trim ( $_POST ['category_' . $i] );
+}
+$categoryIdArray = array (
+		$totalRow 
+);
+for($i = 1; $i <= $totalRow; $i ++) {
+	$categoryIdArray [$i] = trim ( $_POST ['category_id_' . $i] );
+}
+$brandIdArray = array (
+		$totalRow 
+);
+for($i = 1; $i <= $totalRow; $i ++) {
+	$brandIdArray [$i] = trim ( $_POST ['brand_id_' . $i] );
+}
+$brandNameArray = array (
+		$totalRow 
+);
+for($i = 1; $i <= $totalRow; $i ++) {
+	$brandNameArray [$i] = trim ( $_POST ['brand_' . $i] );
+}
+$descriptionArray = array (
+		$totalRow 
+);
+for($i = 1; $i <= $totalRow; $i ++) {
+	$descriptionArray [$i] = trim ( $_POST ['description_' . $i] );
+}
+$sexArray = array (
+		$totalRow 
+);
+for($i = 1; $i <= $totalRow; $i ++) {
+	$sexArray [$i] = trim ( $_POST ['sex_value_' . $i] );
+}
+for($i = 1; $i <= $totalRow; $i ++) {
+	$categoryIdArray [$i] = $importService->updateOrInsertCategory($categoryNameArray [$i],$categoryIdArray [$i]);
+	echo $categoryIdArray [$i].":".$categoryNameArray [$i]."<br>";
+}
+for($i = 1; $i <= $totalRow; $i ++) {
+	$brandIdArray [$i] = $importService->updateOrInsertBrand($brandNameArray [$i],$brandIdArray [$i]);
+	echo $brandIdArray [$i].":".$brandNameArray [$i]."<br>";
+}
+?>

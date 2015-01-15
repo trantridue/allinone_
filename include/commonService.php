@@ -23,7 +23,7 @@ echo "$(document).ready(  ";
 							echo "}; ";
 							echo "var TotalMarks = 0; ";
 							echo "for (var i = 0; i < data.length; i++) { ";
-								echo "TotalMarks += data[i][2] * data[i][2]; ";
+								echo "TotalMarks += data[i][1] * data[i][1]; ";
 							echo "} ";
 
 							echo "var pageTotal = api.column(2, { ";

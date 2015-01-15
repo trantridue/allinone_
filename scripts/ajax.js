@@ -63,6 +63,12 @@ function changeSex(i) {
 	$("#sex_"+i).html(sex_value);
 	$("#sex_value_"+i).val(sexval);
 }
+function resetCategoryId(i) {	
+	$("#category_id_"+i).val('');
+}
+function resetBrandId(i) {	
+	$("#brand_id_"+i).val('');
+}
 function changeStatusUser() {
 	var oldClass = $("#user_status").attr("class");
 	var newClass = "";
