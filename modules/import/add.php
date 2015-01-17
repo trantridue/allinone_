@@ -58,7 +58,7 @@ $(function() {
 	<label>Provider : </label><input name="provider_name" onkeypress="resetProviderId();"
 		id="provider_name" /><input type="hidden" name="provider_id"
 		id="provider_id" /><?php echo tab4;?>
-	<label>Description : </label><?php echo tab4;?>
+	<?php echo tab4;?>
 	<input type="hidden" name="continueImport" id="continueImport"
 		value="false" /> <label>Season : </label><input name="season"
 		id="season" value="<?php echo $_SESSION['default_season_name'];?>" /><input
@@ -66,7 +66,7 @@ $(function() {
 		value="<?php echo $_SESSION['default_season_id'];?>" /><?php echo tab4;?>
 	<?php $rowNum = $_SESSION ['import_number_row'];?>
 	
-	<br><?php echo tab16;?><?php echo tab4;?><?php echo tab2;?><textarea name="description" id="description" cols="40" rows="3"></textarea><?php echo tab4;?>
+	<br><label>Description : </label><?php echo tab2;?><textarea name="description" id="description" cols="40" rows="3"></textarea><?php echo tab4;?>
 	<strong>Total : <input id="total_facture" value="0" onkeypress="validateNon(event);"/></strong>
 	<input type="submit" value="IMPORT">
 	<hr>

@@ -140,6 +140,9 @@ function displayTowDigit($str) {
 	}
 	return $str;
 }
-
+function getFullDateTime() {
+	$date = date ( 'Y-m-d H:i:s' );
+	return $date;
+}
 }
 ?>
