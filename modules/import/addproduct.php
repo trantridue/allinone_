@@ -14,16 +14,17 @@ $codeArray = array (
 for($i = 1; $i <= $totalRow; $i ++) {
 	$codeArray [$i] = trim ( $_POST ['code_' . $i] );
 }
+$codeExistedArray = array (
+		$totalRow
+);
+for($i = 1; $i <= $totalRow; $i ++) {
+	$codeExistedArray [$i] = trim ( $_POST ['isExisted_' . $i] );
+}
 $nameArray = array (
 		$totalRow 
 );
 for($i = 1; $i <= $totalRow; $i ++) {
 	$nameArray [$i] = trim ( $_POST ['name_' . $i] );
-	if ($nameArray [$i] == null) {
-		echo "===";
-	} else {
-		echo $nameArray [$i];
-	}
 }
 $qtyArray = array (
 		$totalRow 
@@ -80,11 +81,13 @@ for($i = 1; $i <= $totalRow; $i ++) {
 	$sexArray [$i] = trim ( $_POST ['sex_value_' . $i] );
 }
 for($i = 1; $i <= $totalRow; $i ++) {
-	$categoryIdArray [$i] = $importService->updateOrInsertCategory($categoryNameArray [$i],$categoryIdArray [$i]);
-	echo $categoryIdArray [$i].":".$categoryNameArray [$i]."<br>";
+	if ($nameArray [$i] == null) {
+		$categoryIdArray [$i] = $importService->updateOrInsertCategory($categoryNameArray [$i],$categoryIdArray [$i]);
+	}
 }
 for($i = 1; $i <= $totalRow; $i ++) {
-	$brandIdArray [$i] = $importService->updateOrInsertBrand($brandNameArray [$i],$brandIdArray [$i]);
-	echo $brandIdArray [$i].":".$brandNameArray [$i]."<br>";
+	if ($nameArray [$i] == null) {
+		$brandIdArray [$i] = $importService->updateOrInsertBrand($brandNameArray [$i],$brandIdArray [$i]);
+	}
 }
 ?>

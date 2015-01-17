@@ -55,7 +55,7 @@ $(function() {
 	<label>Facture Code : </label><input onkeydown="resetContinue();"
 		name="import_facture_code" id="import_facture_code"
 		value="<?php echo $importService->getImportFactureCode();?>" /><?php echo tab4;?>
-	<label>Provider : </label><input name="provider_name"
+	<label>Provider : </label><input name="provider_name" onkeypress="resetProviderId();"
 		id="provider_name" /><input type="hidden" name="provider_id"
 		id="provider_id" /><?php echo tab4;?>
 	<label>Description : </label><input name="description" id="description" /><?php echo tab4;?>
@@ -83,9 +83,11 @@ $(function() {
 			</tr>       
     <?php for ($i=1;$i<=$rowNum;$i++) { ?>
     <tr>
-				<td><input name="code_<?php echo $i;?>" id="code_<?php echo $i;?>"
+				<td><input name="code_<?php echo $i;?>" id="code_<?php echo $i;?>" onkeypress="resetExisted('<?php echo $i;?>');"
 					autocomplete="off" size="7"
-					value="<?php echo $importService->currentMaxProductCode($i);?>" /></td>
+					value="<?php echo $importService->currentMaxProductCode($i);?>" />
+					<input type="hidden" name="isExisted_<?php echo $i;?>"
+					id="isExisted_<?php echo $i;?>" value="false" /></td>
 				<td><input class="product_name" name="name_<?php echo $i;?>"
 					id="name_<?php echo $i;?>" autocomplete="off" size="40" /></td>
 				<td><input name="qty_<?php echo $i;?>" id="qty_<?php echo $i;?>"
@@ -110,8 +112,7 @@ $(function() {
 					</td>
 				<td><input name="description_<?php echo $i;?>"
 					id="description_<?php echo $i;?>" autocomplete="off" size="40" />
-					<input type="hidden" name="isExisted_<?php echo $i;?>"
-					id="isExisted_<?php echo $i;?>" value="false" />
+					
 					</td>
 			</tr>
     <?php
