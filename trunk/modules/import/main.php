@@ -1,14 +1,10 @@
-<script type="text/javascript">
-
-</script>
 <div id="inputArea">
-	<div id="basicInputArea"><?php include 'basicinput.php';?></div>
-	<div id="advancedInputArea" style="display: none;"><?php include 'advancedinput.php';?></div>
-	<input type="button" value="SHOW ADVANCED"
-		onclick="toggleDiv('advancedInputArea');">
+<?php
+$submodule = isset ( $_REQUEST ['submenu'] ) ? $_REQUEST ['submenu'] : defaultsubmodule;
+include $submodule . '.php';
+?>
 </div>
 <hr>
 <div id="listArea">
-	<div id="suplementaryListArea"></div>
-	<div id="mainListArea"><?php include 'list.php'?></div>
+<?php include 'list.php'?>
 </div>
