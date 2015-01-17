@@ -3,11 +3,11 @@ $totalRow = $_REQUEST ['totalRow'];
 $dataRow = $_REQUEST ['dataRow'];
 
 $continueImport = trim ( $_REQUEST ['continueImport'] );
-$provider_id = trim ( $_REQUEST ['provider'] );
+$provider_id = trim ( $_REQUEST ['provider_id'] );
 $import_facture_code = trim ( $_REQUEST ['import_facture_code'] );
 $description = trim ( $_REQUEST ['description'] );
 $season = trim ( $_REQUEST ['season_id'] );
-echo $description;
+
 $codeArray = array (
 		$totalRow 
 );
@@ -26,6 +26,7 @@ $nameArray = array (
 for($i = 1; $i <= $totalRow; $i ++) {
 	$nameArray [$i] = trim ( $_POST ['name_' . $i] );
 }
+
 $qtyArray = array (
 		$totalRow 
 );
@@ -74,6 +75,7 @@ $descriptionArray = array (
 for($i = 1; $i <= $totalRow; $i ++) {
 	$descriptionArray [$i] = trim ( $_POST ['description_' . $i] );
 }
+
 $sexArray = array (
 		$totalRow 
 );
@@ -90,4 +92,7 @@ for($i = 1; $i <= $totalRow; $i ++) {
 		$brandIdArray [$i] = $importService->updateOrInsertBrand($brandNameArray [$i],$brandIdArray [$i]);
 	}
 }
+$importService->importProduct($totalRow,$continueImport,$provider_id,$import_facture_code,$description,$season,
+		$codeArray,$codeExistedArray,$nameArray,$qtyArray,$postArray,$imprArray,$sexArray,$categoryIdArray,$brandIdArray,
+		$descriptionArray);
 ?>
