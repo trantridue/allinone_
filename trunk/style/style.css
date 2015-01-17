@@ -196,3 +196,13 @@ input[type='reset'] {
 	text-align: center;
 	font-weight: bold;
 }
+#total_facture{
+	background-color: #74dd89;
+	border: none;
+	
+	font-weight: bold;
+	font-size: 12pt;
+}
+textarea {
+    resize: none;
+}
