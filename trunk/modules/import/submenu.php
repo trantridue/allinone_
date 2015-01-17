@@ -6,6 +6,7 @@ $module = isset ( $_REQUEST ['module'] ) ? $_REQUEST ['module'] : defaultmodule;
 <?php
 $arr = array (
 		"search" => "LIST",
+		"sale" => "SALE",
 		"add" => "ADD" 
 );
 
