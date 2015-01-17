@@ -2,11 +2,13 @@
 function validateBlankField(fieldid) {
 	if ($("#" + fieldid).val() == "") {
 		$("#" + fieldid).addClass("errorField");
-		if(fieldid=="provider_id") $("#provider_name").addClass("errorField");
+		if (fieldid == "provider_id")
+			$("#provider_name").addClass("errorField");
 		return false;
 	} else {
 		$("#" + fieldid).removeClass("errorField");
-		if(fieldid=="provider_id") $("#provider_name").removeClass("errorField");
+		if (fieldid == "provider_id")
+			$("#provider_name").removeClass("errorField");
 		return true;
 	}
 }
@@ -88,8 +90,8 @@ function validateImportForm() {
 	var flg_description = validateBlankField("description");
 	var flg_season = validateBlankField("season");
 
-	flag = flg_import_facture_code && flg_provider_name && flg_description && flg_provider_id
-			&& flg_season;
+	flag = flg_import_facture_code && flg_provider_name && flg_description
+			&& flg_provider_id && flg_season;
 	// if (!flag) return false;
 	// validate product line
 	for (var i = 1; i <= totalRow; i++) {
@@ -131,7 +133,7 @@ function validateImportForm() {
 		flagdata = false;
 	}
 	return flagRowWrong && flag && flagdata;
-//	return true;
+	// return true;
 }
 // ///////Provider Form
 
@@ -177,4 +179,17 @@ function validateEditCustomerForm() {
 	var flag3 = validateField(telReg, 'customer_tel');
 
 	return flag2 && flag3;
+}
+function calculateImportFacture() {
+	var total = 0;
+	var totalRow = parseInt($("#totalRow").val());
+	for (var i = 1; i < totalRow; i++) {
+		var qty = ($("#qty_1").val() == "") ? 0
+				: parseInt($("#qty_" + i).val());
+		var impr = ($("#impr_1").val() == "") ? 0 : parseInt($("#impr_" + i)
+				.val());
+		if (impr && qty)
+			total = total + qty * impr;
+	}
+	$("#total_facture").val(total);
 }

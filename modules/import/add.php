@@ -58,13 +58,16 @@ $(function() {
 	<label>Provider : </label><input name="provider_name" onkeypress="resetProviderId();"
 		id="provider_name" /><input type="hidden" name="provider_id"
 		id="provider_id" /><?php echo tab4;?>
-	<label>Description : </label><input name="description" id="description" /><?php echo tab4;?>
+	<label>Description : </label><?php echo tab4;?>
 	<input type="hidden" name="continueImport" id="continueImport"
 		value="false" /> <label>Season : </label><input name="season"
 		id="season" value="<?php echo $_SESSION['default_season_name'];?>" /><input
 		name="season_id" id="season_id" type="hidden"
 		value="<?php echo $_SESSION['default_season_id'];?>" /><?php echo tab4;?>
 	<?php $rowNum = $_SESSION ['import_number_row'];?>
+	
+	<br><?php echo tab16;?><?php echo tab4;?><?php echo tab2;?><textarea name="description" id="description" cols="40" rows="3"></textarea><?php echo tab4;?>
+	<strong>Total : <input id="total_facture" value="0" onkeypress="validateNon(event);"/></strong>
 	<input type="submit" value="IMPORT">
 	<hr>
 	<table width="100%" border="0" cellspacing="0" cellpadding="2"
@@ -90,11 +93,11 @@ $(function() {
 					id="isExisted_<?php echo $i;?>" value="false" /></td>
 				<td><input class="product_name" name="name_<?php echo $i;?>"
 					id="name_<?php echo $i;?>" autocomplete="off" size="40" /></td>
-				<td><input name="qty_<?php echo $i;?>" id="qty_<?php echo $i;?>"
+				<td><input name="qty_<?php echo $i;?>" id="qty_<?php echo $i;?>" onkeyup="calculateImportFacture();"
 					autocomplete="off" size="7" /></td>
 				<td><input name="post_<?php echo $i;?>" id="post_<?php echo $i;?>"
 					autocomplete="off" size="7" /></td>
-				<td><input name="impr_<?php echo $i;?>" id="impr_<?php echo $i;?>"
+				<td><input name="impr_<?php echo $i;?>" id="impr_<?php echo $i;?>" onkeyup="calculateImportFacture();"
 					autocomplete="off" size="7" /></td>
 				<td><div id="sex_<?php echo $i;?>" name="sex_<?php echo $i;?>"
 						class="sex_woman" onclick="changeSex('<?php echo $i;?>');">WOMAN</div>
@@ -162,6 +165,7 @@ $(document).ready(function() {
 			$("#brand_id_<?php echo $i;?>").val(ui.item.brand_id);
 			$("#description_<?php echo $i;?>").val(ui.item.description);
 			$("#isExisted_<?php echo $i;?>").val("true");
+			calculateImportFacture();
 		},
 		minLength:1
 	};

@@ -7,7 +7,7 @@ $provider_id = trim ( $_REQUEST ['provider'] );
 $import_facture_code = trim ( $_REQUEST ['import_facture_code'] );
 $description = trim ( $_REQUEST ['description'] );
 $season = trim ( $_REQUEST ['season_id'] );
-
+echo $description;
 $codeArray = array (
 		$totalRow 
 );
