@@ -191,5 +191,12 @@ function calculateImportFacture() {
 		if (impr && qty)
 			total = total + qty * impr;
 	}
-	$("#total_facture").val(total);
+	$("#total_facture").val(total.toFixed(2));
+}
+function toggleDiv(divID) {
+	if($('#'+divID).css('display')=="none") {
+		$('#'+divID).show();
+	} else {
+		$('#'+divID).hide();
+	}
 }

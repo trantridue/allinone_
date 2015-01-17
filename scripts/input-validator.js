@@ -2,7 +2,7 @@ function validateFloat(evt) {
 	var theEvent = evt || window.event;
 	var key = theEvent.keyCode || theEvent.which;
 	key = String.fromCharCode(key);
-	var regex = /[0-9,a-z,A-Z,\b]|\.|\t|-|_/;
+	var regex = /[0-9,\b]|\t|\.|\t/;
 	if (!regex.test(key)) {
 		theEvent.returnValue = false;
 		if (theEvent.preventDefault)

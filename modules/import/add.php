@@ -93,11 +93,13 @@ $(function() {
 					id="isExisted_<?php echo $i;?>" value="false" /></td>
 				<td><input class="product_name" name="name_<?php echo $i;?>"
 					id="name_<?php echo $i;?>" autocomplete="off" size="40" /></td>
-				<td><input name="qty_<?php echo $i;?>" id="qty_<?php echo $i;?>" onkeyup="calculateImportFacture();"
+				<td><input name="qty_<?php echo $i;?>" id="qty_<?php echo $i;?>" onkeyup="calculateImportFacture();" onkeypress="validateFloat(event);"
+					autocomplete="off" size="7" maxlength="4" /></td>
+				<td><input name="post_<?php echo $i;?>" id="post_<?php echo $i;?>" onkeypress="validateFloat(event);"  
+				maxlength="6"
 					autocomplete="off" size="7" /></td>
-				<td><input name="post_<?php echo $i;?>" id="post_<?php echo $i;?>"
-					autocomplete="off" size="7" /></td>
-				<td><input name="impr_<?php echo $i;?>" id="impr_<?php echo $i;?>" onkeyup="calculateImportFacture();"
+				<td><input name="impr_<?php echo $i;?>" id="impr_<?php echo $i;?>" onkeyup="calculateImportFacture();" 
+				onkeypress="validateFloat(event);"  maxlength="6"
 					autocomplete="off" size="7" /></td>
 				<td><div id="sex_<?php echo $i;?>" name="sex_<?php echo $i;?>"
 						class="sex_woman" onclick="changeSex('<?php echo $i;?>');">WOMAN</div>
