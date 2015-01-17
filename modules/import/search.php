@@ -1,5 +1,8 @@
-<form>
-	<input id="user_name_id"> <input type="button" name="search_btn"
-		value="Search" onclick="javascript:listUser();"> <input
-		type="reset" value="Reset" />
-</form>
+<input type="button" value="SHOW ADVANCED"
+	onclick="toggleDiv('advancedInputArea');">
+<div id="basicInputArea"><?php
+include 'basicinput.php';
+?></div>
+<div id="advancedInputArea" style="display: none;"><?php
+include 'advancedinput.php';
+?></div>
