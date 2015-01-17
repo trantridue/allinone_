@@ -2,9 +2,11 @@
 function validateBlankField(fieldid) {
 	if ($("#" + fieldid).val() == "") {
 		$("#" + fieldid).addClass("errorField");
+		if(fieldid=="provider_id") $("#provider_name").addClass("errorField");
 		return false;
 	} else {
 		$("#" + fieldid).removeClass("errorField");
+		if(fieldid=="provider_id") $("#provider_name").removeClass("errorField");
 		return true;
 	}
 }
@@ -82,10 +84,11 @@ function validateImportForm() {
 	// validate the blank field
 	var flg_import_facture_code = validateBlankField("import_facture_code");
 	var flg_provider_name = validateBlankField("provider_name");
+	var flg_provider_id = validateBlankField("provider_id");
 	var flg_description = validateBlankField("description");
 	var flg_season = validateBlankField("season");
 
-	flag = flg_import_facture_code && flg_provider_name && flg_description
+	flag = flg_import_facture_code && flg_provider_name && flg_description && flg_provider_id
 			&& flg_season;
 	// if (!flag) return false;
 	// validate product line
@@ -127,8 +130,8 @@ function validateImportForm() {
 		alert("Please add some product!");
 		flagdata = false;
 	}
-//	return flagRowWrong && flag && flagdata;
-	return true;
+	return flagRowWrong && flag && flagdata;
+//	return true;
 }
 // ///////Provider Form
 

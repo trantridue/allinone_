@@ -69,6 +69,12 @@ function resetCategoryId(i) {
 function resetBrandId(i) {	
 	$("#brand_id_"+i).val('');
 }
+function resetExisted(i) {	
+	$("#isExisted_"+i).val('false');
+}
+function resetProviderId() {	
+	$("#provider_id).val('');
+}
 function changeStatusUser() {
 	var oldClass = $("#user_status").attr("class");
 	var newClass = "";
