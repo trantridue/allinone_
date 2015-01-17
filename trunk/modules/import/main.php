@@ -6,5 +6,7 @@ include $submodule . '.php';
 </div>
 <hr>
 <div id="listArea">
-<?php include 'list.php'?>
+<?php
+if ($submodule == "search")
+	include 'list.php'?>
 </div>
