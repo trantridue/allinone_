@@ -1,1 +1,1 @@
-advance
+<input type="text" name="date">

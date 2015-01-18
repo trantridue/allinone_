@@ -1,43 +1,4 @@
 <script type="text/javascript">
-
-$(document).ready(function(){
-	var ac_config_import_facture = {
-		source: "autocomplete/completed_import_facture_code.php",
-		select: function(event, ui){
-			$("#import_facture_code").val(ui.item.code);
-			$("#description").val(ui.item.description);
-			$("#provider_name").val(ui.item.provider_name);
-			$("#provider_id").val(ui.item.provider_id);
-			$("#continueImport").val("true");
-		},
-		minLength:1
-	};
-	$("#import_facture_code").autocomplete(ac_config_import_facture);
-});
-$(document).ready(function(){
-	var ac_config_provider_name = {
-		source: "autocomplete/completed_import_provider_name.php",
-		select: function(event, ui){
-			$("#provider_name").val(ui.item.code);
-			$("#provider_id").val(ui.item.provider_id);
-		},
-		minLength:1
-	};
-	$("#provider_name").autocomplete(ac_config_provider_name);
-});
-
-$(document).ready(function(){
-	var ac_config_season = {
-		source: "autocomplete/completed_import_season.php",
-		select: function(event, ui){
-			$("#season").val(ui.item.code);
-			$("#season_id").val(ui.item.season_id);
-		},
-		minLength:1
-	};
-	$("#season").autocomplete(ac_config_season);
-});
-
 function resetContinue(){ 
 	$("#continueImport").val(false);
 }

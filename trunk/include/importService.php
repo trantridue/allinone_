@@ -39,10 +39,15 @@ class ImportService {
 		$this->HandleError ( $err . "\r\n mysqlerror:" . mysql_error () );
 	}
 	//
-	function listProduct($username) {
-		$this->commonService->generateJqueryDatatable ( $username );
-		$qry = "select * from user";
+	function listProduct($code) {
+		$qry = "select * from product";
 		$result = mysql_query ( $qry, $this->connection );
+		$array_column = array (
+				"code" => "Code",
+				"name" => "Name"
+		);
+		$this->commonService->generateJSDatatableSimple ( 'product', 0, 'asc' );
+		$this->commonService->generateJqueryDatatable ( $result, 'product', $array_column );
 	}
 	function currentMaxProductCode($i) {
 		$qry = "select max(code) as maxproductcode from product where code > 0000 and code <9999 and length(code)=4 limit 1";
