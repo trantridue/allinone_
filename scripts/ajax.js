@@ -73,7 +73,7 @@ function resetExisted(i) {
 	$("#isExisted_"+i).val('false');
 }
 function resetProviderId() {	
-	$("#provider_id).val('');
+	$("#provider_id").val('');
 }
 function changeStatusUser() {
 	var oldClass = $("#user_status").attr("class");
@@ -147,3 +147,100 @@ $(function() {
 	});
 });
 
+//////////PRODUCT IMPORT
+$(document).ready(function(){
+	var ac_config_import_facture = {
+		source: "autocomplete/completed_import_facture_code.php",
+		select: function(event, ui){
+			$("#import_facture_code").val(ui.item.code);
+			$("#description").val(ui.item.description);
+			$("#provider_name").val(ui.item.provider_name);
+			$("#provider_id").val(ui.item.provider_id);
+			$("#continueImport").val("true");
+		},
+		minLength:1
+	};
+	$("#import_facture_code").autocomplete(ac_config_import_facture);
+});
+$(document).ready(function(){
+	var ac_config_provider_name = {
+		source: "autocomplete/completed_import_provider_name.php",
+		select: function(event, ui){
+			$("#provider_name").val(ui.item.code);
+			$("#provider_id").val(ui.item.provider_id);
+		},
+		minLength:1
+	};
+	$("#provider_name").autocomplete(ac_config_provider_name);
+});
+
+$(document).ready(function(){
+	var ac_config_season = {
+		source: "autocomplete/completed_import_season.php",
+		select: function(event, ui){
+			$("#season").val(ui.item.code);
+			$("#season_id").val(ui.item.season_id);
+		},
+		minLength:1
+	};
+	$("#season").autocomplete(ac_config_season);
+});
+$(document).ready(function(){
+	var ac_config_product_code = {
+		source: "autocomplete/completed_import_products_code.php",
+		select: function(event, ui){
+			$("#product_code").val(ui.item.code);
+		},
+		minLength:1
+	};
+	$("#product_code").autocomplete(ac_config_product_code);
+});
+
+	$(document).ready(function(){
+		var ac_config_category = {
+			source: "autocomplete/completed_import_category.php",
+			select: function(event, ui){
+				$("#category_name").val(ui.item.code);
+			},
+			minLength:1
+		};
+		$("#category_name").autocomplete(ac_config_category);
+	});
+	$(document).ready(function(){
+		var ac_config_brand = {
+			source: "autocomplete/completed_import_brand.php",
+			select: function(event, ui){
+				$("#brand_name").val(ui.item.code);
+			},
+			minLength:1
+		};
+		$("#brand_name").autocomplete(ac_config_brand);
+	});
+	$(function() {
+		$("#product_name").autocomplete( {
+			source : "autocomplete/productname.php",
+			minLength : 1
+		});
+	});
+function listProduct() {
+	var isdefault = "false";
+	var product_code = $('#product_code').val();
+	var product_name = $('#product_name').val();
+	var provider_name = $('#provider_name').val();
+	var category_name = $('#category_name').val();
+	var brand_name = $('#brand_name').val();
+	var season = $('#season').val();
+	var season_id = $('#season_id').val();
+	var description = $('#description').val();
+	
+	var url = "modules/import/listproduct.php" + "?isdefault=" + isdefault
+			+ "&product_code=" + encodeURIComponent(product_code) 
+			+ "&product_name=" + encodeURIComponent(product_name) 
+			+ "&category_name=" + encodeURIComponent(category_name) 
+			+ "&brand_name=" + encodeURIComponent(brand_name) 
+			+ "&season=" + encodeURIComponent(season) 
+			+ "&provider_name=" + encodeURIComponent(provider_name) 
+			+ "&season_id=" + encodeURIComponent(season_id) 
+			+ "&description=" + encodeURIComponent(description);
+	$('#mainListArea').load(url);
+}

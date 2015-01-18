@@ -25,11 +25,12 @@ if (! $fgmembersite->CheckLogin ()) {
 <script src="scripts/jquery.dataTables.min.js"></script>
 <script src="scripts/tables.js"></script>
 <script src="scripts/ui.js"></script>
-<script src="scripts/ajax.js"></script>
+
 <script src="scripts/validator.js"></script>
 <script src="scripts/input-validator.js"></script>
 <link rel="stylesheet" href="style/jquery-ui.css">
 <script src="scripts/jquery-ui.js"></script>
+<script src="scripts/ajax.js"></script>
 </head>
 <body>
 <div id='main_page_wrap'>
