@@ -8,5 +8,5 @@ include $submodule . '.php';
 <div id="listArea">
 <?php
 if ($submodule == "search")
-	include 'list.php'?>
+	include 'list.php';?>
 </div>
