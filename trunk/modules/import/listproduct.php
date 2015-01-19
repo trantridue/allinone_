@@ -7,6 +7,7 @@ echo "brand_name: " . $_REQUEST['brand_name']."<br>";
 echo "season: " . $_REQUEST['season']."<br>"; 
 echo "season_id: " . $_REQUEST['season_id']."<br>"; 
 echo "description: " . $_REQUEST['description']."<br>"; 
+echo "isdefault: " . $_REQUEST['isdefault']."<br>"; 
 
 $isdefault = $_REQUEST ['isdefault'];
 if ($isdefault == "false") {
@@ -15,6 +16,8 @@ if ($isdefault == "false") {
 	require_once ("../../include/commonService.php");
 	$commonService = new CommonService ();
 	$importService = new ImportService ( hostname, username, password, database, $commonService );
+	$importService->listProduct('aaa');
+} else {
+	$importService->listProductDefault('aaa');
 }
-$importService->listProduct('aaa');
 ?>
