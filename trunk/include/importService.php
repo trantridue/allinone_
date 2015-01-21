@@ -56,7 +56,7 @@ FROM product_import t1,product t2,import_facture t3 where t1.product_code = t2.c
 				"import_price" => "Giá nhập",
 				"provider_name" => "Cung Cấp"
 		);
-		$this->commonService->generateJSDatatableSimple ( 'product', 0, 'asc' );
+		$this->commonService->generateJSDatatableComplexProduct ( 'product', 0, 'asc' );
 		$this->commonService->generateJqueryDatatable ( $result, 'product', $array_column );
 	}
 	function listProductDefault($code) {
