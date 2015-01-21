@@ -5,6 +5,44 @@ class CommonService {
 		echo "$(document).ready(function() { $('#" . datatable_prefix . $datatable_id . "').dataTable({'order': [[ " . $ordercolumn . ", '" . $ordertype . "' ]]});});";
 		echo "</script>";
 	}
+	function generateJSDatatableComplexProduct($datatable_id, $ordercolumn, $ordertype) {
+		echo "<script>  ";
+echo "$(document).ready(  ";
+		echo "function() {  ";
+			echo "$('#" . datatable_prefix . $datatable_id . "').dataTable(  ";
+					echo "{ ";
+						echo "'destroy': true, ";
+						echo "'order': [[ 0, 'asc' ]], ";
+						echo "'footerCallback' : function(row, data, start, end, ";
+								echo "display) { ";
+							echo "var api = this.api(), data; ";
+							echo "var intVal = function(i) { ";
+								echo "return typeof i === 'string' ? i.replace( ";
+										echo "/[\$,]/g, '') * 1  ";
+										echo ": typeof i === 'number' ? i : 0; ";
+							echo "}; ";
+							echo "var TotalMarks = 0; ";
+							echo "for (var i = 0; i < data.length; i++) { ";
+								echo "TotalMarks += data[i][3] * data[i][5]; ";
+							echo "} ";
+
+							echo "var pageTotal = api.column(5, { ";
+								echo "page : 'current' ";
+							echo "}).data().reduce(function(a, b) { ";
+								echo "return intVal(a) + intVal(b); ";
+							echo "}); ";
+							echo "var pageTotal1 = api.column(3 , { ";
+								echo "page : 'current' ";
+							echo "}).data().reduce(function(a, b) { ";
+								echo "return intVal(a) + intVal(b); ";
+							echo "}); ";
+							echo "$(api.column(1).footer()).html( ";
+									echo "'Total :<strong>' + TotalMarks + '</strong> and Current page:<strong>' + parseInt(pageTotal+pageTotal1) + '</strong>'); ";
+						echo "}";
+					echo "});";
+		echo "}); ";
+echo "</script> ";
+	}
 	function generateJSDatatableComplex($datatable_id, $ordercolumn, $ordertype) {
 		echo "<script>  ";
 echo "$(document).ready(  ";
