@@ -49,8 +49,3 @@ $(document)
 										}
 									});
 				});
-$(document).ready(function() {
-	$('#table_list_product').dataTable( {
-		'order' : [ [ 0, 'asc' ] ]
-	});
-});
