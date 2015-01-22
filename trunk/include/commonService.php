@@ -12,7 +12,7 @@ echo "$(document).ready(  ";
 			echo "$('#" . datatable_prefix . $datatable_id . "').dataTable(  ";
 					echo "{ ";
 						echo "'destroy': true, ";
-						echo "'order': [[ 0, 'asc' ]], ";
+						echo "'order': [[ " . $ordercolumn . ", '" . $ordertype . "' ]], ";
 						echo "'footerCallback' : function(row, data, start, end, ";
 								echo "display) { ";
 							echo "var api = this.api(), data; ";
