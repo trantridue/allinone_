@@ -26,18 +26,20 @@ echo "$(document).ready(  ";
 								echo "Total += data[i][0] * data[i][1]; ";
 							echo "} ";
 
-							echo "var col0 = api.column(0, { ";
+							echo "var sumline='';";
+							
+							foreach ( $array_total as $value => $key ) {
+								echo "var col".$value." = api.column(".$value." , { ";
 								echo "page : 'current' ";
-							echo "}).data().reduce(function(a, b) { ";
+								echo "}).data().reduce(function(a, b) { ";
 								echo "return intVal(a) + intVal(b); ";
-							echo "}); ";
-							echo "var col1 = api.column(1 , { ";
-								echo "page : 'current' ";
-							echo "}).data().reduce(function(a, b) { ";
-								echo "return intVal(a) + intVal(b); ";
-							echo "}); ";
+								echo "}); ";
+							}
+							foreach ( $array_total as $value => $key ) {
+								echo "sumline = sumline + '".$key." : ' + col".$value." + '&nbsp;and&nbsp;';";
+							}
 							echo "$(api.column(1).footer()).html( ";
-									echo "'TotalLabel :<strong>' + Total + '</strong> and col0:<strong>' + col0 + '</strong>' + '</strong> and col1:<strong>' + col1 + '</strong>' ";
+							echo "'Tổng: ' + Total + '&nbsp;&nbsp;&nbsp;' +sumline ";
 						echo ");}";
 					echo "});";
 		echo "}); ";
