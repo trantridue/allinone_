@@ -60,7 +60,7 @@ FROM product_import t1,product t2,import_facture t3 where t1.product_code = t2.c
 		$array_total = array (
 				0 => "Số lượng",
 				1 => "Giá",
-				2 => "Tổng tiền"
+				3 => "Code",
 		);
 		$this->commonService->generateJSDatatableComplexProduct ( 'product', 0, 'asc',$array_total );
 		$this->commonService->generateJqueryDatatable ( $result, 'product', $array_column );
