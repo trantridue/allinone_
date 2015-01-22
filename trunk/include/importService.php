@@ -48,15 +48,21 @@ class ImportService {
 FROM product_import t1,product t2,import_facture t3 where t1.product_code = t2.code and t1.import_facture_code = t3.code";
 		$result = mysql_query ( $qry, $this->connection );
 		$array_column = array (
+				"quantity" => "Số lượng",
+				"import_price" => "Giá nhập",
+				"quantity*import_price" => "complex",
 				"product_code" => "Code",
 				"name" => "Tên Hàng",
 				"code" => "Mã Hóa Đơn",
-				"quantity" => "Số lượng",
-				"season_name" => "Mùa",
-				"import_price" => "Giá nhập",
-				"provider_name" => "Cung Cấp"
+				"provider_name" => "Cung Cấp",
+				"season_name" => "Mùa"				 
 		);
-		$this->commonService->generateJSDatatableComplexProduct ( 'product', 0, 'asc' );
+		$array_total = array (
+				0 => "Số lượng",
+				1 => "Giá",
+				2 => "Tổng tiền"
+		);
+		$this->commonService->generateJSDatatableComplexProduct ( 'product', 0, 'asc',$array_total );
 		$this->commonService->generateJqueryDatatable ( $result, 'product', $array_column );
 	}
 	function listProductDefault($code) {
