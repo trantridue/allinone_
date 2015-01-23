@@ -67,6 +67,9 @@ echo "</script> ";
 		foreach ( $array_column as $value => $key ) {
 			if ($key == 'hidden_field' || $key == 'complex') {
 				echo "<th style='display: none;'>" . $key . "</th>";
+			} else if(sizeof(explode ( ",", $key ))>1){
+				$fieldskey = explode ( ",", $key );
+				echo "<th>" . $fieldskey[0] . "</th>";
 			} else {
 				echo "<th>" . $key . "</th>";
 			}
@@ -111,7 +114,7 @@ echo "</script> ";
 					}
 				} else if(sizeof(explode ( ",", $key ))>1) {
 					$fields = explode ( ",", $value );
-// 					echo "<td>" . $rows [$fieldslink[0]].  $rows [$fieldslink[1]] . "</td>";
+					$fieldskey = explode ( ",", $key );
 					$str = "";
 					for($i = 0; $i < sizeof ( $fields ); $i ++) {
 						if($i==sizeof ( $fields )-1){
@@ -120,7 +123,7 @@ echo "</script> ";
 							$str = $str . $fields [$i] . "=" . $rows [$fields [$i]] . "&";
 						}
 					}
-					echo "<td><a onclick='editby".$fields [0]."(\"".$str."\");' href='javascript:void(0);'>".$key."</a></td>";
+					echo "<td><a onclick='editby".$fields [0]."(\"".$str."\");' href='javascript:void(0);'>".$rows [$fieldskey [1]]."</a></td>";
 				}else {
 					echo "<td>" . $rows [$value] . "</td>";
 				}
