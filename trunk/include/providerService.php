@@ -46,12 +46,22 @@ class ProviderService {
 		 FROM provider t1 where t1.name like '%" . $name . "%'";
 		
 		$result = mysql_query ( $qry, $this->connection );
-		$array_column = array ("name" => "Name","total" => "Tổng", "paid" => "Paid", 
-		"tel" => "Tel", "address" => "Address", 
-		"description" => "Description","date" => "Modify date", 
-		"id,name,tel,address,description" => "Edit", "id" => "Delete" );
-		$this->commonService->generateJSDatatableComplex ( providerdatatable, 0, 'asc' );
-//		$this->commonService->generateJSDatatableSimple ( providerdatatable, 0, 'asc' );
+		$array_column = array (
+		"name" => "Name",
+		"total" => "Tổng", 
+		"paid" => "Paid", 
+		"tel" => "Tel", 
+		"address" => "Address", 
+		"description" => "Description",
+		"date" => "Modify date", 
+		"id,name,tel,address,description" => "Edit", 
+		"id" => "Delete" 
+		);
+		$array_total = array (
+				1 => "Tổng nợ",
+				2 => "đã trả"
+		);
+		$this->commonService->generateJSDatatableComplex ( providerdatatable, 0, 'desc',$array_total );
 		$this->commonService->generateJqueryDatatable ( $result, providerdatatable, $array_column );
 	}
 	function deleteProvider($providerid) {

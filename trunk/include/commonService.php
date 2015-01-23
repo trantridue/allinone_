@@ -5,7 +5,7 @@ class CommonService {
 		echo "$(document).ready(function() { $('#" . datatable_prefix . $datatable_id . "').dataTable({'order': [[ " . $ordercolumn . ", '" . $ordertype . "' ]]});});";
 		echo "</script>";
 	}
-	function generateJSDatatableComplexProduct($datatable_id, $ordercolumn, $ordertype, $array_total) {
+	function generateJSDatatableComplex($datatable_id, $ordercolumn, $ordertype, $array_total) {
 		echo "<script>  ";
 echo "$(document).ready(  ";
 		echo "function() {  ";
@@ -21,68 +21,42 @@ echo "$(document).ready(  ";
 										echo "/[\$,]/g, '') * 1  ";
 										echo ": typeof i === 'number' ? i : 0; ";
 							echo "}; ";
-							echo "var Total = 0; ";
-							echo "for (var i = 0; i < data.length; i++) { ";
-								echo "Total += data[i][0] * data[i][1]; ";
-							echo "} ";
-
-							echo "var sumline='';";
+							echo "var allContent='';";
+							foreach ( $array_total as $value => $key ) {
+								echo "var all".$value." = 0; ";
+								echo "for (var i = 0; i < data.length; i++) { ";
+								echo "all".$value." += data[i][".$value."] * 1; ";
+								echo "} ";
+							}
+							echo "var currentContent='';";
 							
 							foreach ( $array_total as $value => $key ) {
-								echo "var col".$value." = api.column(".$value." , { ";
+								echo "var current".$value." = api.column(".$value." , { ";
 								echo "page : 'current' ";
 								echo "}).data().reduce(function(a, b) { ";
 								echo "return intVal(a) + intVal(b); ";
 								echo "}); ";
 							}
+							$counter = 1;
 							foreach ( $array_total as $value => $key ) {
-								echo "sumline = sumline + '".$key." : ' + col".$value." + '&nbsp;and&nbsp;';";
+								if($counter < count($array_total)) {
+									echo "currentContent = currentContent + '".$key." : ' + current".$value." + '&nbsp;|&nbsp;';";
+									echo "allContent = allContent + '".$key." : ' + all".$value." + '&nbsp;|&nbsp;';";
+								} else {
+									echo "currentContent = currentContent + '".$key." : ' + current".$value." + '&nbsp;&nbsp;';";
+									echo "allContent = allContent + '".$key." : ' + all".$value." + '&nbsp;&nbsp;';";
+								}
+								$counter++;
 							}
 							echo "$(api.column(1).footer()).html( ";
-							echo "'Tổng: ' + Total + '&nbsp;&nbsp;&nbsp;' +sumline ";
+							echo " '<span>Tổng:'+allContent + '</span>' +'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' 
+							+ currentContent ";
 						echo ");}";
 					echo "});";
 		echo "}); ";
 echo "</script> ";
 	}
-	function generateJSDatatableComplex($datatable_id, $ordercolumn, $ordertype) {
-		echo "<script>  ";
-echo "$(document).ready(  ";
-		echo "function() {  ";
-			echo "$('#table_list_provider').dataTable(  ";
-					echo "{ ";
-						echo "'destroy': true, ";
-						echo "'order': [[ 0, 'asc' ]], ";
-						echo "'footerCallback' : function(row, data, start, end, ";
-								echo "display) { ";
-							echo "var api = this.api(), data; ";
-							echo "var intVal = function(i) { ";
-								echo "return typeof i === 'string' ? i.replace( ";
-										echo "/[\$,]/g, '') * 1  ";
-										echo ": typeof i === 'number' ? i : 0; ";
-							echo "}; ";
-							echo "var TotalMarks = 0; ";
-							echo "for (var i = 0; i < data.length; i++) { ";
-								echo "TotalMarks += data[i][1] * data[i][1]; ";
-							echo "} ";
-
-							echo "var pageTotal = api.column(2, { ";
-								echo "page : 'current' ";
-							echo "}).data().reduce(function(a, b) { ";
-								echo "return intVal(a) + intVal(b); ";
-							echo "}); ";
-							echo "var pageTotal1 = api.column(3 , { ";
-								echo "page : 'current' ";
-							echo "}).data().reduce(function(a, b) { ";
-								echo "return intVal(a) + intVal(b); ";
-							echo "}); ";
-							echo "$(api.column(1).footer()).html( ";
-									echo "'Total :<strong>' + TotalMarks + '</strong> and Current page:<strong>' + parseInt(pageTotal+pageTotal1) + '</strong>'); ";
-						echo "}";
-					echo "});";
-		echo "}); ";
-echo "</script> ";
-	}
+	
 	function generateJqueryDatatable($result, $datatable_id, $array_column) {
 		$num_colum = sizeof ( $array_column );
 		// generate header
