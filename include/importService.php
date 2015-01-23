@@ -62,17 +62,33 @@ FROM product_import t1,product t2,import_facture t3 where t1.product_code = t2.c
 				1 => "Giá",
 				3 => "Code",
 		);
-		$this->commonService->generateJSDatatableComplexProduct ( 'product', 0, 'desc',$array_total );
+		$this->commonService->generateJSDatatableComplex ( 'product', 0, 'desc',$array_total );
 		$this->commonService->generateJqueryDatatable ( $result, 'product', $array_column );
 	}
 	function listProductDefault($code) {
-		$qry = "select * from product limit 1";
+		$qry = "SELECT (select name from provider where id = t3.provider_id) as provider_name,
+(select name from brand where id = t2.brand_id) as brand_name,
+(select name from category where id = t2.category_id) as category_name,
+(select name from season where id = t2.season_id) as season_name,
+ t1.*,t2.*,t3.*
+FROM product_import t1,product t2,import_facture t3 where t1.product_code = t2.code and t1.import_facture_code = t3.code limit 1";
 		$result = mysql_query ( $qry, $this->connection );
 		$array_column = array (
-				"code" => "Code",
-				"name" => "Name"
+				"quantity" => "Số lượng",
+				"import_price" => "Giá nhập",
+				"quantity*import_price" => "complex",
+				"product_code" => "Code",
+				"name" => "Tên Hàng",
+				"code" => "Mã Hóa Đơn",
+				"provider_name" => "Cung Cấp",
+				"season_name" => "Mùa"				 
 		);
-		$this->commonService->generateJSDatatableSimple ( 'product', 0, 'asc' );
+		$array_total = array (
+				0 => "Số lượng",
+				1 => "Giá",
+				3 => "Code",
+		);
+		$this->commonService->generateJSDatatableComplex ( 'product', 0, 'desc',$array_total );
 		$this->commonService->generateJqueryDatatable ( $result, 'product', $array_column );
 	}
 	function currentMaxProductCode($i) {
