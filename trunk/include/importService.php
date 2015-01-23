@@ -81,9 +81,9 @@ FROM product_import t1,product t2,import_facture t3 where t1.product_code = t2.c
 				"quantity*import_price" => "complex",
 				"product_code" => "Code",
 				"name" => "Tên Hàng",
-				"code" => "Mã Hóa Đơn",
-				"provider_name" => "Cung Cấp",
-				"season_id,season_name" => "Mùa,link",
+				"import_facture_code,date" => "Mã Hóa Đơn,import_facture_code",
+				"provider_id,provider_name,name" => "Cung Cấp,provider_name",
+				"season_id,season_name" => "Mùa,season_name",
 				"id,quantity,import_price,product_code,name" => "Edit",
 				"id" => "Delete"
 		);

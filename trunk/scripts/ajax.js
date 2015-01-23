@@ -244,3 +244,12 @@ function listProduct() {
 			+ "&description=" + encodeURIComponent(description);
 	$('#mainListArea').load(url);
 }
+function editbyseason_id(url){
+	$('#suplementaryListArea').html(url);
+}
+function editbyprovider_id(url){
+	$('#suplementaryListArea').html(url);
+}
+function editbyimport_facture_code(url){
+	$('#suplementaryListArea').html(url);
+}
