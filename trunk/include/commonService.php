@@ -109,7 +109,19 @@ echo "</script> ";
 					} else {
 						echo "<td style='color:red;font-weight:bold'> Desactive </td>";
 					}
-				} else {
+				} else if(sizeof(explode ( ",", $key ))>1) {
+					$fields = explode ( ",", $value );
+// 					echo "<td>" . $rows [$fieldslink[0]].  $rows [$fieldslink[1]] . "</td>";
+					$str = "";
+					for($i = 0; $i < sizeof ( $fields ); $i ++) {
+						if($i==sizeof ( $fields )-1){
+							$str = $str . $fields [$i] . "=" . $rows [$fields [$i]];
+						}else {
+							$str = $str . $fields [$i] . "=" . $rows [$fields [$i]] . "&";
+						}
+					}
+					echo "<td><a onclick='editby".$fields [0]."(\"".$str."\");' href='javascript:void(0);'>".$key."</a></td>";
+				}else {
 					echo "<td>" . $rows [$value] . "</td>";
 				}
 			}
