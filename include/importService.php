@@ -360,9 +360,19 @@ FROM product_import t1,product t2,import_facture t3 where t1.product_code = t2.c
 		if ($haveNewProduct)
 			mysql_query ( $qry, $this->connection );
 	}
-	function addReturnProduct($codes,$quantities,$descriptions) {
-		$listCode = explode(',',$codes);
-		$qry = "insert into product_return(product_code,quantity,date,description,provider_id) values ('0001',2,'2014-01-01 10:10:10','".$descriptions.sizeof($listCode)."',1)";
+function addReturnProduct($codes, $quantities, $descriptions) {
+		$listcode = explode ( ',', substr ( $codes, 0, - 1 ) );
+		$listquantity = explode ( ',', substr ( $quantities, 0, - 1 ) );
+		$listdescriptions = explode ( ',', substr ( $descriptions, 0, - 1 ) );
+		$provider_id = 1;
+		
+		$qry = "insert into product_return(product_code,quantity,date,description,provider_id) values ";
+		for($i = 0; $i < sizeof ( $listcode ); $i ++) {
+			if ($i < sizeof ( $listcode ) - 1)
+				$qry = $qry . " ('" . $listcode [$i] . "'," . $listquantity [$i] . ",'" . date ( 'Y-m-d H:i:s' ) . "','" . $listdescriptions [$i] . "'," . $provider_id . "),";
+			else
+				$qry = $qry . " ('" . $listcode [$i] . "'," . $listquantity [$i] . ",'" . date ( 'Y-m-d H:i:s' ) . "','" . $listdescriptions [$i] . "'," . $provider_id . ")";
+		}
 		echo mysql_query ( $qry, $this->connection );
 	}
 	// END BUSINESS IMPORT PROJECT
