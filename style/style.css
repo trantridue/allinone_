@@ -206,3 +206,7 @@ input[type='reset'] {
 textarea {
     resize: none;
 }
+#datatableDisplaySum {
+	text-align: center;
+	font-weight: bold;
+}
