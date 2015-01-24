@@ -7,6 +7,11 @@ $provider_id = trim ( $_REQUEST ['provider_id'] );
 $import_facture_code = trim ( $_REQUEST ['import_facture_code'] );
 $description = trim ( $_REQUEST ['description'] );
 $season = trim ( $_REQUEST ['season_id'] );
+if(trim ( $_REQUEST ['sale'] )=="") {
+	$sale = '0';
+} else {
+	$sale = trim ( $_REQUEST ['sale'] );
+}
 
 $codeArray = array (
 		$totalRow 
@@ -94,5 +99,5 @@ for($i = 1; $i <= $totalRow; $i ++) {
 }
 $importService->importProduct($totalRow,$continueImport,$provider_id,$import_facture_code,$description,$season,
 		$codeArray,$codeExistedArray,$nameArray,$qtyArray,$postArray,$imprArray,$sexArray,$categoryIdArray,$brandIdArray,
-		$descriptionArray);
+		$descriptionArray,$sale);
 ?>

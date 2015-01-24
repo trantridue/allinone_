@@ -279,12 +279,12 @@ FROM product_import t1,product t2,import_facture t3 where t1.product_code = t2.c
 		}
 	}
 	// START BUSINESS IMPORT PROJECT
-	function importProduct($totalRow, $continueImport, $provider_id, $import_facture_code, $description, $season, $codeArray, $codeExistedArray, $nameArray, $qtyArray, $postArray, $imprArray, $sexArray, $categoryIdArray, $brandIdArray, $descriptionArray) {
+	function importProduct($totalRow, $continueImport, $provider_id, $import_facture_code, $description, $season, $codeArray, $codeExistedArray, $nameArray, $qtyArray, $postArray, $imprArray, $sexArray, $categoryIdArray, $brandIdArray, $descriptionArray,$sale) {
 		// If import the facture then
 		if ($continueImport != "true") {
 			$this->addFacture ( $import_facture_code, $provider_id, $description );
 		}
-		$this->addProducts ( $totalRow, $season, $codeArray, $codeExistedArray, $nameArray, $postArray, $sexArray, $categoryIdArray, $brandIdArray, $descriptiondArray );
+		$this->addProducts ( $totalRow, $season, $codeArray, $codeExistedArray, $nameArray, $postArray, $sexArray, $categoryIdArray, $brandIdArray, $descriptiondArray,$sale );
 		$this->addProductImport ( $totalRow, $import_facture_code, $codeArray, $qtyArray, $imprArray );
 	}
 	function addProductImport($totalRow, $import_facture_code, $codeArray, $qtyArray, $imprArray) {
@@ -303,7 +303,7 @@ FROM product_import t1,product t2,import_facture t3 where t1.product_code = t2.c
 		$qry = "insert into import_facture(code,date,description,provider_id) values ('" . $import_facture_code . "','" . $this->commonService->getFullDateTime () . "','" . $description . "'," . $provider_id . ")";
 		mysql_query ( $qry, $this->connection );
 	}
-	function addProducts($totalRow, $season, $codeArray, $codeExistedArray, $nameArray, $postArray, $sexArray, $categoryIdArray, $brandIdArray, $descriptiondArray) {
+	function addProducts($totalRow, $season, $codeArray, $codeExistedArray, $nameArray, $postArray, $sexArray, $categoryIdArray, $brandIdArray, $descriptiondArray,$sale) {
 		$haveNewProduct = false;
 		$qry = "INSERT INTO `product` (`code`, `name`, `category_id`, `season_id`, `sex_id`, `export_price`, `description`, `brand_id`,`sale`) VALUES ";
 		for($i = 1; $i <= $totalRow; $i ++) {
@@ -311,7 +311,7 @@ FROM product_import t1,product t2,import_facture t3 where t1.product_code = t2.c
 			if ($nameArray [$i] != "") {
 				if ($codeExistedArray [$i] == 'false') {
 					$haveNewProduct = true;
-					$strLine = "('" . $codeArray [$i] . "', '" . $nameArray [$i] . "', " . $categoryIdArray [$i] . ", " . $season . ", " . $sexArray [$i] . ", " . $postArray [$i] . ", '" . $descriptiondArray [$i] . "', " . $brandIdArray [$i] . ",0),";
+					$strLine = "('" . $codeArray [$i] . "', '" . $nameArray [$i] . "', " . $categoryIdArray [$i] . ", " . $season . ", " . $sexArray [$i] . ", " . $postArray [$i] . ", '" . $descriptiondArray [$i] . "', " . $brandIdArray [$i] . ",".$sale."),";
 				}
 				$qry = $qry . $strLine;
 			}

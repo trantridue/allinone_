@@ -19,7 +19,7 @@ $(function() {
 	<label>Provider : </label><input name="provider_name" onkeypress="resetProviderId();"
 		id="provider_name" /><input type="hidden" name="provider_id"
 		id="provider_id" /><?php echo tab4;?>
-	<?php echo tab4;?>
+	<?php echo tab4;?> Sale: <input name="sale" id="sale" size="3" maxlength="2" onkeypress="validateNum(event);"/>%<?php echo tab4;?>
 	<input type="hidden" name="continueImport" id="continueImport"
 		value="false" /> <label>Season : </label><input name="season"
 		id="season" value="<?php echo $_SESSION['default_season_name'];?>" /><input
