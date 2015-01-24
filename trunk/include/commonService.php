@@ -65,7 +65,7 @@ echo "</script> ";
 		echo "<tr>";
 		
 		foreach ( $array_column as $value => $key ) {
-			if ($key == 'hidden_field' || $key == 'complex') {
+			if ($key == 'hidden_field' || $key == 'complex' || $key == 'remain') {
 				echo "<th style='display: none;'>" . $key . "</th>";
 			} else if(sizeof(explode ( ",", $key ))>1){
 				$fieldskey = explode ( ",", $key );
@@ -93,6 +93,9 @@ echo "</script> ";
 				} else if ($key == 'complex') {
 					$fields = explode ( "*", $value );
 					echo "<td style='display: none;'>" . ($rows [$fields [0]] * $rows [$fields [1]]) . "</td>";
+				}else if ($key == 'remain') {
+					$fields = explode ( "-", $value );
+					echo "<td style='display: none;'>" . ($rows [$fields [0]] - $rows [$fields [1]]) . "</td>";
 				} else if ($key == 'Edit') {
 					$fields = explode ( ",", $value );
 					$str = "";

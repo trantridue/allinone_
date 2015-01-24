@@ -92,8 +92,8 @@ FROM product_import t1,product t2,import_facture t3 where t1.product_code = t2.c
 		);
 		$array_total = array (
 				2 => "Số lượng",
-				11 => "Tổng nhập",
-				12 => "Tổng xuất"
+				11 => "Tổng nhập"
+// 				12 => "Tổng xuất"
 		);
 		$this->commonService->generateJSDatatableComplex ( 'product', 5, 'desc',$array_total );
 		$this->commonService->generateJqueryDatatable ( $result, 'product', $array_column );
@@ -210,6 +210,31 @@ FROM product_import t1,product t2,import_facture t3 where t1.product_code = t2.c
 		}
 		return $jsonArray;
 	}
+	function getJsonProductCodeReturn($term) {
+		$qry = "select t1.product_code, sum(t1.quantity) as qty, t2.code as import_facture_code, t2.provider_id,t3.name,t1.import_price 
+				from product_import t1, import_facture t2, product t3
+				 where t1.product_code like '%" . $term . "%' and t1.import_facture_code = t2.code and t3.code = t1.product_code group by t1.product_code ";
+		$result = mysql_query ( $qry, $this->connection );
+		$jsonArray = array ();
+	
+		while ( $rows = mysql_fetch_array ( $result ) ) {
+			$labelvalue = $rows ['product_code'];
+			$element = array (
+					code => $rows ['product_code'],
+					qty => $rows ['qty'],
+					facture => $rows ['import_facture_code'],
+					provider_name => $rows ['provider_id'],
+					provider_id => $rows ['provider_id'],
+					import_price => $rows ['import_price'],
+					name => $rows ['name'],
+					value => $rows ['product_code'],
+					label => $labelvalue
+			);
+				
+			$jsonArray [] = $element;
+		}
+		return $jsonArray;
+	}
 	function getJsonProductCode($term) {
 		$qry = "select t1.*,t2.name as category,t2.id as category_id,t3.name as brand,t3.id as brand_id, 
 				(select t2.import_price from (SELECT *,sum(quantity) FROM `product_import` group by product_code,import_facture_code) t2 
@@ -248,6 +273,15 @@ FROM product_import t1,product t2,import_facture t3 where t1.product_code = t2.c
 		$jsonArray = array ();
 		while ( $rows = mysql_fetch_array ( $result ) ) {
 			$jsonArray [] = $rows ['name'];
+		}
+		return $jsonArray;
+	}
+	function getJsonProductCodeOnly($term) {
+		$qry = "select * from product where code like '%" . $term . "%' ";
+		$result = mysql_query ( $qry, $this->connection );
+		$jsonArray = array ();
+		while ( $rows = mysql_fetch_array ( $result ) ) {
+			$jsonArray [] = $rows ['code'];
 		}
 		return $jsonArray;
 	}

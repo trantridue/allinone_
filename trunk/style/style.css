@@ -210,3 +210,10 @@ textarea {
 	text-align: center;
 	font-weight: bold;
 }
+.transparentText {
+	 background-color: gray;
+    border: medium none;
+    font-size: 12pt;
+    font-weight: bold;
+    color: yellow;
+}
