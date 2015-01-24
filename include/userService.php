@@ -6,8 +6,8 @@ class UserService {
 	var $database;
 	var $connection;
 	var $commonService;
-	// -----Initialization -------
 	function UserService($hostname, $username, $password, $database, $commonService) {
+	// -----Initialization -------
 		$this->InitDB ( $hostname, $username, $password, $database );
 		$this->commonService = $commonService;
 	}

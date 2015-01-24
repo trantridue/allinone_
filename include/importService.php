@@ -211,20 +211,22 @@ FROM product_import t1,product t2,import_facture t3 where t1.product_code = t2.c
 		return $jsonArray;
 	}
 	function getJsonProductCodeReturn($term) {
-		$qry = "select t1.product_code, sum(t1.quantity) as qty, t2.code as import_facture_code, t2.provider_id,t3.name,t1.import_price 
-				from product_import t1, import_facture t2, product t3
-				 where t1.product_code like '%" . $term . "%' and t1.import_facture_code = t2.code and t3.code = t1.product_code group by t1.product_code ";
+		$qry = "select (select sum(quantity) from product_return where product_code = t1.product_code) as qtyreturned, t1.product_code, sum(t1.quantity) as qty,t4.name as provider_name, t2.code as import_facture_code, t2.provider_id,t3.name,t1.import_price 
+				from product_import t1, import_facture t2, product t3, provider t4
+				 where t4.id = t2.provider_id and t1.product_code like '%" . $term . "%' and t1.import_facture_code = t2.code and t3.code = t1.product_code group by t1.product_code ";
 		$result = mysql_query ( $qry, $this->connection );
 		$jsonArray = array ();
 	
 		while ( $rows = mysql_fetch_array ( $result ) ) {
-			$labelvalue = $rows ['product_code'];
+			$labelvalue = $rows ['product_code']." : Đã trả lại: ". ($rows ['qtyreturned']?$rows ['qtyreturned']:'0');
 			$element = array (
 					code => $rows ['product_code'],
 					qty => $rows ['qty'],
 					facture => $rows ['import_facture_code'],
-					provider_name => $rows ['provider_id'],
+					provider_name => $rows ['provider_name'],
 					provider_id => $rows ['provider_id'],
+					provider_id => $rows ['provider_id'],
+					qtyreturned => $rows ['qtyreturned']?$rows ['qtyreturned']:'0',
 					import_price => $rows ['import_price'],
 					name => $rows ['name'],
 					value => $rows ['product_code'],
@@ -320,6 +322,8 @@ FROM product_import t1,product t2,import_facture t3 where t1.product_code = t2.c
 		}
 		$this->addProducts ( $totalRow, $season, $codeArray, $codeExistedArray, $nameArray, $postArray, $sexArray, $categoryIdArray, $brandIdArray, $descriptiondArray,$sale );
 		$this->addProductImport ( $totalRow, $import_facture_code, $codeArray, $qtyArray, $imprArray );
+		$this->commonService->RedirectToURL("login-home.php?module=import&submenu=search");
+		
 	}
 	function addProductImport($totalRow, $import_facture_code, $codeArray, $qtyArray, $imprArray) {
 		$qry = "INSERT INTO `product_import` (`product_code`, `import_facture_code`, `quantity`, `import_price`) VALUES ";
@@ -356,7 +360,11 @@ FROM product_import t1,product t2,import_facture t3 where t1.product_code = t2.c
 		if ($haveNewProduct)
 			mysql_query ( $qry, $this->connection );
 	}
-	
+	function addReturnProduct($codes) {
+		$qry = "insert into product_return(product_code,quantity,date,description,provider_id) values ('0001',2,'2014-01-01 10:10:10','aaa',1)";
+		echo mysql_query ( $qry, $this->connection );
+	}
 	// END BUSINESS IMPORT PROJECT
 }
+
 ?>

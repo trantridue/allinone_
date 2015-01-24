@@ -256,3 +256,13 @@ function show_product_import_facture_code(url){
 function show_product_product_code(url){
 	$('#suplementaryListArea').html(url);
 }
+function insertReturnProduct(codes,quantities,descriptions) {
+	var returnproduct = 'modules/import/addreturnproduct.php?codes=' + codes + '&quantities=' + quantities + '&descriptions=' + descriptions ;
+	$.ajax({
+		url : returnproduct,
+		success : function(data) {
+			var actionType = "return";
+			returnimportpostaction(data, actionType);
+		}
+	});
+}
