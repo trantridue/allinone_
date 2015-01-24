@@ -262,6 +262,7 @@ function insertReturnProduct(codes,quantities,descriptions) {
 		url : returnproduct,
 		success : function(data) {
 			var actionType = "return";
+//			alert(data);
 			returnimportpostaction(data, actionType);
 		}
 	});

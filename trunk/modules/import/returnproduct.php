@@ -32,7 +32,6 @@ function returnProduct(){
 		}
 	}
 	if(flagRowWrong && strCode !='') {
-		alert("1");
 		insertReturnProduct(strCode,strQty,strDesc);
 	} else  {
 		$('#serverMessage').show();
@@ -44,6 +43,7 @@ function returnProduct(){
 
 </script>
 <hr>
+<form id="returnproductForm">
 <table>
 <tr style="background-color: bisque;height: 30px;">
 <td colspan="8" align="center" style="font-weight: bold;font-size: 15px;">
@@ -98,3 +98,4 @@ $(document).ready(function(){
 </tr>
 <?php }?>
 </table>
+</form>
