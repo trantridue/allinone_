@@ -27,6 +27,7 @@ echo "$(document).ready(  ";
 								echo "for (var i = 0; i < data.length; i++) { ";
 								echo "all".$value." += data[i][".$value."] * 1; ";
 								echo "} ";
+								echo "all".$value. "=all".$value.".toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');";
 							}
 							echo "var currentContent='';";
 							
@@ -34,7 +35,7 @@ echo "$(document).ready(  ";
 								echo "var current".$value." = api.column(".$value." , { ";
 								echo "page : 'current' ";
 								echo "}).data().reduce(function(a, b) { ";
-								echo "return intVal(a) + intVal(b); ";
+								echo "return (intVal(a) + intVal(b)).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'); ";
 								echo "}); ";
 							}
 							$counter = 1;
