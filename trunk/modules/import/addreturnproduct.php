@@ -5,5 +5,7 @@ require_once ("../../include/commonService.php");
 $commonService = new CommonService ();
 $importService = new ImportService ( hostname, username, password, database, $commonService );
 	$codes = $_REQUEST['codes'];
-	$importService->addReturnProduct($codes);
+	$quantities = $_REQUEST['quantities'];
+	$descriptions = $_REQUEST['descriptions'];
+	$importService->addReturnProduct($codes,$quantities,$descriptions);
 ?>
