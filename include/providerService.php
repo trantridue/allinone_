@@ -50,6 +50,7 @@ class ProviderService {
 		"name" => "Name",
 		"total" => "Tổng", 
 		"paid" => "Paid", 
+		"total-paid" => "remain", 
 		"tel" => "Tel", 
 		"address" => "Address", 
 		"description" => "Description",
@@ -59,7 +60,8 @@ class ProviderService {
 		);
 		$array_total = array (
 				1 => "Tổng nợ",
-				2 => "đã trả"
+				2 => "Đã trả",
+				3 => "Còn nợ"
 		);
 		$this->commonService->generateJSDatatableComplex ( providerdatatable, 0, 'desc',$array_total );
 		$this->commonService->generateJqueryDatatable ( $result, providerdatatable, $array_column );

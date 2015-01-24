@@ -9,6 +9,7 @@ $(function() {
 		minLength : 1
 	});
 });
+
 </script>
 <?php $importService->loadDefaultSeason();?>
 <form method="post" action="?module=import&submenu=addproduct"
