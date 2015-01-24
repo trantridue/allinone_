@@ -48,11 +48,9 @@ echo "$(document).ready(  ";
 								}
 								$counter++;
 							}
-							echo "$(api.column(1).footer()).html( ";
-							echo " '<span>Tổng:'+allContent + '</span>' +'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' 
-							+ currentContent ";
-						echo ");}";
-					echo "});";
+							echo "$(api.column(1).footer()).html('<span>Tổng:'+allContent + '</span>' +'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + currentContent );";
+							echo "$('#datatableDisplaySum').html('<span>Tổng:'+allContent + '</span>' +'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + currentContent );";
+					echo "}});";
 		echo "}); ";
 echo "</script> ";
 	}
@@ -60,6 +58,7 @@ echo "</script> ";
 	function generateJqueryDatatable($result, $datatable_id, $array_column) {
 		$num_colum = sizeof ( $array_column );
 		// generate header
+		echo "<div id='datatableDisplaySum'></div>";
 		echo "<table id='" . datatable_prefix . $datatable_id . "' class='display' cellspacing='0' class='order-column' width='100%'>";
 		echo "<thead>";
 		echo "<tr>";
@@ -123,7 +122,7 @@ echo "</script> ";
 							$str = $str . $fields [$i] . "=" . $rows [$fields [$i]] . "&";
 						}
 					}
-					echo "<td><a onclick='editby".$fields [0]."(\"".$str."\");' href='javascript:void(0);'>".$rows [$fieldskey [1]]."</a></td>";
+					echo "<td><a onclick='show_".$datatable_id."_".$fields [0]."(\"".$str."\");' href='javascript:void(0);'>".$rows [$fieldskey [1]]."</a></td>";
 				}else {
 					echo "<td>" . $rows [$value] . "</td>";
 				}

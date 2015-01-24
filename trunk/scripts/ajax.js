@@ -244,12 +244,15 @@ function listProduct() {
 			+ "&description=" + encodeURIComponent(description);
 	$('#mainListArea').load(url);
 }
-function editbyseason_id(url){
+function show_product_season_id(url){
 	$('#suplementaryListArea').html(url);
 }
-function editbyprovider_id(url){
+function show_product_provider_id(url){
 	$('#suplementaryListArea').html(url);
 }
-function editbyimport_facture_code(url){
+function show_product_import_facture_code(url){
+	$('#suplementaryListArea').html(url);
+}
+function show_product_product_code(url){
 	$('#suplementaryListArea').html(url);
 }

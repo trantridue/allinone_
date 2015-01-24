@@ -76,21 +76,23 @@ FROM product_import t1,product t2,import_facture t3 where t1.product_code = t2.c
 FROM product_import t1,product t2,import_facture t3 where t1.product_code = t2.code and t1.import_facture_code = t3.code limit 10";
 		$result = mysql_query ( $qry, $this->connection );
 		$array_column = array (
+				"product_code" => "Mã hàng,product_code",
+				"name" => "Tên Hàng",
 				"quantity" => "Số lượng",
 				"import_price" => "Giá nhập",
-				"quantity*import_price" => "complex",
-				"product_code" => "Code",
-				"name" => "Tên Hàng",
+				"export_price" => "Giá bán",
 				"import_facture_code,date" => "Mã Hóa Đơn,import_facture_code",
 				"provider_id,provider_name,name" => "Cung Cấp,provider_name",
 				"season_id,season_name" => "Mùa,season_name",
 				"id,quantity,import_price,product_code,name" => "Edit",
-				"id" => "Delete"
+				"id" => "Delete",
+				"quantity*import_price" => "complex",
+				"quantity*export_price" => "complex"
 		);
 		$array_total = array (
-				0 => "Số lượng",
-				1 => "Giá",
-				3 => "Code",
+				2 => "Số lượng",
+				10 => "Tổng nhập",
+				11 => "Tổng xuất"
 		);
 		$this->commonService->generateJSDatatableComplex ( 'product', 5, 'desc',$array_total );
 		$this->commonService->generateJqueryDatatable ( $result, 'product', $array_column );
