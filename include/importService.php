@@ -81,6 +81,7 @@ FROM product_import t1,product t2,import_facture t3 where t1.product_code = t2.c
 				"quantity" => "Số lượng",
 				"import_price" => "Giá nhập",
 				"export_price" => "Giá bán",
+				"sale" => "Sale",
 				"import_facture_code,date" => "Mã Hóa Đơn,import_facture_code",
 				"provider_id,provider_name,name" => "Cung Cấp,provider_name",
 				"season_id,season_name" => "Mùa,season_name",
@@ -304,13 +305,13 @@ FROM product_import t1,product t2,import_facture t3 where t1.product_code = t2.c
 	}
 	function addProducts($totalRow, $season, $codeArray, $codeExistedArray, $nameArray, $postArray, $sexArray, $categoryIdArray, $brandIdArray, $descriptiondArray) {
 		$haveNewProduct = false;
-		$qry = "INSERT INTO `product` (`code`, `name`, `category_id`, `season_id`, `sex_id`, `export_price`, `description`, `brand_id`) VALUES ";
+		$qry = "INSERT INTO `product` (`code`, `name`, `category_id`, `season_id`, `sex_id`, `export_price`, `description`, `brand_id`,`sale`) VALUES ";
 		for($i = 1; $i <= $totalRow; $i ++) {
 			$strLine = "";
 			if ($nameArray [$i] != "") {
 				if ($codeExistedArray [$i] == 'false') {
 					$haveNewProduct = true;
-					$strLine = "('" . $codeArray [$i] . "', '" . $nameArray [$i] . "', " . $categoryIdArray [$i] . ", " . $season . ", " . $sexArray [$i] . ", " . $postArray [$i] . ", '" . $descriptiondArray [$i] . "', " . $brandIdArray [$i] . "),";
+					$strLine = "('" . $codeArray [$i] . "', '" . $nameArray [$i] . "', " . $categoryIdArray [$i] . ", " . $season . ", " . $sexArray [$i] . ", " . $postArray [$i] . ", '" . $descriptiondArray [$i] . "', " . $brandIdArray [$i] . ",0),";
 				}
 				$qry = $qry . $strLine;
 			}
