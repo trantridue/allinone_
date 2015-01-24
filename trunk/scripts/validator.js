@@ -200,3 +200,10 @@ function toggleDiv(divID) {
 		$('#'+divID).hide();
 	}
 }
+function returnimportpostaction(data, actionType) {
+	alert('aa');
+	$('#serverMessage').show();
+	var errorMessage = actionType + " product error";
+	var successMessage = actionType + " product successful";
+	displayMessageServer(data, errorMessage, successMessage, "product");
+}
