@@ -256,8 +256,8 @@ function show_product_import_facture_code(url){
 function show_product_product_code(url){
 	$('#suplementaryListArea').html(url);
 }
-function insertReturnProduct(codes,quantities,descriptions,provider_id) {
-	var returnproduct = 'modules/import/addreturnproduct.php?codes=' + codes + '&quantities=' + quantities + '&descriptions=' + descriptions + '&provider_id=' + provider_id ;
+function insertReturnProduct(codes,quantities,descriptions,providers) {
+	var returnproduct = 'modules/import/addreturnproduct.php?codes=' + codes + '&quantities=' + quantities + '&descriptions=' + descriptions + '&providers=' + providers ;
 	$.ajax({
 		url : returnproduct,
 		success : function(data) {

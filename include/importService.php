@@ -93,9 +93,8 @@ FROM product_import t1,product t2,import_facture t3 where t1.product_code = t2.c
 		$array_total = array (
 				2 => "Số lượng",
 				11 => "Tổng nhập"
-// 				12 => "Tổng xuất"
 		);
-		$this->commonService->generateJSDatatableComplex ( 'product', 5, 'desc',$array_total );
+		$this->commonService->generateJSDatatableComplex ( 'product', 6, 'desc',$array_total );
 		$this->commonService->generateJqueryDatatable ( $result, 'product', $array_column );
 	}
 	function currentMaxProductCode($i) {
@@ -360,17 +359,18 @@ FROM product_import t1,product t2,import_facture t3 where t1.product_code = t2.c
 		if ($haveNewProduct)
 			mysql_query ( $qry, $this->connection );
 	}
-function addReturnProduct($codes, $quantities, $descriptions,$provider_id) {
+function addReturnProduct($codes, $quantities, $descriptions,$providers) {
 		$listcode = explode ( ',', substr ( $codes, 0, - 1 ) );
 		$listquantity = explode ( ',', substr ( $quantities, 0, - 1 ) );
 		$listdescriptions = explode ( ',', substr ( $descriptions, 0, - 1 ) );
+		$listproviders = explode ( ',', substr ( $providers, 0, - 1 ) );
 		
 		$qry = "insert into product_return(product_code,quantity,date,description,provider_id) values ";
 		for($i = 0; $i < sizeof ( $listcode ); $i ++) {
 			if ($i < sizeof ( $listcode ) - 1)
-				$qry = $qry . " ('" . $listcode [$i] . "'," . $listquantity [$i] . ",'" . date ( 'Y-m-d H:i:s' ) . "','" . $listdescriptions [$i] . "'," . $provider_id . "),";
+				$qry = $qry . " ('" . $listcode [$i] . "'," . $listquantity [$i] . ",'" . date ( 'Y-m-d H:i:s' ) . "','" . $listdescriptions [$i] . "'," . $listproviders[$i] . "),";
 			else
-				$qry = $qry . " ('" . $listcode [$i] . "'," . $listquantity [$i] . ",'" . date ( 'Y-m-d H:i:s' ) . "','" . $listdescriptions [$i] . "'," . $provider_id . ")";
+				$qry = $qry . " ('" . $listcode [$i] . "'," . $listquantity [$i] . ",'" . date ( 'Y-m-d H:i:s' ) . "','" . $listdescriptions [$i] . "'," . $listproviders[$i] . ")";
 		}
 		echo mysql_query ( $qry, $this->connection );
 	}
