@@ -48,7 +48,8 @@ class ImportService {
 (select name from category where id = t2.category_id) as category_name,
 (select name from season where id = t2.season_id) as season_name,
  t1.*,t2.*,t3.*
-FROM product_import t1,product t2,import_facture t3 where t1.product_code = t2.code and t1.import_facture_code = t3.code order by t1.import_facture_code desc limit ".$limit;
+FROM product_import t1,product t2,import_facture t3 where t1.product_code = t2.code 
+				and t1.import_facture_code = t3.code order by t3.date desc limit ".$limit;
 		$result = mysql_query ( $qry, $this->connection );
 		$array_column = array (
 				"product_code" => "Mã hàng,product_code",
@@ -58,16 +59,19 @@ FROM product_import t1,product t2,import_facture t3 where t1.product_code = t2.c
 				"export_price" => "Giá bán",
 				"sale" => "Sale",
 				"import_facture_code,date" => "Mã Hóa Đơn,import_facture_code",
-				"provider_id,provider_name,name" => "Cung Cấp,provider_name",
-				"season_id,season_name" => "Mùa,season_name",
-				"id,quantity,import_price,product_code,name" => "Edit",
-				"id" => "Delete",
 				"quantity*import_price" => "complex",
+				"provider_id,provider_name,name" => "Cung Cấp,provider_name",
+				"category_name" => "Loại",
+				"sex_id" => "Giới tính",
+				"brand_name" => "Hiệu",
+				"season_id,season_name" => "Mùa,season_name",
+// 				"id,quantity,import_price,product_code,name" => "Edit",
+				"id" => "Delete",				
 				"quantity*export_price" => "complex"
 		);
 		$array_total = array (
 				2 => "Số lượng",
-				11 => "Tổng nhập"
+				7 => "Tổng nhập"
 		);
 		$this->commonService->generateJSDatatableComplex ( 'product', 6, 'desc',$array_total );
 		$this->commonService->generateJqueryDatatable ( $result, 'product', $array_column );
@@ -350,7 +354,8 @@ function addReturnProduct($codes, $quantities, $descriptions,$providers) {
 		echo mysql_query ( $qry, $this->connection );
 	}
 	function updateSaleProduct($sale,$product_code,$product_name,$provider_name,$category_name,$brand_name,$season_id,$description) {
-		$qry = "update product set sale = ".$sale ." where code like '".$product_code."'";
+		$qry = "update product set sale = ".$sale ." where code like '".$product_code."' and name like '".$product_name
+		."' and category_id in (select id from category where name like '".$category_name."')" ;
 		echo mysql_query ( $qry, $this->connection );
 	}
 	// END BUSINESS IMPORT PROJECT
