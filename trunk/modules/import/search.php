@@ -1,5 +1,5 @@
 
-<input type="button" value="SHOW ADVANCED" class="menu_btn_sub"
+<input type="button" value="ADVANCE" class="menu_btn_sub"
 	onclick="toggleDiv('advancedInputArea');">
 
 <input type="button" value="SEARCH" class="menu_btn_sub"

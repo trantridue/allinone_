@@ -7,7 +7,6 @@ $arr = array (
 		"user" => "USER",
 		"import" => "IMPORT",
 		"export" => "EXPORT",
-		"sale" => "SALE",
 		"spend" => "SPEND",
 		"config" => "CONFIG",
 		"news" => "NEWS",
