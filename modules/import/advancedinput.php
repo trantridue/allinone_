@@ -1,1 +1,2 @@
-<input type="text" name="date">
+<hr>
+<input class="datefield" type="text" name="date">

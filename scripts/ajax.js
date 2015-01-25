@@ -20,13 +20,13 @@ function processUrlString(str) {
 	}
 	return inputUrl;
 }
-//////////USER
+// ////////USER
 function listUser() {
 	var isdefault = "false";
 	var username = $('#user_username').val();
 	var name = $('#user_name').val();
 	var url = "modules/user/list.php" + "?isdefault=" + isdefault
-			+ "&username=" + username+ "&name=" + encodeURIComponent(name);
+			+ "&username=" + username + "&name=" + encodeURIComponent(name);
 	$('#listArea').load(url);
 }
 
@@ -46,10 +46,10 @@ function edituser(str) {
 	$('#inputArea').load(url);
 }
 function changeSex(i) {
-	var oldClass = $("#sex_"+i).attr("class");
+	var oldClass = $("#sex_" + i).attr("class");
 	var newClass = "";
 	var sex_value = "";
-	if(oldClass=='sex_man') { 
+	if (oldClass == 'sex_man') {
 		newClass = 'sex_woman';
 		sex_value = 'WOMAN';
 		sexval = '1';
@@ -58,28 +58,28 @@ function changeSex(i) {
 		sexval = '2';
 		newClass = 'sex_man';
 	}
-	$("#sex_"+i).addClass(newClass);
-	$("#sex_"+i).removeClass(oldClass);
-	$("#sex_"+i).html(sex_value);
-	$("#sex_value_"+i).val(sexval);
+	$("#sex_" + i).addClass(newClass);
+	$("#sex_" + i).removeClass(oldClass);
+	$("#sex_" + i).html(sex_value);
+	$("#sex_value_" + i).val(sexval);
 }
-function resetCategoryId(i) {	
-	$("#category_id_"+i).val('');
+function resetCategoryId(i) {
+	$("#category_id_" + i).val('');
 }
-function resetBrandId(i) {	
-	$("#brand_id_"+i).val('');
+function resetBrandId(i) {
+	$("#brand_id_" + i).val('');
 }
-function resetExisted(i) {	
-	$("#isExisted_"+i).val('false');
+function resetExisted(i) {
+	$("#isExisted_" + i).val('false');
 }
-function resetProviderId() {	
+function resetProviderId() {
 	$("#provider_id").val('');
 }
 function changeStatusUser() {
 	var oldClass = $("#user_status").attr("class");
 	var newClass = "";
 	var status_value = '';
-	if(oldClass=='status_on') { 
+	if (oldClass == 'status_on') {
 		newClass = 'status_off';
 		status_value = 'n';
 	} else {
@@ -91,7 +91,7 @@ function changeStatusUser() {
 	$("#user_status_hidden").val(status_value);
 }
 
-///PROVIDER
+// /PROVIDER
 function listProvider() {
 	var isdefault = "false";
 	var name = $('#provider_name').val();
@@ -106,7 +106,8 @@ function editprovider(str) {
 	$('#inputArea').load(url);
 }
 function deleteprovider(providerid) {
-	var deleteprovider = 'modules/provider/deleteprovider.php?providerid=' + providerid;
+	var deleteprovider = 'modules/provider/deleteprovider.php?providerid='
+			+ providerid;
 	$.ajax({
 		url : deleteprovider,
 		success : function(data) {
@@ -115,7 +116,7 @@ function deleteprovider(providerid) {
 		}
 	});
 }
-///CUSTOMER
+// /CUSTOMER
 function listCustomer() {
 	var isdefault = "false";
 	var name = $('#customer_name').val();
@@ -130,7 +131,8 @@ function editcustomer(str) {
 	$('#inputArea').load(url);
 }
 function deletecustomer(customerid) {
-	var deletecustomer = 'modules/customer/deletecustomer.php?customerid=' + customerid;
+	var deletecustomer = 'modules/customer/deletecustomer.php?customerid='
+			+ customerid;
 	$.ajax({
 		url : deletecustomer,
 		success : function(data) {
@@ -139,89 +141,89 @@ function deletecustomer(customerid) {
 		}
 	});
 }
-///////SINGLE AUTOCOMPLETE
+// /////SINGLE AUTOCOMPLETE
 $(function() {
-	$(".productcode").autocomplete( {
+	$(".productcode").autocomplete({
 		source : "autocomplete/productcode.php",
 		minLength : 1
 	});
 });
 
-//////////PRODUCT IMPORT
-$(document).ready(function(){
+// ////////PRODUCT IMPORT
+$(document).ready(function() {
 	var ac_config_import_facture = {
-		source: "autocomplete/completed_import_facture_code.php",
-		select: function(event, ui){
+		source : "autocomplete/completed_import_facture_code.php",
+		select : function(event, ui) {
 			$("#import_facture_code").val(ui.item.code);
 			$("#description").val(ui.item.description);
 			$("#provider_name").val(ui.item.provider_name);
 			$("#provider_id").val(ui.item.provider_id);
 			$("#continueImport").val("true");
 		},
-		minLength:1
+		minLength : 1
 	};
 	$("#import_facture_code").autocomplete(ac_config_import_facture);
 });
-$(document).ready(function(){
+$(document).ready(function() {
 	var ac_config_provider_name = {
-		source: "autocomplete/completed_import_provider_name.php",
-		select: function(event, ui){
+		source : "autocomplete/completed_import_provider_name.php",
+		select : function(event, ui) {
 			$("#provider_name").val(ui.item.code);
 			$("#provider_id").val(ui.item.provider_id);
 		},
-		minLength:1
+		minLength : 1
 	};
 	$("#provider_name").autocomplete(ac_config_provider_name);
 });
 
-$(document).ready(function(){
+$(document).ready(function() {
 	var ac_config_season = {
-		source: "autocomplete/completed_import_season.php",
-		select: function(event, ui){
+		source : "autocomplete/completed_import_season.php",
+		select : function(event, ui) {
 			$("#season").val(ui.item.code);
 			$("#season_id").val(ui.item.season_id);
 		},
-		minLength:1
+		minLength : 1
 	};
 	$("#season").autocomplete(ac_config_season);
 });
-$(document).ready(function(){
+$(document).ready(function() {
 	var ac_config_product_code = {
-		source: "autocomplete/completed_import_products_code.php",
-		select: function(event, ui){
+		source : "autocomplete/completed_import_products_code.php",
+		select : function(event, ui) {
 			$("#product_code").val(ui.item.code);
 		},
-		minLength:1
+		minLength : 1
 	};
 	$("#product_code").autocomplete(ac_config_product_code);
 });
 
-	$(document).ready(function(){
-		var ac_config_category = {
-			source: "autocomplete/completed_import_category.php",
-			select: function(event, ui){
-				$("#category_name").val(ui.item.code);
-			},
-			minLength:1
-		};
-		$("#category_name").autocomplete(ac_config_category);
+$(document).ready(function() {
+	var ac_config_category = {
+		source : "autocomplete/completed_import_category.php",
+		select : function(event, ui) {
+			$("#category_name").val(ui.item.code);
+		},
+		minLength : 1
+	};
+	$("#category_name").autocomplete(ac_config_category);
+});
+$(document).ready(function() {
+	var ac_config_brand = {
+		source : "autocomplete/completed_import_brand.php",
+		select : function(event, ui) {
+			$("#brand_name").val(ui.item.code);
+		},
+		minLength : 1
+	};
+	$("#brand_name").autocomplete(ac_config_brand);
+});
+$(function() {
+	$("#product_name").autocomplete({
+		source : "autocomplete/productname.php",
+		minLength : 1
 	});
-	$(document).ready(function(){
-		var ac_config_brand = {
-			source: "autocomplete/completed_import_brand.php",
-			select: function(event, ui){
-				$("#brand_name").val(ui.item.code);
-			},
-			minLength:1
-		};
-		$("#brand_name").autocomplete(ac_config_brand);
-	});
-	$(function() {
-		$("#product_name").autocomplete( {
-			source : "autocomplete/productname.php",
-			minLength : 1
-		});
-	});
+});
 function listProduct() {
 	var isdefault = "false";
 	var product_code = $('#product_code').val();
@@ -232,32 +234,34 @@ function listProduct() {
 	var season = $('#season').val();
 	var season_id = $('#season_id').val();
 	var description = $('#description').val();
-	
+
 	var url = "modules/import/listproduct.php" + "?isdefault=" + isdefault
-			+ "&product_code=" + encodeURIComponent(product_code) 
-			+ "&product_name=" + encodeURIComponent(product_name) 
-			+ "&category_name=" + encodeURIComponent(category_name) 
-			+ "&brand_name=" + encodeURIComponent(brand_name) 
-			+ "&season=" + encodeURIComponent(season) 
-			+ "&provider_name=" + encodeURIComponent(provider_name) 
-			+ "&season_id=" + encodeURIComponent(season_id) 
-			+ "&description=" + encodeURIComponent(description);
+			+ "&product_code=" + encodeURIComponent(product_code)
+			+ "&product_name=" + encodeURIComponent(product_name)
+			+ "&category_name=" + encodeURIComponent(category_name)
+			+ "&brand_name=" + encodeURIComponent(brand_name) + "&season="
+			+ encodeURIComponent(season) + "&provider_name="
+			+ encodeURIComponent(provider_name) + "&season_id="
+			+ encodeURIComponent(season_id) + "&description="
+			+ encodeURIComponent(description);
 	$('#mainListArea').load(url);
 }
-function show_product_season_id(url){
+function show_product_season_id(url) {
 	$('#suplementaryListArea').html(url);
 }
-function show_product_provider_id(url){
+function show_product_provider_id(url) {
 	$('#suplementaryListArea').html(url);
 }
-function show_product_import_facture_code(url){
+function show_product_import_facture_code(url) {
 	$('#suplementaryListArea').html(url);
 }
-function show_product_product_code(url){
+function show_product_product_code(url) {
 	$('#suplementaryListArea').html(url);
 }
-function insertReturnProduct(codes,quantities,descriptions,providers) {
-	var returnproduct = 'modules/import/addreturnproduct.php?codes=' + codes + '&quantities=' + quantities + '&descriptions=' + descriptions + '&providers=' + providers ;
+function insertReturnProduct(codes, quantities, descriptions, providers) {
+	var returnproduct = 'modules/import/addreturnproduct.php?codes=' + codes
+			+ '&quantities=' + quantities + '&descriptions=' + descriptions
+			+ '&providers=' + providers;
 	$.ajax({
 		url : returnproduct,
 		success : function(data) {
@@ -265,4 +269,19 @@ function insertReturnProduct(codes,quantities,descriptions,providers) {
 			returnimportpostaction(data, actionType);
 		}
 	});
+}
+function saleListProduct() {
+	var sale = $('#sale').val();
+	if (sale == '' || parseFloat(sale) == 0) {
+		alert("Nhập sale khác 0");
+		$('#sale').focus();
+		$('#sale').addClass("errorField");
+	} else {
+		$('#sale').removeClass("errorField");
+		if (confirm('Muốn sale-off ' + sale + '% các sản phẩm bên dưới?')) {
+			alert('good sale ' + sale);
+		}
+	}
+
+	// alert('ok');
 }
