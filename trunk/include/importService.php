@@ -39,41 +39,16 @@ class ImportService {
 		$this->HandleError ( $err . "\r\n mysqlerror:" . mysql_error () );
 	}
 	//
-	function listProduct($code) {
-		$qry = "SELECT (select name from provider where id = t3.provider_id) as provider_name,
-(select name from brand where id = t2.brand_id) as brand_name,
-(select name from category where id = t2.category_id) as category_name,
-(select name from season where id = t2.season_id) as season_name,
- t1.*,t2.*,t3.*
-FROM product_import t1,product t2,import_facture t3 where t1.product_code = t2.code and t1.import_facture_code = t3.code";
-		$result = mysql_query ( $qry, $this->connection );
-		$array_column = array (
-				"quantity" => "Số lượng",
-				"import_price" => "Giá nhập",
-				"quantity*import_price" => "complex",
-				"product_code" => "Code",
-				"name" => "Tên Hàng",
-				"code" => "Mã Hóa Đơn",
-				"provider_name" => "Cung Cấp",
-				"id,season_name" => "Mùa,link",
-				"id,quantity,import_price,product_code,name" => "Edit",
-				"id" => "Delete"
-		);
-		$array_total = array (
-				0 => "Số lượng",
-				1 => "Giá",
-				3 => "Code",
-		);
-		$this->commonService->generateJSDatatableComplex ( 'product', 5, 'desc',$array_total );
-		$this->commonService->generateJqueryDatatable ( $result, 'product', $array_column );
-	}
 	function listProductDefault($code) {
+		$this->listProduct(3,$code);
+	}
+	function listProduct($limit,$code) {
 		$qry = "SELECT (select name from provider where id = t3.provider_id) as provider_name,
 (select name from brand where id = t2.brand_id) as brand_name,
 (select name from category where id = t2.category_id) as category_name,
 (select name from season where id = t2.season_id) as season_name,
  t1.*,t2.*,t3.*
-FROM product_import t1,product t2,import_facture t3 where t1.product_code = t2.code and t1.import_facture_code = t3.code limit 10";
+FROM product_import t1,product t2,import_facture t3 where t1.product_code = t2.code and t1.import_facture_code = t3.code order by t1.import_facture_code desc limit ".$limit;
 		$result = mysql_query ( $qry, $this->connection );
 		$array_column = array (
 				"product_code" => "Mã hàng,product_code",
@@ -374,7 +349,12 @@ function addReturnProduct($codes, $quantities, $descriptions,$providers) {
 		}
 		echo mysql_query ( $qry, $this->connection );
 	}
+	function updateSaleProduct($sale,$product_code,$product_name,$provider_name,$category_name,$brand_name,$season_id,$description) {
+		$qry = "update product set sale = ".$sale ." where code like '".$product_code."'";
+		echo mysql_query ( $qry, $this->connection );
+	}
 	// END BUSINESS IMPORT PROJECT
+	
 }
 
 ?>

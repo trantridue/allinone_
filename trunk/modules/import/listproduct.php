@@ -16,7 +16,7 @@ if ($isdefault == "false") {
 	require_once ("../../include/commonService.php");
 	$commonService = new CommonService ();
 	$importService = new ImportService ( hostname, username, password, database, $commonService );
-	$importService->listProduct('aaa');
+	$importService->listProduct(100,'aaa');
 } else {
 	$importService->listProductDefault('aaa');
 }
