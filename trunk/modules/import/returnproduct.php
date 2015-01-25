@@ -75,7 +75,7 @@ function returnProduct(){
 </script>
 <hr>
 <form id="returnproductForm">
-<table>
+<table width="100%">
 <tr style="background-color: bisque;height: 30px;">
 <td colspan="9" align="center" style="font-weight: bold;font-size: 15px;"><label>Tổng tiền hàng trả lại : </label>
 <input type="text" id="total_return" value="0" class="transparentText"/> <?php echo tab16;?>

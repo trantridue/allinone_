@@ -1,8 +1,43 @@
-PRODUCT CODE:<input name="product_code" id="product_code"/>
-PRODUCT NAME:<input name="product_name" id="product_name"/><br>
-PROVIDER    :<input name="provider_name" id="provider_name" />
-CATEGORY    :<input name="category_name" id="category_name" />
-BRAND    :<input name="brand_name" id="brand_name" />
-SEASON    :<input name="season" id="season" value="<?php echo $_SESSION['default_season_name'];?>"/>
-<input	name="season_id" id="season_id" type="hidden" value="<?php echo $_SESSION['default_season_id'];?>" />
-FACTURE DESCRIPTION    :<input name="description" id="description"/>
+<table width="100%" border="0" style="font-weight: bold;">
+<tr>
+<td align="right">PRODUCT CODE</td>
+<td><input name="product_code" id="product_code"/></td>
+<td align="right">PRODUCT NAME</td>
+<td><input name="product_name" id="product_name"/></td>
+<td align="right">PROVIDER    </td>
+<td><input name="provider_name" id="provider_name" /></td>
+</tr>
+<tr>
+<td align="right">CATEGORY</td>
+<td><input name="category_name" id="category_name" /></td>
+<td align="right">BRAND</td>
+<td><input name="brand_name" id="brand_name" /></td>
+<td align="right">SEASON</td>
+<td><input name="season" id="season" value="<?php echo $_SESSION['default_season_name'];?>"/>
+<input	name="season_id" id="season_id" type="hidden" value="<?php echo $_SESSION['default_season_id'];?>" /></td>
+</tr>
+<tr>
+<td align="right">DESCRIPTION</td>
+<td><input name="description" id="description"/></td>
+<td align="right">SALE</td>
+<td><input name="sale" id="sale" onkeypress="validateFloat(event);" maxlength="4"/></td>
+<td align="right"></td>
+<td></td>
+</tr>
+<tr>
+<td align="right"></td>
+<td></td>
+<td align="right"></td>
+<td></td>
+<td align="right"></td>
+<td></td>
+</tr>
+<tr>
+<td align="right"></td>
+<td></td>
+<td align="right"></td>
+<td></td>
+<td align="right"></td>
+<td></td>
+</tr>
+</table>
