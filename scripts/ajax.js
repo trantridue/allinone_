@@ -270,8 +270,33 @@ function insertReturnProduct(codes, quantities, descriptions, providers) {
 		}
 	});
 }
+function updateSaleListProduct(sale,product_code,product_name,provider_name,category_name, brand_name, season_id, description) {
+	var updatesaleproduct = 'modules/import/updatesaleproduct.php?sale=' + sale
+			+ '&product_code=' + product_code 
+			+ '&product_name=' + product_name
+			+ '&provider_name=' + provider_name
+			+ '&category_name=' + category_name
+			+ '&brand_name=' + brand_name
+			+ '&season_id=' + season_id
+			+ '&description=' + description;
+	$.ajax({
+		url : updatesaleproduct,
+		success : function(data) {
+			var actionType = "sale";
+			updatesalepostaction(data, actionType);
+		}
+	});
+}
 function saleListProduct() {
 	var sale = $('#sale').val();
+	var product_code = encodeURIComponent($('#product_code').val());
+	var product_name = encodeURIComponent($('#product_name').val());
+	var provider_name = encodeURIComponent($('#provider_name').val());
+	var category_name = encodeURIComponent($('#category_name').val());
+	var brand_name = encodeURIComponent($('#brand_name').val());
+	var season_id = $('#season_id').val();
+	var description = encodeURIComponent($('#description').val());
+	
 	if (sale == '' || parseFloat(sale) == 0) {
 		alert("Nhập sale khác 0");
 		$('#sale').focus();
@@ -279,7 +304,7 @@ function saleListProduct() {
 	} else {
 		$('#sale').removeClass("errorField");
 		if (confirm('Muốn sale-off ' + sale + '% các sản phẩm bên dưới?')) {
-			alert('good sale ' + sale);
+			updateSaleListProduct(sale,product_code,product_name,provider_name,category_name, brand_name, season_id, description);
 		}
 	}
 

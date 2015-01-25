@@ -209,3 +209,10 @@ function returnimportpostaction(data, actionType) {
 	listProduct();
 	document.getElementById("returnproductForm").reset();
 }
+function updatesalepostaction(data, actionType) {
+	$('#serverMessage').show();
+	var errorMessage = actionType + " product error";
+	var successMessage = actionType + " product successful";
+	displayMessageServer(data, errorMessage, successMessage, "product");
+	listProduct();
+}
