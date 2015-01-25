@@ -256,13 +256,12 @@ function show_product_import_facture_code(url){
 function show_product_product_code(url){
 	$('#suplementaryListArea').html(url);
 }
-function insertReturnProduct(codes,quantities,descriptions) {
-	var returnproduct = 'modules/import/addreturnproduct.php?codes=' + codes + '&quantities=' + quantities + '&descriptions=' + descriptions ;
+function insertReturnProduct(codes,quantities,descriptions,provider_id) {
+	var returnproduct = 'modules/import/addreturnproduct.php?codes=' + codes + '&quantities=' + quantities + '&descriptions=' + descriptions + '&provider_id=' + provider_id ;
 	$.ajax({
 		url : returnproduct,
 		success : function(data) {
 			var actionType = "return";
-//			alert(data);
 			returnimportpostaction(data, actionType);
 		}
 	});

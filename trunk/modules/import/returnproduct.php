@@ -9,8 +9,9 @@ function returnProduct(){
 	var allNotNull = false;
 	var flagRowWrong = true;
 	var returnable = true;
-	
+		
 	for (var i=1;i<=totalRows;i++) {
+		var provider_id = $('#provider_id_'+i).val();
 		var code = $('#product_code_'+i).val();
 		var qty = $('#product_return_qty_'+i).val();
 		var qtyremain = $('#remained_'+i).val();
@@ -19,9 +20,10 @@ function returnProduct(){
 
 		if((parseFloat(qtyremain) < parseFloat(qty)) && code!='') {
 			returnable = false;
-			$('#product_return_qty_1').addClass("errorField");
 			$('#product_return_qty_'+i).addClass("errorField");
+			$('#product_return_qty_'+i).addClass("transparentText");
 			$('#remained_'+i).addClass("errorField");
+			$('#remained_'+i).removeClass("transparentText");
 		} else {
 			$('#product_return_qty_'+i).removeClass("errorField");
 			$('#remained_'+i).removeClass("errorField");
@@ -46,7 +48,7 @@ function returnProduct(){
 		}
 	}
 	if(flagRowWrong && strCode !='' && returnable) {
-		insertReturnProduct(strCode,strQty,strDesc);
+		insertReturnProduct(strCode,strQty,strDesc,provider_id);
 	} else  {
 		$('#serverMessage').show();
 		$('#serverMessage').html("No product returned!");
@@ -62,6 +64,7 @@ function returnProduct(){
 <tr style="background-color: bisque;height: 30px;">
 <td colspan="9" align="center" style="font-weight: bold;font-size: 15px;">
 <input type="button" value="TRẢ HÀNG" class="menu_btn_sub" onclick="returnProduct();"/>
+<input type="reset" value="RESET">
 <input type="hidden" name="numberrows" id="numberrows" value="<?php echo default_row_product_return;?>"/>
 </td>
 </tr>
