@@ -360,11 +360,10 @@ FROM product_import t1,product t2,import_facture t3 where t1.product_code = t2.c
 		if ($haveNewProduct)
 			mysql_query ( $qry, $this->connection );
 	}
-function addReturnProduct($codes, $quantities, $descriptions) {
+function addReturnProduct($codes, $quantities, $descriptions,$provider_id) {
 		$listcode = explode ( ',', substr ( $codes, 0, - 1 ) );
 		$listquantity = explode ( ',', substr ( $quantities, 0, - 1 ) );
 		$listdescriptions = explode ( ',', substr ( $descriptions, 0, - 1 ) );
-		$provider_id = 1;
 		
 		$qry = "insert into product_return(product_code,quantity,date,description,provider_id) values ";
 		for($i = 0; $i < sizeof ( $listcode ); $i ++) {

@@ -199,6 +199,7 @@ function toggleDiv(divID) {
 	} else {
 		$('#'+divID).hide();
 	}
+	$('#serverMessage').hide();
 }
 function returnimportpostaction(data, actionType) {
 	$('#serverMessage').show();
