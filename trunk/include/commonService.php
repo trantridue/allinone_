@@ -115,6 +115,12 @@ echo "</script> ";
 					} else {
 						echo "<td style='color:red;font-weight:bold'> Desactive </td>";
 					}
+				}else if ($value == 'sex_id') {
+					if($rows [$value]=='1'){
+						echo "<td style='color:green;font-weight:bold'> WOMAN </td>";
+					} else {
+						echo "<td style='color:red;font-weight:bold'> MAN </td>";
+					}
 				} else if(sizeof(explode ( ",", $key ))>1) {
 					$fields = explode ( ",", $value );
 					$fieldskey = explode ( ",", $key );
