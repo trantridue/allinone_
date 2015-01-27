@@ -354,8 +354,13 @@ function addReturnProduct($codes, $quantities, $descriptions,$providers) {
 		echo mysql_query ( $qry, $this->connection );
 	}
 	function updateSaleProduct($sale,$product_code,$product_name,$provider_name,$category_name,$brand_name,$season_id,$description) {
-		$qry = "update product set sale = ".$sale ." where code like '".$product_code."' and name like '".$product_name
-		."' and category_id in (select id from category where name like '".$category_name."')" ;
+		$qry = "update product set sale = ".$sale ." where code like '".$product_code."' and name like '"
+				.$product_name
+				."' and category_id in (select id from category where name like '".$category_name
+				."') and brand_id in (select id from brand where name like '".$brand_name
+				."') and code in (select product_code from product_import where import_facture_code in (select code from import_facture where provider_id in (select id from provider where name like '".$provider_name
+				."')))" ;
+// 		echo $qry;
 		echo mysql_query ( $qry, $this->connection );
 	}
 	// END BUSINESS IMPORT PROJECT
