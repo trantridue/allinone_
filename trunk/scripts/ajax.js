@@ -282,6 +282,7 @@ function updateSaleListProduct(sale,product_code,product_name,provider_name,cate
 	$.ajax({
 		url : updatesaleproduct,
 		success : function(data) {
+			alert(data);
 			var actionType = "sale";
 			updatesalepostaction(data, actionType);
 		}
@@ -307,6 +308,4 @@ function saleListProduct() {
 			updateSaleListProduct(sale,product_code,product_name,provider_name,category_name, brand_name, season_id, description);
 		}
 	}
-
-	// alert('ok');
 }
