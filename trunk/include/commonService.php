@@ -50,7 +50,7 @@ echo "$(document).ready(  ";
 								$counter++;
 							}
 							echo "$(api.column(1).footer()).html('<span>Tổng:'+allContent + '</span>' +'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + currentContent );";
-							echo "$('#datatableDisplaySum').html('<span>Tổng:'+allContent + '</span>' +'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + currentContent );";
+							echo "$('#datatableDisplaySum".$datatable_id."').html('<span>Tổng:'+allContent + '</span>' +'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + currentContent );";
 					echo "}});";
 		echo "}); ";
 echo "</script> ";
@@ -59,7 +59,7 @@ echo "</script> ";
 	function generateJqueryDatatable($result, $datatable_id, $array_column) {
 		$num_colum = sizeof ( $array_column );
 		// generate header
-		echo "<div id='datatableDisplaySum'></div>";
+		echo "<div class='datatableDisplaySum' id='datatableDisplaySum".$datatable_id."'></div>";
 		echo "<table id='" . datatable_prefix . $datatable_id . "' class='display' cellspacing='0' class='order-column' width='100%'>";
 		echo "<thead>";
 		echo "<tr>";

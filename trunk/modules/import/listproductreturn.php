@@ -1,3 +1,4 @@
+<hr>
 <?php
 $product_code = $_REQUEST['product_code']; 
 $product_name = $_REQUEST['product_name']; 
@@ -20,3 +21,4 @@ if ($isdefault == "false") {
 	$importService->listProductReturnDefault();
 }
 ?>
+<br>
