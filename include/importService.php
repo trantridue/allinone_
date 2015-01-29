@@ -354,14 +354,46 @@ function addReturnProduct($codes, $quantities, $descriptions,$providers) {
 		echo mysql_query ( $qry, $this->connection );
 	}
 	function updateSaleProduct($sale,$product_code,$product_name,$provider_name,$category_name,$brand_name,$season_id,$description) {
-		$qry = "update product set sale = ".$sale ." where code like '".$product_code."' and name like '"
-				.$product_name
+		$qry = "update product set sale = ".$sale ." where code like '".$product_code 
+				."' and name like '".$product_name
 				."' and category_id in (select id from category where name like '".$category_name
 				."') and brand_id in (select id from brand where name like '".$brand_name
 				."') and code in (select product_code from product_import where import_facture_code in (select code from import_facture where provider_id in (select id from provider where name like '".$provider_name
 				."')))" ;
+		if($season_id != null && $season_id !='') {
+			$qry = $qry." and season_id =".$season_id;
+		}
 // 		echo $qry;
 		echo mysql_query ( $qry, $this->connection );
+	}
+	function listProductReturnDefault(){
+		$qry = "select t1.*,t2.*,t3.*,t4.*,t1.date as dater from product_return t1, product t2, provider t3, category t4, brand t5,season t6
+				where t1.product_code = t2.code and t1.provider_id = t3.id and t2.category_id = t4.id and t2.brand_id = t5.id and t2.season_id = t6.id";
+		$result = mysql_query ( $qry, $this->connection );
+		$array_column = array (
+				"product_code" => "Mã hàng,product_code",
+				"quantity" => "Số lượng",
+				"dater" => "Ngày"
+// 				"import_price" => "Giá nhập",
+// 				"export_price" => "Giá bán",
+// 				"sale" => "Sale",
+// 				"import_facture_code,date" => "Mã Hóa Đơn,import_facture_code",
+// 				"quantity*import_price" => "complex",
+// 				"provider_id,provider_name,name" => "Cung Cấp,provider_name",
+// 				"category_name" => "Loại",
+// 				"sex_id" => "Giới tính",
+// 				"brand_name" => "Hiệu",
+// 				"season_id,season_name" => "Mùa,season_name",
+				// 				"id,quantity,import_price,product_code,name" => "Edit",
+// 				"id" => "Delete",
+// 				"quantity*export_price" => "complex"
+		);
+		$array_total = array (
+				1 => "Số lượng"
+// 				2 => "Tổng nhập"
+		);
+		$this->commonService->generateJSDatatableComplex ( 'productreturn', 1, 'desc',$array_total );
+		$this->commonService->generateJqueryDatatable ( $result, 'productreturn', $array_column );
 	}
 	// END BUSINESS IMPORT PROJECT
 	

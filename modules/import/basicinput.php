@@ -13,8 +13,8 @@
 <td align="right">BRAND</td>
 <td><input name="brand_name" id="brand_name" /></td>
 <td align="right">SEASON</td>
-<td><input name="season" id="season" value="<?php echo $_SESSION['default_season_name'];?>"/>
-<input	name="season_id" id="season_id" type="hidden" value="<?php echo $_SESSION['default_season_id'];?>" /></td>
+<td><input name="season" id="season" value="" onkeypress="$('#season_id').val('');"/>
+<input	name="season_id" id="season_id" type="hidden" value="" /></td>
 </tr>
 <tr>
 <td align="right">DESCRIPTION</td>

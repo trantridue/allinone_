@@ -71,7 +71,28 @@ function returnProduct(){
 		$('#serverMessage').addClass('errorMessage');
 	}
 }
+function listReturnProduct(){
+	var isdefault = "false";
+	var product_code = $('#product_code').val();
+	var product_name = $('#product_name').val();
+	var provider_name = $('#provider_name').val();
+	var category_name = $('#category_name').val();
+	var brand_name = $('#brand_name').val();
+	var season = $('#season').val();
+	var season_id = $('#season_id').val();
+	var description = $('#description').val();
 
+	var url = "modules/import/listproductreturn.php" + "?isdefault=" + isdefault
+			+ "&product_code=" + encodeURIComponent(product_code)
+			+ "&product_name=" + encodeURIComponent(product_name)
+			+ "&category_name=" + encodeURIComponent(category_name)
+			+ "&brand_name=" + encodeURIComponent(brand_name) + "&season="
+			+ encodeURIComponent(season) + "&provider_name="
+			+ encodeURIComponent(provider_name) + "&season_id="
+			+ encodeURIComponent(season_id) + "&description="
+			+ encodeURIComponent(description);
+	$('#listReturnProductArea').load(url);
+}
 </script>
 <hr>
 <form id="returnproductForm">
@@ -80,6 +101,7 @@ function returnProduct(){
 <td colspan="9" align="center" style="font-weight: bold;font-size: 15px;"><label>Tổng tiền hàng trả lại : </label>
 <input type="text" id="total_return" value="0" class="transparentText"/> <?php echo tab16;?>
 <input type="button" value="TRẢ HÀNG" class="menu_btn_sub" onclick="returnProduct();"/>
+<input type="button" value="SEARCH" class="menu_btn_sub" onclick="listReturnProduct();"/>
 <input type="reset" value="RESET">
 <input type="hidden" name="numberrows" id="numberrows" value="<?php echo default_row_product_return;?>"/>
 </td>
@@ -135,3 +157,5 @@ $(document).ready(function(){
 <?php }?>
 </table>
 </form>
+
+<div id="listReturnProductArea"><?php include 'listproductreturn.php';?></div>
