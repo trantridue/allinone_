@@ -3,13 +3,6 @@ function resetContinue(){
 	$("#continueImport").val(false);
 }
 
-$(function() {
-	$(".product_name").autocomplete( {
-		source : "autocomplete/productname.php",
-		minLength : 1
-	});
-});
-
 </script>
 <?php $importService->loadDefaultSeason();?>
 <form method="post" action="?module=import&submenu=addproduct"

@@ -1,3 +1,4 @@
+//Validate input only the float number
 function validateFloat(evt) {
 	var theEvent = evt || window.event;
 	var key = theEvent.keyCode || theEvent.which;
@@ -9,6 +10,7 @@ function validateFloat(evt) {
 			theEvent.preventDefault();
 	}
 }
+// Validate input only the number
 function validateNum(evt) {
 	var theEvent = evt || window.event;
 	var key = theEvent.keyCode || theEvent.which;
@@ -32,7 +34,7 @@ function validateFacture(evt) {
 			theEvent.preventDefault();
 	}
 }
-
+// Validate not allow input anything
 function validateNon(evt) {
 	var theEvent = evt || window.event;
 	var key = theEvent.keyCode || theEvent.which;

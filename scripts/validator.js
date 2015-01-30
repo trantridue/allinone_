@@ -1,4 +1,5 @@
-//////////COMMON
+/* COMMON FUNCTION */
+// VERIFY IF A FIELD IS BLANK BY INPUT OF IT'S ID
 function validateBlankField(fieldid) {
 	if ($("#" + fieldid).val() == "") {
 		$("#" + fieldid).addClass("errorField");
@@ -24,6 +25,7 @@ function displayMessageServer(data, errorMessage, successMessage, module) {
 		$('#serverMessage').removeClass('successMessage');
 	}
 }
+// VERIFY IF THE FIELD VALUE RESPECT THE REGULAR EXPRESSSION
 function validateField(reg, fieldid) {
 	if (!reg.test($("#" + fieldid).val())) {
 		$("#" + fieldid).addClass("errorField");
@@ -33,6 +35,7 @@ function validateField(reg, fieldid) {
 		return true;
 	}
 }
+// VERIFY MATCHED PASSWORD WITH RETYPE-PASSWORD BY INPUT THE ID OF TWO FIELDS
 function validatePassword(passwordid, repasswordid) {
 	if (!($("#" + passwordid).val() == $("#" + repasswordid).val())) {
 		$("#" + passwordid).addClass("errorField");
@@ -44,7 +47,7 @@ function validatePassword(passwordid, repasswordid) {
 		return true;
 	}
 }
-// /////////USER
+/* USER MODULE */
 function userpostaction(data, actionType) {
 	$('#serverMessage').show();
 	var errorMessage = actionType + " user error";
@@ -73,7 +76,7 @@ function validateEditUserForm() {
 	return flag && flag1 && flag2 && flag3 && flag4 && flag5;
 };
 
-// ////////Import form
+/* IMPORT MODULE */
 function validateImportForm() {
 	var flag = true;
 	var flagRowWrong = true;
@@ -92,7 +95,6 @@ function validateImportForm() {
 
 	flag = flg_import_facture_code && flg_provider_name && flg_description
 			&& flg_provider_id && flg_season;
-	// if (!flag) return false;
 	// validate product line
 	for (var i = 1; i <= totalRow; i++) {
 		var code = '#code_' + i;
@@ -135,8 +137,22 @@ function validateImportForm() {
 	return flagRowWrong && flag && flagdata;
 	// return true;
 }
-// ///////Provider Form
-
+function returnimportpostaction(data, actionType) {
+	$('#serverMessage').show();
+	var errorMessage = actionType + " product error";
+	var successMessage = actionType + " product successful";
+	displayMessageServer(data, errorMessage, successMessage, "product");
+	listProduct();
+	document.getElementById("returnproductForm").reset();
+}
+function updatesalepostaction(data, actionType) {
+	$('#serverMessage').show();
+	var errorMessage = actionType + " product error";
+	var successMessage = actionType + " product successful";
+	displayMessageServer(data, errorMessage, successMessage, "product");
+	listProduct();
+}
+/* PROVIDER MODULE */
 function providerpostaction(data, actionType) {
 	$('#serverMessage').show();
 	var errorMessage = actionType + " Provider error";
@@ -158,8 +174,7 @@ function validateEditProviderForm() {
 
 	return flag1 && flag2 && flag3;
 }
-// ///////Customer Form
-
+/* CUSTOMER MODULE */
 function customerpostaction(data, actionType) {
 	$('#serverMessage').show();
 	var errorMessage = actionType + " Customer error";
@@ -179,40 +194,4 @@ function validateEditCustomerForm() {
 	var flag3 = validateField(telReg, 'customer_tel');
 
 	return flag2 && flag3;
-}
-function calculateImportFacture() {
-	var total = 0;
-	var totalRow = parseInt($("#totalRow").val());
-	for (var i = 1; i < totalRow; i++) {
-		var qty = ($("#qty_1").val() == "") ? 0
-				: parseInt($("#qty_" + i).val());
-		var impr = ($("#impr_1").val() == "") ? 0 : parseFloat($("#impr_" + i)
-				.val());
-		if (impr && qty)
-			total = total + qty * impr;
-	}
-	$("#total_facture").val(total.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'));
-}
-function toggleDiv(divID) {
-	if($('#'+divID).css('display')=="none") {
-		$('#'+divID).show();
-	} else {
-		$('#'+divID).hide();
-	}
-	$('#serverMessage').hide();
-}
-function returnimportpostaction(data, actionType) {
-	$('#serverMessage').show();
-	var errorMessage = actionType + " product error";
-	var successMessage = actionType + " product successful";
-	displayMessageServer(data, errorMessage, successMessage, "product");
-	listProduct();
-	document.getElementById("returnproductForm").reset();
-}
-function updatesalepostaction(data, actionType) {
-	$('#serverMessage').show();
-	var errorMessage = actionType + " product error";
-	var successMessage = actionType + " product successful";
-	displayMessageServer(data, errorMessage, successMessage, "product");
-	listProduct();
 }
