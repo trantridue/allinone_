@@ -280,3 +280,6 @@ textarea {
 	top: auto;
 }
 /*TOOL TIP END*/
+.dataTables_wrapper .dataTables_filter {
+	padding-right: 10px !important;
+}

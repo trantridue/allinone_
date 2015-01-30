@@ -75,16 +75,16 @@ function returnProduct(){
 </script>
 <hr>
 <form id="returnproductForm">
-<table width="100%">
-<tr style="background-color: bisque;height: 30px;">
-<td colspan="9" align="center" style="font-weight: bold;font-size: 15px;"><label>Tổng tiền hàng trả lại : </label>
-<input type="text" id="total_return" value="0" class="transparentText"/> <?php echo tab16;?>
-<input type="button" value="TRẢ HÀNG" class="menu_btn_sub" onclick="returnProduct();"/>
-<input type="button" value="SEARCH" class="menu_btn_sub" onclick="listReturnProduct();"/>
-<input type="reset" value="RESET">
+<div> 
+<input type="button" value="SAVE" class="menu_btn_sub" onclick="returnProduct();"/>
+<input type="button" value="SEARCH" class="menu_btn_sub" onclick="listReturnProduct();$('#returnproducttable').hide();"/>
+<input type="reset" value="TRẢ HÀNG" onclick="$('#returnproducttable').show();">
 <input type="hidden" name="numberrows" id="numberrows" value="<?php echo default_row_product_return;?>"/>
-</td>
-</tr>
+<?php echo tab4;?> <strong> TOTAL: </strong>
+<input type="text" id="total_return" value="0" style="opacity:100%;" size="8" onkeypress="validateNon(event);"/>
+</div>
+<hr>
+<table width="100%" id="returnproducttable">
 <tr>
 <th>Mã hàng</th>
 <th>Trả</th>
