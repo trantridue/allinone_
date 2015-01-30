@@ -7,7 +7,7 @@ class CommonService {
 	}
 	function generateJSDatatableComplex($datatable_id, $ordercolumn, $ordertype, $array_total) {
 		echo "<script>  ";
-echo "$(document).ready(  ";
+		echo "$(document).ready(  ";
 		echo "function() {  ";
 			echo "$('#" . datatable_prefix . $datatable_id . "').dataTable(  ";
 					echo "{ ";
@@ -84,6 +84,7 @@ echo "</script> ";
 		echo "</tfoot>";
 		echo "<tbody";
 		
+// 		if(count($rows)>0) {
 		// generate content
 		while ( $rows = mysql_fetch_array ( $result ) ) {
 			echo "<tr>";
@@ -139,6 +140,7 @@ echo "</script> ";
 			}
 			echo "</tr>";
 		}
+// 		}
 		// generate footer
 		echo "</tbody>";
 		echo "</table>";

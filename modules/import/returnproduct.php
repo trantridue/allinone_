@@ -71,28 +71,7 @@ function returnProduct(){
 		$('#serverMessage').addClass('errorMessage');
 	}
 }
-function listReturnProduct(){
-	var isdefault = "false";
-	var product_code = $('#product_code').val();
-	var product_name = $('#product_name').val();
-	var provider_name = $('#provider_name').val();
-	var category_name = $('#category_name').val();
-	var brand_name = $('#brand_name').val();
-	var season = $('#season').val();
-	var season_id = $('#season_id').val();
-	var description = $('#description').val();
 
-	var url = "modules/import/listproductreturn.php" + "?isdefault=" + isdefault
-			+ "&product_code=" + encodeURIComponent(product_code)
-			+ "&product_name=" + encodeURIComponent(product_name)
-			+ "&category_name=" + encodeURIComponent(category_name)
-			+ "&brand_name=" + encodeURIComponent(brand_name) + "&season="
-			+ encodeURIComponent(season) + "&provider_name="
-			+ encodeURIComponent(provider_name) + "&season_id="
-			+ encodeURIComponent(season_id) + "&description="
-			+ encodeURIComponent(description);
-	$('#listReturnProductArea').load(url);
-}
 </script>
 <hr>
 <form id="returnproductForm">
