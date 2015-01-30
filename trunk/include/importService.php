@@ -398,6 +398,27 @@ function addReturnProduct($codes, $quantities, $descriptions,$providers) {
 		$this->commonService->generateJSDatatableComplex ( 'productreturn', 1, 'desc',$array_total );
 		$this->commonService->generateJqueryDatatable ( $result, 'productreturn', $array_column );
 	}
+	function listProductReturn( $product_code, $product_name, $category_name, $provider_name, $brand_name, $season_id, $description ) {
+		$qry = "select t1.*,t2.*,t3.*,t4.*,t1.date as datereturn,(select import_price from product_import where product_code = t1.product_code) as import_price from
+				product_return t1, product t2, provider t3, category t4, brand t5,season t6
+				where t1.product_code = t2.code and t1.provider_id = t3.id and t2.category_id = t4.id and t2.brand_id = t5.id and t2.season_id = t6.id 
+				and t1.product_code like '%".$product_code."%'";
+		$result = mysql_query ( $qry, $this->connection );
+		$array_column = array (
+				"product_code" => "Mã hàng",
+				"quantity" => "Số lượng",
+				"import_price" => "Giá nhập",
+				"quantity*import_price" => "complex",
+				"datereturn" => "Ngày"
+		);
+		$array_total = array (
+				1 => "Số lượng",
+				3 => "Tổng tiền trả"
+		);
+		echo mysql_num_rows($result);
+		$this->commonService->generateJSDatatableComplex ( 'productreturn', 1, 'desc',$array_total );
+		$this->commonService->generateJqueryDatatable ( $result, 'productreturn', $array_column );
+	}
 	// END BUSINESS IMPORT PROJECT
 	
 }
