@@ -150,10 +150,10 @@ input[type='reset'] {
 /* ICON END*/ /* FIELD START */
 .datefield {
 	background-image: url("../images/date_ico.jpg");
-    background-position: 76px -5px;
-    background-repeat: no-repeat;
-    height: 17px;
-    width: 100px;
+	background-position: 76px -5px;
+	background-repeat: no-repeat;
+	height: 17px;
+	width: 100px;
 }
 
 /* FIELD RND */
@@ -179,45 +179,104 @@ input[type='reset'] {
 }
 /* TABLE */
 .edittable {
-	background-color: bisque; padding-top: 10px;
+	background-color: bisque;
+	padding-top: 10px;
 }
+
 .sex_man {
 	background-color: pink;
 	height: 18px;
-	width:60px;
-	padding-top:6px;
+	width: 60px;
+	padding-top: 6px;
 	text-align: center;
 	font-weight: bold;
 }
+
 .sex_woman {
 	background-color: yellow;
 	height: 18px;
-	width:60px;
-	padding-top:6px;
+	width: 60px;
+	padding-top: 6px;
 	text-align: center;
 	font-weight: bold;
 }
-#total_facture{
+
+#total_facture {
 	background-color: #74dd89;
 	border: none;
-	
 	font-weight: bold;
 	font-size: 12pt;
 }
+
 textarea {
-    resize: none;
+	resize: none;
 }
+
 .datatableDisplaySum {
 	text-align: center;
 	font-weight: bold;
 }
+
 .transparentText {
-	 background-color: gray;
-    border: medium none;
-    font-size: 12pt;
-    font-weight: bold;
-    color: yellow;
+	background-color: gray;
+	border: medium none;
+	font-size: 12pt;
+	font-weight: bold;
+	color: yellow;
 }
+
 #listReturnProductArea {
 	background-color: pink;
 }
+/*TOOL TIP START*/
+.ui-tooltip, .arrow:after {
+	background: black;
+	border: 2px solid white;
+}
+
+.ui-tooltip {
+	padding: 10px 20px;
+	color: white;
+	border-radius: 20px;
+	font: bold 14px "Helvetica Neue", Sans-Serif;
+	text-transform: uppercase;
+	box-shadow: 0 0 7px black;
+}
+
+.arrow {
+	width: 70px;
+	height: 16px;
+	overflow: hidden;
+	position: absolute;
+	left: 50%;
+	margin-left: -35px;
+	bottom: -16px;
+}
+
+.arrow.top {
+	top: -16px;
+	bottom: auto;
+}
+
+.arrow.left {
+	left: 20%;
+}
+
+.arrow:after {
+	content: "";
+	position: absolute;
+	left: 20px;
+	top: -20px;
+	width: 25px;
+	height: 25px;
+	box-shadow: 6px 5px 9px -9px black;
+	-webkit-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	transform: rotate(45deg);
+}
+
+.arrow.top:after {
+	bottom: -20px;
+	top: auto;
+}
+/*TOOL TIP END*/

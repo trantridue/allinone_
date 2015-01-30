@@ -218,6 +218,16 @@ $(document).ready(function() {
 	};
 	$("#brand_name").autocomplete(ac_config_brand);
 });
+//$(document).ready(function() {
+//	var ac_config_import_facture_code = {
+//		source : "autocomplete/completed_import_facture_code.php",
+//		select : function(event, ui) {
+//			$("#import_facture_code").val(ui.item.code);
+//		},
+//		minLength : 1
+//	};
+//	$("#import_facture_code").autocomplete(ac_config_import_facture_code);
+//});
 $(function() {
 	$("#product_name").autocomplete({
 		source : "autocomplete/productname.php",
