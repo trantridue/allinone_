@@ -73,7 +73,7 @@ FROM product_import t1,product t2,import_facture t3 where t1.product_code = t2.c
 				2 => "Số lượng",
 				7 => "Tổng nhập"
 		);
-		$this->commonService->generateJSDatatableComplex ( 'product', 6, 'desc',$array_total );
+		$this->commonService->generateJSDatatableComplex ($result, 'product', 6, 'desc',$array_total );
 		$this->commonService->generateJqueryDatatable ( $result, 'product', $array_column );
 	}
 	function currentMaxProductCode($i) {
@@ -395,7 +395,7 @@ function addReturnProduct($codes, $quantities, $descriptions,$providers) {
 				1 => "Số lượng",
 				3 => "Tổng tiền trả"
 		);
-		$this->commonService->generateJSDatatableComplex ( 'productreturn', 1, 'desc',$array_total );
+		$this->commonService->generateJSDatatableComplex ($result, 'productreturn', 1, 'desc',$array_total );
 		$this->commonService->generateJqueryDatatable ( $result, 'productreturn', $array_column );
 	}
 	function listProductReturn( $product_code, $product_name, $category_name, $provider_name, $brand_name, $season_id, $description ) {
@@ -415,8 +415,8 @@ function addReturnProduct($codes, $quantities, $descriptions,$providers) {
 				1 => "Số lượng",
 				3 => "Tổng tiền trả"
 		);
-		echo mysql_num_rows($result);
-		$this->commonService->generateJSDatatableComplex ( 'productreturn', 1, 'desc',$array_total );
+		
+		$this->commonService->generateJSDatatableComplex ($result, 'productreturn', 1, 'desc',$array_total );
 		$this->commonService->generateJqueryDatatable ( $result, 'productreturn', $array_column );
 	}
 	// END BUSINESS IMPORT PROJECT

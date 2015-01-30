@@ -5,7 +5,8 @@ class CommonService {
 		echo "$(document).ready(function() { $('#" . datatable_prefix . $datatable_id . "').dataTable({'order': [[ " . $ordercolumn . ", '" . $ordertype . "' ]]});});";
 		echo "</script>";
 	}
-	function generateJSDatatableComplex($datatable_id, $ordercolumn, $ordertype, $array_total) {
+	function generateJSDatatableComplex($result, $datatable_id, $ordercolumn, $ordertype, $array_total) {
+		if(mysql_num_rows($result)>0) {
 		echo "<script>  ";
 		echo "$(document).ready(  ";
 		echo "function() {  ";
@@ -54,9 +55,11 @@ class CommonService {
 					echo "}});";
 		echo "}); ";
 echo "</script> ";
+		} 
 	}
 	
 	function generateJqueryDatatable($result, $datatable_id, $array_column) {
+		if(mysql_num_rows($result)>0) {
 		$num_colum = sizeof ( $array_column );
 		// generate header
 		echo "<div class='datatableDisplaySum' id='datatableDisplaySum".$datatable_id."'></div>";
@@ -144,6 +147,9 @@ echo "</script> ";
 		// generate footer
 		echo "</tbody>";
 		echo "</table>";
+		} else {
+			echo "No data found";
+		}
 	}
 	function RedirectToURL($url) {
 		header ( "Location: $url" );

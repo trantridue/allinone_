@@ -47,23 +47,23 @@ class ProviderService {
 		
 		$result = mysql_query ( $qry, $this->connection );
 		$array_column = array (
-		"name" => "Name",
-		"total" => "Tổng", 
-		"paid" => "Paid", 
-		"total-paid" => "remain", 
-		"tel" => "Tel", 
-		"address" => "Address", 
-		"description" => "Description",
-		"date" => "Modify date", 
-		"id,name,tel,address,description" => "Edit", 
-		"id" => "Delete" 
+				"name" => "Name",
+				"total" => "Tổng",
+				"paid" => "Paid",
+				"total-paid" => "remain",
+				"tel" => "Tel",
+				"address" => "Address",
+				"description" => "Description",
+				"date" => "Modify date",
+				"id,name,tel,address,description" => "Edit",
+				"id" => "Delete" 
 		);
 		$array_total = array (
 				1 => "Tổng nợ",
 				2 => "Đã trả",
-				3 => "Còn nợ"
+				3 => "Còn nợ" 
 		);
-		$this->commonService->generateJSDatatableComplex ( providerdatatable, 0, 'desc',$array_total );
+		$this->commonService->generateJSDatatableComplex ( $result, providerdatatable, 0, 'desc', $array_total );
 		$this->commonService->generateJqueryDatatable ( $result, providerdatatable, $array_column );
 	}
 	function deleteProvider($providerid) {
@@ -77,7 +77,7 @@ class ProviderService {
 		$result = mysql_query ( $qry, $this->connection );
 		echo "<script>providerpostaction('" . $result . "','" . $actionType . "');</script>";
 	}
-	function addProvider ( $provider_name, $provider_address, $provider_tel, $provider_description){
+	function addProvider($provider_name, $provider_address, $provider_tel, $provider_description) {
 		$actionType = 'insert';
 		$qry = "insert into provider(name,address,tel,description,date) values ('" . $provider_name . "',
 				'" . $provider_address . "','" . $provider_tel . "','" . $provider_description . "',now())";
