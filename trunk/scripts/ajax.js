@@ -1,11 +1,4 @@
-//////////COMMON
-$(function() {
-	$(".datefield").datepicker({
-		dateFormat : "yy-mm-dd",
-		changeMonth : true,
-		changeYear : true
-	});
-});
+/* COMMON MODULE */
 function processUrlString(str) {
 	var key = new Array();
 	var value = new Array();
@@ -20,7 +13,8 @@ function processUrlString(str) {
 	}
 	return inputUrl;
 }
-// ////////USER
+
+/* USER MODULE */
 function listUser() {
 	var isdefault = "false";
 	var username = $('#user_username').val();
@@ -45,6 +39,22 @@ function edituser(str) {
 	var url = 'modules/user/edituser.php?' + inputUrl;
 	$('#inputArea').load(url);
 }
+function changeStatusUser() {
+	var oldClass = $("#user_status").attr("class");
+	var newClass = "";
+	var status_value = '';
+	if (oldClass == 'status_on') {
+		newClass = 'status_off';
+		status_value = 'n';
+	} else {
+		status_value = 'y';
+		newClass = 'status_on';
+	}
+	$("#user_status").addClass(newClass);
+	$("#user_status").removeClass(oldClass);
+	$("#user_status_hidden").val(status_value);
+}
+/* IMPORT MODULE */
 function changeSex(i) {
 	var oldClass = $("#sex_" + i).attr("class");
 	var newClass = "";
@@ -75,81 +85,6 @@ function resetExisted(i) {
 function resetProviderId() {
 	$("#provider_id").val('');
 }
-function changeStatusUser() {
-	var oldClass = $("#user_status").attr("class");
-	var newClass = "";
-	var status_value = '';
-	if (oldClass == 'status_on') {
-		newClass = 'status_off';
-		status_value = 'n';
-	} else {
-		status_value = 'y';
-		newClass = 'status_on';
-	}
-	$("#user_status").addClass(newClass);
-	$("#user_status").removeClass(oldClass);
-	$("#user_status_hidden").val(status_value);
-}
-
-// /PROVIDER
-function listProvider() {
-	var isdefault = "false";
-	var name = $('#provider_name').val();
-	var url = "modules/provider/list.php" + "?isdefault=" + isdefault
-			+ "&name=" + encodeURIComponent(name);
-	$('#listArea').load(url);
-}
-
-function editprovider(str) {
-	var inputUrl = processUrlString(str);
-	var url = 'modules/provider/editprovider.php?' + inputUrl;
-	$('#inputArea').load(url);
-}
-function deleteprovider(providerid) {
-	var deleteprovider = 'modules/provider/deleteprovider.php?providerid='
-			+ providerid;
-	$.ajax({
-		url : deleteprovider,
-		success : function(data) {
-			var actionType = "delete";
-			providerpostaction(data, actionType);
-		}
-	});
-}
-// /CUSTOMER
-function listCustomer() {
-	var isdefault = "false";
-	var name = $('#customer_name').val();
-	var url = "modules/customer/list.php" + "?isdefault=" + isdefault
-			+ "&name=" + encodeURIComponent(name);
-	$('#listArea').load(url);
-}
-
-function editcustomer(str) {
-	var inputUrl = processUrlString(str);
-	var url = 'modules/customer/editcustomer.php?' + inputUrl;
-	$('#inputArea').load(url);
-}
-function deletecustomer(customerid) {
-	var deletecustomer = 'modules/customer/deletecustomer.php?customerid='
-			+ customerid;
-	$.ajax({
-		url : deletecustomer,
-		success : function(data) {
-			var actionType = "delete";
-			customerpostaction(data, actionType);
-		}
-	});
-}
-// /////SINGLE AUTOCOMPLETE
-$(function() {
-	$(".productcode").autocomplete({
-		source : "autocomplete/productcode.php",
-		minLength : 1
-	});
-});
-
-// ////////PRODUCT IMPORT
 $(document).ready(function() {
 	var ac_config_import_facture = {
 		source : "autocomplete/completed_import_facture_code.php",
@@ -218,18 +153,8 @@ $(document).ready(function() {
 	};
 	$("#brand_name").autocomplete(ac_config_brand);
 });
-//$(document).ready(function() {
-//	var ac_config_import_facture_code = {
-//		source : "autocomplete/completed_import_facture_code.php",
-//		select : function(event, ui) {
-//			$("#import_facture_code").val(ui.item.code);
-//		},
-//		minLength : 1
-//	};
-//	$("#import_facture_code").autocomplete(ac_config_import_facture_code);
-//});
 $(function() {
-	$("#product_name").autocomplete({
+	$(".product_name").autocomplete( {
 		source : "autocomplete/productname.php",
 		minLength : 1
 	});
@@ -340,4 +265,52 @@ function listReturnProduct(){
 			+ encodeURIComponent(season_id) + "&description="
 			+ encodeURIComponent(description);
 	$('#listReturnProductArea').load(url);
+}
+/* PROVIDER MODULE */
+function listProvider() {
+	var isdefault = "false";
+	var name = $('#provider_name').val();
+	var url = "modules/provider/list.php" + "?isdefault=" + isdefault
+			+ "&name=" + encodeURIComponent(name);
+	$('#listArea').load(url);
+}
+function editprovider(str) {
+	var inputUrl = processUrlString(str);
+	var url = 'modules/provider/editprovider.php?' + inputUrl;
+	$('#inputArea').load(url);
+}
+function deleteprovider(providerid) {
+	var deleteprovider = 'modules/provider/deleteprovider.php?providerid='
+			+ providerid;
+	$.ajax({
+		url : deleteprovider,
+		success : function(data) {
+			var actionType = "delete";
+			providerpostaction(data, actionType);
+		}
+	});
+}
+/* CUSTOMER MODULE */
+function listCustomer() {
+	var isdefault = "false";
+	var name = $('#customer_name').val();
+	var url = "modules/customer/list.php" + "?isdefault=" + isdefault
+			+ "&name=" + encodeURIComponent(name);
+	$('#listArea').load(url);
+}
+function editcustomer(str) {
+	var inputUrl = processUrlString(str);
+	var url = 'modules/customer/editcustomer.php?' + inputUrl;
+	$('#inputArea').load(url);
+}
+function deletecustomer(customerid) {
+	var deletecustomer = 'modules/customer/deletecustomer.php?customerid='
+			+ customerid;
+	$.ajax({
+		url : deletecustomer,
+		success : function(data) {
+			var actionType = "delete";
+			customerpostaction(data, actionType);
+		}
+	});
 }

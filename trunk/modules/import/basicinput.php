@@ -3,7 +3,7 @@
 <td align="right" title="Test This title <br> with HTML CODE">PRODUCT CODE</td>
 <td><input name="product_code" id="product_code"/></td>
 <td align="right">PRODUCT NAME</td>
-<td><input name="product_name" id="product_name"/></td>
+<td><input name="product_name" id="product_name" class="product_name"/></td>
 <td align="right">PROVIDER    </td>
 <td><input name="provider_name" id="provider_name" /></td>
 </tr>
