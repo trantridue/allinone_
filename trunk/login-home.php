@@ -23,7 +23,7 @@ if (! $fgmembersite->CheckLogin ()) {
 
 <script src="scripts/jquery-1.11.1.min.js"></script>
 <script src="scripts/jquery.dataTables.min.js"></script>
-<script src="scripts/tables.js"></script>
+<script src="scripts/datatables.js"></script>
 <script src="scripts/ui.js"></script>
 
 <script src="scripts/validator.js"></script>
@@ -31,6 +31,7 @@ if (! $fgmembersite->CheckLogin ()) {
 <link rel="stylesheet" href="style/jquery-ui.css">
 <script src="scripts/jquery-ui.js"></script>
 <script src="scripts/ajax.js"></script>
+<script src="scripts/calculator.js"></script>
 </head>
 <body>
 <div id='main_page_wrap'>

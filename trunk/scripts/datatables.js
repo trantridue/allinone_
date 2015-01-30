@@ -1,11 +1,3 @@
-//$(document).ready(		
-//		function() {
-//			$('#table_list_user').dataTable({
-//					"order": [[ 0, "asc" ]]
-//			});
-//		}
-//);
-
 $(document)
 		.ready(
 				function() {
