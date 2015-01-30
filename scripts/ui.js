@@ -33,9 +33,9 @@ $(function() {
 // SHOW OR HIDE A OBJECT BY INPUT ID
 function toggleDiv(divID) {
 	if ($('#' + divID).css('display') == "none") {
-		$('#' + divID).show();
+		$('#' + divID).show(1000);
 	} else {
-		$('#' + divID).hide();
+		$('#' + divID).hide(1000);
 	}
-	$('#serverMessage').hide();
+	$('#serverMessage').hide(100);
 }

@@ -77,8 +77,8 @@ function returnProduct(){
 <form id="returnproductForm">
 <div> 
 <input type="button" value="SAVE" class="menu_btn_sub" onclick="returnProduct();"/>
-<input type="button" value="SEARCH" class="menu_btn_sub" onclick="listReturnProduct();$('#returnproducttable').hide();"/>
-<input type="reset" value="TRẢ HÀNG" onclick="$('#returnproducttable').show();">
+<input type="button" value="SEARCH" class="menu_btn_sub" onclick="listReturnProduct();$('#returnproducttable').hide(1000);"/>
+<input type="reset" value="TRẢ HÀNG" onclick="$('#returnproducttable').show(1000);">
 <input type="hidden" name="numberrows" id="numberrows" value="<?php echo default_row_product_return;?>"/>
 <?php echo tab4;?> <strong> TOTAL: </strong>
 <input type="text" id="total_return" value="0" style="opacity:100%;" size="8" onkeypress="validateNon(event);"/>
