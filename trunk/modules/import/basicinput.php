@@ -1,6 +1,6 @@
 <table width="100%" border="0" style="font-weight: bold;">
 <tr>
-<td align="right">PRODUCT CODE</td>
+<td align="right" title="Test This title <br> with HTML CODE">PRODUCT CODE</td>
 <td><input name="product_code" id="product_code"/></td>
 <td align="right">PRODUCT NAME</td>
 <td><input name="product_name" id="product_name"/></td>
@@ -21,8 +21,8 @@
 <td><input name="description" id="description"/></td>
 <td align="right">SALE</td>
 <td><input name="sale" id="sale" onkeypress="validateFloat(event);" maxlength="4"/></td>
-<td align="right"></td>
-<td></td>
+<td align="right">FACTURE</td>
+<td><input name="import_facture_code" id="import_facture_code"/> </td>
 </tr>
 <tr>
 <td align="right"></td>

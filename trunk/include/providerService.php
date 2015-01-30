@@ -56,7 +56,7 @@ class ProviderService {
 				"description" => "Description",
 				"date" => "Modify date",
 				"id,name,tel,address,description" => "Edit",
-				"id" => "Delete" 
+				"id" => "Delete"
 		);
 		$array_total = array (
 				1 => "Tổng nợ",
