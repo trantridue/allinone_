@@ -1,7 +1,6 @@
-
 <form action="?module=user&submenu=adduser" method="post" onsubmit="return validateEditUserForm();">
 	<input type="hidden" name="user_id" value="<?php echo $_REQUEST['id'];?>" />
-	<table width="100%" class="edittable">
+	<table width="100%" class="searchcriteriatable">
 		<tr>
 			<td style="text-align: right;">Name :</td>
 			<td><input autocomplete="off" type="text" name="user_name" id="user_name"
@@ -44,8 +43,8 @@
 			<td></td>
 		</tr>
 		<tr>
-			<td style="text-align: right;" colspan="4"><input type="submit"
-				value="Add"></td>
+			<td colspan="4"><input type="submit"
+				value="SAVE"></td>
 		</tr>
 
 	</table>

@@ -7,37 +7,34 @@ function resetContinue(){
 <?php $importService->loadDefaultSeason();?>
 <form method="post" action="?module=import&submenu=addproduct"
 	onsubmit="return validateImportForm();">
-	<label>Facture Code : </label><input onkeydown="resetContinue();"
+	
+	<table class="searchcriteriatable">
+	<input type="hidden" name="continueImport" id="continueImport"	value="false" />
+	<tr>
+		<td align="right">FACTURE CODE </td>
+		<td><input onkeydown="resetContinue();"
 		name="import_facture_code" id="import_facture_code"
-		value="<?php echo $importService->getImportFactureCode();?>" /><?php echo tab4;?>
-	<label>Provider : </label><input name="provider_name" onkeypress="resetProviderId();"
+		value="<?php echo $importService->getImportFactureCode();?>" /></td>
+		<td align="right">PROVIDER </td>
+		<td><input name="provider_name" onkeypress="resetProviderId();"
 		id="provider_name" /><input type="hidden" name="provider_id"
-		id="provider_id" /><?php echo tab4;?>
-	<?php echo tab4;?> Sale: <input name="sale" id="sale" size="3" maxlength="2" onkeypress="validateNum(event);"/>%<?php echo tab4;?>
-	<input type="hidden" name="continueImport" id="continueImport"
-		value="false" /> <label>Season : </label><input name="season"
+		id="provider_id" /></td>
+		<td align="right">SEASON </td>
+		<td><input name="season"
 		id="season" value="<?php echo $_SESSION['default_season_name'];?>" /><input
 		name="season_id" id="season_id" type="hidden"
 		value="<?php echo $_SESSION['default_season_id'];?>" /><?php echo tab4;?>
-	<?php $rowNum = $_SESSION ['import_number_row'];?>
-	
-	<br><label>Description : </label><?php echo tab2;?><textarea name="description" id="description" cols="40" rows="3"></textarea><?php echo tab4;?>
-	<strong>Total : <input id="total_facture" value="0" onkeypress="validateNon(event);"/></strong>
-	<input type="submit" value="IMPORT">
-	<table class="searchcriteriatable">
-	<tr>
-		<td align="right">FACTURE CODE </td>
-		<td></td>
-		<td align="right">PROVIDER </td>
-		<td></td>
-		<td align="right">SEASON </td>
-		<td></td>
-		<td align="right">SALE</td>
-		<td></td>
+	<?php $rowNum = $_SESSION ['import_number_row'];?></td>
+		<td align="right">SALE % </td>
+		<td><input name="sale" id="sale" size="3" maxlength="2" onkeypress="validateNum(event);"/></td>
 	</tr>
 	<tr>
 		<td align="right">DESCRIPTION </td>
-		<td colspan="7"></td>
+		<td colspan="7"><textarea name="description" id="description" cols="40" rows="3"></textarea></td>
+	</tr>
+	<tr>
+		<td><input type="submit" value="IMPORT"> </td>
+		<td colspan="7"><input id="total_facture" value="0.00" onkeypress="validateNon(event);"/> </td>
 	</tr>
 	</table>
 		<hr>
