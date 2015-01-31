@@ -14,7 +14,7 @@ define('tab8', tab4.tab4);
 define('tab16', tab8.tab8);
 //Default param
 define('defaultmodule','import');
-define('defaultsubmodule','list');
+define('defaultsubmodule','search');
 //datatableid
 define('userdatatable','user');
 define('providerdatatable','provider');
