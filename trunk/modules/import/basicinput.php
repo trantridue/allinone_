@@ -5,27 +5,29 @@
 <td><input name="product_code" id="product_code" size="7" class="product_code"/>
 <input name="product_code_to" id="product_code_to" style="display: none;" size="7" class="product_code"/></td>
 <td align="right">PRODUCT NAME</td>
-<td><input name="product_name" id="product_name" class="product_name" size="19"/></td>
+<td><input name="product_name" id="product_name" class="product_name" size="18"/></td>
 <td align="right">PROVIDER    </td>
-<td><input name="provider_name" id="provider_name" size="19"/></td>
+<td><input name="provider_name" id="provider_name" size="18"/></td>
 </tr>
 <tr>
-<td align="right">CATEGORY</td>
-<td><input name="category_name" id="category_name" size="19"/></td>
-<td align="right">BRAND</td>
-<td><input name="brand_name" id="brand_name" size="19"/></td>
-<td align="right">SEASON</td>
-<td><input name="season" id="season" value="" onkeypress="$('#season_id').val('');" size="19"/>
-<input	name="season_id" id="season_id" type="hidden" value="" /></td>
-</tr>
-<tr>
-<td align="right">DESCRIPTION</td>
-<td><input name="description" id="description" size="19"/></td>
 <td align="right">SALE</td>
 <td><input name="sale" id="sale" onkeypress="validateFloat(event);" maxlength="4" size="7"/>
 <input name="sale_to" id="sale_to" onkeypress="validateFloat(event);" maxlength="4" size="7" style="display: none;"/></td>
+<td align="right">BRAND</td>
+<td><input name="brand_name" id="brand_name" size="18"/></td>
+<td align="right">SEASON</td>
+<td><input name="season" id="season" value="" onkeypress="$('#season_id').val('');" size="18"/>
+<input	name="season_id" id="season_id" type="hidden" value="" /></td>
+</tr>
+<tr>
+<td align="right">IMPORT QUANTITY</td>
+<td><input name="import_quantity" id="import_quantity" size="7" class="import_quantity"/>
+<input name="import_quantity_to" id="import_quantity_to" size="7" class="import_quantity_to" style="display: none;"/></td>
+<td align="right">CATEGORY</td>
+<td><input name="category_name" id="category_name" size="18"/></td>
+
 <td align="right">FACTURE</td>
-<td><input name="import_facture_code" id="import_facture_code" size="19"/> </td>
+<td><input name="import_facture_code" id="import_facture_code" size="18"/> </td>
 </tr>
 <tr>
 <td align="right">IMPORT PRICE</td>
@@ -34,9 +36,8 @@
 <td align="right">EXPORT PRICE</td>
 <td><input name="export_price" id="export_price" size="7" class="export_price"/>
 <input name="export_price_to" id="export_price_to" size="7" class="export_price_to" style="display: none;"/></td>
-<td align="right">IMPORT QUANTITY</td>
-<td><input name="import_quantity" id="import_quantity" size="7" class="import_quantity"/>
-<input name="import_quantity_to" id="import_quantity_to" size="7" class="import_quantity_to" style="display: none;"/></td>
+<td align="right">DESCRIPTION</td>
+<td><input name="description" id="description" size="18"/></td>
 </tr>
 <tr>
 <td align="right">EXPORT QUANTITY</td>
@@ -52,11 +53,9 @@
 					id="sex_value_search" value="" /></td>
 </tr>
 <tr>
-<td align="right"></td>
-<td></td>
-<td align="right"></td>
-<td></td>
-<td align="right"></td>
-<td></td>
+<td align="right">IMPORT FROM  </td>
+<td colspan="7"><input type="text" class="datefield" id="datefrom"/>
+TO 
+<input type="text" class="datefield" id="dateto"/></td>
 </tr>
 </table>
