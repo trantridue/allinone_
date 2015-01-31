@@ -177,6 +177,7 @@ input[type='reset'] {
 	background-color: yellow;
 	border-color: red;
 }
+
 /* TABLE */
 .edittable {
 	background-color: bisque;
@@ -228,8 +229,9 @@ textarea {
 #listReturnProductArea {
 	background-color: pink;
 }
+
 /*TOOL TIP START*/
-.ui-tooltip, .arrow:after {
+.ui-tooltip,.arrow:after {
 	background: black;
 	border: 2px solid white;
 }
@@ -279,7 +281,16 @@ textarea {
 	bottom: -20px;
 	top: auto;
 }
+
 /*TOOL TIP END*/
 .dataTables_wrapper .dataTables_filter {
 	padding-right: 10px !important;
+}
+
+/* TABLE INPUT */
+.searchcriteriatable {
+	font-weight: bold;
+	background-color: #FFE4C4;
+	border: 0px;
+	width: 100%;
 }

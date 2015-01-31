@@ -24,8 +24,24 @@ function resetContinue(){
 	<br><label>Description : </label><?php echo tab2;?><textarea name="description" id="description" cols="40" rows="3"></textarea><?php echo tab4;?>
 	<strong>Total : <input id="total_facture" value="0" onkeypress="validateNon(event);"/></strong>
 	<input type="submit" value="IMPORT">
-	<hr>
-	<table width="100%" border="0" cellspacing="0" cellpadding="2"
+	<table class="searchcriteriatable">
+	<tr>
+		<td align="right">FACTURE CODE </td>
+		<td></td>
+		<td align="right">PROVIDER </td>
+		<td></td>
+		<td align="right">SEASON </td>
+		<td></td>
+		<td align="right">SALE</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td align="right">DESCRIPTION </td>
+		<td colspan="7"></td>
+	</tr>
+	</table>
+		<hr>
+	<table  class="searchcriteriatable"
 		style="border-collapse: collapse;">
 		<tbody>
 			<tr style="text-align: center; font-weight: bold;">

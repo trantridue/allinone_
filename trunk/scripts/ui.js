@@ -33,9 +33,21 @@ $(function() {
 // SHOW OR HIDE A OBJECT BY INPUT ID
 function toggleDiv(divID) {
 	if ($('#' + divID).css('display') == "none") {
-		$('#' + divID).show(1000);
+		$('#' + divID).show(100);
 	} else {
-		$('#' + divID).hide(1000);
+		$('#' + divID).hide(100);
 	}
 	$('#serverMessage').hide(100);
+}
+// IMPORT TOGGLE FIELD
+function toggleImportSearchCriteria(){
+	toggleDiv('product_code_to');
+	toggleDiv('import_price_to');
+	toggleDiv('export_price_to');
+	toggleDiv('sale_to');
+	toggleDiv('import_quantity_to');
+	toggleDiv('export_quantity_to');
+	toggleDiv('remain_quantity_to');
+	$('#isadvancedsearch').val($('#isadvancedsearch').val()=='false');
+//	alert($('#isadvancedsearch').val());
 }
