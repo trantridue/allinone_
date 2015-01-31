@@ -1,9 +1,8 @@
 <input type="hidden" id="isadvancedsearch" value="false"/>
 <table class="searchcriteriatable">
 <tr>
-<td align="right" title="Test This title <br> with HTML CODE">PRODUCT CODE</td>
-<td><input name="product_code" id="product_code" size="7" class="product_code"/>
-<input name="product_code_to" id="product_code_to" style="display: none;" size="7" class="product_code"/></td>
+<td align="right">CATEGORY</td>
+<td><input name="category_name" id="category_name" size="18"/></td>
 <td align="right">PRODUCT NAME</td>
 <td><input name="product_name" id="product_name" class="product_name" size="18"/></td>
 <td align="right">PROVIDER    </td>
@@ -23,9 +22,9 @@
 <td align="right">IMPORT QUANTITY</td>
 <td><input name="import_quantity" id="import_quantity" size="7" class="import_quantity"/>
 <input name="import_quantity_to" id="import_quantity_to" size="7" class="import_quantity_to" style="display: none;"/></td>
-<td align="right">CATEGORY</td>
-<td><input name="category_name" id="category_name" size="18"/></td>
-
+<td align="right" title="Test This title <br> with HTML CODE">PRODUCT CODE</td>
+<td><input name="product_code" id="product_code" size="7" class="product_code"/>
+<input name="product_code_to" id="product_code_to" style="display: none;" size="7" class="product_code"/></td>
 <td align="right">FACTURE</td>
 <td><input name="import_facture_code" id="import_facture_code" size="18"/> </td>
 </tr>
