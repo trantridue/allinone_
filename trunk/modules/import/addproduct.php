@@ -1,5 +1,4 @@
 <?php
-echo "aaa";
 $totalRow = $_REQUEST ['totalRow'];
 $dataRow = $_REQUEST ['dataRow'];
 
@@ -89,12 +88,12 @@ for($i = 1; $i <= $totalRow; $i ++) {
 	$sexArray [$i] = trim ( $_POST ['sex_value_' . $i] );
 }
 for($i = 1; $i <= $totalRow; $i ++) {
-	if ($nameArray [$i] == null) {
+	if ($nameArray [$i] != null) {
 		$categoryIdArray [$i] = $importService->updateOrInsertCategory($categoryNameArray [$i],$categoryIdArray [$i]);
 	}
 }
 for($i = 1; $i <= $totalRow; $i ++) {
-	if ($nameArray [$i] == null) {
+	if ($nameArray [$i] != null) {
 		$brandIdArray [$i] = $importService->updateOrInsertBrand($brandNameArray [$i],$brandIdArray [$i]);
 	}
 }
