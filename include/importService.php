@@ -294,8 +294,8 @@ FROM product_import t1,product t2,import_facture t3 where t1.product_code = t2.c
 	}
 	// START BUSINESS IMPORT PROJECT
 	function importProduct($totalRow, $continueImport, $provider_id, $import_facture_code, $description, $season, $codeArray, $codeExistedArray, $nameArray, $qtyArray, $postArray, $imprArray, $sexArray, $categoryIdArray, $brandIdArray, $descriptionArray,$sale) {
-		// If import the facture then
-		if ($continueImport != "true") {
+		// If import the new facture then
+		if ($continueImport != "true") {	
 			$this->addFacture ( $import_facture_code, $provider_id, $description );
 		}
 		$this->addProducts ( $totalRow, $season, $codeArray, $codeExistedArray, $nameArray, $postArray, $sexArray, $categoryIdArray, $brandIdArray, $descriptiondArray,$sale );
