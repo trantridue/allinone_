@@ -169,7 +169,12 @@ $(function() {
 		minLength : 1
 	});
 });
+function buildSearchImportCriteria(){
+	var criteriaString = "isdefault=false&isadvancedsearch="+$('#isadvancedsearch').val();
+	alert(criteriaString);
+}
 function listProduct() {
+//	buildSearchImportCriteria();
 	var isdefault = "false";
 	var product_code = $('#product_code').val();
 	var product_name = $('#product_name').val();
