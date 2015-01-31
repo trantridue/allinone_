@@ -132,6 +132,16 @@ $(document).ready(function() {
 	};
 	$("#product_code").autocomplete(ac_config_product_code);
 });
+$(document).ready(function() {
+	var ac_config_product_code = {
+		source : "autocomplete/completed_import_products_code.php",
+		select : function(event, ui) {
+			$("#product_code_to").val(ui.item.code);
+		},
+		minLength : 1
+	};
+	$("#product_code_to").autocomplete(ac_config_product_code);
+});
 
 $(document).ready(function() {
 	var ac_config_category = {

@@ -1,6 +1,6 @@
 
 <input type="button" value="ADVANCE" class="menu_btn_sub"
-	onclick="toggleDiv('advancedInputArea');">
+	onclick="toggleImportSearchCriteria();">
 
 <input type="button" value="SEARCH" class="menu_btn_sub"
 	onclick="javascript:listProduct();">
@@ -13,9 +13,6 @@
 	
 <div id="basicInputArea"><?php
 include 'basicinput.php';
-?></div>
-<div id="advancedInputArea" style="display: none;"><?php
-include 'advancedinput.php';
 ?></div>
 <div id="returnProductInputArea" style="display: none;"><?php
 include 'returnproduct.php';
