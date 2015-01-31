@@ -202,12 +202,6 @@ input[type='reset'] {
 	font-weight: bold;
 }
 
-#total_facture {
-	background-color: #74dd89;
-	border: none;
-	font-weight: bold;
-	font-size: 12pt;
-}
 
 textarea {
 	resize: none;
@@ -293,4 +287,5 @@ textarea {
 	background-color: #FFE4C4;
 	border: 0px;
 	width: 100%;
+	padding-top: 5px;
 }
