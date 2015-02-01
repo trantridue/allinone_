@@ -33,11 +33,11 @@ $(function() {
 // SHOW OR HIDE A OBJECT BY INPUT ID
 function toggleDiv(divID) {
 	if ($('#' + divID).css('display') == "none") {
-		$('#' + divID).show(100);
+		$('#' + divID).show(500);
 	} else {
-		$('#' + divID).hide(100);
+		$('#' + divID).hide(500);
 	}
-	$('#serverMessage').hide(100);
+	$('#serverMessage').hide(500);
 }
 // IMPORT TOGGLE FIELD
 function toggleImportSearchCriteria(){
