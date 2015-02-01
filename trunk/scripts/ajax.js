@@ -171,7 +171,15 @@ $(function() {
 });
 function buildSearchImportCriteria(){
 	var criteriaString = "isdefault=false&isadvancedsearch="+$('#isadvancedsearch').val();
-	alert(criteriaString);
+	var product_code = $('#product_code').val();
+	var product_name = $('#product_name').val();
+	var provider_name = $('#provider_name').val();
+	var category_name = $('#category_name').val();
+	var brand_name = $('#brand_name').val();
+	var season = $('#season').val();
+	var season_id = $('#season_id').val();
+	var description = $('#description').val();
+//	alert(processUrlString(criteriaString));
 }
 function listProduct() {
 //	buildSearchImportCriteria();
