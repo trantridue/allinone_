@@ -400,12 +400,20 @@ function addReturnProduct($codes, $quantities, $descriptions,$providers) {
 		$this->commonService->generateJSDatatableComplex ($result, 'productreturn', 1, 'desc',$array_total );
 		$this->commonService->generateJqueryDatatable ( $result, 'productreturn', $array_column );
 	}
-	function listProductReturn( $product_code, $product_name, $category_name, $provider_name, $brand_name, $season_id, $description ) {
-		$qry = "select t1.*,t2.*,t3.*,t4.*,t1.date as datereturn,t3.name as provider_name,
+	function listProductReturn( $parameterArray ) {
+		if ($parameterArray['isadvancedsearch']) {
+			$qry = "select t1.*,t2.*,t3.*,t4.*,t1.date as datereturn,t3.name as provider_name,
+				(select import_price from product_import where product_code = t1.product_code and id = (select max(id) from product_import where product_code = t1.product_code )) as import_price from
+				product_return t1, product t2, provider t3, category t4, brand t5,season t6
+				where t1.product_code = t2.code and t1.provider_id = t3.id and t2.category_id = t4.id and t2.brand_id = t5.id and t2.season_id = t6.id
+				and t1.product_code between '".$parameterArray['product_code']."' and '".$parameterArray['product_code_to']."'";
+		}else {
+			$qry = "select t1.*,t2.*,t3.*,t4.*,t1.date as datereturn,t3.name as provider_name,
 				(select import_price from product_import where product_code = t1.product_code and id = (select max(id) from product_import where product_code = t1.product_code )) as import_price from
 				product_return t1, product t2, provider t3, category t4, brand t5,season t6
 				where t1.product_code = t2.code and t1.provider_id = t3.id and t2.category_id = t4.id and t2.brand_id = t5.id and t2.season_id = t6.id 
-				and t1.product_code like '%".$product_code."%'";
+				and t1.product_code like '%".$parameterArray['product_code']."%'";
+		}
 		$result = mysql_query ( $qry, $this->connection );
 		$array_column = array (
 				"product_code" => "Mã hàng",
@@ -422,6 +430,34 @@ function addReturnProduct($codes, $quantities, $descriptions,$providers) {
 		
 		$this->commonService->generateJSDatatableComplex ($result, 'productreturn', 1, 'desc',$array_total );
 		$this->commonService->generateJqueryDatatable ( $result, 'productreturn', $array_column );
+	}
+	function getInputSearchParameters(){
+		$parameterArray = array(
+				'product_code'=> $_REQUEST ['product_code'],
+				'product_code_to'=> $_REQUEST ['product_code_to'],
+				'product_name'=> $_REQUEST ['product_name'],
+				'category_name'=> $_REQUEST ['category_name'],
+				'provider_name'=> $_REQUEST ['provider_name'],
+				'brand_name'=> $_REQUEST ['brand_name'],
+				'season_id'=> $_REQUEST ['season_id'],
+				'sale'=> $_REQUEST ['sale'],
+				'sale_to'=> $_REQUEST ['sale_to'],
+				'import_quantity'=> $_REQUEST ['import_quantity'],
+				'import_quantity_to'=> $_REQUEST ['import_quantity_to'],
+				'import_price'=> $_REQUEST ['import_price'],
+				'import_price_to'=> $_REQUEST ['import_price_to'],
+				'export_quantity'=> $_REQUEST ['export_quantity'],
+				'export_quantity_to'=> $_REQUEST ['export_quantity_to'],
+				'export_price'=> $_REQUEST ['export_price'],
+				'export_price_to'=> $_REQUEST ['export_price_to'],
+				'remain_quantity'=> $_REQUEST ['remain_quantity'],
+				'remain_quantity_to'=> $_REQUEST ['remain_quantity_to'],
+				'import_facture_code'=> $_REQUEST ['import_facture_code'],
+				'sex_value_search'=> $_REQUEST ['sex_value_search'],
+				'description'=> $_REQUEST ['description'],
+				'isadvancedsearch'=> $_REQUEST ['isadvancedsearch']
+		);
+		return $parameterArray;
 	}
 	// END BUSINESS IMPORT PROJECT
 	
