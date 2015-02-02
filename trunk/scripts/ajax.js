@@ -191,10 +191,21 @@ function buildSearchImportCriteria(){
 	var import_facture_code = "&import_facture_code=" + $('#import_facture_code').val();
 	var sex_value_search = "&sex_value_search=" + $('#sex_value_search').val();
 	//ADVANCED
+	var sale_to = "&sale_to=" + $('#sale_to').val();
+	var import_quantity_to = "&import_quantity_to=" + $('#import_quantity_to').val();
+	var import_price_to = "&import_price_to=" + $('#import_price_to').val();
+	var export_quantity_to = "&export_quantity_to=" + $('#export_quantity_to').val();
+	var export_price_to = "&export_price_to=" + $('#export_price_to').val();
+	var remain_quantity_to = "&remain_quantity_to=" + $('#remain_quantity_to').val();
+	var product_code_to = "&product_code_to=" + $('#product_code_to').val();
+	
 	criteriaString = criteriaString + product_code + product_name + provider_name 
 					+ category_name + brand_name + season + season_id + description
 					+ import_quantity + import_price + export_quantity + export_price 
-					+ remain_quantity + datefrom + dateto + import_facture_code + sale;
+					+ remain_quantity + datefrom + dateto + import_facture_code + sale 
+					+ sex_value_search + sale_to + import_quantity_to + import_price_to
+					+ export_quantity_to + export_price_to + remain_quantity_to
+					+ product_code_to;
 	return processUrlString(criteriaString);
 }
 function listProduct() {
