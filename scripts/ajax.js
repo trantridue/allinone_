@@ -228,11 +228,10 @@ function insertReturnProduct(codes, quantities, descriptions, providers) {
 }
 function updateSaleListProduct() {
 	var updatesaleproduct = 'modules/import/updatesaleproduct.php?' + buildSearchImportCriteria();
-//	alert(updatesaleproduct);
+	alert(updatesaleproduct);
 	$.ajax({
 		url : updatesaleproduct,
 		success : function(data) {
-//			alert(data);
 			var actionType = "sale";
 			updatesalepostaction(data, actionType);
 		}
