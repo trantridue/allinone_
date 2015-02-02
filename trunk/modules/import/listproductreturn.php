@@ -9,7 +9,6 @@ $season_id = $_REQUEST ['season_id'];
 $description = $_REQUEST ['description'];
 
 $isdefault = $_REQUEST ['isdefault'];
-
 if ($isdefault == "false") {
 	require_once ("../../include/constant.php");
 	require_once ("../../include/importService.php");
