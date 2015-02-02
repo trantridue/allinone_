@@ -171,37 +171,35 @@ $(function() {
 });
 function buildSearchImportCriteria(){
 	var criteriaString = "isdefault=false&isadvancedsearch="+$('#isadvancedsearch').val();
-	var product_code = $('#product_code').val();
-	var product_name = $('#product_name').val();
-	var provider_name = $('#provider_name').val();
-	var category_name = $('#category_name').val();
-	var brand_name = $('#brand_name').val();
-	var season = $('#season').val();
-	var season_id = $('#season_id').val();
-	var description = $('#description').val();
-//	alert(processUrlString(criteriaString));
+	//BASIC FIELD
+	var product_code = "&product_code="+$('#product_code').val();
+	var product_name = "&product_name="+$('#product_name').val();
+	var provider_name ="&provider_name=" + $('#provider_name').val();
+	var category_name = "&category_name=" + $('#category_name').val();
+	var sale = "&sale=" + $('#sale').val();
+	var brand_name = "&brand_name=" + $('#brand_name').val();
+	var season = "&season=" + $('#season').val();
+	var season_id = "&season_id=" + $('#season_id').val();
+	var description = "&description=" + $('#description').val();
+	var import_quantity = "&import_quantity=" + $('#import_quantity').val();
+	var import_price = "&import_price=" + $('#import_price').val();
+	var export_quantity = "&export_quantity=" + $('#export_quantity').val();
+	var export_price = "&export_price=" + $('#export_price').val();
+	var remain_quantity = "&remain_quantity=" + $('#remain_quantity').val();
+	var datefrom = "&datefrom=" + $('#datefrom').val();
+	var dateto = "&dateto=" + $('#dateto').val();
+	var import_facture_code = "&import_facture_code=" + $('#import_facture_code').val();
+	var sex_value_search = "&sex_value_search=" + $('#sex_value_search').val();
+	//ADVANCED
+	criteriaString = criteriaString + product_code + product_name + provider_name 
+					+ category_name + brand_name + season + season_id + description
+					+ import_quantity + import_price + export_quantity + export_price 
+					+ remain_quantity + datefrom + dateto + import_facture_code + sale;
+	return processUrlString(criteriaString);
 }
 function listProduct() {
-//	buildSearchImportCriteria();
-	var isdefault = "false";
-	var product_code = $('#product_code').val();
-	var product_name = $('#product_name').val();
-	var provider_name = $('#provider_name').val();
-	var category_name = $('#category_name').val();
-	var brand_name = $('#brand_name').val();
-	var season = $('#season').val();
-	var season_id = $('#season_id').val();
-	var description = $('#description').val();
-
-	var url = "modules/import/listproduct.php" + "?isdefault=" + isdefault
-			+ "&product_code=" + encodeURIComponent(product_code)
-			+ "&product_name=" + encodeURIComponent(product_name)
-			+ "&category_name=" + encodeURIComponent(category_name)
-			+ "&brand_name=" + encodeURIComponent(brand_name) + "&season="
-			+ encodeURIComponent(season) + "&provider_name="
-			+ encodeURIComponent(provider_name) + "&season_id="
-			+ encodeURIComponent(season_id) + "&description="
-			+ encodeURIComponent(description);
+	var url = "modules/import/listproduct.php?" + buildSearchImportCriteria();
+//	alert(url);
 	$('#mainListArea').load(url);
 }
 function show_product_season_id(url) {
@@ -228,15 +226,9 @@ function insertReturnProduct(codes, quantities, descriptions, providers) {
 		}
 	});
 }
-function updateSaleListProduct(sale,product_code,product_name,provider_name,category_name, brand_name, season_id, description) {
-	var updatesaleproduct = 'modules/import/updatesaleproduct.php?sale=' + sale
-			+ '&product_code=' + product_code 
-			+ '&product_name=' + product_name
-			+ '&provider_name=' + provider_name
-			+ '&category_name=' + category_name
-			+ '&brand_name=' + brand_name
-			+ '&season_id=' + season_id
-			+ '&description=' + description;
+function updateSaleListProduct() {
+	var updatesaleproduct = 'modules/import/updatesaleproduct.php?' + buildSearchImportCriteria();
+	alert(updatesaleproduct);
 	$.ajax({
 		url : updatesaleproduct,
 		success : function(data) {
@@ -248,14 +240,6 @@ function updateSaleListProduct(sale,product_code,product_name,provider_name,cate
 }
 function saleListProduct() {
 	var sale = $('#sale').val();
-	var product_code = encodeURIComponent($('#product_code').val());
-	var product_name = encodeURIComponent($('#product_name').val());
-	var provider_name = encodeURIComponent($('#provider_name').val());
-	var category_name = encodeURIComponent($('#category_name').val());
-	var brand_name = encodeURIComponent($('#brand_name').val());
-	var season_id = $('#season_id').val();
-	var description = encodeURIComponent($('#description').val());
-	
 	if (sale == '' || parseFloat(sale) == 0) {
 		alert("Nhập sale khác 0");
 		$('#sale').focus();
@@ -263,30 +247,12 @@ function saleListProduct() {
 	} else {
 		$('#sale').removeClass("errorField");
 		if (confirm('Muốn sale-off ' + sale + '% các sản phẩm bên dưới?')) {
-			updateSaleListProduct(sale,product_code,product_name,provider_name,category_name, brand_name, season_id, description);
+			updateSaleListProduct();
 		}
 	}
 }
 function listReturnProduct(){
-	var isdefault = "false";
-	var product_code = $('#product_code').val();
-	var product_name = $('#product_name').val();
-	var provider_name = $('#provider_name').val();
-	var category_name = $('#category_name').val();
-	var brand_name = $('#brand_name').val();
-	var season = $('#season').val();
-	var season_id = $('#season_id').val();
-	var description = $('#description').val();
-
-	var url = "modules/import/listproductreturn.php" + "?isdefault=" + isdefault
-			+ "&product_code=" + encodeURIComponent(product_code)
-			+ "&product_name=" + encodeURIComponent(product_name)
-			+ "&category_name=" + encodeURIComponent(category_name)
-			+ "&brand_name=" + encodeURIComponent(brand_name) + "&season="
-			+ encodeURIComponent(season) + "&provider_name="
-			+ encodeURIComponent(provider_name) + "&season_id="
-			+ encodeURIComponent(season_id) + "&description="
-			+ encodeURIComponent(description);
+	var url = "modules/import/listproductreturn.php?" + buildSearchImportCriteria();
 	$('#listReturnProductArea').load(url);
 }
 /* PROVIDER MODULE */
