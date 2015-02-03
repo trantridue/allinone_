@@ -402,6 +402,8 @@ function addReturnProduct($codes, $quantities, $descriptions,$providers) {
 	}
 	function listProductReturn( $parameterArray ) {
 		if ($parameterArray['isadvancedsearch']) {
+			if($parameterArray['product_code_to']=='') $parameterArray['product_code_to'] = '9999';
+			if($parameterArray['product_code']=='') $parameterArray['product_code_to'] = '0000';
 			$qry = "select t1.*,t2.*,t3.*,t4.*,t1.date as datereturn,t3.name as provider_name,
 				(select import_price from product_import where product_code = t1.product_code and id = (select max(id) from product_import where product_code = t1.product_code )) as import_price from
 				product_return t1, product t2, provider t3, category t4, brand t5,season t6
@@ -414,6 +416,7 @@ function addReturnProduct($codes, $quantities, $descriptions,$providers) {
 				where t1.product_code = t2.code and t1.provider_id = t3.id and t2.category_id = t4.id and t2.brand_id = t5.id and t2.season_id = t6.id 
 				and t1.product_code like '%".$parameterArray['product_code']."%'";
 		}
+//		echo $qry;
 		$result = mysql_query ( $qry, $this->connection );
 		$array_column = array (
 				"product_code" => "Mã hàng",
