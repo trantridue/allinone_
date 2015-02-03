@@ -52,7 +52,7 @@ FROM product_import t1,product t2,import_facture t3 where t1.product_code = t2.c
 				and t1.import_facture_code = t3.code order by t3.date desc limit ".$limit;
 		$result = mysql_query ( $qry, $this->connection );
 		$array_column = array (
-				"product_code" => "Mã hàng,product_code",
+				"product_code" => "Mã hàng,product_code,image",
 				"name" => "Tên Hàng",
 				"quantity" => "Số lượng",
 				"import_price" => "Giá nhập",
@@ -401,7 +401,7 @@ function addReturnProduct($codes, $quantities, $descriptions,$providers) {
 		$this->commonService->generateJqueryDatatable ( $result, 'productreturn', $array_column );
 	}
 	function listProductReturn( $parameterArray ) {
-		if ($parameterArray['isadvancedsearch']) {
+		if ($parameterArray['isadvancedsearch']=='true') {
 			if($parameterArray['product_code_to']=='') $parameterArray['product_code_to'] = '9999';
 			if($parameterArray['product_code']=='') $parameterArray['product_code_to'] = '0000';
 			$qry = "select t1.*,t2.*,t3.*,t4.*,t1.date as datereturn,t3.name as provider_name,
@@ -416,7 +416,7 @@ function addReturnProduct($codes, $quantities, $descriptions,$providers) {
 				where t1.product_code = t2.code and t1.provider_id = t3.id and t2.category_id = t4.id and t2.brand_id = t5.id and t2.season_id = t6.id 
 				and t1.product_code like '%".$parameterArray['product_code']."%'";
 		}
-//		echo $qry;
+		echo $qry;
 		$result = mysql_query ( $qry, $this->connection );
 		$array_column = array (
 				"product_code" => "Mã hàng",

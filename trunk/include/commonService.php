@@ -125,7 +125,7 @@ echo "</script> ";
 					} else {
 						echo "<td style='color:red;font-weight:bold'> MAN </td>";
 					}
-				} else if(sizeof(explode ( ",", $key ))>1) {
+				} else if(sizeof(explode ( ",", $key ))>2) {
 					$fields = explode ( ",", $value );
 					$fieldskey = explode ( ",", $key );
 					$str = "";
@@ -142,6 +142,20 @@ echo "</script> ";
 					echo "});";
 					echo "</script>";
 					echo "<td><a title='' onclick='show_".$datatable_id."_".$fields [0]."(\"".$str."\");' href='javascript:void(0);' id='".$fieldskey [1].$rows [$fieldskey [1]]."'>".$rows [$fieldskey [1]]."</a></td>";
+					
+				}	else if(sizeof(explode ( ",", $key ))>1) {
+					$fields = explode ( ",", $value );
+					$fieldskey = explode ( ",", $key );
+					$str = "";
+					for($i = 0; $i < sizeof ( $fields ); $i ++) {
+						if($i==sizeof ( $fields )-1){
+							$str = $str . $fields [$i] . "=" . $rows [$fields [$i]];
+						}else {
+							$str = $str . $fields [$i] . "=" . $rows [$fields [$i]] . "&";
+						}
+					}
+					
+					echo "<td><a title='' onclick='show_".$datatable_id."_".$fields [0]."(\"".$str."\");' href='javascript:void(0);' >".$rows [$fieldskey [1]]."</a></td>";
 					
 				}else {
 					echo "<td>" . $rows [$value] . "</td>";
