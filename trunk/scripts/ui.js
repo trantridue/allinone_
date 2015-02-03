@@ -51,3 +51,4 @@ function toggleImportSearchCriteria(){
 	$('#isadvancedsearch').val($('#isadvancedsearch').val()=='false');
 //	alert($('#isadvancedsearch').val());
 }
+

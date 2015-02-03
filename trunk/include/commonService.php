@@ -136,7 +136,13 @@ echo "</script> ";
 							$str = $str . $fields [$i] . "=" . $rows [$fields [$i]] . "&";
 						}
 					}
-					echo "<td><a onclick='show_".$datatable_id."_".$fields [0]."(\"".$str."\");' href='javascript:void(0);'>".$rows [$fieldskey [1]]."</a></td>";
+					echo "<script>";
+					echo "$(document).ready(function() {";
+					echo "$('#".$fieldskey [1].$rows [$fieldskey [1]]."').tooltip({ content: '<img src=\"".$rows['link']."\" />' });";
+					echo "});";
+					echo "</script>";
+					echo "<td><a title='' onclick='show_".$datatable_id."_".$fields [0]."(\"".$str."\");' href='javascript:void(0);' id='".$fieldskey [1].$rows [$fieldskey [1]]."'>".$rows [$fieldskey [1]]."</a></td>";
+					
 				}else {
 					echo "<td>" . $rows [$value] . "</td>";
 				}
