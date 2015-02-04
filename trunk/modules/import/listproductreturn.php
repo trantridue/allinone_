@@ -12,7 +12,7 @@ if ($isdefault == "false") {
 	$importService->listProductReturn( $parameterArray );
 } else {
 	$importService->listProductReturnDefault();
-	$importService->test();
+// 	$importService->test();
 }
 
 ?>

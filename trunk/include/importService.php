@@ -94,7 +94,7 @@ FROM product_import t1,product t2,import_facture t3 where t1.product_code = t2.c
 		
 		if ($parameterArray['isadvancedsearch']=='true') {
 			if($parameterArray['product_code_to']=='') $parameterArray['product_code_to'] = '9999';
-			if($parameterArray['product_code']=='') $parameterArray['product_code_to'] = '0000';
+			if($parameterArray['product_code']=='') $parameterArray['product_code'] = '0000';
 		$qry = "SELECT (select name from provider where id = t3.provider_id) as provider_name,
 (select name from brand where id = t2.brand_id) as brand_name,
 (select name from category where id = t2.category_id) as category_name,
@@ -111,7 +111,7 @@ FROM product_import t1,product t2,import_facture t3 where t1.product_code = t2.c
 FROM product_import t1,product t2,import_facture t3 where t1.product_code = t2.code
 				and t1.import_facture_code = t3.code and t1.product_code like '%".$parameterArray['product_code']."%' order by t3.date desc";
 		} 
-		
+// 		echo $qry;
 		$result = mysql_query ( $qry, $this->connection );
 		$resulttmp = mysql_query ( $qry, $this->connection );
 		$array_column = array (
