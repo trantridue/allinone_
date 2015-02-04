@@ -39,18 +39,81 @@ class ImportService {
 		$this->HandleError ( $err . "\r\n mysqlerror:" . mysql_error () );
 	}
 	//
-	function listProductDefault($code) {
-		$this->listProduct(3,$code);
+	function listProductDefault() {
+		$qry = "SELECT (select name from provider where id = t3.provider_id) as provider_name,
+(select name from brand where id = t2.brand_id) as brand_name,
+(select name from category where id = t2.category_id) as category_name,
+(select name from season where id = t2.season_id) as season_name,
+ t1.*,t2.*,t3.*
+FROM product_import t1,product t2,import_facture t3 where t1.product_code = t2.code
+				and t1.import_facture_code = t3.code order by t3.date desc limit 5";
+		$result = mysql_query ( $qry, $this->connection );
+		$resulttmp = mysql_query ( $qry, $this->connection );
+		$array_column = array (
+				"product_code" => "Mã hàng,product_code,image",
+				"name" => "Tên Hàng",
+				"quantity" => "Số lượng",
+				"import_price" => "Giá nhập",
+				"export_price" => "Giá bán",
+				"sale" => "Sale",
+				"import_facture_code,date" => "Mã Hóa Đơn,import_facture_code",
+				"quantity*import_price" => "complex",
+				"provider_id,provider_name,name" => "Cung Cấp,provider_name",
+				"category_name" => "Loại",
+				"sex_id" => "Giới tính",
+				"brand_name" => "Hiệu",
+				"season_id,season_name" => "Mùa,season_name",
+				// 				"id,quantity,import_price,product_code,name" => "Edit",
+				"id" => "Delete",
+				"quantity*export_price" => "complex"
+		);
+		$array_total = array (
+				2 => "Số lượng",
+				7 => "Tổng nhập"
+		);
+		$this->commonService->generateJSDatatableComplex ($result, 'product', 6, 'desc',$array_total );
+		$this->commonService->generateJqueryDatatable ( $result, 'product', $array_column );
+		$this->commonService->generateJqueryToolTipScript ( $resulttmp, 'product', $array_column );
 	}
-	function listProduct($limit,$code) {
+	function test(){
+		echo "000";
+		$qry = "select * from product";
+		$result = mysql_query ( $qry, $this->connection );
+		$num_rows=mysql_num_rows($result);
+		$row = mysql_fetch_array($result);
+		$columns = mysql_num_fields($result);
+		$fields =array();
+		for($i = 0; $i < $columns; $i++) {
+			$field = mysql_field_name($result,$i);
+			$fields[$field] = $row[$field];
+		}
+		
+		print_r($fields);
+	}
+	function listProduct($parameterArray) {
+		
+		if ($parameterArray['isadvancedsearch']=='true') {
+			if($parameterArray['product_code_to']=='') $parameterArray['product_code_to'] = '9999';
+			if($parameterArray['product_code']=='') $parameterArray['product_code_to'] = '0000';
 		$qry = "SELECT (select name from provider where id = t3.provider_id) as provider_name,
 (select name from brand where id = t2.brand_id) as brand_name,
 (select name from category where id = t2.category_id) as category_name,
 (select name from season where id = t2.season_id) as season_name,
  t1.*,t2.*,t3.*
 FROM product_import t1,product t2,import_facture t3 where t1.product_code = t2.code 
-				and t1.import_facture_code = t3.code order by t3.date desc limit ".$limit;
+				and t1.import_facture_code = t3.code and t1.product_code between '".$parameterArray['product_code']."' and '".$parameterArray['product_code_to']."' order by t3.date desc";
+		}	else {
+			$qry = "SELECT (select name from provider where id = t3.provider_id) as provider_name,
+(select name from brand where id = t2.brand_id) as brand_name,
+(select name from category where id = t2.category_id) as category_name,
+(select name from season where id = t2.season_id) as season_name,
+ t1.*,t2.*,t3.*
+FROM product_import t1,product t2,import_facture t3 where t1.product_code = t2.code
+				and t1.import_facture_code = t3.code and t1.product_code like '%".$parameterArray['product_code']."%' order by t3.date desc";
+		} 
+		
 		$result = mysql_query ( $qry, $this->connection );
+		$resulttmp = mysql_query ( $qry, $this->connection );
 		$array_column = array (
 				"product_code" => "Mã hàng,product_code,image",
 				"name" => "Tên Hàng",
@@ -75,6 +138,7 @@ FROM product_import t1,product t2,import_facture t3 where t1.product_code = t2.c
 		);
 		$this->commonService->generateJSDatatableComplex ($result, 'product', 6, 'desc',$array_total );
 		$this->commonService->generateJqueryDatatable ( $result, 'product', $array_column );
+		$this->commonService->generateJqueryToolTipScript ( $resulttmp, 'product', $array_column );
 	}
 	function currentMaxProductCode($i) {
 		$qry = "select max(code) as maxproductcode from product where code > 0000 and code <9999 and length(code)=4 limit 1";
@@ -404,6 +468,7 @@ function addReturnProduct($codes, $quantities, $descriptions,$providers) {
 		if ($parameterArray['isadvancedsearch']=='true') {
 			if($parameterArray['product_code_to']=='') $parameterArray['product_code_to'] = '9999';
 			if($parameterArray['product_code']=='') $parameterArray['product_code_to'] = '0000';
+			
 			$qry = "select t1.*,t2.*,t3.*,t4.*,t1.date as datereturn,t3.name as provider_name,
 				(select import_price from product_import where product_code = t1.product_code and id = (select max(id) from product_import where product_code = t1.product_code )) as import_price from
 				product_return t1, product t2, provider t3, category t4, brand t5,season t6
@@ -416,7 +481,7 @@ function addReturnProduct($codes, $quantities, $descriptions,$providers) {
 				where t1.product_code = t2.code and t1.provider_id = t3.id and t2.category_id = t4.id and t2.brand_id = t5.id and t2.season_id = t6.id 
 				and t1.product_code like '%".$parameterArray['product_code']."%'";
 		}
-		echo $qry;
+// 		echo $qry;
 		$result = mysql_query ( $qry, $this->connection );
 		$array_column = array (
 				"product_code" => "Mã hàng",

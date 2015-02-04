@@ -57,7 +57,28 @@ class CommonService {
 echo "</script> ";
 		} 
 	}
-	
+	function generateJqueryToolTipScript($result, $datatable_id, $array_column) {
+		if(mysql_num_rows($result)>0) {
+			$num_colum = sizeof ( $array_column );
+			
+			while ( $rows = mysql_fetch_array ( $result ) ) {
+				foreach ( $array_column as $value => $key ) {
+					if(sizeof(explode ( ",", $key ))>2) {
+						$fields = explode ( ",", $value );
+						$fieldskey = explode ( ",", $key );
+						
+						echo "<script>";
+						echo "$(document).ready(function() {";
+						echo "$('#".$fieldskey [1].$rows [$fieldskey [1]]."').tooltip({ content: '<img src=\"".$rows['link']."\" />' });";
+						echo "});";
+						echo "</script>";
+							
+					}	
+				}
+			}
+			
+		}
+	}
 	function generateJqueryDatatable($result, $datatable_id, $array_column) {
 		if(mysql_num_rows($result)>0) {
 		$num_colum = sizeof ( $array_column );
@@ -87,8 +108,6 @@ echo "</script> ";
 		echo "</tfoot>";
 		echo "<tbody";
 		
-// 		if(count($rows)>0) {
-		// generate content
 		while ( $rows = mysql_fetch_array ( $result ) ) {
 			echo "<tr>";
 			foreach ( $array_column as $value => $key ) {
@@ -136,14 +155,9 @@ echo "</script> ";
 							$str = $str . $fields [$i] . "=" . $rows [$fields [$i]] . "&";
 						}
 					}
-					echo "<script>";
-					echo "$(document).ready(function() {";
-					echo "$('#".$fieldskey [1].$rows [$fieldskey [1]]."').tooltip({ content: '<img src=\"".$rows['link']."\" />' });";
-					echo "});";
-					echo "</script>";
 					echo "<td><a title='' onclick='show_".$datatable_id."_".$fields [0]."(\"".$str."\");' href='javascript:void(0);' id='".$fieldskey [1].$rows [$fieldskey [1]]."'>".$rows [$fieldskey [1]]."</a></td>";
 					
-				}	else if(sizeof(explode ( ",", $key ))>1) {
+				}	else if(sizeof(explode ( ",", $key ))>1 && sizeof(explode ( ",", $key ))<=2) {
 					$fields = explode ( ",", $value );
 					$fieldskey = explode ( ",", $key );
 					$str = "";
@@ -154,7 +168,6 @@ echo "</script> ";
 							$str = $str . $fields [$i] . "=" . $rows [$fields [$i]] . "&";
 						}
 					}
-					
 					echo "<td><a title='' onclick='show_".$datatable_id."_".$fields [0]."(\"".$str."\");' href='javascript:void(0);' >".$rows [$fieldskey [1]]."</a></td>";
 					
 				}else {
@@ -163,8 +176,6 @@ echo "</script> ";
 			}
 			echo "</tr>";
 		}
-// 		}
-		// generate footer
 		echo "</tbody>";
 		echo "</table>";
 		} else {
