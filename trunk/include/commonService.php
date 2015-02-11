@@ -170,7 +170,9 @@ echo "</script> ";
 					}
 					echo "<td><a title='' onclick='show_".$datatable_id."_".$fields [0]."(\"".$str."\");' href='javascript:void(0);' >".$rows [$fieldskey [1]]."</a></td>";
 					
-				}else {
+				}else if($value == 'total' || $value == 'total-paid' || $value == 'paid'){
+					echo "<td>" . number_format($rows [$value],2) . "</td>";
+				} else {
 					echo "<td>" . $rows [$value] . "</td>";
 				}
 			}
