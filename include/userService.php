@@ -39,10 +39,12 @@ class UserService {
 		$this->HandleError ( $err . "\r\n mysqlerror:" . mysql_error () );
 	}
 	//
-	function listUser($username,$name,$user_mail,$user_tel) {
+	function listUser($username,$name,$user_mail,$user_tel,$user_status_hidden,$user_description) {
 		$qry = "SELECT t1.*, t2.name as shopname FROM user t1 LEFT JOIN shop t2 ON t1.shop_id=t2.id where 
 		t1.username like '%" . $username . "%'" . "and 
 		t1.email like '%" . $user_mail . "%'" . "and 
+		t1.description like '%" . $user_description . "%'" . "and 
+		t1.status like '%" . $user_status_hidden . "%'" . "and 
 		t1.phone_number like '%" . $user_tel . "%'" . "and 
 		t1.name like '%" . $name . "%'";
 		$result = mysql_query ( $qry, $this->connection );

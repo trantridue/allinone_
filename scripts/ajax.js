@@ -21,11 +21,15 @@ function listUser() {
 	var name = $('#user_name').val();
 	var user_mail = $('#user_mail').val();
 	var user_tel = $('#user_tel').val();
+	var user_status_hidden = $('#user_status_hidden').val();
+	var user_description = $('#user_description').val();
 	var url = "modules/user/list.php" + "?isdefault=" + isdefault
 			+ "&user_tel=" + user_tel 
 			+ "&user_mail=" + user_mail 
 			+ "&username=" + username 
-			+ "&name=" + encodeURIComponent(name);
+			+ "&user_status_hidden=" + user_status_hidden 
+			+ "&name=" + encodeURIComponent(name)
+			+ "&user_description=" + encodeURIComponent(user_description);
 	$('#listArea').load(url);
 }
 
