@@ -26,7 +26,7 @@ class CommonService {
 							foreach ( $array_total as $value => $key ) {
 								echo "var all".$value." = 0; ";
 								echo "for (var i = 0; i < data.length; i++) { ";
-								echo "all".$value." += data[i][".$value."] * 1; ";
+								echo "all".$value." += data[i][".$value."]*1; ";
 								echo "} ";
 								echo "all".$value. "=all".$value.".toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');";
 							}
@@ -50,8 +50,8 @@ class CommonService {
 								}
 								$counter++;
 							}
-							echo "$(api.column(1).footer()).html('<span>Tổng:'+allContent + '</span>' +'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + currentContent );";
-							echo "$('#datatableDisplaySum".$datatable_id."').html('<span>Tổng:'+allContent + '</span>' +'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + currentContent );";
+							echo "$(api.column(1).footer()).html('<span>' + allContent + '</span>' +'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + currentContent );";
+							echo "$('#datatableDisplaySum".$datatable_id."').html('<span>' + allContent + '</span>' +'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + currentContent );";
 					echo "}});";
 		echo "}); ";
 echo "</script> ";
