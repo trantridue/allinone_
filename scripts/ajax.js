@@ -19,8 +19,13 @@ function listUser() {
 	var isdefault = "false";
 	var username = $('#user_username').val();
 	var name = $('#user_name').val();
+	var user_mail = $('#user_mail').val();
+	var user_tel = $('#user_tel').val();
 	var url = "modules/user/list.php" + "?isdefault=" + isdefault
-			+ "&username=" + username + "&name=" + encodeURIComponent(name);
+			+ "&user_tel=" + user_tel 
+			+ "&user_mail=" + user_mail 
+			+ "&username=" + username 
+			+ "&name=" + encodeURIComponent(name);
 	$('#listArea').load(url);
 }
 
