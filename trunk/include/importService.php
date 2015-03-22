@@ -161,7 +161,7 @@ FROM product_import t1,product t2,import_facture t3 where t1.product_code = t2.c
 	}
 	// AUTOCOMPLETE
 	function getJsonFactureImport($term) {
-		$qry = "select t1.*,t2.name as provider_name from import_facture t1,provider t2 where t1.code like '%" . $term . "%' and t1.provider_id = t2.id";
+		$qry = "select t1.*,t2.name as provider_name from import_facture t1,provider t2 where t1.code like '%" . $term . "%' and t1.provider_id = t2.id limit 10";
 		$result = mysql_query ( $qry, $this->connection );
 		$jsonArray = array ();
 		
@@ -181,7 +181,7 @@ FROM product_import t1,product t2,import_facture t3 where t1.product_code = t2.c
 		return $jsonArray;
 	}
 	function getJsonProviderName($term) {
-		$qry = "select * from provider where name like '%" . $term . "%' ";
+		$qry = "select * from provider where name like '%" . $term . "%' limit 10";
 		$result = mysql_query ( $qry, $this->connection );
 		$jsonArray = array ();
 		
@@ -199,7 +199,7 @@ FROM product_import t1,product t2,import_facture t3 where t1.product_code = t2.c
 		return $jsonArray;
 	}
 	function getJsonSeason($term) {
-		$qry = "select * from season where name like '%" . $term . "%' ";
+		$qry = "select * from season where name like '%" . $term . "%' limit 10";
 		$result = mysql_query ( $qry, $this->connection );
 		$jsonArray = array ();
 		
@@ -217,7 +217,7 @@ FROM product_import t1,product t2,import_facture t3 where t1.product_code = t2.c
 		return $jsonArray;
 	}
 	function getJsonCategory($term) {
-		$qry = "select * from category where name like '%" . $term . "%' ";
+		$qry = "select * from category where name like '%" . $term . "%' limit 10";
 		$result = mysql_query ( $qry, $this->connection );
 		$jsonArray = array ();
 		
@@ -235,7 +235,7 @@ FROM product_import t1,product t2,import_facture t3 where t1.product_code = t2.c
 		return $jsonArray;
 	}
 	function getJsonBrand($term) {
-		$qry = "select * from brand where name like '%" . $term . "%' ";
+		$qry = "select * from brand where name like '%" . $term . "%' limit 10";
 		$result = mysql_query ( $qry, $this->connection );
 		$jsonArray = array ();
 		
@@ -255,7 +255,7 @@ FROM product_import t1,product t2,import_facture t3 where t1.product_code = t2.c
 	function getJsonProductCodeReturn($term) {
 		$qry = "select (select sum(quantity) from product_return where product_code = t1.product_code) as qtyreturned, t1.product_code, sum(t1.quantity) as qty,t4.name as provider_name, t2.code as import_facture_code, t2.provider_id,t3.name,t1.import_price 
 				from product_import t1, import_facture t2, product t3, provider t4
-				 where t4.id = t2.provider_id and t1.product_code like '%" . $term . "%' and t1.import_facture_code = t2.code and t3.code = t1.product_code group by t1.product_code ";
+				 where t4.id = t2.provider_id and t1.product_code like '%" . $term . "%' and t1.import_facture_code = t2.code and t3.code = t1.product_code group by t1.product_code limit 10";
 		$result = mysql_query ( $qry, $this->connection );
 		$jsonArray = array ();
 	
@@ -283,7 +283,7 @@ FROM product_import t1,product t2,import_facture t3 where t1.product_code = t2.c
 		$qry = "select t1.*,t2.name as category,t2.id as category_id,t3.name as brand,t3.id as brand_id, 
 				(select t2.import_price from (SELECT *,sum(quantity) FROM `product_import` group by product_code,import_facture_code) t2 
 				where t2.product_code = t1.code and t2.import_facture_code = (select max(import_facture_code) from product_import where product_code = t2.product_code)) as impr 
-				from product t1,category t2, brand t3 where t1.brand_id = t3.id and t1.category_id = t2.id and t1.code like '%" . $term . "%' ";
+				from product t1,category t2, brand t3 where t1.brand_id = t3.id and t1.category_id = t2.id and t1.code like '%" . $term . "%' limit 10";
 		$result = mysql_query ( $qry, $this->connection );
 		$jsonArray = array ();
 		
@@ -312,7 +312,7 @@ FROM product_import t1,product t2,import_facture t3 where t1.product_code = t2.c
 		return $jsonArray;
 	}
 	function getJsonProductName($term) {
-		$qry = "select * from product where name like '%" . $term . "%' ";
+		$qry = "select * from product where name like '%" . $term . "%' limit 10";
 		$result = mysql_query ( $qry, $this->connection );
 		$jsonArray = array ();
 		while ( $rows = mysql_fetch_array ( $result ) ) {
@@ -321,7 +321,7 @@ FROM product_import t1,product t2,import_facture t3 where t1.product_code = t2.c
 		return $jsonArray;
 	}
 	function getJsonProductCodeOnly($term) {
-		$qry = "select * from product where code like '%" . $term . "%' ";
+		$qry = "select * from product where code like '%" . $term . "%' limit 10 ";
 		$result = mysql_query ( $qry, $this->connection );
 		$jsonArray = array ();
 		while ( $rows = mysql_fetch_array ( $result ) ) {
