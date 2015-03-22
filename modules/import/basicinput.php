@@ -53,8 +53,12 @@
 </tr>
 <tr>
 <td align="right">IMPORT FROM  </td>
-<td colspan="7"><input autocomplete="off"type="text" class="datefield" id="datefrom"/>
+<td colspan="2"><input autocomplete="off"type="text" class="datefield" id="datefrom"/>
 TO 
 <input autocomplete="off"type="text" class="datefield" id="dateto"/></td>
+<td colspan="5">
+<input type="button" value="SEARCH" class="menu_btn_sub" 
+	onclick="javascript:listProduct();">
+	</td>
 </tr>
 </table>
