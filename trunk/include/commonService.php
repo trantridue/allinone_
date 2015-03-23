@@ -223,5 +223,11 @@ function getFullDateTime() {
 	$date = date ( 'Y-m-d H:i:s' );
 	return $date;
 }
+function getDateBefore3Months() {
+	return date("Y-m-d", mktime(0, 0, 0, date('m') - 3, date('d'), date('Y')));
+}
+function getDateBeforeDays() {
+	return date("Y-m-d", mktime(0, 0, 0, date('m') , date('d') - 10 , date('Y')));
+}
 }
 ?>
