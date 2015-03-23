@@ -40,13 +40,15 @@ class ImportService {
 	}
 	//
 	function listProductDefault() {
+		$dateBefore3Months = $this->commonService->getDateBefore3Months();
+		
 		$qry = "SELECT (select name from provider where id = t3.provider_id) as provider_name,
 (select name from brand where id = t2.brand_id) as brand_name,
 (select name from category where id = t2.category_id) as category_name,
 (select name from season where id = t2.season_id) as season_name,
  t1.*,t2.*,t3.*
 FROM product_import t1,product t2,import_facture t3 where t1.product_code = t2.code
-				and t1.import_facture_code = t3.code order by t3.date desc limit 5";
+				and t1.import_facture_code = t3.code and t3.date >= '".$dateBefore3Months."'";
 		$result = mysql_query ( $qry, $this->connection );
 		$resulttmp = mysql_query ( $qry, $this->connection );
 		$array_column = array (
@@ -63,7 +65,7 @@ FROM product_import t1,product t2,import_facture t3 where t1.product_code = t2.c
 				"sex_id" => "Giới tính",
 				"brand_name" => "Hiệu",
 				"season_id,season_name" => "Mùa,season_name",
-				// 				"id,quantity,import_price,product_code,name" => "Edit",
+				"id,quantity,import_price,product_code,name" => "Edit",
 				"id" => "Delete",
 				"quantity*export_price" => "complex"
 		);
@@ -528,7 +530,6 @@ function addReturnProduct($codes, $quantities, $descriptions,$providers) {
 		return $parameterArray;
 	}
 	// END BUSINESS IMPORT PROJECT
-	
 }
 
 ?>
