@@ -82,6 +82,7 @@ class ImportService {
 				 where t1.product_code = t2.code 
 				 and t1.import_facture_code = t3.code and t4.id = t3.provider_id 
 				 and t5.id = t2.brand_id and t6.id = t2.category_id and t7.id = t2.season_id ";
+		
 		if ($parameterArray ['product_name'] != '')
 				$qry = $qry . " and t2.name like '%" . $parameterArray ['product_name'] . "%'";
 		
@@ -96,7 +97,13 @@ class ImportService {
 				
 		if ($parameterArray ['brand_name'] != '')
 				$qry = $qry . " and t5.name like '%" . $parameterArray ['brand_name'] . "%'";
+				
+		if ($parameterArray ['description'] != '')
+				$qry = $qry . " and (t3.description like '%" . $parameterArray ['description'] . "%' or t2.description like '%" . $parameterArray ['description'] . "%') ";
 		
+		if ($parameterArray ['import_facture_code'] != '')
+				$qry = $qry . " and t3.code like '%" . $parameterArray ['import_facture_code'] . "%'";
+				
 		if ($parameterArray ['isadvancedsearch'] == 'true') {
 			
 			if ($parameterArray ['product_code_to'] != '')
@@ -105,15 +112,32 @@ class ImportService {
 				$qry = $qry . " and t1.product_code >= '" . $parameterArray ['product_code'] . "'";
 			
 			if ($parameterArray ['sale_to'] != '')
-				$qry = $qry . " and t2.sale <= '" . $parameterArray ['sale_to'] . "'";
+				$qry = $qry . " and t2.sale <= " . $parameterArray ['sale_to'];
 			if ($parameterArray ['sale'] != '')
-				$qry = $qry . " and t2.sale >= '" . $parameterArray ['sale'] . "'";
+				$qry = $qry . " and t2.sale >= " . $parameterArray ['sale'];
+				
+			if ($parameterArray ['import_price_to'] != '')
+				$qry = $qry . " and t1.import_price <= " . $parameterArray ['import_price_to'];
+			if ($parameterArray ['import_price'] != '')
+				$qry = $qry . " and t1.import_price >= " . $parameterArray ['import_price'] ;
+				
+			if ($parameterArray ['import_quantity_to'] != '')
+				$qry = $qry . " and (select sum(quantity) from product_import where product_code = t2.code group by product_code) <= " . $parameterArray ['import_quantity_to'];
+			if ($parameterArray ['import_quantity'] != '')
+				$qry = $qry . " and (select sum(quantity) from product_import where product_code = t2.code group by product_code) >= " . $parameterArray ['import_quantity'];
 			
 		} else {
-			$qry = $qry . " and t1.product_code like '%" . $parameterArray ['product_code'] . "%' ";
+			if ($parameterArray ['product_code'] != '')
+				$qry = $qry . " and t1.product_code like '%" . $parameterArray ['product_code'] . "%' ";
+			if ($parameterArray ['sale'] != '')
+				$qry = $qry . " and t2.sale = " . $parameterArray ['sale'];
+			if ($parameterArray ['import_price'] != '')
+				$qry = $qry . " and t1.import_price = " . $parameterArray ['import_price'];
+			if ($parameterArray ['import_quantity'] != '')
+				$qry = $qry . " and (select sum(quantity) from product_import where product_code = t2.code group by product_code) = " . $parameterArray ['import_quantity'];
 		}
 		$qry = $qry . " order by t3.date desc";
-//		 		echo $qry;
+		 		echo $qry;
 		$result = mysql_query ( $qry, $this->connection );
 		$resulttmp = mysql_query ( $qry, $this->connection );
 		$array_column = array (
