@@ -1,3 +1,4 @@
+<form>
 <input autocomplete="off"type="hidden" id="isadvancedsearch" value="false"/>
 <table class="searchcriteriatable">
 <tr>
@@ -58,7 +59,8 @@ TO
 <input autocomplete="off"type="text" class="datefield" id="dateto"/></td>
 <td colspan="5">
 <input type="button" value="SEARCH" class="menu_btn_sub" 
-	onclick="javascript:listProduct();">
+	onclick="javascript:listProduct();"><input type="reset" value="RESET">
 	</td>
 </tr>
 </table>
+</form>
