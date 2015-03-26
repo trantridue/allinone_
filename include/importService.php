@@ -48,11 +48,9 @@ class ImportService {
 				and t3.date >= '" . $dateBefore3Months . "'";
 		$result = mysql_query ( $qry, $this->connection );
 		$resulttmp = mysql_query ( $qry, $this->connection );
-		$array_column = array ("product_code" => "Mã hàng,product_code,image", "name" => "Tên Hàng", "quantity" => "Số lượng", "import_price" => "Giá nhập", "export_price" => "Giá bán", "sale" => "Sale", "import_facture_code,date" => "Mã Hóa Đơn,import_facture_code", "quantity*import_price" => "complex", "provider_id,provider_name,name" => "Cung Cấp,provider_name", "category_name" => "Loại", "sex_id" => "Giới tính", "brand_name" => "Hiệu", "season_id,season_name" => "Mùa,season_name", "id,quantity,import_price,product_code,name" => "Edit", "id" => "Delete", "quantity*export_price" => "complex" );
-		$array_total = array (2 => "Số lượng", 7 => "Tổng nhập" );
-		$this->commonService->generateJSDatatableComplex ( $result, 'product', 6, 'desc', $array_total );
-		$this->commonService->generateJqueryDatatable ( $result, 'product', $array_column );
-		$this->commonService->generateJqueryToolTipScript ( $resulttmp, 'product', $array_column );
+		$this->commonService->generateJSDatatableComplex ( $result, 'product', 6, 'desc', $this->getArrayTotal() );
+		$this->commonService->generateJqueryDatatable ( $result, 'product', $this->getArrayColumn() );
+		$this->commonService->generateJqueryToolTipScript ( $resulttmp, 'product', $this->getArrayColumn() );
 	}
 	function test() {
 		echo "000";
@@ -157,6 +155,14 @@ class ImportService {
 //		 		echo $qry;
 		$result = mysql_query ( $qry, $this->connection );
 		$resulttmp = mysql_query ( $qry, $this->connection );
+		$this->commonService->generateJSDatatableComplex ( $result, 'product', 6, 'desc', $this->getArrayTotal() );
+		$this->commonService->generateJqueryDatatable ( $result, 'product', $this->getArrayColumn() );
+		$this->commonService->generateJqueryToolTipScript ( $resulttmp, 'product', $this->getArrayColumn() );
+	}
+	function getArrayTotal(){
+		return array (2 => "Số lượng", 7 => "Tổng nhập", 8 => "Tổng NY" );
+	}
+	function getArrayColumn() {
 		$array_column = array (
 			"product_code" => "Mã hàng,product_code,image", 
 			"name" => "Tên Hàng", 
@@ -166,6 +172,7 @@ class ImportService {
 			"sale" => "Sale", 
 			"import_facture_code,date" => "Mã Hóa Đơn,import_facture_code", 
 			"quantity*import_price" => "complex", 
+			"quantity*export_price" => "complex", 
 			"provider_id,provider_name,name" => "Cung Cấp,provider_name", 
 			"category_name" => "Loại", 
 			"sex_id" => "Giới tính", 
@@ -174,10 +181,7 @@ class ImportService {
 			"id,quantity,import_price,product_code,name" => "Edit", 
 			"id" => "Delete", 
 			"quantity*export_price" => "complex" );
-		$array_total = array (2 => "Số lượng", 7 => "Tổng nhập" );
-		$this->commonService->generateJSDatatableComplex ( $result, 'product', 6, 'desc', $array_total );
-		$this->commonService->generateJqueryDatatable ( $result, 'product', $array_column );
-		$this->commonService->generateJqueryToolTipScript ( $resulttmp, 'product', $array_column );
+		return $array_column;
 	}
 	function currentMaxProductCode($i) {
 		$qry = "select max(code) as maxproductcode from product where code > 0000 and code <9999 and length(code)=4 limit 1";
