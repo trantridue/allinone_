@@ -46,11 +46,7 @@ class ImportService {
 				 t1.*,t2.*,t3.* FROM product_import t1,product t2,import_facture t3,provider t4, brand t5, category t6, season t7 where t1.product_code = t2.code 
 				and t1.import_facture_code = t3.code and t4.id = t3.provider_id and t5.id = t2.brand_id and t6.id = t2.category_id and t7.id = t2.season_id 
 				and t3.date >= '" . $dateBefore3Months . "'";
-		$result = mysql_query ( $qry, $this->connection );
-		$resulttmp = mysql_query ( $qry, $this->connection );
-		$this->commonService->generateJSDatatableComplex ( $result, 'product', 6, 'desc', $this->getArrayTotal() );
-		$this->commonService->generateJqueryDatatable ( $result, 'product', $this->getArrayColumn() );
-		$this->commonService->generateJqueryToolTipScript ( $resulttmp, 'product', $this->getArrayColumn() );
+		$this->processImportQuery($qry);
 	}
 	function test() {
 		echo "000";
@@ -152,17 +148,21 @@ class ImportService {
 				$qry = $qry . " and t2.export_price = " . $parameterArray ['export_price'];
 		}
 		$qry = $qry . " order by t3.date desc";
-//		 		echo $qry;
+		// echo $qry;
+		$this->processImportQuery($qry);
+		
+	}
+	function processImportQuery($qry){
 		$result = mysql_query ( $qry, $this->connection );
 		$resulttmp = mysql_query ( $qry, $this->connection );
 		$this->commonService->generateJSDatatableComplex ( $result, 'product', 6, 'desc', $this->getArrayTotal() );
-		$this->commonService->generateJqueryDatatable ( $result, 'product', $this->getArrayColumn() );
-		$this->commonService->generateJqueryToolTipScript ( $resulttmp, 'product', $this->getArrayColumn() );
+		$this->commonService->generateJqueryDatatable ( $result, 'product', $this->getArrayColumnImport() );
+		$this->commonService->generateJqueryToolTipScript ( $resulttmp, 'product', $this->getArrayColumnImport() );
 	}
 	function getArrayTotal(){
 		return array (2 => "Số lượng", 7 => "Tổng nhập", 8 => "Tổng NY" );
 	}
-	function getArrayColumn() {
+	function getArrayColumnImport() {
 		$array_column = array (
 			"product_code" => "Mã hàng,product_code,image", 
 			"name" => "Tên Hàng", 
