@@ -47,7 +47,9 @@ INSERT INTO `brand` (`name`) VALUES
 ('GAP'),
 ('DESTINA'),
 ('NEXT FASHION'),
-('UNIQUILO');
+('UNIQUILO'),
+('HOLISTER'),
+('ABERCROMBIE');
 
 #category
 truncate category;
@@ -80,6 +82,8 @@ from `zabuzach_store`.`customers` where tel is not null and tel not like '%aaaaa
 #Prepadata product
 INSERT INTO `import_facture` (`code`, `date`, `description`, `provider_id`) VALUES ('20150324_001', '2015-03-24 05:36:57', 'Lấy hàng 1 mình', 2);
 INSERT INTO `import_facture` (`code`, `date`, `description`, `provider_id`) VALUES ('20150324_002', '2015-03-24 05:42:29', 'Anh Thắng mang qua', 14);
+INSERT INTO `import_facture` (`code`, `date`, `description`, `provider_id`) VALUES ('20150326_001', '2015-03-26 05:33:48', 'test', 3);
+INSERT INTO `import_facture` (`code`, `date`, `description`, `provider_id`) VALUES ('20150326_002', '2015-03-26 21:05:16', 'đi một mình thôi', 24);
 
 INSERT INTO `product` (`code`, `name`, `category_id`, `season_id`, `sex_id`, `export_price`, `description`, `brand_id`, `sale`, `link`) VALUES ('0001', 'Áo phông nữ tommy', 4, 1, 1, 150, '', 9, 10, NULL);
 INSERT INTO `product` (`code`, `name`, `category_id`, `season_id`, `sex_id`, `export_price`, `description`, `brand_id`, `sale`, `link`) VALUES ('0002', 'Áo phông nam tommy', 4, 1, 2, 200, '', 9, 10, NULL);
@@ -88,6 +92,8 @@ INSERT INTO `product` (`code`, `name`, `category_id`, `season_id`, `sex_id`, `ex
 INSERT INTO `product` (`code`, `name`, `category_id`, `season_id`, `sex_id`, `export_price`, `description`, `brand_id`, `sale`, `link`) VALUES ('0005', 'Quần sooc nam levis', 10, 1, 2, 300, '', 7, 10, NULL);
 INSERT INTO `product` (`code`, `name`, `category_id`, `season_id`, `sex_id`, `export_price`, `description`, `brand_id`, `sale`, `link`) VALUES ('0006', 'Jean nam đẹp', 2, 1, 2, 500, '', 21, 5, NULL);
 INSERT INTO `product` (`code`, `name`, `category_id`, `season_id`, `sex_id`, `export_price`, `description`, `brand_id`, `sale`, `link`) VALUES ('0007', 'Jean nam lên', 2, 1, 2, 450, '', 7, 5, NULL);
+INSERT INTO `product` (`code`, `name`, `category_id`, `season_id`, `sex_id`, `export_price`, `description`, `brand_id`, `sale`, `link`) VALUES ('0008', 'Áo phông Holister', 4, 1, 1, 100, '', 22, 10, NULL);
+INSERT INTO `product` (`code`, `name`, `category_id`, `season_id`, `sex_id`, `export_price`, `description`, `brand_id`, `sale`, `link`) VALUES ('0009', 'Áo Thun cổ lọ', 4, 1, 1, 180, '', 23, 10, NULL);
 
 INSERT INTO `product_import` (`id`, `product_code`, `import_facture_code`, `quantity`, `import_price`) VALUES (1, '0001', '20150324_001', 50, 80);
 INSERT INTO `product_import` (`id`, `product_code`, `import_facture_code`, `quantity`, `import_price`) VALUES (2, '0002', '20150324_001', 35, 105);
@@ -96,4 +102,7 @@ INSERT INTO `product_import` (`id`, `product_code`, `import_facture_code`, `quan
 INSERT INTO `product_import` (`id`, `product_code`, `import_facture_code`, `quantity`, `import_price`) VALUES (5, '0005', '20150324_001', 27, 150);
 INSERT INTO `product_import` (`id`, `product_code`, `import_facture_code`, `quantity`, `import_price`) VALUES (6, '0006', '20150324_002', 10, 230);
 INSERT INTO `product_import` (`id`, `product_code`, `import_facture_code`, `quantity`, `import_price`) VALUES (7, '0007', '20150324_002', 20, 220);
-
+INSERT INTO `product_import` (`id`, `product_code`, `import_facture_code`, `quantity`, `import_price`) VALUES (8, '0004', '20150326_001', 20, 285);
+INSERT INTO `product_import` (`id`, `product_code`, `import_facture_code`, `quantity`, `import_price`) VALUES (9, '0008', '20150326_002', 8, 50);
+INSERT INTO `product_import` (`id`, `product_code`, `import_facture_code`, `quantity`, `import_price`) VALUES (10, '0009', '20150326_002', 10, 90);
+INSERT INTO `product_import` (`id`, `product_code`, `import_facture_code`, `quantity`, `import_price`) VALUES (11, '0004', '20150326_002', 50, 285);
