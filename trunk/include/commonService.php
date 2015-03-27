@@ -181,7 +181,7 @@ echo "</script> ";
 		echo "</tbody>";
 		echo "</table>";
 		} else {
-			echo "No data found";
+			echo "Không có dữ liệu tìm thấy";
 		}
 	}
 	function RedirectToURL($url) {
