@@ -155,15 +155,15 @@ class ImportService {
 	function processImportQuery($qry){
 		$result = mysql_query ( $qry, $this->connection );
 		$resulttmp = mysql_query ( $qry, $this->connection );
-		$this->commonService->generateJSDatatableComplex ( $result, 'product', 6, 'desc', $this->getArrayTotal() );
+		$this->commonService->generateJSDatatableComplex ( $result, 'product', 6, 'desc', $this->getArrayTotalImport() );
 		$this->commonService->generateJqueryDatatable ( $result, 'product', $this->getArrayColumnImport() );
 		$this->commonService->generateJqueryToolTipScript ( $resulttmp, 'product', $this->getArrayColumnImport() );
 	}
-	function getArrayTotal(){
+	function getArrayTotalImport(){
 		return array (2 => "Số lượng", 7 => "Tổng nhập", 8 => "Tổng NY" );
 	}
 	function getArrayColumnImport() {
-		$array_column = array (
+		return array (
 			"product_code" => "Mã hàng,product_code,image", 
 			"name" => "Tên Hàng", 
 			"quantity" => "Số lượng", 
@@ -181,8 +181,8 @@ class ImportService {
 			"id,quantity,import_price,product_code,name" => "Edit", 
 			"id" => "Delete", 
 			"quantity*export_price" => "complex" );
-		return $array_column;
 	}
+	
 	function currentMaxProductCode($i) {
 		$qry = "select max(code) as maxproductcode from product where code > 0000 and code <9999 and length(code)=4 limit 1";
 		$result = mysql_query ( $qry, $this->connection );
@@ -419,50 +419,70 @@ class ImportService {
 				product_return t1, product t2, provider t3, category t4, brand t5,season t6 
 				where t1.product_code = t2.code and t1.provider_id = t3.id and t2.category_id = t4.id and t2.brand_id = t5.id and t2.season_id = t6.id";
 		$result = mysql_query ( $qry, $this->connection );
-		$array_column = array ("product_code" => "Mã hàng", "quantity" => "Số lượng", "import_price" => "Giá nhập", "quantity*import_price" => "complex", "datereturn" => "Ngày", "provider_name" => "Cung cấp" );// 				"import_price" => "Giá nhập",
-// 				"export_price" => "Giá bán",
-		// 				"sale" => "Sale",
-		// 				"import_facture_code,date" => "Mã Hóa Đơn,import_facture_code",
-		// 				"quantity*import_price" => "complex",
-		// 				"provider_id,provider_name,name" => "Cung Cấp,provider_name",
-		// 				"category_name" => "Loại",
-		// 				"sex_id" => "Giới tính",
-		// 				"brand_name" => "Hiệu",
-		// 				"season_id,season_name" => "Mùa,season_name",
-		// 				"id,quantity,import_price,product_code,name" => "Edit",
-		// 				"id" => "Delete",
-		// 				"quantity*export_price" => "complex"
-		
-		$array_total = array (1 => "Số lượng", 3 => "Tổng tiền trả" );
-		$this->commonService->generateJSDatatableComplex ( $result, 'productreturn', 1, 'desc', $array_total );
-		$this->commonService->generateJqueryDatatable ( $result, 'productreturn', $array_column );
+	
+		$this->commonService->generateJSDatatableComplex ( $result, 'productreturn', 1, 'desc', $this->getArrayTotalReturn() );
+		$this->commonService->generateJqueryDatatable ( $result, 'productreturn', $this->getArrayColumnReturn() );
 	}
 	function listProductReturn($parameterArray) {
-		if ($parameterArray ['isadvancedsearch'] == 'true') {
-			if ($parameterArray ['product_code_to'] == '')
-				$parameterArray ['product_code_to'] = '9999';
-			if ($parameterArray ['product_code'] == '')
-				$parameterArray ['product_code_to'] = '0000';
+		$qry = "select t1.*,t2.*,t3.*,t4.*,t1.date as datereturn,t3.name as provider_name,
+				(select import_price from product_import where product_code = t1.product_code and id = (select max(id) from product_import where product_code = t1.product_code )) as import_price 
+				from product_return t1, product t2, provider t3, category t4, brand t5, season t6
+				where t1.product_code = t2.code and t1.provider_id = t3.id and t2.category_id = t4.id and t2.brand_id = t5.id and t2.season_id = t6.id ";
 			
-			$qry = "select t1.*,t2.*,t3.*,t4.*,t1.date as datereturn,t3.name as provider_name,
-				(select import_price from product_import where product_code = t1.product_code and id = (select max(id) from product_import where product_code = t1.product_code )) as import_price from
-				product_return t1, product t2, provider t3, category t4, brand t5,season t6
-				where t1.product_code = t2.code and t1.provider_id = t3.id and t2.category_id = t4.id and t2.brand_id = t5.id and t2.season_id = t6.id
-				and t1.product_code between '" . $parameterArray ['product_code'] . "' and '" . $parameterArray ['product_code_to'] . "'";
-		} else {
-			$qry = "select t1.*,t2.*,t3.*,t4.*,t1.date as datereturn,t3.name as provider_name,
-				(select import_price from product_import where product_code = t1.product_code and id = (select max(id) from product_import where product_code = t1.product_code )) as import_price from
-				product_return t1, product t2, provider t3, category t4, brand t5,season t6
-				where t1.product_code = t2.code and t1.provider_id = t3.id and t2.category_id = t4.id and t2.brand_id = t5.id and t2.season_id = t6.id 
-				and t1.product_code like '%" . $parameterArray ['product_code'] . "%'";
-		}
-		// 		echo $qry;
-		$result = mysql_query ( $qry, $this->connection );
-		$array_column = array ("product_code" => "Mã hàng", "quantity" => "Số lượng", "import_price" => "Giá nhập", "quantity*import_price" => "complex", "datereturn" => "Ngày", "provider_name" => "Cung cấp" );
-		$array_total = array (1 => "Số lượng", 3 => "Tổng tiền trả" );
+			if ($parameterArray ['product_name'] != '')
+				$qry = $qry . " and t2.name like '%" . $parameterArray ['product_name'] . "%'";
 		
-		$this->commonService->generateJSDatatableComplex ( $result, 'productreturn', 1, 'desc', $array_total );
-		$this->commonService->generateJqueryDatatable ( $result, 'productreturn', $array_column );
+			if ($parameterArray ['category_name'] != '')
+				$qry = $qry . " and t4.name like '%" . $parameterArray ['category_name'] . "%'";
+		
+			if ($parameterArray ['provider_name'] != '')
+				$qry = $qry . " and t3.name like '%" . $parameterArray ['provider_name'] . "%'";
+		
+			if ($parameterArray ['season_id'] != '')
+				$qry = $qry . " and t6.id like '%" . $parameterArray ['season_id'] . "%'";
+				
+			if ($parameterArray ['brand_name'] != '')
+				$qry = $qry . " and t5.name like '%" . $parameterArray ['brand_name'] . "%'";
+				
+			if ($parameterArray ['description'] != '')
+				$qry = $qry . " and  t2.description like '%" . $parameterArray ['description'] . "%' ";
+				
+			if ($parameterArray ['datefrom'] != '')
+				$qry = $qry . " and t1.date >= '" . $parameterArray ['datefrom'] . "'";
+				
+			if ($parameterArray ['dateto'] != '')
+				$qry = $qry . " and t1.date <= '" . $parameterArray ['dateto'] . "'";
+				
+			if ($parameterArray ['sex_value_search'] != '')
+				$qry = $qry . " and t2.sex_id = " . $parameterArray ['sex_value_search'];
+			
+			if ($parameterArray ['isadvancedsearch'] == 'true') {
+				
+			} else {
+				
+			}
+//		 		echo $qry;
+		$result = mysql_query ( $qry, $this->connection );
+		
+		$this->commonService->generateJSDatatableComplex ( $result, 'productreturn', 1, 'desc', $this->getArrayTotalReturn() );
+		$this->commonService->generateJqueryDatatable ( $result, 'productreturn', $this->getArrayColumnReturn() );
+	}
+	function getArrayTotalReturn(){
+		return array (
+		2 => "Số lượng", 
+		5 => "Tổng tiền trả" );
+	}
+	function getArrayColumnReturn() {
+		return array (
+		"product_code" => "Mã hàng", 
+		"name" => "Tên hàng",
+		"quantity" => "Số lượng", 
+		"import_price" => "Giá nhập", 
+		"export_price" => "Giá NY", 
+		"quantity*import_price" => "complex", 
+		"sex_id" => "Giới tính",
+		"datereturn" => "Ngày trả", 
+		"provider_name" => "Cung cấp" );
 	}
 	function getInputSearchParameters() {
 		$parameterArray = array (
