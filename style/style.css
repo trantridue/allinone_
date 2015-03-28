@@ -222,8 +222,11 @@ textarea {
 
 #listReturnProductArea {
 	background-color: pink;
+	text-align: center;
 }
-
+#mainListArea{
+	text-align: center;
+}
 /*TOOL TIP START*/
 .ui-tooltip,.arrow:after {
 	background: black;
@@ -288,4 +291,10 @@ textarea {
 	border: 0px;
 	width: 100%;
 	padding-top: 5px;
+}
+.datatableDisplaySum{
+	padding-top: 15px;
+}
+.dataTables_wrapper {
+	text-align: center;
 }
