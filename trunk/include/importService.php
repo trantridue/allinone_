@@ -43,29 +43,16 @@ class ImportService {
 		$dateBefore3Months = $this->commonService->getDateBefore3Months ();
 		
 		$qry = "SELECT t4.name as provider_name, t5.name as brand_name,t6.name as category_name, t7.name as season_name,
-				 t1.*,t2.*,t3.* FROM product_import t1,product t2,import_facture t3,provider t4, brand t5, category t6, season t7 where t1.product_code = t2.code 
+				 t1.*,t2.*,t3.code as facture_code,t3.date,t3.description as descript
+				  FROM product_import t1,product t2,import_facture t3,provider t4, brand t5, category t6, season t7 where t1.product_code = t2.code 
 				and t1.import_facture_code = t3.code and t4.id = t3.provider_id and t5.id = t2.brand_id and t6.id = t2.category_id and t7.id = t2.season_id 
 				and t3.date >= '" . $dateBefore3Months . "'";
 		$this->processImportQuery($qry);
 	}
-	function test() {
-		echo "000";
-		$qry = "select * from product";
-		$result = mysql_query ( $qry, $this->connection );
-		$num_rows = mysql_num_rows ( $result );
-		$row = mysql_fetch_array ( $result );
-		$columns = mysql_num_fields ( $result );
-		$fields = array ();
-		for($i = 0; $i < $columns; $i ++) {
-			$field = mysql_field_name ( $result, $i );
-			$fields [$field] = $row [$field];
-		}
-		
-		print_r ( $fields );
-	}
+	
 	function listProduct($parameterArray) {
 		$qry = "SELECT t4.name as provider_name, t5.name as brand_name,t6.name as category_name, t7.name as season_name,
-				 t1.*,t2.*,t3.* FROM 
+				 t1.*,t2.*,t3.code as facture_code,t3.date,t3.description as descript FROM 
 				 product_import t1,
 				 product t2,
 				 import_facture t3,
@@ -99,10 +86,10 @@ class ImportService {
 				$qry = $qry . " and t3.code like '%" . $parameterArray ['import_facture_code'] . "%'";
 		
 			if ($parameterArray ['datefrom'] != '')
-				$qry = $qry . " and t3.date >= '" . $parameterArray ['datefrom'] . "'";
+				$qry = $qry . " and DATE_FORMAT(t3.date, '%Y-%m-%d') >= '" . $parameterArray ['datefrom'] . "'";
 				
 			if ($parameterArray ['dateto'] != '')
-				$qry = $qry . " and t3.date <= '" . $parameterArray ['dateto'] . "'";
+				$qry = $qry . " and DATE_FORMAT(t3.date, '%Y-%m-%d') <= '" . $parameterArray ['dateto'] . "'";
 				
 			if ($parameterArray ['sex_value_search'] != '')
 				$qry = $qry . " and t2.sex_id = " . $parameterArray ['sex_value_search'];
@@ -148,7 +135,7 @@ class ImportService {
 				$qry = $qry . " and t2.export_price = " . $parameterArray ['export_price'];
 		}
 		$qry = $qry . " order by t3.date desc";
-		// echo $qry;
+		 echo $qry;
 		$this->processImportQuery($qry);
 		
 	}
@@ -178,7 +165,7 @@ class ImportService {
 			"sex_id" => "Giới tính", 
 			"brand_name" => "Hiệu", 
 			"season_id,season_name" => "Mùa,season_name", 
-			"id,quantity,import_price,product_code,name" => "Edit", 
+			"descript,date,provider_name,brand_name,category_name,season_name,id,product_code,quantity,import_facture_code,import_price,name,category_id,season_id,sex_id,export_price,description,brand_id,sale,link" => "Edit", 
 			"id" => "Delete", 
 			"quantity*export_price" => "complex" );
 	}
@@ -414,7 +401,7 @@ class ImportService {
 		echo mysql_query ( $qry, $this->connection );
 	}
 	function listProductReturnDefault() {
-		$qry = "select t1.*,t2.*,t3.*,t4.*,t1.date as datereturn,t3.name as provider_name,
+		$qry = "select t1.*,t2.*,t3.*,t4.*,t1.date as datereturn,t3.name as provider_name,t2.name as product_name,
 				(select import_price from product_import where product_code = t1.product_code and id = (select max(id) from product_import where product_code = t1.product_code )) as import_price from 
 				product_return t1, product t2, provider t3, category t4, brand t5,season t6 
 				where t1.product_code = t2.code and t1.provider_id = t3.id and t2.category_id = t4.id and t2.brand_id = t5.id and t2.season_id = t6.id";
@@ -424,7 +411,7 @@ class ImportService {
 		$this->commonService->generateJqueryDatatable ( $result, 'productreturn', $this->getArrayColumnReturn() );
 	}
 	function listProductReturn($parameterArray) {
-		$qry = "select t1.*,t2.*,t3.*,t4.*,t1.date as datereturn,t3.name as provider_name,
+		$qry = "select t1.*,t2.*,t3.*,t4.*,t1.date as datereturn,t3.name as provider_name,t2.name as product_name,
 				(select import_price from product_import where product_code = t1.product_code and id = (select max(id) from product_import where product_code = t1.product_code )) as import_price 
 				from product_return t1, product t2, provider t3, category t4, brand t5, season t6
 				where t1.product_code = t2.code and t1.provider_id = t3.id and t2.category_id = t4.id and t2.brand_id = t5.id and t2.season_id = t6.id ";
@@ -448,14 +435,14 @@ class ImportService {
 				$qry = $qry . " and  t2.description like '%" . $parameterArray ['description'] . "%' ";
 				
 			if ($parameterArray ['datefrom'] != '')
-				$qry = $qry . " and t1.date >= '" . $parameterArray ['datefrom'] . "'";
+				$qry = $qry . " and DATE_FORMAT(t1.date, '%Y-%m-%d') >= '" . $parameterArray ['datefrom'] . "'";
 				
 			if ($parameterArray ['dateto'] != '')
-				$qry = $qry . " and t1.date <= '" . $parameterArray ['dateto'] . "'";
+				$qry = $qry . " and DATE_FORMAT(t1.date, '%Y-%m-%d') <= '" . $parameterArray ['dateto'] . "'";
 				
 			if ($parameterArray ['sex_value_search'] != '')
 				$qry = $qry . " and t2.sex_id = " . $parameterArray ['sex_value_search'];
-			
+			//TODO to be completed later
 			if ($parameterArray ['isadvancedsearch'] == 'true') {
 				
 			} else {
@@ -475,14 +462,15 @@ class ImportService {
 	function getArrayColumnReturn() {
 		return array (
 		"product_code" => "Mã hàng", 
-		"name" => "Tên hàng",
+		"product_name" => "Tên hàng",
 		"quantity" => "Số lượng", 
 		"import_price" => "Giá nhập", 
 		"export_price" => "Giá NY", 
 		"quantity*import_price" => "complex", 
 		"sex_id" => "Giới tính",
 		"datereturn" => "Ngày trả", 
-		"provider_name" => "Cung cấp" );
+		"provider_name" => "Cung cấp" ,
+		"tel" => "Phone" );
 	}
 	function getInputSearchParameters() {
 		$parameterArray = array (
@@ -513,7 +501,10 @@ class ImportService {
 		'isadvancedsearch' => $_REQUEST ['isadvancedsearch'] );
 		return $parameterArray;
 	}
+	function deleteProductImport($id) {
+		$qry = "delete from product_import where id = " . $id;
+		echo mysql_query ( $qry, $this->connection );
+	}
 	// END BUSINESS IMPORT PROJECT
 }
-
 ?>

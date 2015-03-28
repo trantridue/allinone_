@@ -152,6 +152,12 @@ function updatesalepostaction(data, actionType) {
 	displayMessageServer(data, errorMessage, successMessage, "product");
 	listProduct();
 }
+function productimportpostaction(data, actionType) {
+	$('#serverMessage').show();
+	var errorMessage = actionType + " product import error";
+	var successMessage = actionType + " product import successful";
+	displayMessageServer(data, errorMessage, successMessage, "import");
+}
 /* PROVIDER MODULE */
 function providerpostaction(data, actionType) {
 	$('#serverMessage').show();

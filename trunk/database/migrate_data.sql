@@ -16,6 +16,7 @@ update user set status = 'y' where status = '1';
 update user set status = 'n' where status = '0';
 
 #prepare provider
+truncate product_return;
 truncate table product_import;
 truncate table import_facture;
 truncate table provider;

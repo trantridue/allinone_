@@ -274,6 +274,11 @@ function listReturnProduct(){
 	var url = "modules/import/listproductreturn.php?" + buildSearchImportCriteria();
 	$('#listReturnProductArea').load(url);
 }
+function editproduct(str) {
+	var inputUrl = processUrlString(str);
+	var url = 'modules/import/editproductimport.php?' + inputUrl;
+	$('#suplementaryListArea').load(url);
+}
 /* PROVIDER MODULE */
 function listProvider() {
 	var isdefault = "false";
@@ -297,6 +302,17 @@ function deleteprovider(providerid) {
 			providerpostaction(data, actionType);
 		}
 	});
+}
+function deleteproduct(product_import_id){
+	var delete_product_import_id = 'modules/import/deleteproductimport.php?productimportid='
+		+ product_import_id;
+$.ajax({
+	url : delete_product_import_id,
+	success : function(data) {
+		var actionType = "delete";
+		productimportpostaction(data, actionType);
+	}
+});
 }
 /* CUSTOMER MODULE */
 function listCustomer() {
