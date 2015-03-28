@@ -43,7 +43,7 @@ class ImportService {
 		$dateBefore3Months = $this->commonService->getDateBefore3Months ();
 		
 		$qry = "SELECT t4.name as provider_name, t5.name as brand_name,t6.name as category_name, t7.name as season_name,
-				 t1.*,t2.*,t3.code as facture_code,t3.date,t3.description as descript
+				 t1.*,t2.*,t3.code as facture_code,t3.date,t3.description as descript, t3.provider_id
 				  FROM product_import t1,product t2,import_facture t3,provider t4, brand t5, category t6, season t7 where t1.product_code = t2.code 
 				and t1.import_facture_code = t3.code and t4.id = t3.provider_id and t5.id = t2.brand_id and t6.id = t2.category_id and t7.id = t2.season_id 
 				and t3.date >= '" . $dateBefore3Months . "'";
@@ -52,7 +52,7 @@ class ImportService {
 	
 	function listProduct($parameterArray) {
 		$qry = "SELECT t4.name as provider_name, t5.name as brand_name,t6.name as category_name, t7.name as season_name,
-				 t1.*,t2.*,t3.code as facture_code,t3.date,t3.description as descript FROM 
+				 t1.*,t2.*,t3.code as facture_code,t3.date,t3.description as descript, t3.provider_id FROM 
 				 product_import t1,
 				 product t2,
 				 import_facture t3,
@@ -135,7 +135,7 @@ class ImportService {
 				$qry = $qry . " and t2.export_price = " . $parameterArray ['export_price'];
 		}
 		$qry = $qry . " order by t3.date desc";
-		 echo $qry;
+//		 echo $qry;
 		$this->processImportQuery($qry);
 		
 	}
@@ -165,7 +165,7 @@ class ImportService {
 			"sex_id" => "Giới tính", 
 			"brand_name" => "Hiệu", 
 			"season_id,season_name" => "Mùa,season_name", 
-			"descript,date,provider_name,brand_name,category_name,season_name,id,product_code,quantity,import_facture_code,import_price,name,category_id,season_id,sex_id,export_price,description,brand_id,sale,link" => "Edit", 
+			"provider_id,descript,date,provider_name,brand_name,category_name,season_name,id,product_code,quantity,import_facture_code,import_price,name,category_id,season_id,sex_id,export_price,description,brand_id,sale,link" => "Edit", 
 			"id" => "Delete", 
 			"quantity*export_price" => "complex" );
 	}
@@ -505,6 +505,26 @@ class ImportService {
 		$qry = "delete from product_import where id = " . $id;
 		echo mysql_query ( $qry, $this->connection );
 	}
+function printDropDownListFromTableSelected($table,$fieldname,$selectedId) {
+	// get the query
+	$selected = "";
+	$sql = "select * from " . $table ;	
+	if($table=="user"){
+		$sql = $sql . " and status ='y'";
+	}
+	echo "<select name='" . $fieldname . "' style='width:145px;height:22px;'>";
+	$sql = $sql . " order by name asc";
+	$result = mysql_query ( $sql ) or die ( mysql_error () );
+	while ( $rows = mysql_fetch_array ( $result ) ) {
+		if($selected==""){
+			$selected = ($rows['id']==$selectedId)?"selected='selected'":"";
+			echo "<option value='" . $rows ['id'] . "' ".$selected.">" . $rows ['name'] . "</option>";
+		} else{
+			echo "<option value='" . $rows ['id'] . "'>" . $rows ['name'] . "</option>";
+		}
+	}
+	echo "</select>";
+}
 	// END BUSINESS IMPORT PROJECT
 }
 ?>

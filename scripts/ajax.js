@@ -119,7 +119,17 @@ $(document).ready(function() {
 	};
 	$("#provider_name").autocomplete(ac_config_provider_name);
 });
-
+$(document).ready(function() {
+	var ac_config_provider_name1 = {
+		source : "autocomplete/completed_import_provider_name.php",
+		select : function(event, ui) {
+			$("#provider_name1").val(ui.item.code);
+			$("#provider_id1").val(ui.item.provider_id);
+		},
+		minLength : 1
+	};
+	$("#provider_name1").autocomplete(ac_config_provider_name1);
+});
 $(document).ready(function() {
 	var ac_config_season = {
 		source : "autocomplete/completed_import_season.php",
