@@ -138,13 +138,13 @@ input[type='reset'] {
 .deleteIcon {
 	background-image: url(../images/delete_ico.png);
 	background-repeat: no-repeat;
-	height: 32px;
+	height: 18px;
 }
 
 .editIcon {
 	background-image: url(../images/edit_ico.png);
 	background-repeat: no-repeat;
-	height: 32px;
+	height: 18px;
 }
 
 /* ICON END*/ /* FIELD START */

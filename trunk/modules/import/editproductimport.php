@@ -1,4 +1,10 @@
 <?php
+	require_once ("../../include/constant.php");
+	require_once ("../../include/importService.php");
+	require_once ("../../include/commonService.php");
+	$commonService = new CommonService ();
+	$importService = new ImportService ( hostname, username, password, database, $commonService );
+	
 	$provider_name = $_REQUEST['provider_name']; 
 	$brand_name = $_REQUEST['brand_name']; 
 	$category_name = $_REQUEST['category_name']; 
@@ -19,6 +25,7 @@
 	$link = $_REQUEST['link'];
 	$date = $_REQUEST['date'];
 	$descript = $_REQUEST['descript'];
+	$provider_id = $_REQUEST['provider_id'];
 ?>
 <form>
 <table class="searchcriteriatable">
@@ -30,7 +37,9 @@
 <td align="right">Import description : </td>
 <td><input  value="<?php echo $descript;?>"></td>
 <td align="right">Provider Name : </td>
-<td><?php echo $provider_name;?></td>
+<td><?php $importService->printDropDownListFromTableSelected('provider','provider_table',$provider_id);?></td>
+<td align="right"></td>
+<td></td>
 </tr>
 <tr>
 <td align="right"></td>
