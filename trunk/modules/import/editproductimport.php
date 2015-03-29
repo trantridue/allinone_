@@ -33,17 +33,46 @@
 <td align="right">Facture Code : </td>
 <td><?php echo $import_facture_code;?></td>
 <td align="right">Date : </td>
-<td><input class="datefield hasDatepicker" value="<?php echo date('Y-m-d',strtotime($date));?>"> </td>
-<td align="right">Import description : </td>
-<td><input  value="<?php echo $descript;?>"></td>
+<td><input class="datefield hasDatepicker" value="<?php echo date('Y-m-d',strtotime($date));?>" name="edit_import_date" id="edit_import_date_id"> </td>
+<td align="right">Import Desc : </td>
+<td><input  value="<?php echo $descript;?> name="edit_import_description" id="edit_import_description_id""></td>
 <td align="right">Provider Name : </td>
-<td><?php $importService->printDropDownListFromTableSelected('provider','provider_table',$provider_id);?></td>
+<td><?php $importService->printDropDownListFromTableSelected('provider','edit_provider',$provider_id);?></td>
 <td align="right"></td>
 <td></td>
 </tr>
 <tr>
+<td align="right">Product code : </td>
+<td><?php echo $product_code;?></td>
+<td align="right">Product name : </td>
+<td><input autocomplete="off" value="<?php echo $name;?>" name="edit_product_name" id="edit_product_name_id"></td>
+<td align="right">Category : </td>
+<td><?php $importService->printDropDownListFromTableSelected('category','edit_category',$category_id);?></td>
+<td align="right">Season : </td>
+<td><?php $importService->printDropDownListFromTableSelected('season','edit_season',$season_id);?></td>
+
+</tr>
+<tr>
 <td align="right"></td>
 <td></td>
+<td align="right">Sex : </td>
+<td><?php $importService->printDropDownListFromTableSelected('sex','edit_sex',$sex_id);?></td>
+<td align="right">Brand : </td>
+<td><?php $importService->printDropDownListFromTableSelected('brand','edit_brand',$brand_id);?></td>
+<td align="right">Product Desc : </td>
+<td><input value="<?php echo $description;?>" name="edit_product_description" id="edit_product_description_id"/></td>
+</tr>
+<tr>
+<td align="right"></td>
+<td></td>
+<td align="right">Export Price : </td>
+<td><input value="<?php echo $export_price;?>" name="edit_export_price" id="edit_export_price_id"/></td>
+<td align="right"></td>
+<td></td>
+<td align="right"></td>
+<td></td>
+</tr>
+<tr>
 <td align="right"></td>
 <td></td>
 <td align="right"></td>

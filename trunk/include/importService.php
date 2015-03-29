@@ -512,7 +512,7 @@ function printDropDownListFromTableSelected($table,$fieldname,$selectedId) {
 	if($table=="user"){
 		$sql = $sql . " and status ='y'";
 	}
-	echo "<select name='" . $fieldname . "' style='width:145px;height:22px;'>";
+	echo "<select name='" . $fieldname . "' id='id_" . $fieldname . "' style='width:110px;height:22px;'>";
 	$sql = $sql . " order by name asc";
 	$result = mysql_query ( $sql ) or die ( mysql_error () );
 	while ( $rows = mysql_fetch_array ( $result ) ) {
