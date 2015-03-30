@@ -107,3 +107,7 @@ INSERT INTO `product_import` (`id`, `product_code`, `import_facture_code`, `quan
 INSERT INTO `product_import` (`id`, `product_code`, `import_facture_code`, `quantity`, `import_price`) VALUES (9, '0008', '20150326_002', 8, 50);
 INSERT INTO `product_import` (`id`, `product_code`, `import_facture_code`, `quantity`, `import_price`) VALUES (10, '0009', '20150326_002', 10, 90);
 INSERT INTO `product_import` (`id`, `product_code`, `import_facture_code`, `quantity`, `import_price`) VALUES (11, '0004', '20150326_002', 50, 285);
+
+#sex
+update sex set name='WOMAN' where id = 1;
+update sex set name='MAN' where id = 2;
