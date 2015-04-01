@@ -27,7 +27,7 @@
 	$descript = $_REQUEST['descript'];
 	$provider_id = $_REQUEST['provider_id'];
 ?>
-<form action="modules/import/updateproductimport.php" method="post">
+<form method="post">
 <table class="searchcriteriatable">
 <tr>
 <td align="right">Facture Code : </td>
@@ -37,7 +37,7 @@
 <td align="right">Import Desc : </td>
 <td><input  title="<?php echo $descript;?>" value="<?php echo $descript;?>" name="edit_import_description" id="edit_import_description_id"></td>
 <td align="right">Provider Name : </td>
-<td><?php $importService->printDropDownListFromTableSelected('provider','edit_provider',$provider_id);?></td>
+<td><?php $commonService->printDropDownListFromTableSelected('provider','edit_provider',$provider_id);?></td>
 <td align="right"></td>
 <td></td>
 </tr>
@@ -47,18 +47,18 @@
 <td align="right">Product name : </td>
 <td><input autocomplete="off" value="<?php echo $name;?>" name="edit_product_name" id="edit_product_name_id"></td>
 <td align="right">Category : </td>
-<td><?php $importService->printDropDownListFromTableSelected('category','edit_category',$category_id);?></td>
+<td><?php $commonService->printDropDownListFromTableSelected('category','edit_category',$category_id);?></td>
 <td align="right">Season : </td>
-<td><?php $importService->printDropDownListFromTableSelected('season','edit_season',$season_id);?></td>
+<td><?php $commonService->printDropDownListFromTableSelected('season','edit_season',$season_id);?></td>
 
 </tr>
 <tr>
 <td align="right"></td>
 <td></td>
 <td align="right">Sex : </td>
-<td><?php $importService->printDropDownListFromTableSelected('sex','edit_sex',$sex_id);?></td>
+<td><?php $commonService->printDropDownListFromTableSelected('sex','edit_sex',$sex_id);?></td>
 <td align="right">Brand : </td>
-<td><?php $importService->printDropDownListFromTableSelected('brand','edit_brand',$brand_id);?></td>
+<td><?php $commonService->printDropDownListFromTableSelected('brand','edit_brand',$brand_id);?></td>
 <td align="right">Product Desc : </td>
 <td><input value="<?php echo $description;?>" name="edit_product_description" id="edit_product_description_id" title="<?php echo $description;?>"/></td>
 </tr>
@@ -67,10 +67,10 @@
 <td></td>
 <td align="right">Export Price : </td>
 <td><input value="<?php echo $export_price;?>" name="edit_export_price" id="edit_export_price_id" onkeypress="validateNum(event);" maxlength="4" size="4"/></td>
-<td align="right"></td>
-<td></td>
-<td align="right"></td>
-<td></td>
+<td align="right">Sale : </td>
+<td><input value="<?php echo $sale;?>" name="edit_sale" id="edit_sale_id" onkeypress="validateNum(event);" maxlength="2" size="4"/></td>
+<td align="right">Link : </td>
+<td><input value="<?php echo $link;?>" name="edit_link" id="edit_link_id" onclick="this.select()"/></td>
 </tr>
 <tr>
 <td align="right">Product Import ID : </td>

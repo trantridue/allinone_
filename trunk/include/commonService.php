@@ -229,5 +229,25 @@ function getDateBefore3Months() {
 function getDateBeforeDays() {
 	return date("Y-m-d", mktime(0, 0, 0, date('m') , date('d') - 10 , date('Y')));
 }
+function printDropDownListFromTableSelected($table,$fieldname,$selectedId) {
+	// get the query
+	$selected = "";
+	$sql = "select * from " . $table ;	
+	if($table=="user"){
+		$sql = $sql . " and status ='y'";
+	}
+	echo "<select name='" . $fieldname . "' id='id_" . $fieldname . "' style='width:110px;height:22px;'>";
+	$sql = $sql . " order by name asc";
+	$result = mysql_query ( $sql ) or die ( mysql_error () );
+	while ( $rows = mysql_fetch_array ( $result ) ) {
+		if($selected==""){
+			$selected = ($rows['id']==$selectedId)?"selected='selected'":"";
+			echo "<option value='" . $rows ['id'] . "' ".$selected.">" . $rows ['name'] . "</option>";
+		} else{
+			echo "<option value='" . $rows ['id'] . "'>" . $rows ['name'] . "</option>";
+		}
+	}
+	echo "</select>";
+}
 }
 ?>

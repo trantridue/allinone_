@@ -39,13 +39,9 @@
 		<tr>
 			<td style="text-align: right;">Username :</td>
 			<td><input autocomplete="off" type="text" name="user_username" id="user_username"/></td>
-			<td style="text-align: right;"></td>
+			<td style="text-align: right;"><input type="submit"
+				value="SAVE USER"></td>
 			<td></td>
 		</tr>
-		<tr>
-			<td colspan="4"><input type="submit"
-				value="SAVE"></td>
-		</tr>
-
 	</table>
 </form>
