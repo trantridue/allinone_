@@ -28,11 +28,12 @@ $userService = new UserService ( hostname, username, password, database, $common
 			<td style="text-align: right;">Password :</td>
 			<td><input type="password" name="user_password" id="user_password"/></td>
 			<td style="text-align: right;">Shop :</td>
-			<td><?php $userService->dropDownList('shop','shop_dropdown_user',$_REQUEST['shop_id']);?></td>
+			<td><?php $commonService->printDropDownListFromTableSelected('shop','shop_dropdown_user',$_REQUEST['shop_id']);?></td>
 		</tr>
 		<tr>
 			<td style="text-align: right;">Re-Password :</td>
-			<td><input type="password" name="retype_user_password" id="retype_user_password"/></td>
+			<td><input type="password" name="retype_user_password" id="retype_user_password"/><input type="submit"
+				value="UPDATE USER"></td>
 			<td style="text-align: right;">Status : </td>
 			<td>
 			<?php if($_REQUEST['status']=='y') { ?>
@@ -44,8 +45,7 @@ $userService = new UserService ( hostname, username, password, database, $common
 			</td>
 		</tr>
 		<tr>
-			<td style="text-align: right;" colspan="4"><input type="submit"
-				value="Update"></td>
+			<td style="text-align: right;" colspan="4"></td>
 		</tr>
 
 	</table>

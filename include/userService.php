@@ -99,24 +99,5 @@ class UserService {
 		$result = mysql_query ( $qry, $this->connection );
 		echo "<script>userpostaction('" . $result . "','" . $actionType . "');</script>";
 	}
-	function dropDownList($table, $fieldname, $selectedId) {
-		$selected = "";
-		$sql = "select * from " . $table . " where 1 = 1";
-		if ($table == "user") {
-			$sql = $sql . " and status ='y'";
-		}
-		echo "<select name='" . $fieldname . "' style='width:140px;height:25px;'>";
-		$sql = $sql . " order by name asc";
-		$result = mysql_query ( $sql ) or die ( mysql_error () );
-		while ( $rows = mysql_fetch_array ( $result ) ) {
-			if ($selected == "") {
-				$selected = ($rows ['id'] == $selectedId) ? "selected='selected'" : "";
-				echo "<option value='" . $rows ['id'] . "' " . $selected . ">" . $rows ['name'] . "</option>";
-			} else {
-				echo "<option value='" . $rows ['id'] . "'>" . $rows ['name'] . "</option>";
-			}
-		}
-		echo "</select>";
-	}
 }
 ?>
