@@ -348,3 +348,58 @@ function deletecustomer(customerid) {
 		}
 	});
 }
+function updateProduct() {
+	var updateproduct = 'modules/import/updateproductimport.php?' + buildProductImportCriteria();
+//	alert(updateproduct);
+	$.ajax({
+		url : updateproduct,
+		success : function(data) {
+			alert(data);
+			var actionType = "update";
+			updateproductpostaction(data, actionType);
+		}
+	});
+}
+function buildProductImportCriteria(){
+	var criteriaString = "isdefault=false";
+	
+	var edit_import_facture_code = "&edit_import_facture_code="+$('#edit_import_facture_code').val();
+	var edit_import_date = "&edit_import_date="+$('#edit_import_date').val();
+	var edit_import_description = "&edit_import_description="+$('#edit_import_description').val();
+	var id_edit_provider = "&id_edit_provider="+$('#id_edit_provider').val();
+	var edit_product_code = "&edit_product_code="+$('#edit_product_code').val();
+	var edit_product_name = "&edit_product_name="+$('#edit_product_name').val();
+	var id_edit_category = "&id_edit_category="+$('#id_edit_category').val();
+	var id_edit_season = "&id_edit_season="+$('#id_edit_season').val();
+	var id_edit_sex = "&id_edit_sex="+$('#id_edit_sex').val();
+	var id_edit_brand = "&id_edit_brand="+$('#id_edit_brand').val();
+	var edit_product_description = "&edit_product_description="+$('#edit_product_description').val();
+	var edit_export_price = "&edit_export_price="+$('#edit_export_price').val();
+	var edit_sale = "&edit_sale="+$('#edit_sale').val();
+	var edit_link = "&edit_link="+$('#edit_link').val();
+	var edit_id = "&edit_id="+$('#edit_id').val();
+	var edit_quantity = "&edit_quantity="+$('#edit_quantity').val();
+	var edit_import_price = "&edit_import_price="+$('#edit_import_price').val();
+	
+	criteriaString = criteriaString 
+					+ edit_import_facture_code 
+					+ edit_import_date 
+					+ edit_import_description 
+					+ id_edit_provider 
+					+ edit_product_code 
+					+ edit_product_name 
+					+ id_edit_category 
+					+ id_edit_season 
+					+ id_edit_sex 
+					+ id_edit_brand 
+					+ edit_product_description 
+					+ edit_export_price 
+					+ edit_sale 
+					+ edit_link 
+					+ edit_id 
+					+ edit_quantity 
+					+ edit_import_price 
+					;
+	
+	return processUrlString(criteriaString);
+}

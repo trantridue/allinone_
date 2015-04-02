@@ -152,6 +152,13 @@ function updatesalepostaction(data, actionType) {
 	displayMessageServer(data, errorMessage, successMessage, "product");
 	listProduct();
 }
+function updateproductpostaction(data, actionType) {
+	$('#serverMessage').show();
+	var errorMessage = actionType + " product error";
+	var successMessage = actionType + " product successful";
+	displayMessageServer(data, errorMessage, successMessage, "product");
+	listProduct();
+}
 function productimportpostaction(data, actionType) {
 	$('#serverMessage').show();
 	var errorMessage = actionType + " product import error";
