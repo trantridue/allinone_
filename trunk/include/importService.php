@@ -429,7 +429,7 @@ class ImportService {
 // 		echo $qry_product;
 	}
 	function listProductReturnDefault() {
-		$qry = "select t1.*,t2.*,t3.*,t4.*,t1.date as datereturn,t3.name as provider_name,t2.name as product_name,
+		$qry = "select t1.*,t2.*,t3.*,t4.*,t1.description as description_r, t1.date as datereturn,t3.name as provider_name,t2.name as product_name,
 				(select import_price from product_import where product_code = t1.product_code and id = (select max(id) from product_import where product_code = t1.product_code )) as import_price from 
 				product_return t1, product t2, provider t3, category t4, brand t5,season t6 
 				where t1.product_code = t2.code and t1.provider_id = t3.id and t2.category_id = t4.id and t2.brand_id = t5.id and t2.season_id = t6.id";
@@ -439,7 +439,7 @@ class ImportService {
 		$this->commonService->generateJqueryDatatable ( $result, 'productreturn', $this->getArrayColumnReturn() );
 	}
 	function listProductReturn($parameterArray) {
-		$qry = "select t1.*,t2.*,t3.*,t4.*,t1.date as datereturn,t3.name as provider_name,t2.name as product_name,
+		$qry = "select t1.*,t2.*,t3.*,t4.*,t1.description as description_r,t1.date as datereturn,t3.name as provider_name,t2.name as product_name,
 				(select import_price from product_import where product_code = t1.product_code and id = (select max(id) from product_import where product_code = t1.product_code )) as import_price 
 				from product_return t1, product t2, provider t3, category t4, brand t5, season t6
 				where t1.product_code = t2.code and t1.provider_id = t3.id and t2.category_id = t4.id and t2.brand_id = t5.id and t2.season_id = t6.id ";
@@ -472,9 +472,13 @@ class ImportService {
 				$qry = $qry . " and t2.sex_id = " . $parameterArray ['sex_value_search'];
 			//TODO to be completed later
 			if ($parameterArray ['isadvancedsearch'] == 'true') {
-				
+				if ($parameterArray ['product_code_to'] != '')
+					$qry = $qry . " and t1.product_code <= '" . $parameterArray ['product_code_to'] . "'";
+				if ($parameterArray ['product_code'] != '')
+					$qry = $qry . " and t1.product_code >= '" . $parameterArray ['product_code'] . "'";
 			} else {
-				
+				if ($parameterArray ['product_code'] != '')
+					$qry = $qry . " and t1.product_code like '%" . $parameterArray ['product_code'] . "%' ";
 			}
 //		 		echo $qry;
 		$result = mysql_query ( $qry, $this->connection );
@@ -495,7 +499,7 @@ class ImportService {
 		"import_price" => "Giá nhập", 
 		"export_price" => "Giá NY", 
 		"quantity*import_price" => "complex", 
-		"sex_id" => "Giới tính",
+		"description_r" => "Ghi chú",
 		"datereturn" => "Ngày trả", 
 		"provider_name" => "Cung cấp" ,
 		"tel" => "Phone" );

@@ -89,12 +89,12 @@ function returnProduct(){
 <table width="100%" id="returnproducttable">
 <tr>
 <th>Mã hàng</th>
-<th>Trả</th>
+<th>SLTrả</th>
+<th>Giá nhập</th>
 <th>Ghi chú</th>
 <th>Tổng nhập</th>
 <th>Đã trả</th>
 <th>Còn lại</th>
-<th>Giá nhập</th>
 <th>Tên hàng</th>
 <th>Nhà Cung cấp</th>
 </tr>
@@ -126,11 +126,11 @@ $(document).ready(function(){
 <tr>
 <td><input type="text" size="6" id="product_code_<?php echo $i;?>" name="product_code_<?php echo $i;?>"></td>
 <td><input type="text" size="6" id="product_return_qty_<?php echo $i;?>" name="product_return_qty_<?php echo $i;?>" onkeyup="calculateReturnProduct();"></td>
+<td><input type="text" size="6" id="product_import_price_<?php echo $i;?>" name="product_import_price_<?php echo $i;?>" onkeypress="validateNon(event);"></td>
 <td><input type="text" size="40" id="description_return_<?php echo $i;?>" name="description_return_<?php echo $i;?>"></td>
 <td><input type="text" size="6" class="transparentText" id="product_import_qty_<?php echo $i;?>" name="product_import_qty_<?php echo $i;?>" onkeypress="validateNon(event);"></td>
 <td><input type="text" size="6" class="transparentText" id="qtyreturned_<?php echo $i;?>" name="qtyreturned_<?php echo $i;?>" onkeypress="validateNon(event);"></td>
 <td><input type="text" size="6" class="transparentText" id="remained_<?php echo $i;?>" name="remained_<?php echo $i;?>" onkeypress="validateNon(event);"></td>
-<td><input type="text" size="6" class="transparentText" id="product_import_price_<?php echo $i;?>" name="product_import_price_<?php echo $i;?>" onkeypress="validateNon(event);"></td>
 <td><input type="text" size="40" class="transparentText" id="product_import_name_<?php echo $i;?>" name="product_import_name_<?php echo $i;?>" onkeypress="validateNon(event);"></td>
 <td><input type="text" class="transparentText" id="provider_name_<?php echo $i;?>" name="provider_name_<?php echo $i;?>" onkeypress="validateNon(event);">
 <input type="hidden" id="provider_id_<?php echo $i;?>" name="provider_id_<?php echo $i;?>"></td>

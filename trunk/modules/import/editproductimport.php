@@ -69,7 +69,7 @@
 <td><input value="<?php echo $export_price;?>" name="edit_export_price" id="edit_export_price" onkeypress="validateNum(event);" maxlength="4" size="4"/></td>
 <td align="right">Sale : </td>
 <td><input value="<?php echo $sale;?>" name="edit_sale" id="edit_sale" onkeypress="validateNum(event);" maxlength="2" size="4"/></td>
-<td align="right">Link : </td>
+<td align="right" title="<?php echo $link;?>">Link : </td>
 <td><input value="<?php echo $link;?>" name="edit_link" id="edit_link" onclick="this.select()"/></td>
 </tr>
 <tr>
