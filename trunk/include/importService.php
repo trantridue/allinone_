@@ -400,6 +400,9 @@ class ImportService {
 		// 		echo $qry;
 		echo mysql_query ( $qry, $this->connection );
 	}
+	function updateImportProduct($parameterArray){
+		echo mysql_query ( $qry, $this->connection );
+	}
 	function listProductReturnDefault() {
 		$qry = "select t1.*,t2.*,t3.*,t4.*,t1.date as datereturn,t3.name as provider_name,t2.name as product_name,
 				(select import_price from product_import where product_code = t1.product_code and id = (select max(id) from product_import where product_code = t1.product_code )) as import_price from 
@@ -504,6 +507,27 @@ class ImportService {
 	function deleteProductImport($id) {
 		$qry = "delete from product_import where id = " . $id;
 		echo mysql_query ( $qry, $this->connection );
+	}
+function getProductParameters() {
+		$parameterArray = array (
+		'edit_import_facture_code' => $_REQUEST ['edit_import_facture_code'], 
+		'edit_import_date' => $_REQUEST ['edit_import_date'], 
+		'edit_import_description' => $_REQUEST ['edit_import_description'], 
+		'id_edit_provider' => $_REQUEST ['id_edit_provider'], 
+		'edit_product_code' => $_REQUEST ['edit_product_code'], 
+		'edit_product_name' => $_REQUEST ['edit_product_name'], 
+		'id_edit_category' => $_REQUEST ['id_edit_category'],
+		'id_edit_season' => $_REQUEST ['id_edit_season'], 
+		'id_edit_sex' => $_REQUEST ['id_edit_sex'], 
+		'id_edit_brand' => $_REQUEST ['id_edit_brand'], 
+		'edit_product_description' => $_REQUEST ['edit_product_description'], 
+		'edit_export_price' => $_REQUEST ['edit_export_price'], 
+		'edit_sale' => $_REQUEST ['edit_sale'], 
+		'edit_link' => $_REQUEST ['edit_link'], 
+		'edit_id' => $_REQUEST ['edit_id'], 
+		'edit_quantity' => $_REQUEST ['edit_quantity'], 
+		'edit_import_price' => $_REQUEST ['edit_import_price'] );
+		return $parameterArray;
 	}
 	// END BUSINESS IMPORT PROJECT
 }
