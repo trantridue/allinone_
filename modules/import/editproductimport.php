@@ -33,7 +33,7 @@
 <td align="right">Facture Code : </td>
 <td><?php echo $import_facture_code;?><input type="hidden" id="edit_import_facture_code" value="<?php echo $import_facture_code;?>"></td>
 <td align="right">Date : </td>
-<td><input class="datefield hasDatepicker" value="<?php echo date('Y-m-d',strtotime($date));?>" name="edit_import_date" id="edit_import_date"> </td>
+<td><input class="datefield" value="<?php echo date('Y-m-d',strtotime($date));?>" name="edit_import_date" id="edit_import_date"> </td>
 <td align="right" title="<?php echo $descript;?>">Import Desc : </td>
 <td><input value="<?php echo $descript;?>" name="edit_import_description" id="edit_import_description"></td>
 <td align="right">Provider Name : </td>
@@ -95,3 +95,15 @@
 </tr>
 </table>
 </form>
+<?php
+echo "<script>";
+echo "$(function() {
+	$('.datefield').datepicker( {
+		dateFormat : 'yy-mm-dd',
+		destroy: true,
+		changeMonth : true,
+		changeYear : true
+	});
+});";
+echo "</script>";
+?>
