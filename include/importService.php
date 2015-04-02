@@ -401,7 +401,28 @@ class ImportService {
 		echo mysql_query ( $qry, $this->connection );
 	}
 	function updateImportProduct($parameterArray){
-		echo mysql_query ( $qry, $this->connection );
+		$qry_facture = "update import_facture set 
+						provider_id = ".$parameterArray['id_edit_provider'].", 
+						date = '".$parameterArray['edit_import_date']." ". date('H:i:s')."',
+						description='".$parameterArray['edit_import_description']
+						."' where code = '".$parameterArray['edit_import_facture_code']."'";
+		$qry_product = "update product set 
+						name='".$parameterArray['edit_product_name'] ."',
+						category_id=".$parameterArray['id_edit_category'] .",
+						season_id=".$parameterArray['id_edit_season'] .",
+						sex_id=".$parameterArray['id_edit_sex'] .",
+						brand_id=".$parameterArray['id_edit_brand'] ."
+						where code = '".$parameterArray['edit_product_code']."'";
+		$qry_product_import = "update product_import set 
+						quantity=".$parameterArray['edit_quantity'] ."
+						where id = ".$parameterArray['edit_id'];
+		
+		$result_facture = mysql_query ( $qry_facture, $this->connection );
+		$result_product = mysql_query ( $qry_product, $this->connection );
+		$result_product_import = mysql_query ( $qry_product_import, $this->connection );
+		
+// 		echo $result_facture.$result_product.$result_product_import;
+		echo $qry_product;
 	}
 	function listProductReturnDefault() {
 		$qry = "select t1.*,t2.*,t3.*,t4.*,t1.date as datereturn,t3.name as provider_name,t2.name as product_name,

@@ -34,8 +34,8 @@
 <td><?php echo $import_facture_code;?><input type="hidden" id="edit_import_facture_code" value="<?php echo $import_facture_code;?>"></td>
 <td align="right">Date : </td>
 <td><input class="datefield hasDatepicker" value="<?php echo date('Y-m-d',strtotime($date));?>" name="edit_import_date" id="edit_import_date"> </td>
-<td align="right">Import Desc : </td>
-<td><input  title="<?php echo $descript;?>" value="<?php echo $descript;?>" name="edit_import_description" id="edit_import_description"></td>
+<td align="right" title="<?php echo $descript;?>">Import Desc : </td>
+<td><input value="<?php echo $descript;?>" name="edit_import_description" id="edit_import_description"></td>
 <td align="right">Provider Name : </td>
 <td><?php $commonService->printDropDownListFromTableSelected('provider','edit_provider',$provider_id);?></td>
 <td align="right"></td>
@@ -44,7 +44,7 @@
 <tr>
 <td align="right">Product code : </td>
 <td><?php echo $product_code;?><input type="hidden" id="edit_product_code" value="<?php echo $product_code;?>"></td>
-<td align="right">Product name : </td>
+<td align="right" title="<?php echo $name;?>" >Product name : </td>
 <td><input autocomplete="off" value="<?php echo $name;?>" name="edit_product_name" id="edit_product_name"></td>
 <td align="right">Category : </td>
 <td><?php $commonService->printDropDownListFromTableSelected('category','edit_category',$category_id);?></td>

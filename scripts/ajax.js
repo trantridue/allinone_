@@ -354,7 +354,7 @@ function updateProduct() {
 	$.ajax({
 		url : updateproduct,
 		success : function(data) {
-			alert(data);
+//			alert(data);
 			var actionType = "update";
 			updateproductpostaction(data, actionType);
 		}
