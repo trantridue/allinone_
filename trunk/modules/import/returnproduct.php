@@ -64,11 +64,13 @@ function returnProduct(){
 	}
 	if(flagRowWrong && strCode !='' && returnable) {
 		insertReturnProduct(strCode,strQty,strDesc,strProvider);
-	} else  {
-		$('#serverMessage').show();
-		$('#serverMessage').html("No product returned!");
-		$('#serverMessage').removeClass('successMessage');
-		$('#serverMessage').addClass('errorMessage');
+	} 
+	else  {
+// 		$('#serverMessage').show();
+// 		$('#serverMessage').html("Please update data correctly!");
+// 		$('#serverMessage').removeClass('successMessage');
+// 		$('#serverMessage').addClass('errorMessage');
+		return false;
 	}
 }
 
