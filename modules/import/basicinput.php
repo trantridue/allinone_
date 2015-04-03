@@ -59,11 +59,10 @@ TO
 <input autocomplete="off"type="text" class="datefield" id="dateto" name="dateto"/></td>
 <td colspan="5">
 <input type="button" value="SEARCH" class="menu_btn_sub" 
-	onclick="javascript:listProduct();">
+	onclick="$('#returnProductInputArea').hide();$('#suplementaryListArea').hide();listProduct();">
 	<input type="button" value="ADVANCE" class="menu_btn_sub"
 	onclick="toggleImportSearchCriteria();">
 	<input type="reset" value="RESET">
-	
 	</td>
 </tr>
 </table>
