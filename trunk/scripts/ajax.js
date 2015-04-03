@@ -287,6 +287,7 @@ function listReturnProduct(){
 function editproduct(str) {
 	var inputUrl = processUrlString(str);
 	var url = 'modules/import/editproductimport.php?' + inputUrl;
+	$('#suplementaryListArea').show();
 	$('#suplementaryListArea').load(url);
 }
 /* PROVIDER MODULE */
