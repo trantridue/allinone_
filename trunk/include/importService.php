@@ -142,16 +142,17 @@ class ImportService {
 	function processImportQuery($qry){
 		$result = mysql_query ( $qry, $this->connection );
 		$resulttmp = mysql_query ( $qry, $this->connection );
-		$this->commonService->generateJSDatatableComplex ( $result, 'product', 6, 'desc', $this->getArrayTotalImport() );
+		$this->commonService->generateJSDatatableComplex ( $result, 'product', 7, 'desc', $this->getArrayTotalImport() );
 		$this->commonService->generateJqueryDatatable ( $result, 'product', $this->getArrayColumnImport() );
 		$this->commonService->generateJqueryToolTipScript ( $resulttmp, 'product', $this->getArrayColumnImport() );
 	}
 	function getArrayTotalImport(){
-		return array (2 => "Số lượng", 7 => "Tổng nhập", 8 => "Tổng NY" );
+		return array (3 => "Số lượng", 8 => "Tổng nhập", 9 => "Tổng NY" );
 	}
 	function getArrayColumnImport() {
 		return array (
 			"product_code" => "Mã hàng,product_code,image", 
+		    "provider_id,descript,date,provider_name,brand_name,category_name,season_name,id,product_code,quantity,import_facture_code,import_price,name,category_id,season_id,sex_id,export_price,description,brand_id,sale,link" => "Edit",
 			"name" => "Tên Hàng", 
 			"quantity" => "Số lượng", 
 			"import_price" => "Giá nhập", 
@@ -164,8 +165,7 @@ class ImportService {
 			"category_name" => "Loại", 
 			"sex_id" => "Giới tính", 
 			"brand_name" => "Hiệu", 
-			"season_id,season_name" => "Mùa,season_name", 
-			"provider_id,descript,date,provider_name,brand_name,category_name,season_name,id,product_code,quantity,import_facture_code,import_price,name,category_id,season_id,sex_id,export_price,description,brand_id,sale,link" => "Edit", 
+			"season_id,season_name" => "Mùa,season_name",
 			"id" => "Delete", 
 			"quantity*export_price" => "complex" );
 	}
