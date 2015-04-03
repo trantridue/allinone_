@@ -234,16 +234,16 @@ textarea {
 }
 
 .ui-tooltip {
-	padding: 10px 20px;
-	color: white;
-	border-radius: 20px;
-	font: bold 14px "Helvetica Neue", Sans-Serif;
+	padding: 10px 10px;
+	background-color: pink;
+	border-radius: 10px;
+	font: bold 10px;
 	text-transform: uppercase;
 	box-shadow: 0 0 7px black;
 }
 
 .arrow {
-	width: 70px;
+	width: 30px;
 	height: 16px;
 	overflow: hidden;
 	position: absolute;

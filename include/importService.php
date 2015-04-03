@@ -151,9 +151,9 @@ class ImportService {
 	}
 	function getArrayColumnImport() {
 		return array (
-			"product_code" => "Mã hàng,product_code,image", 
+			"product_code,description" => "Mã hàng,product_code,image", 
 		    "provider_id,descript,date,provider_name,brand_name,category_name,season_name,id,product_code,quantity,import_facture_code,import_price,name,category_id,season_id,sex_id,export_price,description,brand_id,sale,link" => "Edit",
-			"name" => "Tên Hàng", 
+			"name,description,descript" => "Tên Hàng,name", 
 			"quantity" => "Số lượng", 
 			"import_price" => "Giá nhập", 
 			"export_price" => "Giá bán", 
