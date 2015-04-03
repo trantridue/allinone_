@@ -50,18 +50,18 @@ class UserService {
 		$result = mysql_query ( $qry, $this->connection );
 		$array_column = array (
 				"username" => "User Name",
+				"id,name,email,phone_number,description,shop_id,status" => "Edit",
 				"name" => "Name",
 				"email" => "Mail",
 				"phone_number" => "Tel",
 				"shopname" => "Shop",
 				"description" => "Description",
 				"status" => "Status",
-				"id,name,email,phone_number,description,shop_id,status" => "Edit",
 				"id" => "Delete",
 				"password" => "hidden_field",
 				"shop_id*id" => "complex" 
 		);
-		$this->commonService->generateJSDatatableSimple ( userdatatable, 0, 'asc' );
+		$this->commonService->generateJSDatatableSimple ( userdatatable, 7, 'asc' );
 		$this->commonService->generateJqueryDatatable ( $result, userdatatable, $array_column );
 	}
 	// delete user by idx

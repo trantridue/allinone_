@@ -161,14 +161,17 @@ echo "</script> ";
 					$fields = explode ( ",", $value );
 					$fieldskey = explode ( ",", $key );
 					$str = "";
+					$title = "";
 					for($i = 0; $i < sizeof ( $fields ); $i ++) {
 						if($i==sizeof ( $fields )-1){
 							$str = $str . $fields [$i] . "=" . $rows [$fields [$i]];
+							$title = $title . $fields [$i] . ":<strong>" . $rows [$fields [$i]]."</strong>";
 						}else {
 							$str = $str . $fields [$i] . "=" . $rows [$fields [$i]] . "&";
-						}
+							$title = $title . $fields [$i] . ":<strong>" . $rows [$fields [$i]] . "</strong><br>";
+						}						
 					}
-					echo "<td><a title='' onclick='show_".$datatable_id."_".$fields [0]."(\"".$str."\");' href='javascript:void(0);' >".$rows [$fieldskey [1]]."</a></td>";
+					echo "<td><a title='".$title."' onclick='show_".$datatable_id."_".$fields [0]."(\"".$str."\");' href='javascript:void(0);' >".$rows [$fieldskey [1]]."</a></td>";
 					
 				}else if($value == 'total' || $value == 'total-paid' || $value == 'paid' || $value == 'import_price' || $value == 'export_price' || $value == 'sale'){
 					echo "<td>" . number_format($rows [$value],2) . "</td>";
