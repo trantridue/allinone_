@@ -263,7 +263,7 @@ class ImportService {
 		$jsonArray = array ();
 		
 		while ( $rows = mysql_fetch_array ( $result ) ) {
-			$labelvalue = $rows ['product_code'] . " : Đã trả lại: " . ($rows ['qtyreturned'] ? $rows ['qtyreturned'] : '0');
+			$labelvalue = $rows ['product_code'] . " : Đã trả lại: " . ($rows ['qtyreturned'] ? $rows ['qtyreturned'] : '0')." : ". $rows ['name'];
 			$element = array (code => $rows ['product_code'], qty => $rows ['qty'], facture => $rows ['import_facture_code'], provider_name => $rows ['provider_name'], provider_id => $rows ['provider_id'], provider_id => $rows ['provider_id'], qtyreturned => $rows ['qtyreturned'] ? $rows ['qtyreturned'] : '0', import_price => $rows ['import_price'], name => $rows ['name'], value => $rows ['product_code'], label => $labelvalue );
 			
 			$jsonArray [] = $element;
