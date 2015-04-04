@@ -435,7 +435,7 @@ class ImportService {
 				where t1.product_code = t2.code and t1.provider_id = t3.id and t2.category_id = t4.id and t2.brand_id = t5.id and t2.season_id = t6.id";
 		$result = mysql_query ( $qry, $this->connection );
 	
-		$this->commonService->generateJSDatatableComplex ( $result, 'productreturn', 1, 'desc', $this->getArrayTotalReturn() );
+		$this->commonService->generateJSDatatableComplex ( $result, 'productreturn', 7, 'desc', $this->getArrayTotalReturn() );
 		$this->commonService->generateJqueryDatatable ( $result, 'productreturn', $this->getArrayColumnReturn() );
 	}
 	function listProductReturn($parameterArray) {
@@ -476,14 +476,22 @@ class ImportService {
 					$qry = $qry . " and t1.product_code <= '" . $parameterArray ['product_code_to'] . "'";
 				if ($parameterArray ['product_code'] != '')
 					$qry = $qry . " and t1.product_code >= '" . $parameterArray ['product_code'] . "'";
+					
+				if ($parameterArray ['sale_to'] != '')
+					$qry = $qry . " and t2.sale <= " . $parameterArray ['sale_to'];
+				if ($parameterArray ['sale'] != '')
+					$qry = $qry . " and t2.sale >= " . $parameterArray ['sale'];
 			} else {
 				if ($parameterArray ['product_code'] != '')
 					$qry = $qry . " and t1.product_code like '%" . $parameterArray ['product_code'] . "%' ";
+				
+				if ($parameterArray ['sale'] != '')
+					$qry = $qry . " and t2.sale = " . $parameterArray ['sale'] ;
 			}
 //		 		echo $qry;
 		$result = mysql_query ( $qry, $this->connection );
 		
-		$this->commonService->generateJSDatatableComplex ( $result, 'productreturn', 1, 'desc', $this->getArrayTotalReturn() );
+		$this->commonService->generateJSDatatableComplex ( $result, 'productreturn', 7, 'desc', $this->getArrayTotalReturn() );
 		$this->commonService->generateJqueryDatatable ( $result, 'productreturn', $this->getArrayColumnReturn() );
 	}
 	function getArrayTotalReturn(){

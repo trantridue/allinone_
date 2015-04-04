@@ -78,7 +78,7 @@ function returnProduct(){
 <hr>
 <form id="returnproductForm">
 <div> 
-<input type="button" value="SAVE" class="menu_btn_sub" onclick="returnProduct();"/>
+<input type="button" value="SAVE" class="menu_btn_sub" onclick="returnProduct();listReturnProduct();"/>
 <input type="button" value="SEARCH" class="menu_btn_sub" onclick="listReturnProduct();$('#returnproducttable').hide(1000);"/>
 <input type="reset" value="TRẢ HÀNG" onclick="$('#returnproducttable').show(1000);">
 <input type="hidden" name="numberrows" id="numberrows" value="<?php echo default_row_product_return;?>"/>
