@@ -42,8 +42,9 @@ class ImportService {
 	function listProductDefault() {
 		$dateBefore3Months = $this->commonService->getDateBefore3Months ();
 		
-		$qry = "SELECT t4.name as provider_name, t5.name as brand_name,t6.name as category_name, t7.name as season_name,
-				 t1.*,t2.*,t3.code as facture_code,t3.date,t3.description as descript, t3.provider_id
+		$qry = "SELECT t4.name as provider_name, t5.name as brand_name,t6.name as category_name, t7.name as season_name,(select sum(quantity)
+				 from product_deviation where product_code = t2.code group by product_code) as deviation
+				 ,t1.*,t2.*,t3.code as facture_code,t3.date,t3.description as descript, t3.provider_id
 				  FROM product_import t1,product t2,import_facture t3,provider t4, brand t5, category t6, season t7 where t1.product_code = t2.code 
 				and t1.import_facture_code = t3.code and t4.id = t3.provider_id and t5.id = t2.brand_id and t6.id = t2.category_id and t7.id = t2.season_id 
 				and t3.date >= '" . $dateBefore3Months . "'";
@@ -51,8 +52,9 @@ class ImportService {
 	}
 	
 	function listProduct($parameterArray) {
-		$qry = "SELECT t4.name as provider_name, t5.name as brand_name,t6.name as category_name, t7.name as season_name,
-				 t1.*,t2.*,t3.code as facture_code,t3.date,t3.description as descript, t3.provider_id FROM 
+		$qry = "SELECT t4.name as provider_name, t5.name as brand_name,t6.name as category_name, t7.name as season_name,(select sum(quantity)
+				 from product_deviation where product_code = t2.code group by product_code) as deviation
+				 ,t1.*,t2.*,t3.code as facture_code,t3.date,t3.description as descript, t3.provider_id FROM 
 				 product_import t1,
 				 product t2,
 				 import_facture t3,
@@ -161,6 +163,7 @@ class ImportService {
 			"import_facture_code,date" => "Mã Hóa Đơn,import_facture_code", 
 			"quantity*import_price" => "complex", 
 			"quantity*export_price" => "complex", 
+			"deviation" => "Lệch", 
 			"provider_id,provider_name,name" => "Cung Cấp,provider_name", 
 			"category_name" => "Loại", 
 			"sex_id" => "Giới tính", 
@@ -563,6 +566,7 @@ function getProductParameters() {
 		'edit_link' => $_REQUEST ['edit_link'], 
 		'edit_id' => $_REQUEST ['edit_id'], 
 		'edit_quantity' => $_REQUEST ['edit_quantity'], 
+		'edit_deviation' => $_REQUEST ['edit_deviation'], 
 		'edit_import_price' => $_REQUEST ['edit_import_price'] );
 		return $parameterArray;
 	}
