@@ -380,6 +380,7 @@ function buildProductImportCriteria(){
 	var edit_link = "&edit_link="+$('#edit_link').val();
 	var edit_id = "&edit_id="+$('#edit_id').val();
 	var edit_quantity = "&edit_quantity="+$('#edit_quantity').val();
+	var edit_deviation = "&edit_deviation="+$('#edit_deviation').val();
 	var edit_import_price = "&edit_import_price="+$('#edit_import_price').val();
 	
 	criteriaString = criteriaString 
@@ -399,6 +400,7 @@ function buildProductImportCriteria(){
 					+ edit_link 
 					+ edit_id 
 					+ edit_quantity 
+					+ edit_deviation 
 					+ edit_import_price 
 					;
 	
