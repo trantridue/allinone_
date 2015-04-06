@@ -82,6 +82,7 @@ class UserService {
 				,description='" . $user_description . "',shop_id=" . $shop_dropdown_user . ",status='" . $status_value . "',end_date='".$date."'  where id = " . $user_id;
 		}
 		$result = mysql_query ( $qry, $this->connection );
+		$_SESSION ['id_of_shop'] = $shop_dropdown_user;
 		echo "<script>userpostaction('" . $result . "','" . $actionType . "');</script>";
 	}
 	function addUser($user_username, $user_name, $user_email, $user_phone_number, $user_description, $user_password, $shop_dropdown_user, $status_value) {

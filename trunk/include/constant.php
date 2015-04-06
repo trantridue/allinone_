@@ -13,8 +13,8 @@ define('tab4', tab2.tab2);
 define('tab8', tab4.tab4);
 define('tab16', tab8.tab8);
 //Default param
-define('defaultmodule','import');
-define('defaultsubmodule','search');
+define('defaultmodule','news');
+define('defaultsubmodule','add');
 //datatableid
 define('userdatatable','user');
 define('providerdatatable','provider');
