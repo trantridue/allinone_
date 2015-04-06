@@ -1,5 +1,11 @@
-<form>jjj
-	<input id="user_name_id"> <input type="button" name="search_btn"
-		value="Search" onclick="javascript:listUser();"> <input
-		type="reset" value="Reset" />
+<form action="?module=news&submenu=addnews" method="post">
+	<table width="100%" class="searchcriteriatable">
+		<tr>
+			<td style="text-align: right;">Description :</td>
+			<td><input autocomplete="off" type="text" name="news_description" id="news_description"/></td>
+			<td style="text-align: right;"><input type="submit"
+				value="SAVE NEWS"></td>
+			<td></td>
+		</tr>
+	</table>
 </form>

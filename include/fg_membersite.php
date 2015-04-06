@@ -284,7 +284,7 @@ class FGMembersite {
 		}
 		$username = $this->SanitizeForSQL ( $username );
 		$pwdmd5 = md5 ( $password );
-		$qry = "Select name, email from $this->tablename where username='$username' and password='$pwdmd5' and confirmcode='y'";
+		$qry = "Select id,shop_id, name, email from $this->tablename where username='$username' and password='$pwdmd5' and confirmcode='y'";
 		
 		$result = mysql_query ( $qry, $this->connection );
 		
@@ -292,11 +292,12 @@ class FGMembersite {
 			$this->HandleError ( "Error logging in. The username or password does not match" );
 			return false;
 		}
-		
 		$row = mysql_fetch_assoc ( $result );
 		
 		$_SESSION ['name_of_user'] = $row ['name'];
 		$_SESSION ['email_of_user'] = $row ['email'];
+		$_SESSION ['id_of_user'] = $row ['id'];
+		$_SESSION ['id_of_shop'] = $row ['shop_id'];
 		$_SESSION ['import_number_row'] = 10;
 		
 		return true;
