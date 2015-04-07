@@ -1,10 +1,10 @@
-<div id="inputArea">
-<?php
-$submodule = isset ( $_REQUEST ['submenu'] ) ? $_REQUEST ['submenu'] : defaultsubmodule;
-include $submodule . '.php';
-?>
+<div id="addNewsAreaId">
+<?php include 'add.php';?>
+</div>
+<div id="searchNewsAreaId" style="display: none;">
+<?php include 'search.php';?>
 </div>
 <hr>
-<div id="listArea">
-<?php include 'list.php'?>
+<div id="listNewsAreaId">
+<?php include 'list.php';?>
 </div>
