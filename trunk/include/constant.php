@@ -17,6 +17,7 @@ define('defaultmodule','news');
 define('defaultsubmodule','add');
 //datatableid
 define('userdatatable','user');
+define('newsdatatable','news');
 define('providerdatatable','provider');
 define('customerdatatable','customer');
 define('datatable_prefix','table_list_');

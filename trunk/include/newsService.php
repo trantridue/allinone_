@@ -49,5 +49,24 @@ class NewsService {
 		$result = mysql_query ( $qry, $this->connection );
 		echo "<script>userpostaction('" . $result . "','" . $actionType . "');</script>";
 	}
+	function listNews($isdefault){
+		$qry = "select t1.id as identification, t1.*, t2.name as shop, t3.name as username,
+				concat(DATE_FORMAT(t1.date,'%m/%d/%Y'),':',DATE_FORMAT(t1.date,'%T')) as displaydate
+			   from news t1, shop t2, `user` t3
+			   where t1.shop_id = t2.id
+         and t1.user_id = t3.id order by date desc";
+		$result = mysql_query ( $qry, $this->connection );
+		$array_column = array (
+				"identification" => "ID",
+				"description" => "Description",
+				"username" => "Name",
+				"shop" => "Shop",
+				"displaydate" => "Date",
+				"id,description,date,shop,username,shop_id,user_id" => "Edit",
+				"id" => "Delete"
+		);
+		$this->commonService->generateJSDatatableSimple ( newsdatatable, 7, 'asc' );
+		$this->commonService->generateJqueryDatatable ( $result, newsdatatable, $array_column );
+	}
 }
 ?>

@@ -1,10 +1,15 @@
-<form action="?module=news&submenu=addnews" method="post">
+<form>
 	<table width="100%" class="searchcriteriatable">
 		<tr>
 			<td style="text-align: right;">Description :</td>
-			<td><input autocomplete="off" type="text" name="news_description" id="news_description"/></td>
-			<td style="text-align: right;"><input type="submit"
-				value="SAVE NEWS"></td>
+			<td><textarea id="news_description" cols="80" rows="4"></textarea></td>
+			<td style="text-align: right;"></td>
+		</tr>
+		<tr>
+			<td style="text-align: right;"></td>
+			<td colspan="2"><input type="button" class="menu_btn_sub"
+				value="SAVE NEWS"><input type="button" class="menu_btn_sub"
+				value="SHOW SEARCH" onclick="toggleDiv('searchNewsAreaId');"></td>
 			<td></td>
 		</tr>
 	</table>

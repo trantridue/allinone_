@@ -227,6 +227,7 @@ textarea {
 #mainListArea{
 	text-align: center;
 }
+
 /*TOOL TIP START*/
 .ui-tooltip,.arrow:after {
 	background: black;
