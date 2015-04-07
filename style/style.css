@@ -293,6 +293,13 @@ textarea {
 	width: 100%;
 	padding-top: 5px;
 }
+.addcriteriatable {
+	font-weight: bold;
+	background-color: #74DDC9;
+	border: 0px;
+	width: 100%;
+	padding-top: 5px;
+}
 .datatableDisplaySum{
 	padding-top: 15px;
 }
