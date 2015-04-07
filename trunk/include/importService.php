@@ -154,7 +154,7 @@ class ImportService {
 	function getArrayColumnImport() {
 		return array (
 			"product_code,description" => "Mã hàng,product_code,image", 
-		    "provider_id,descript,date,provider_name,brand_name,category_name,season_name,id,product_code,quantity,import_facture_code,import_price,name,category_id,season_id,sex_id,export_price,description,brand_id,sale,link" => "Edit",
+		    "deviation,provider_id,descript,date,provider_name,brand_name,category_name,season_name,id,product_code,quantity,import_facture_code,import_price,name,category_id,season_id,sex_id,export_price,description,brand_id,sale,link" => "Edit",
 			"name,description,descript" => "Tên Hàng,name", 
 			"quantity" => "Số lượng", 
 			"import_price" => "Giá nhập", 
@@ -424,11 +424,17 @@ class ImportService {
 						quantity=".$parameterArray['edit_quantity'] ."
 						where id = ".$parameterArray['edit_id'];
 		
+		$qry_insert_deviation = "insert into product_deviation(product_code,quantity, date) values 
+						('".$parameterArray['edit_product_code']."',".$parameterArray['edit_deviation'].",now())";
+		
 		$result_facture = mysql_query ( $qry_facture, $this->connection );
 		$result_product = mysql_query ( $qry_product, $this->connection );
 		$result_product_import = mysql_query ( $qry_product_import, $this->connection );
+//		$result_deviation = null;
+		if($parameterArray['edit_deviation'] != 0)
+		$result_deviation = mysql_query ( $qry_insert_deviation, $this->connection );
 		
-		echo $result_facture.$result_product.$result_product_import;
+		echo $result_facture.$result_product.$result_product_import.$result_deviation;
 // 		echo $qry_product;
 	}
 	function listProductReturnDefault() {
