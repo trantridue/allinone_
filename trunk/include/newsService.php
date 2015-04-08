@@ -48,7 +48,7 @@ class NewsService {
 				'" . $date . "'," . $shop_id . "," . $user_id . ")";
 		echo mysql_query ( $qry, $this->connection );
 	}
-	function listNews($isdefault){
+	function listNews(){
 		$qry = "select t1.id as identification, t1.*, t2.name as shop, t3.name as username,
 				concat(DATE_FORMAT(t1.date,'%m/%d/%Y'),':',DATE_FORMAT(t1.date,'%T')) as displaydate
 			   from news t1, shop t2, `user` t3
@@ -64,7 +64,7 @@ class NewsService {
 				"id,description,date,shop,username,shop_id,user_id" => "Edit",
 				"id" => "Delete"
 		);
-		$this->commonService->generateJSDatatableSimple ( newsdatatable, 7, 'asc' );
+		$this->commonService->generateJSDatatableSimple ( newsdatatable, 0, 'desc' );
 		$this->commonService->generateJqueryDatatable ( $result, newsdatatable, $array_column );
 	}
 }
