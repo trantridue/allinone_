@@ -413,13 +413,13 @@ function addNews() {
 	$.ajax({
 		url : addnews,
 		success : function(data) {
-//			alert(data);
-			var actionType = "add";
-			userpostaction(data, actionType);
+			if(data != null)
+				listNews();
+			else alert('error created news!');
 		}
 	});
 }
-function addNews() {
+function listNews() {
 	var listnewsurl = 'modules/news/list.php?isdefault=false';
 	$('#listNewsAreaId').load(listnewsurl);
 }
