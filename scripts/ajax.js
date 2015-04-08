@@ -406,3 +406,20 @@ function buildProductImportCriteria(){
 	
 	return processUrlString(criteriaString);
 }
+//NEWS
+function addNews() {
+	var addnews = 'modules/news/addnews.php?description=' + encodeURIComponent($('#news_description').val());
+//	alert(addnews);
+	$.ajax({
+		url : addnews,
+		success : function(data) {
+//			alert(data);
+			var actionType = "add";
+			userpostaction(data, actionType);
+		}
+	});
+}
+function addNews() {
+	var listnewsurl = 'modules/news/list.php?isdefault=false';
+	$('#listNewsAreaId').load(listnewsurl);
+}

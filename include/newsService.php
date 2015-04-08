@@ -46,8 +46,7 @@ class NewsService {
 		$shop_id = $_SESSION ['id_of_shop'];
 		$qry = "insert into news(description,date,shop_id,user_id) values ('" . $description . "',
 				'" . $date . "'," . $shop_id . "," . $user_id . ")";
-		$result = mysql_query ( $qry, $this->connection );
-		echo "<script>userpostaction('" . $result . "','" . $actionType . "');</script>";
+		echo mysql_query ( $qry, $this->connection );
 	}
 	function listNews($isdefault){
 		$qry = "select t1.id as identification, t1.*, t2.name as shop, t3.name as username,

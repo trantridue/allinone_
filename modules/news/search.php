@@ -9,8 +9,8 @@
 		<tr>
 			<td></td>
 			<td colspan="2"><input type="button" class="menu_btn_sub"
-				value="SEARCH NEWS"><input type="button" class="menu_btn_sub"
-				value="SHOW ADD" onclick="toggleDiv('addNewsAreaId');toggleDiv('searchNewsAreaId');"></td>
+				value="SEARCH NEWS" onclick="listNews();"><input type="button" class="menu_btn_sub"
+				value="SHOW ADD" onclick="toggleDiv('searchNewsAreaId');toggleDiv('addNewsAreaId');"></td>
 			<td></td>
 		</tr>
 	</table>
