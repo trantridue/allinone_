@@ -190,7 +190,7 @@ $(function() {
 });
 function buildSearchImportCriteria(){
 	var criteriaString = "isdefault=false&isadvancedsearch="+$('#isadvancedsearch').val();
-	//BASIC FIELD
+	// BASIC FIELD
 	var product_code = "&product_code="+$('#product_code').val();
 	var product_name = "&product_name="+$('#product_name').val();
 	var provider_name ="&provider_name=" + $('#provider_name').val();
@@ -209,7 +209,7 @@ function buildSearchImportCriteria(){
 	var dateto = "&dateto=" + $('#dateto').val();
 	var import_facture_code = "&import_facture_code=" + $('#import_facture_code').val();
 	var sex_value_search = "&sex_value_search=" + $('#sex_value_search').val();
-	//ADVANCED
+	// ADVANCED
 	var sale_to = "&sale_to=" + $('#sale_to').val();
 	var import_quantity_to = "&import_quantity_to=" + $('#import_quantity_to').val();
 	var import_price_to = "&import_price_to=" + $('#import_price_to').val();
@@ -229,7 +229,7 @@ function buildSearchImportCriteria(){
 }
 function listProduct() {
 	var url = "modules/import/listproduct.php?" + buildSearchImportCriteria();
-//	alert(url);
+// alert(url);
 	$('#mainListArea').load(url);
 }
 function show_product_season_id(url) {
@@ -351,11 +351,11 @@ function deletecustomer(customerid) {
 }
 function updateProduct() {
 	var updateproduct = 'modules/import/updateproductimport.php?' + buildProductImportCriteria();
-//	alert(updateproduct);
+// alert(updateproduct);
 	$.ajax({
 		url : updateproduct,
 		success : function(data) {
-//			alert(data);
+// alert(data);
 			var actionType = "update";
 			updateproductpostaction(data, actionType);
 		}
@@ -406,22 +406,28 @@ function buildProductImportCriteria(){
 	
 	return processUrlString(criteriaString);
 }
-//NEWS
+// NEWS
 function addNews() {
 	var addnews = 'modules/news/addnews.php?description=' + encodeURIComponent($('#news_description').val());
-//	alert(addnews);
 	$.ajax({
 		url : addnews,
 		success : function(data) {
 			if(data != null) {
-				listNews();
+				listNews('false');
 				$('#news_description').val('');
 			}
 			else alert('error created news!');
 		}
 	});
 }
-function listNews() {
-	var listnewsurl = 'modules/news/list.php?isdefault=false';
+function listNews(isdefault) {
+	var listnewsurl = 'modules/news/list.php?' + buildSearchNewsCriteria(isdefault);
 	$('#listNewsAreaId').load(listnewsurl);
+}
+function buildSearchNewsCriteria(isdefault){
+	var criteriaString = "isdefault="+isdefault;
+	var search_news_description = "&search_news_description="+$('#search_news_description').val();
+	
+	criteriaString = criteriaString + search_news_description;
+	return processUrlString(criteriaString);
 }
