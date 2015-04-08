@@ -1,3 +1,4 @@
+var delaytime = 300;
 // GO TO DIRECTLY AN URL
 function goToPage(link) {
 	window.location.href = "login-home.php?module=" + link;
@@ -32,12 +33,13 @@ $(function() {
 });
 // SHOW OR HIDE A OBJECT BY INPUT ID
 function toggleDiv(divID) {
+	
 	if ($('#' + divID).css('display') == "none") {
-		$('#' + divID).show(500);
+		$('#' + divID).show(delaytime);
 	} else {
-		$('#' + divID).hide(500);
+		$('#' + divID).hide(delaytime);
 	}
-	$('#serverMessage').hide(500);
+	$('#serverMessage').hide(delaytime);
 }
 // IMPORT TOGGLE FIELD
 function toggleImportSearchCriteria(){
