@@ -8,7 +8,7 @@
 		<tr>
 			<td style="text-align: right;"></td>
 			<td colspan="2"><input type="button" class="menu_btn_sub"
-				value="ADD NEWS"><input type="button" class="menu_btn_sub"
+				value="ADD NEWS" onclick="addNews();"><input type="button" class="menu_btn_sub"
 				value="SHOW SEARCH" onclick="toggleDiv('searchNewsAreaId');toggleDiv('addNewsAreaId');"></td>
 			<td></td>
 		</tr>
