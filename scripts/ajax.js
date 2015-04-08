@@ -413,8 +413,10 @@ function addNews() {
 	$.ajax({
 		url : addnews,
 		success : function(data) {
-			if(data != null)
+			if(data != null) {
 				listNews();
+				$('#news_description').val('');
+			}
 			else alert('error created news!');
 		}
 	});
