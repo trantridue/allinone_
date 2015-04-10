@@ -55,22 +55,13 @@ class NewsService {
 	}
 	function listNewsDefault() {
 		$qry = "select t1.id as identification, t1.*, t2.name as shop, t3.name as username,
-				concat(DATE_FORMAT(t1.date,'%m/%d/%Y'),':',DATE_FORMAT(t1.date,'%T')) as displaydate
+				concat(DATE_FORMAT(t1.date,'%m-%d-%Y'),':',DATE_FORMAT(t1.date,'%T')) as displaydate
 			   from news t1, shop t2, `user` t3
 			   where t1.shop_id = t2.id
          and t1.user_id = t3.id order by date desc limit 20";
 		$result = mysql_query ( $qry, $this->connection );
-		$array_column = array (
-				"identification" => "ID",
-				"description" => "Description",
-				"username" => "Name",
-				"shop" => "Shop",
-				"displaydate" => "Date",
-				"id,description,date,shop,username,shop_id,user_id" => "Edit",
-				"id" => "Delete" 
-		);
 		$this->commonService->generateJSDatatableSimple ( newsdatatable, 0, 'desc' );
-		$this->commonService->generateJqueryDatatable ( $result, newsdatatable, $array_column );
+		$this->commonService->generateJqueryDatatable ( $result, newsdatatable, $this->buildArrayParameter() );
 	}
 	function listNews($parameterArray) {
 		$qry = "select t1.id as identification, t1.*, t2.name as shop, t3.name as username,
@@ -81,17 +72,29 @@ class NewsService {
 				and t1.description like '%" . $parameterArray ['search_news_description'] . "%'
 				order by date desc";
 		$result = mysql_query ( $qry, $this->connection );
-		$array_column = array (
-				"identification" => "ID",
-				"description" => "Description",
-				"username" => "Name",
-				"shop" => "Shop",
-				"displaydate" => "Date",
-				"id,description,date,shop,username,shop_id,user_id" => "Edit",
-				"id" => "Delete" 
-		);
 		$this->commonService->generateJSDatatableSimple ( newsdatatable, 0, 'desc' );
-		$this->commonService->generateJqueryDatatable ( $result, newsdatatable, $array_column );
+		$this->commonService->generateJqueryDatatable ( $result, newsdatatable, $this->buildArrayParameter() );
+	}
+	function buildArrayParameter() {
+		if($this->commonService->isAdmin()){
+			return array (
+					"identification" => "ID",
+					"description" => "Description",
+					"username" => "Name",
+					"shop" => "Shop",
+					"displaydate" => "Date",
+					"id,description,date,shop,username,shop_id,user_id" => "Edit",
+					"id" => "Delete"
+			);
+		} else {
+			return array (
+					"identification" => "ID",
+					"description" => "Description",
+					"username" => "Name",
+					"shop" => "Shop",
+					"displaydate" => "Date"
+			);
+		}
 	}
 	function getInputSearchParameters() {
 		$parameterArray = array (
