@@ -39,18 +39,18 @@ class ProviderService {
 		$this->HandleError ( $err . "\r\n mysqlerror:" . mysql_error () );
 	}
 	function listProvider($name) {
-		$qry = "SELECT t1.*,
+		$qry = "select t2.id,t2.name,t2.tel,t2.address,t2.description, t2.date,ifnull(t2.total,0) as total,ifnull(t2.paid,0) as paid,(ifnull(t2.total,0)-ifnull(t2.paid,0)) as remain from (SELECT t1.*,
 		(SELECT round(sum(import_price*quantity) )
-		FROM product_import where import_facture_code in 
+		FROM product_import where import_facture_code in
 		(select code from import_facture where provider_id = t1.id)) as total, (select sum(amount) from provider_paid where provider_id=t1.id) as paid
-		 FROM provider t1 where t1.name like '%" . $name . "%'";
+		 FROM provider t1  where t1.name like '%" . $name . "%') t2";
 		
 		$result = mysql_query ( $qry, $this->connection );
 		$array_column = array (
 				"name" => "Name",
 				"total" => "Tổng",
 				"paid" => "Paid",
-				"total-paid" => "remain",
+				"remain" => "remain",
 				"tel" => "Tel",
 				"address" => "Address",
 				"description" => "Description",

@@ -89,7 +89,7 @@ echo "</script> ";
 		echo "<tr>";
 		
 		foreach ( $array_column as $value => $key ) {
-			if ($key == 'hidden_field' || $key == 'complex' || $key == 'remain') {
+			if ($key == 'hidden_field' || $key == 'complex') {
 				echo "<th style='display: none;'>" . $key . "</th>";
 			} else if(sizeof(explode ( ",", $key ))>1){
 				$fieldskey = explode ( ",", $key );
@@ -116,9 +116,7 @@ echo "</script> ";
 				} else if ($key == 'complex') {
 					$fields = explode ( "*", $value );
 					echo "<td style='display: none;'>" . ($rows [$fields [0]] * $rows [$fields [1]]) . "</td>";
-				}else if ($key == 'remain') {
-					$fields = explode ( "-", $value );
-					echo "<td style='display: none;'>" . ($rows [$fields [0]] - $rows [$fields [1]]) . "</td>";
+				
 				} else if ($key == 'Edit') {
 					$fields = explode ( ",", $value );
 					$str = "";
@@ -173,8 +171,6 @@ echo "</script> ";
 					}
 					echo "<td><a title='".$title."' onclick='show_".$datatable_id."_".$fields [0]."(\"".$str."\");' href='javascript:void(0);' >".$rows [$fieldskey [1]]."</a></td>";
 					
-				}else if($value == 'total' || $value == 'total-paid' || $value == 'paid' || $value == 'import_price' || $value == 'export_price' || $value == 'sale'){
-					echo "<td>" . number_format($rows [$value],2) . "</td>";
 				} else {
 					echo "<td>" . $rows [$value] . "</td>";
 				}
