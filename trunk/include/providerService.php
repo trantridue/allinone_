@@ -39,7 +39,8 @@ class ProviderService {
 		$this->HandleError ( $err . "\r\n mysqlerror:" . mysql_error () );
 	}
 	function listProvider($name) {
-		$qry = "select t2.id,t2.name,t2.tel,t2.address,t2.description, t2.date,ifnull(t2.total,0) as total,ifnull(t2.paid,0) as paid,(ifnull(t2.total,0)-ifnull(t2.paid,0)) as remain from (SELECT t1.*,
+		$qry = "select t2.id,t2.name,t2.tel,t2.address,t2.description, t2.date,ifnull(t2.total,0) as total,
+				ifnull(t2.paid,0) as paid,(ifnull(t2.total,0)-ifnull(t2.paid,0)) as remain from (SELECT t1.*,
 		(SELECT round(sum(import_price*quantity) )
 		FROM product_import where import_facture_code in
 		(select code from import_facture where provider_id = t1.id)) as total, (select sum(amount) from provider_paid where provider_id=t1.id) as paid
@@ -63,7 +64,7 @@ class ProviderService {
 				2 => "Đã trả",
 				3 => "Còn nợ" 
 		);
-		$this->commonService->generateJSDatatableComplex ( $result, providerdatatable, 0, 'desc', $array_total );
+		$this->commonService->generateJSDatatableComplex ( $result, providerdatatable, 3, 'desc', $array_total );
 		$this->commonService->generateJqueryDatatable ( $result, providerdatatable, $array_column );
 	}
 	function deleteProvider($providerid) {
