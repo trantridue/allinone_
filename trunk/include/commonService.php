@@ -1,4 +1,5 @@
 <?php
+ob_start ();
 class CommonService {
 	function generateJSDatatableSimple($datatable_id, $ordercolumn, $ordertype) {
 		echo "<script>";
@@ -249,6 +250,7 @@ function printDropDownListFromTableSelected($table,$fieldname,$selectedId) {
 	echo "</select>";
 }
 function isAdmin() {
+	session_start();
 	return $_SESSION ['is_admin_user'];
 }
 }
