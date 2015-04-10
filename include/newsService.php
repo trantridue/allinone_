@@ -58,7 +58,7 @@ class NewsService {
 				concat(DATE_FORMAT(t1.date,'%m/%d/%Y'),':',DATE_FORMAT(t1.date,'%T')) as displaydate
 			   from news t1, shop t2, `user` t3
 			   where t1.shop_id = t2.id
-         and t1.user_id = t3.id order by date desc limit 5";
+         and t1.user_id = t3.id order by date desc limit 20";
 		$result = mysql_query ( $qry, $this->connection );
 		$array_column = array (
 				"identification" => "ID",
