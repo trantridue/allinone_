@@ -94,5 +94,9 @@ class NewsService {
 				'search_news_description' => $_REQUEST ['search_news_description'] );
 		return $parameterArray;
 	}
+	function deleteNews($newsid) {
+		$qry = "delete from news where id = " . $newsid;
+		echo mysql_query ( $qry, $this->connection );
+	}
 }
 ?>

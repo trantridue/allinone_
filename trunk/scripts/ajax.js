@@ -431,3 +431,16 @@ function buildSearchNewsCriteria(isdefault){
 	criteriaString = criteriaString + search_news_description;
 	return processUrlString(criteriaString);
 }
+function deletenews(newsid) {
+	var deletenews = 'modules/news/deletenews.php?newsid=' + newsid;
+	$.ajax({
+		url : deletenews,
+		success : function(data) {
+//			alert(data);
+			if(data != null) {
+				listNews('false');
+			}
+			else alert('error deleting news!');
+		}
+	});
+}
