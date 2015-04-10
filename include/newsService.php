@@ -7,7 +7,7 @@ class NewsService {
 	var $connection;
 	var $commonService;
 	function NewsService($hostname, $username, $password, $database, $commonService) {
-	// -----Initialization -------
+		// -----Initialization -------
 		$this->InitDB ( $hostname, $username, $password, $database );
 		$this->commonService = $commonService;
 	}
@@ -38,17 +38,22 @@ class NewsService {
 	function HandleDBError($err) {
 		$this->HandleError ( $err . "\r\n mysqlerror:" . mysql_error () );
 	}
-	function insertNews($description) {
+	function inserOrUpdatetNews($description, $id) {
 		session_start ();
 		$actionType = 'insert';
 		$date = date ( 'Y-m-d H:i:s' );
 		$user_id = $_SESSION ['id_of_user'];
 		$shop_id = $_SESSION ['id_of_shop'];
-		$qry = "insert into news(description,date,shop_id,user_id) values ('" . $description . "',
+		$qry = "";
+		if ($id == null)
+			$qry = "insert into news(description,date,shop_id,user_id) values ('" . $description . "',
 				'" . $date . "'," . $shop_id . "," . $user_id . ")";
+		else
+			$qry = "update news set description='" . $description . "', date ='" . $date . "' where id = " . $id;
+		
 		echo mysql_query ( $qry, $this->connection );
 	}
-	function listNewsDefault(){
+	function listNewsDefault() {
 		$qry = "select t1.id as identification, t1.*, t2.name as shop, t3.name as username,
 				concat(DATE_FORMAT(t1.date,'%m/%d/%Y'),':',DATE_FORMAT(t1.date,'%T')) as displaydate
 			   from news t1, shop t2, `user` t3
@@ -62,19 +67,18 @@ class NewsService {
 				"shop" => "Shop",
 				"displaydate" => "Date",
 				"id,description,date,shop,username,shop_id,user_id" => "Edit",
-				"id" => "Delete"
+				"id" => "Delete" 
 		);
 		$this->commonService->generateJSDatatableSimple ( newsdatatable, 0, 'desc' );
 		$this->commonService->generateJqueryDatatable ( $result, newsdatatable, $array_column );
 	}
-	function listNews($parameterArray){
-		
+	function listNews($parameterArray) {
 		$qry = "select t1.id as identification, t1.*, t2.name as shop, t3.name as username,
 				concat(DATE_FORMAT(t1.date,'%m/%d/%Y'),':',DATE_FORMAT(t1.date,'%T')) as displaydate
 			   from news t1, shop t2, `user` t3
 			   where t1.shop_id = t2.id
          		and t1.user_id = t3.id 
-				and t1.description like '%".$parameterArray['search_news_description']."%'
+				and t1.description like '%" . $parameterArray ['search_news_description'] . "%'
 				order by date desc";
 		$result = mysql_query ( $qry, $this->connection );
 		$array_column = array (
@@ -84,14 +88,15 @@ class NewsService {
 				"shop" => "Shop",
 				"displaydate" => "Date",
 				"id,description,date,shop,username,shop_id,user_id" => "Edit",
-				"id" => "Delete"
+				"id" => "Delete" 
 		);
 		$this->commonService->generateJSDatatableSimple ( newsdatatable, 0, 'desc' );
 		$this->commonService->generateJqueryDatatable ( $result, newsdatatable, $array_column );
 	}
 	function getInputSearchParameters() {
 		$parameterArray = array (
-				'search_news_description' => $_REQUEST ['search_news_description'] );
+				'search_news_description' => $_REQUEST ['search_news_description'] 
+		);
 		return $parameterArray;
 	}
 	function deleteNews($newsid) {

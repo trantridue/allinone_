@@ -4,5 +4,5 @@
 	require_once ("../../include/commonService.php");
 	$commonService = new CommonService ();
 	$newsService = new NewsService ( hostname, username, password, database, $commonService );
-	$newsService->insertNews($_REQUEST['description']);
+	$newsService->inserOrUpdatetNews($_REQUEST['description'],$_REQUEST['id']);
 ?>

@@ -408,7 +408,7 @@ function buildProductImportCriteria(){
 }
 // NEWS
 function addNews() {
-	var addnews = 'modules/news/addnews.php?description=' + encodeURIComponent($('#news_description').val());
+	var addnews = 'modules/news/addnews.php?description=' + encodeURIComponent($('#news_description').val()) + "&id=" + encodeURIComponent($('#idhidden').val());
 	$.ajax({
 		url : addnews,
 		success : function(data) {
@@ -417,6 +417,7 @@ function addNews() {
 				$('#news_description').val('');
 			}
 			else alert('error created news!');
+			$('#addNewsAreaId').load('modules/news/add.php');
 		}
 	});
 }
@@ -436,11 +437,17 @@ function deletenews(newsid) {
 	$.ajax({
 		url : deletenews,
 		success : function(data) {
-//			alert(data);
-			if(data != null) {
+			if(data != null) 
 				listNews('false');
-			}
-			else alert('error deleting news!');
+			else 
+				alert('error deleting news!');
 		}
 	});
+}
+function editnews(str) {
+	var inputUrl = processUrlString(str);
+	var url = 'modules/news/add.php?' + inputUrl;
+	$('#addNewsAreaId').load(url);
+	$('#addNewsAreaId').show();
+	$('#searchNewsAreaId').hide();
 }
