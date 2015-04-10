@@ -252,5 +252,8 @@ function printDropDownListFromTableSelected($table,$fieldname,$selectedId) {
 	}
 	echo "</select>";
 }
+function isAdmin() {
+	return $_SESSION ['is_admin_user'];
+}
 }
 ?>

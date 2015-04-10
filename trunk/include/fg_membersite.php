@@ -284,22 +284,25 @@ class FGMembersite {
 		}
 		$username = $this->SanitizeForSQL ( $username );
 		$pwdmd5 = md5 ( $password );
-		$qry = "Select id,shop_id, name, email from $this->tablename where username='$username' and password='$pwdmd5' and confirmcode='y'";
+		$qry = "select id, shop_id, name, email from $this->tablename where username='$username' and password='$pwdmd5' and confirmcode='y'";
+		$qryIsAdmin = "select count(*) as isAdmin from user_role t1, role t2, `user` t3 where t3.id = t1.user_id and t1.role_id = t2.id and t2.name='admin' and t3.username ='$username'";
 		
 		$result = mysql_query ( $qry, $this->connection );
+		$resultIsAdmin = mysql_query ( $qryIsAdmin, $this->connection );
 		
 		if (! $result || mysql_num_rows ( $result ) <= 0) {
 			$this->HandleError ( "Error logging in. The username or password does not match" );
 			return false;
 		}
 		$row = mysql_fetch_assoc ( $result );
+		$rowIsAdmin = mysql_fetch_assoc ( $resultIsAdmin );
 		
 		$_SESSION ['name_of_user'] = $row ['name'];
 		$_SESSION ['email_of_user'] = $row ['email'];
 		$_SESSION ['id_of_user'] = $row ['id'];
 		$_SESSION ['id_of_shop'] = $row ['shop_id'];
 		$_SESSION ['import_number_row'] = 10;
-		
+		$_SESSION ['is_admin_user'] = ($rowIsAdmin['isAdmin'] == 0) ? false : true;
 		return true;
 	}
 	function UpdateDBRecForConfirmation(&$user_rec) {
