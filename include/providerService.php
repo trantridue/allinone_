@@ -39,7 +39,7 @@ class ProviderService {
 		$this->HandleError ( $err . "\r\n mysqlerror:" . mysql_error () );
 	}
 	function listProvider($parameterArray) {
-		$qry = "select t2.id,t2.name,t2.tel,t2.address,t2.description, t2.date,ifnull(t2.total,0) as total,
+		$qry = "select t2.id as identication,t2.id,t2.name,t2.tel,t2.address,t2.description, t2.date,ifnull(t2.total,0) as total,
 				ifnull(t2.paid,0) as paid,(ifnull(t2.total,0)-ifnull(t2.paid,0)) as remain from (SELECT t1.*,
 		(SELECT round(sum(import_price*quantity) )
 		FROM product_import where import_facture_code in
@@ -53,9 +53,27 @@ class ProviderService {
 		if($parameterArray['provider_description'] != null){
 			$qry = $qry." and t2.description like '%".$parameterArray['provider_description']."%'";
 		}
+		if($parameterArray['total_from'] != null){
+			$qry = $qry." and ifnull(t2.total,0) >= ".$parameterArray['total_from'];
+		}
+		if($parameterArray['total_to'] != null){
+			$qry = $qry." and ifnull(t2.total,0) <= ".$parameterArray['total_to'];
+		}
+		if($parameterArray['paid_from'] != null){
+			$qry = $qry." and ifnull(t2.paid,0) >= ".$parameterArray['paid_from'];
+		}
+		if($parameterArray['paid_to'] != null){
+			$qry = $qry." and ifnull(t2.paid,0) <= ".$parameterArray['paid_to'];
+		}
+		if($parameterArray['remain_from'] != null){
+			$qry = $qry." and (ifnull(t2.total,0)-ifnull(t2.paid,0)) >= ".$parameterArray['remain_from'];
+		}
+		if($parameterArray['remain_to'] != null){
+			$qry = $qry." and (ifnull(t2.total,0)-ifnull(t2.paid,0)) <= ".$parameterArray['remain_to'];
+		}
 		$result = mysql_query ( $qry, $this->connection );
 		$array_column = array (
-				"name" => "Name",
+				"identication" => "Name,name",
 				"total" => "Tổng",
 				"paid" => "Paid",
 				"remain" => "remain",

@@ -5,6 +5,7 @@ include $submodule . '.php';
 ?>
 </div>
 <hr>
+<div id='paidArea'></div>
 <div id="listArea">
 <?php include 'list.php'?>
 </div>

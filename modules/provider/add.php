@@ -19,8 +19,8 @@
 		<tr>
 			<td></td>
 			<td colspan="7"><input type="submit"
-				value="SAVE">
-				<input type="button" value="SEARCH PROVIDER" onclick="document.location.href='login-home.php?module=provider&submenu=search'"
+				value="SAVE" class="menu_btn_sub">
+				<input type="button" value="SEARCH PROVIDER" onclick="document.location.href='login-home.php?module=provider&submenu=search';$('#paidArea').hide();"
 		class="menu_btn_sub" />
 				</td>
 		</tr>
