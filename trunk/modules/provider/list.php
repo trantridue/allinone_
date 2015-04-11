@@ -1,5 +1,4 @@
 <?php
-$name = isset ( $_REQUEST ['name'] ) ? $_REQUEST ['name'] : '';
 $isdefault = $_REQUEST ['isdefault'];
 if ($isdefault == "false") {
 	require_once ("../../include/constant.php");
@@ -8,5 +7,6 @@ if ($isdefault == "false") {
 	$commonService = new CommonService ();
 	$providerService = new ProviderService ( hostname, username, password, database, $commonService );
 }
-$providerService->listProvider ($name);
+$parameterArray = $providerService->getProviderParameters ();
+$providerService->listProvider ($parameterArray);
 ?>
