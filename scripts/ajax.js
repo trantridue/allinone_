@@ -229,7 +229,6 @@ function buildSearchImportCriteria(){
 }
 function listProduct() {
 	var url = "modules/import/listproduct.php?" + buildSearchImportCriteria();
-// alert(url);
 	$('#mainListArea').load(url);
 }
 function show_product_season_id(url) {
@@ -294,8 +293,8 @@ function editproduct(str) {
 function listProvider() {
 	var isdefault = "false";
 	var name = $('#provider_name').val();
-	var url = "modules/provider/list.php" + "?isdefault=" + isdefault
-			+ "&name=" + encodeURIComponent(name);
+	
+	var url = "modules/provider/list.php?" + buildSearchProviderCriteria();
 	$('#listArea').load(url);
 }
 function editprovider(str) {
@@ -324,6 +323,25 @@ $.ajax({
 		productimportpostaction(data, actionType);
 	}
 });
+}
+function buildSearchProviderCriteria(){
+	var criteriaString = "isdefault=false";
+	// BASIC FIELD
+	var provider_name = "&provider_name="+$('#provider_name').val();
+	var provider_tel = "&provider_tel="+$('#provider_tel').val();
+	var provider_address ="&provider_address=" + $('#provider_address').val();
+	var provider_description = "&provider_description=" + $('#provider_description').val();
+	var total_from = "&total_from=" + $('#total_from').val();
+	var total_to = "&total_to=" + $('#total_to').val();
+	var paid_from = "&paid_from=" + $('#paid_from').val();
+	var paid_to = "&paid_to=" + $('#paid_to').val();
+	var remain_from = "&remain_from=" + $('#remain_from').val();
+	var remain_to = "&remain_to=" + $('#remain_to').val();
+	
+	criteriaString = criteriaString + provider_name + provider_tel + provider_address 
+					+ provider_description + total_from + total_to + paid_from + paid_to
+					+ remain_from + remain_to;
+	return processUrlString(criteriaString);
 }
 /* CUSTOMER MODULE */
 function listCustomer() {

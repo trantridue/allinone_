@@ -38,14 +38,21 @@ class ProviderService {
 	function HandleDBError($err) {
 		$this->HandleError ( $err . "\r\n mysqlerror:" . mysql_error () );
 	}
-	function listProvider($name) {
+	function listProvider($parameterArray) {
 		$qry = "select t2.id,t2.name,t2.tel,t2.address,t2.description, t2.date,ifnull(t2.total,0) as total,
 				ifnull(t2.paid,0) as paid,(ifnull(t2.total,0)-ifnull(t2.paid,0)) as remain from (SELECT t1.*,
 		(SELECT round(sum(import_price*quantity) )
 		FROM product_import where import_facture_code in
 		(select code from import_facture where provider_id = t1.id)) as total, (select sum(amount) from provider_paid where provider_id=t1.id) as paid
-		 FROM provider t1  where t1.name like '%" . $name . "%') t2";
-		
+		 FROM provider t1  
+		 where t1.name like '%" . $parameterArray['provider_name'] . "%') t2 
+		 where t2.tel like '%".$parameterArray['provider_tel']."%'";
+		if($parameterArray['provider_address'] != null){
+			$qry = $qry." and t2.address like '%".$parameterArray['provider_address']."%'";
+		}
+		if($parameterArray['provider_description'] != null){
+			$qry = $qry." and t2.description like '%".$parameterArray['provider_description']."%'";
+		}
 		$result = mysql_query ( $qry, $this->connection );
 		$array_column = array (
 				"name" => "Name",
@@ -84,6 +91,20 @@ class ProviderService {
 				'" . $provider_address . "','" . $provider_tel . "','" . $provider_description . "',now())";
 		$result = mysql_query ( $qry, $this->connection );
 		echo "<script>providerpostaction('" . $result . "','" . $actionType . "');</script>";
+	}
+	function getProviderParameters() {
+		$parameterArray = array (
+		'provider_name' => $_REQUEST ['provider_name'], 
+		'provider_tel' => $_REQUEST ['provider_tel'], 
+		'provider_address' => $_REQUEST ['provider_address'], 
+		'provider_description' => $_REQUEST ['provider_description'], 
+		'total_from' => $_REQUEST ['total_from'], 
+		'total_to' => $_REQUEST ['total_to'], 
+		'paid_from' => $_REQUEST ['paid_from'],
+		'paid_to' => $_REQUEST ['paid_to'], 
+		'remain_from' => $_REQUEST ['remain_from'], 
+		'remain_to' => $_REQUEST ['remain_to'] );
+		return $parameterArray;
 	}
 }
 ?>

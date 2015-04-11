@@ -12,6 +12,17 @@
 		<td><input id="provider_description"></td>
 	</tr>
 	<tr>
+		<td align="right">Total :</td>
+		<td><input id="total_from" size="6" maxlength="8" onkeypress="validateNum(event);">
+		<input id="total_to" size="6" maxlength="8" onkeypress="validateNum(event);"></td>
+		<td align="right">Paid :</td>
+		<td><input id="paid_from" size="6" maxlength="8" onkeypress="validateNum(event);">
+		<input id="paid_to" size="6" maxlength="8" onkeypress="validateNum(event);"></td>
+		<td align="right">Remain :</td>
+		<td colspan="3"><input id="remain_from" size="6" maxlength="8" onkeypress="validateNum(event);">
+		<input id="remain_to" size="6" maxlength="8" onkeypress="validateNum(event);"></td>
+	</tr>
+	<tr>
 		<td></td>
 		<td colspan="7"><input type="button" name="search_btn"
 			class="menu_btn_sub" value="SEARCH"
