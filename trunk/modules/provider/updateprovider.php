@@ -6,4 +6,5 @@ $provider_description =  $_REQUEST['provider_description'];
 $provider_address =  $_REQUEST['provider_address'];
 
 $providerService->updateProvider($provider_id,$provider_name,$provider_tel,$provider_description,$provider_address);
+$fgmembersite->RedirectToURL("login-home.php?module=provider&submenu=search");
 ?>
