@@ -33,7 +33,7 @@ function resetContinue(){
 		<td colspan="7"><textarea name="description" id="description" cols="40" rows="3"></textarea></td>
 	</tr>
 	<tr>
-		<td><input type="submit" value="IMPORT"> </td>
+		<td><input type="submit" value="IMPORT" class="menu_btn_sub"> </td>
 		<td colspan="7"><input id="total_facture" value="0.00" onkeypress="validateNon(event);"/> </td>
 	</tr>
 	</table>
