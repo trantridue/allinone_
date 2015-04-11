@@ -469,3 +469,8 @@ function editnews(str) {
 	$('#addNewsAreaId').show();
 	$('#searchNewsAreaId').hide();
 }
+function show_provider_identication(url){
+	var paidProvider = 'modules/provider/paid.php?' + url;
+	$('#paidArea').load(paidProvider);
+	$('#paidArea').show();
+}
