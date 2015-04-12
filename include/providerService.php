@@ -74,8 +74,8 @@ class ProviderService {
 		$result = mysql_query ( $qry, $this->connection );
 		$array_column = array (
 				"id,name,tel" => "Name,name",
-				"total,id" => "Tổng,total",
-				"paid,id" => "Paid,paid",
+				"total" => "Tổng",
+				"paid" => "Paid",
 				"remain" => "Remain",
 				"tel" => "Tel",
 				"address" => "Address",
