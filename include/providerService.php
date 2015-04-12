@@ -39,7 +39,7 @@ class ProviderService {
 		$this->HandleError ( $err . "\r\n mysqlerror:" . mysql_error () );
 	}
 	function listProvider($parameterArray) {
-		$qry = "select t2.id as identication,t2.id,t2.name,t2.tel,t2.address,t2.description, t2.date,ifnull(t2.total,0) as total,
+		$qry = "select t2.id,t2.name,t2.tel,t2.address,t2.description, t2.date,ifnull(t2.total,0) as total,
 				ifnull(t2.paid,0) as paid,(ifnull(t2.total,0)-ifnull(t2.paid,0)) as remain from (SELECT t1.*,
 		(SELECT round(sum(import_price*quantity) )
 		FROM product_import where import_facture_code in
@@ -73,10 +73,10 @@ class ProviderService {
 		}
 		$result = mysql_query ( $qry, $this->connection );
 		$array_column = array (
-				"identication" => "Name,name",
-				"total" => "Tổng",
-				"paid" => "Paid",
-				"remain" => "remain",
+				"id,name,tel" => "Name,name",
+				"total,id" => "Tổng,total",
+				"paid,id" => "Paid,paid",
+				"remain" => "Remain",
 				"tel" => "Tel",
 				"address" => "Address",
 				"description" => "Description",

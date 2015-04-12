@@ -1,3 +1,4 @@
 <?php
-echo $_REQUEST['identication']; 
+echo $_REQUEST['id']; 
+echo $_REQUEST['name']; 
 ?>
