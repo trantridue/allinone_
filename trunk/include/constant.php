@@ -25,4 +25,6 @@ define('datatable_prefix','table_list_');
 define('default_password','123456');
 //Default product row return
 define('default_row_product_return','5');
+//Default number days for paid
+define('default_nbr_day_paid','14');
 ?>

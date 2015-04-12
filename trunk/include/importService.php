@@ -335,10 +335,10 @@ class ImportService {
 		}
 	}
 	// START BUSINESS IMPORT PROJECT
-	function importProduct($totalRow, $continueImport, $provider_id, $import_facture_code, $description, $season, $codeArray, $codeExistedArray, $nameArray, $qtyArray, $postArray, $imprArray, $sexArray, $categoryIdArray, $brandIdArray, $descriptionArray, $sale) {
+	function importProduct($totalRow, $continueImport, $provider_id, $import_facture_code, $description, $season, $codeArray, $codeExistedArray, $nameArray, $qtyArray, $postArray, $imprArray, $sexArray, $categoryIdArray, $brandIdArray, $descriptionArray, $sale,$deadline,$number_day_paid) {
 		// If import the new facture then
 		if ($continueImport != "true") {
-			$this->addFacture ( $import_facture_code, $provider_id, $description );
+			$this->addFacture ( $import_facture_code, $provider_id, $description,$deadline,$number_day_paid );
 		}
 		$this->addProducts ( $totalRow, $season, $codeArray, $codeExistedArray, $nameArray, $postArray, $sexArray, $categoryIdArray, $brandIdArray, $descriptiondArray, $sale );
 		$this->addProductImport ( $totalRow, $import_facture_code, $codeArray, $qtyArray, $imprArray );
@@ -357,8 +357,20 @@ class ImportService {
 		$qry = substr ( $qry, 0, - 1 ) . ";";
 		mysql_query ( $qry, $this->connection );
 	}
-	function addFacture($import_facture_code, $provider_id, $description) {
-		$qry = "insert into import_facture(code,date,description,provider_id) values ('" . $import_facture_code . "','" . $this->commonService->getFullDateTime () . "','" . $description . "'," . $provider_id . ")";
+	function addFacture($import_facture_code, $provider_id, $description,$deadline,$number_day_paid) {
+		$insertDeadline='';
+		$date = $this->commonService->getFullDateTime ();
+		if($deadline != null ){
+			$insertDeadline = $deadline ." " .date("H:i:s");
+		} else {
+			if($number_day_paid != null ){
+				$insertDeadline = date("Y-m-d H:i:s",strtotime($date."+ ".$number_day_paid." days"));
+			} else {
+				$insertDeadline = date("Y-m-d H:i:s",strtotime($date."+ ".default_nbr_day_paid." days"));
+			}
+		}
+		$qry = "insert into import_facture(code,date,description,provider_id,deadline) 
+		values ('" . $import_facture_code . "','" . $this->commonService->getFullDateTime () . "','" . $description . "'," . $provider_id . ",'".$insertDeadline."')";
 		mysql_query ( $qry, $this->connection );
 	}
 	function addProducts($totalRow, $season, $codeArray, $codeExistedArray, $nameArray, $postArray, $sexArray, $categoryIdArray, $brandIdArray, $descriptiondArray, $sale) {
