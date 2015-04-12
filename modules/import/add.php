@@ -30,7 +30,12 @@ function resetContinue(){
 	</tr>
 	<tr>
 		<td align="right">DESCRIPTION </td>
-		<td colspan="7"><textarea name="description" id="description" cols="40" rows="3"></textarea></td>
+		<td><textarea name="description" id="description" cols="40" rows="3"></textarea></td>
+		<td align="right">Paid days </td>
+		<td><input type="text" maxlength="3" size="6" class="datefield" autocomplete="off" name="deadline"> </td>
+		<td align="right">Paid in </td>
+		<td colspan="3"><input type="text" maxlength="3" size="6" onkeypress="validateNum(event);" name="number_day_paid" autocomplete="off"> </td>
+		
 	</tr>
 	<tr>
 		<td><input type="submit" value="IMPORT" class="menu_btn_sub"> </td>
