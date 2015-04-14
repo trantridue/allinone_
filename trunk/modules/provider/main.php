@@ -4,8 +4,8 @@ $submodule = isset ( $_REQUEST ['submenu'] ) ? $_REQUEST ['submenu'] : defaultsu
 include $submodule . '.php';
 ?>
 </div>
+<div id='paidArea' style="display: none;"></div>
 <hr>
-<div id='paidArea'></div>
 <div id="listArea">
 <?php include 'list.php'?>
 </div>
