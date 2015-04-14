@@ -15,7 +15,7 @@ class CommonService {
 			echo "$('#" . datatable_prefix . $datatable_id . "').dataTable(  ";
 					echo "{ ";
 						echo "'destroy': true, ";
-						echo "'order': [[ " . $ordercolumn . ", '" . $ordertype . "' ]], ";
+						echo "'order': [[ " . $ordercolumn . ", '" . $ordertype . "' ]],'pageLength': 20, ";
 						echo "'footerCallback' : function(row, data, start, end, ";
 								echo "display) { ";
 							echo "var api = this.api(), data; ";
