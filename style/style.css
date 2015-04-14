@@ -307,3 +307,7 @@ textarea {
 .dataTables_wrapper {
 	/*text-align: center;*/
 }
+#paidArea{
+	width: 100%;
+	float: left;
+}

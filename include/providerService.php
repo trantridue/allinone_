@@ -124,5 +124,29 @@ class ProviderService {
 		'remain_to' => $_REQUEST ['remain_to'] );
 		return $parameterArray;
 	}
+	function listFactureProvider($provider_id) {
+	$qry = "select * from import_facture where provider_id = " .$provider_id;
+		$result = mysql_query ( $qry, $this->connection );
+		$array_column = array (
+				"code" => "Facture",
+				"date" => "Date",
+				"description" => "Description",
+				"deadline" => "Deadline"
+		);
+		$this->commonService->generateJSDatatableSimple ("histofacture", 1, 'desc');
+		$this->commonService->generateJqueryDatatable ( $result, "histofacture", $array_column );
+	}
+	function listPaidHisto($provider_id) {
+	$qry = "select * from import_facture where provider_id = " .$provider_id;
+		$result = mysql_query ( $qry, $this->connection );
+		$array_column = array (
+				"code" => "Facture",
+				"date" => "Date",
+				"description" => "Description",
+				"deadline" => "Deadline"
+		);
+		$this->commonService->generateJSDatatableSimple ("paidhisto", 1, 'desc');
+		$this->commonService->generateJqueryDatatable ( $result, "paidhisto", $array_column );
+	}
 }
 ?>
