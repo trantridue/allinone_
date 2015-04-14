@@ -305,6 +305,8 @@ function editprovider(str) {
 	var inputUrl = processUrlString(str);
 	var url = 'modules/provider/editprovider.php?' + inputUrl;
 	$('#inputArea').load(url);
+	$('#inputArea').show();
+	$('#paidArea').hide();
 }
 function deleteprovider(providerid) {
 	var deleteprovider = 'modules/provider/deleteprovider.php?providerid=' + providerid;
