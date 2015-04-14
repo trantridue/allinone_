@@ -3,7 +3,8 @@ ob_start ();
 class CommonService {
 	function generateJSDatatableSimple($datatable_id, $ordercolumn, $ordertype) {
 		echo "<script>";
-		echo "$(document).ready(function() { $('#" . datatable_prefix . $datatable_id . "').dataTable({'order': [[ " . $ordercolumn . ", '" . $ordertype . "' ]]});});";
+		echo "$(document).ready(function() { $('#" . datatable_prefix . $datatable_id . "').dataTable({
+				'order': [[ " . $ordercolumn . ", '" . $ordertype . "' ]], 'pageLength': 5});});";
 		echo "</script>";
 	}
 	function generateJSDatatableComplex($result, $datatable_id, $ordercolumn, $ordertype, $array_total) {
