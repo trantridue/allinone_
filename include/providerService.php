@@ -125,10 +125,11 @@ class ProviderService {
 		return $parameterArray;
 	}
 	function listFactureProvider($provider_id) {
-	$qry = "select * from import_facture where provider_id = " .$provider_id;
+	$qry = "select t1.*,(select sum(quantity*import_price) from product_import where import_facture_code = t1.code) as total from import_facture t1 where t1.provider_id = " .$provider_id;
 		$result = mysql_query ( $qry, $this->connection );
 		$array_column = array (
 				"code" => "Facture",
+				"total" => "Total",
 				"date" => "Date",
 				"description" => "Description",
 				"deadline" => "Deadline"
@@ -137,13 +138,14 @@ class ProviderService {
 		$this->commonService->generateJqueryDatatable ( $result, "histofacture", $array_column );
 	}
 	function listPaidHisto($provider_id) {
-	$qry = "select * from import_facture where provider_id = " .$provider_id;
+	$qry = "select * from provider_paid where provider_id = " .$provider_id;
 		$result = mysql_query ( $qry, $this->connection );
 		$array_column = array (
-				"code" => "Facture",
+				"id" => "ID",
+				"amount" => "amount",
 				"date" => "Date",
-				"description" => "Description",
-				"deadline" => "Deadline"
+				"description" => "Description"
+				
 		);
 		$this->commonService->generateJSDatatableSimple ("paidhisto", 1, 'desc');
 		$this->commonService->generateJqueryDatatable ( $result, "paidhisto", $array_column );
