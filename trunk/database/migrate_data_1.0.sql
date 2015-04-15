@@ -1,4 +1,5 @@
 ﻿#prepare table shop
+truncate table provider_paid;
 truncate news;
 truncate provider_paid;
 truncate user_role;
@@ -100,3 +101,12 @@ update sex set name='WOMAN' where id = 1;
 update sex set name='MAN' where id = 2;
 #user_role
 insert into user_role(user_id,role_id) values (1,1);
+#paid
+
+insert into `provider_paid`(id,provider_id,amount,date,description)
+SELECT id,providers_id,paid,date,CONVERT(CONVERT(CONVERT(description USING latin1) USING binary) USING utf8) FROM `zabuzach_store`.`provider_paid_histo`;
+
+#fund
+insert into fund(id,name,description)
+SELECT id,CONVERT(CONVERT(CONVERT(name USING latin1) USING binary) USING utf8),CONVERT(CONVERT(CONVERT(description USING latin1) USING binary) USING utf8) FROM `zabuzach_store`.`cash`;
+

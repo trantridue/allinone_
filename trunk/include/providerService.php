@@ -39,7 +39,7 @@ class ProviderService {
 		$this->HandleError ( $err . "\r\n mysqlerror:" . mysql_error () );
 	}
 	function listProvider($parameterArray) {
-		$qry = "select t2.id,t2.name,t2.tel,t2.address,t2.description, t2.date,ifnull(t2.total,0) as total,
+		$qry = "select t2.id,t2.name,t2.tel,t2.address,t2.description, date_format(t2.date,'%Y/%m/%d') as date,ifnull(t2.total,0) as total,
 				ifnull(t2.paid,0) as paid,(ifnull(t2.total,0)-ifnull(t2.paid,0)) as remain from (SELECT t1.*,
 		(SELECT round(sum(import_price*quantity) )
 		FROM product_import where import_facture_code in
@@ -125,12 +125,12 @@ class ProviderService {
 		return $parameterArray;
 	}
 	function listFactureProvider($provider_id) {
-	$qry = "select t1.*,(select sum(quantity*import_price) from product_import where import_facture_code = t1.code) as total from import_facture t1 where t1.provider_id = " .$provider_id;
+	$qry = "select t1.*,date_format(t1.date,'%Y/%m/%d') as date1,(select sum(quantity*import_price) from product_import where import_facture_code = t1.code) as total from import_facture t1 where t1.provider_id = " .$provider_id;
 		$result = mysql_query ( $qry, $this->connection );
 		$array_column = array (
 				"code" => "Facture",
 				"total" => "Total",
-				"date" => "Date",
+				"date1" => "Date",
 				"description" => "Description",
 				"deadline" => "Deadline"
 		);
@@ -138,12 +138,12 @@ class ProviderService {
 		$this->commonService->generateJqueryDatatable ( $result, "histofacture", $array_column );
 	}
 	function listPaidHisto($provider_id) {
-	$qry = "select * from provider_paid where provider_id = " .$provider_id;
+	$qry = "select t1.*,date_format(t1.date,'%Y/%m/%d') as date1 from provider_paid t1 where t1.provider_id = " .$provider_id;
 		$result = mysql_query ( $qry, $this->connection );
 		$array_column = array (
 				"id" => "ID",
 				"amount" => "amount",
-				"date" => "Date",
+				"date1" => "Date",
 				"description" => "Description"
 				
 		);

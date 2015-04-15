@@ -4,7 +4,12 @@ class CommonService {
 	function generateJSDatatableSimple($datatable_id, $ordercolumn, $ordertype) {
 		echo "<script>";
 		echo "$(document).ready(function() { $('#" . datatable_prefix . $datatable_id . "').dataTable({
-				'order': [[ " . $ordercolumn . ", '" . $ordertype . "' ]], 'pageLength': 5, 'aLengthMenu': [[5, 10, 15, 100], ['5 Per Page', '10 Per Page', '15 Per Page', '100 Per Page']]});});";
+				'order': [[ " . $ordercolumn . ", '" . $ordertype . "' ]], 
+				'pageLength': 5, 
+				'aLengthMenu': [[5, 10, 15, 100], ['5 Per Page', '10 Per Page', '15 Per Page', '100 Per Page']],
+				 'bPaginate': true,
+        'sDom':'fptip'
+	});});";
 		echo "</script>";
 	}
 	function generateJSDatatableComplex($result, $datatable_id, $ordercolumn, $ordertype, $array_total) {
@@ -14,8 +19,9 @@ class CommonService {
 		echo "function() {  ";
 			echo "$('#" . datatable_prefix . $datatable_id . "').dataTable(  ";
 					echo "{ ";
-						echo "'destroy': true, ";
-						echo "'order': [[ " . $ordercolumn . ", '" . $ordertype . "' ]],'pageLength': 20, ";
+						echo "'destroy': true, 
+						'order': [[ " . $ordercolumn . ", '" . $ordertype . "' ]],'pageLength': 20, 
+						";
 						echo "'footerCallback' : function(row, data, start, end, ";
 								echo "display) { ";
 							echo "var api = this.api(), data; ";
