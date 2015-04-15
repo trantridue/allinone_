@@ -27,4 +27,8 @@ define('default_password','123456');
 define('default_row_product_return','5');
 //Default number days for paid
 define('default_nbr_day_paid','14');
+//Paid provider default source
+define('default_id_source_1','1');
+define('default_id_source_2','3');
+define('default_id_source_3','2');
 ?>
