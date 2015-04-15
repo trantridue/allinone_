@@ -4,7 +4,7 @@ class CommonService {
 	function generateJSDatatableSimple($datatable_id, $ordercolumn, $ordertype) {
 		echo "<script>";
 		echo "$(document).ready(function() { $('#" . datatable_prefix . $datatable_id . "').dataTable({
-				'order': [[ " . $ordercolumn . ", '" . $ordertype . "' ]], 'pageLength': 5});});";
+				'order': [[ " . $ordercolumn . ", '" . $ordertype . "' ]], 'pageLength': 5, 'aLengthMenu': [[5, 10, 15, 100], ['5 Per Page', '10 Per Page', '15 Per Page', '100 Per Page']]});});";
 		echo "</script>";
 	}
 	function generateJSDatatableComplex($result, $datatable_id, $ordercolumn, $ordertype, $array_total) {
