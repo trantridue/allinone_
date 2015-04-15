@@ -111,3 +111,5 @@ INSERT INTO `product_import` (`id`, `product_code`, `import_facture_code`, `quan
 #sex
 update sex set name='WOMAN' where id = 1;
 update sex set name='MAN' where id = 2;
+#user_role
+insert into user_role(user_id,role_id) values (1,1);

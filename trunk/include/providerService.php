@@ -73,7 +73,7 @@ class ProviderService {
 		}
 		$result = mysql_query ( $qry, $this->connection );
 		$array_column = array (
-				"id,name,tel" => "Name,name",
+				"id,name,tel,total,paid,remain" => "Name,name",
 				"total" => "Tổng",
 				"paid" => "Paid",
 				"remain" => "Remain",
@@ -134,7 +134,7 @@ class ProviderService {
 				"description" => "Description",
 				"deadline" => "Deadline"
 		);
-		$this->commonService->generateJSDatatableSimple ("histofacture", 1, 'desc');
+		$this->commonService->generateJSDatatableSimple ("histofacture", 0, 'desc');
 		$this->commonService->generateJqueryDatatable ( $result, "histofacture", $array_column );
 	}
 	function listPaidHisto($provider_id) {
@@ -147,7 +147,7 @@ class ProviderService {
 				"description" => "Description"
 				
 		);
-		$this->commonService->generateJSDatatableSimple ("paidhisto", 1, 'desc');
+		$this->commonService->generateJSDatatableSimple ("paidhisto", 2, 'desc');
 		$this->commonService->generateJqueryDatatable ( $result, "paidhisto", $array_column );
 	}
 }
