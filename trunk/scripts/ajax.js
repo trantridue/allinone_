@@ -478,11 +478,18 @@ function show_provider_id(url) {
 }
 function paidMoneyProvider() {
 	var paidMoneyProvider = 'modules/provider/paidnow.php' + getPaidProviderInformation();
+	var idprovider = $('#paid_provider_id').val();
 	$.ajax( {
 		url : paidMoneyProvider,
 		success : function(data) {
-			if (data != null)
-				$('#rightpaid').load("modules/provider/paid_right.php?isdefault=true");
+			if (data != null) {
+				$('#rightpaid').load("modules/provider/paid_right.php?id="+idprovider);
+				listProvider();
+				$('#paid_paid_update').html(parseInt($('#paid_paid_update').html()) + parseInt($('#paid_amount_1').val()) + parseInt($('#paid_amount_2').val()) + parseInt($('#paid_amount_3').val()));
+				$('#paid_remain_update').html(parseInt($('#paid_remain_update').html()) - parseInt($('#paid_amount_1').val()) - parseInt($('#paid_amount_2').val()) - parseInt($('#paid_amount_3').val()));
+				$('#paid_remaining').val(parseInt($('#paid_remain_update').html()));
+//				calculateProviderPaid();
+			}
 			else
 				alert('error paid money provider!');
 		}
