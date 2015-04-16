@@ -489,6 +489,9 @@ function paidMoneyProvider() {
 				$('#paid_remain_update').html(parseInt($('#paid_remain_update').html()) - parseInt($('#paid_amount_1').val()) - parseInt($('#paid_amount_2').val()) - parseInt($('#paid_amount_3').val()));
 				$('#paid_remaining').val(parseInt($('#paid_remain_update').html()));
 //				calculateProviderPaid();
+				$('#paid_amount_1').val(0);
+				$('#paid_amount_2').val(0);
+				$('#paid_amount_3').val(0);
 			}
 			else
 				alert('error paid money provider!');
