@@ -1,4 +1,5 @@
 ﻿#prepare table shop
+truncate table provider_paid_fund_change_histo;
 truncate table fund_change_histo;
 truncate table provider_paid;
 truncate news;
