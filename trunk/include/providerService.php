@@ -124,6 +124,19 @@ class ProviderService {
 		'remain_to' => $_REQUEST ['remain_to'] );
 		return $parameterArray;
 	}
+	function getPaidParameters() {
+		$parameterArray = array (
+		'id_paid_fund_1' => $_REQUEST ['id_paid_fund_1'], 
+		'id_paid_fund_2' => $_REQUEST ['id_paid_fund_1'], 
+		'id_paid_fund_3' => $_REQUEST ['id_paid_fund_1'], 
+		'paid_amount_1' => $_REQUEST ['paid_amount_1'], 
+		'paid_amount_2' => $_REQUEST ['paid_amount_2'], 
+		'paid_amount_3' => $_REQUEST ['paid_amount_3'], 
+		'paid_description' => $_REQUEST ['paid_description'],
+		'paid_provider_id' => $_REQUEST ['paid_provider_id'], 
+		'paid_provider_name' => $_REQUEST ['paid_provider_name'] );
+		return $parameterArray;
+	}
 	function listFactureProvider($provider_id) {
 	$qry = "select t1.*,date_format(t1.date,'%Y/%m/%d') as date1,(select sum(quantity*import_price) from product_import where import_facture_code = t1.code) as total from import_facture t1 where t1.provider_id = " .$provider_id;
 		$result = mysql_query ( $qry, $this->connection );
@@ -138,10 +151,10 @@ class ProviderService {
 		$this->commonService->generateJqueryDatatable ( $result, "histofacture", $array_column );
 	}
 	function listPaidHisto($provider_id) {
-	$qry = "select t1.*,date_format(t1.date,'%Y/%m/%d') as date1 from provider_paid t1 where t1.provider_id = " .$provider_id;
+	$qry = "select t1.*,date_format(t1.date,'%Y/%m/%d_%H:%i:%s') as date1 from provider_paid t1 where t1.provider_id = " .$provider_id;
 		$result = mysql_query ( $qry, $this->connection );
 		$array_column = array (
-				"id" => "ID",
+				"id" => "Delete",
 				"amount" => "amount",
 				"date1" => "Date",
 				"description" => "Description"
@@ -149,6 +162,15 @@ class ProviderService {
 		);
 		$this->commonService->generateJSDatatableSimple ("paidhisto", 2, 'desc');
 		$this->commonService->generateJqueryDatatable ( $result, "paidhisto", $array_column );
+	}
+	function paidMoneyProvider($parameterPaid){
+		$amount = $parameterPaid['paid_amount_1'] + $parameterPaid['paid_amount_2'] + $parameterPaid['paid_amount_3'];
+		//insert provider_paid first
+		$qry = "insert into provider_paid(provider_id,amount,date,description) values (" 
+		. $parameterPaid['paid_provider_id'] . ","
+		. $amount.",now(),'".$parameterPaid['paid_description']."')";
+		mysql_query ( $qry, $this->connection );
+		$provider_paid_id = mysql_insert_id ();
 	}
 }
 ?>

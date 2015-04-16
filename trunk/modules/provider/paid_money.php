@@ -5,10 +5,10 @@ require_once ("../../include/commonService.php");
 $commonService = new CommonService ( );
 $providerService = new ProviderService ( hostname, username, password, database, $commonService );
 ?>
-<input type="hidden" id="<?php
+<input type="hidden" value="<?php
 echo $_REQUEST ['id'];
 ?>" id="paid_provider_id"/>
-<input type="hidden" id="<?php
+<input type="hidden" value="<?php
 echo $_REQUEST ['name'];
 ?>" id="paid_provider_name"/>
 <form>
@@ -68,7 +68,7 @@ echo $_REQUEST ['name'];
 		$commonService->printDropDownListFromTableSelected ( 'fund', 'paid_fund_2', default_id_source_2 );
 		?></td>
 		<td><input type="text" id="paid_amount_2" onkeypress="validateFloat(event);" size="6" maxlength="8" value="0"  onkeyup="calculateProviderPaid();"/></td>
-		<td rowspan="2"><input type="button" value="PAID" class="menu_btn_sub" onclick="">
+		<td rowspan="2"><input type="button" value="PAID" class="menu_btn_sub" onclick="paidMoneyProvider();">
 		<input type="reset" value="RESET" class="menu_btn_sub"></td>
 	</tr>
 	<tr align="center">

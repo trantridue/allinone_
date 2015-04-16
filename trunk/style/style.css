@@ -316,3 +316,7 @@ textarea {
 #paid_money{
 	padding-bottom: 10px;
 }
+/* PAGIGNATION */
+.dataTables_paginate{
+	float: left !important;
+}

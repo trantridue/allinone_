@@ -1,4 +1,5 @@
 ﻿#prepare table shop
+truncate table fund_change_histo;
 truncate table provider_paid;
 truncate news;
 truncate provider_paid;
@@ -107,6 +108,9 @@ insert into `provider_paid`(id,provider_id,amount,date,description)
 SELECT id,providers_id,paid,date,CONVERT(CONVERT(CONVERT(description USING latin1) USING binary) USING utf8) FROM `zabuzach_store`.`provider_paid_histo`;
 
 #fund
+truncate fund;
 insert into fund(id,name,description)
 SELECT id,CONVERT(CONVERT(CONVERT(name USING latin1) USING binary) USING utf8),CONVERT(CONVERT(CONVERT(description USING latin1) USING binary) USING utf8) FROM `zabuzach_store`.`cash`;
 
+insert into fund_change_histo(id,fund_id,amount,date,description,ratio,user_id)
+SELECT id,cash_id,amount,inputdate,CONVERT(CONVERT(CONVERT(description USING latin1) USING binary) USING utf8),ratio,users_id FROM `zabuzach_store`.`cash_histo`;

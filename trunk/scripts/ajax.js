@@ -476,3 +476,43 @@ function show_provider_id(url) {
 	$('#inputArea').hide();
 	$('#paidArea').show();
 }
+function paidMoneyProvider() {
+	var paidMoneyProvider = 'modules/provider/paidnow.php' + getPaidProviderInformation();
+	$.ajax( {
+		url : paidMoneyProvider,
+		success : function(data) {
+			if (data != null)
+				$('#rightpaid').load("modules/provider/paid_right.php?isdefault=true");
+			else
+				alert('error paid money provider!');
+		}
+	});
+}
+function getPaidProviderInformation(){
+	var str = "";
+	var id_paid_fund_1 = "?id_paid_fund_1=" + $('#id_paid_fund_1').val();
+	var id_paid_fund_2 = "&id_paid_fund_2=" + $('#id_paid_fund_2').val();
+	var id_paid_fund_3 = "&id_paid_fund_3=" + $('#id_paid_fund_3').val();
+	
+	var paid_amount_1 = "&paid_amount_1=" + $('#paid_amount_1').val();
+	var paid_amount_2 = "&paid_amount_2=" + $('#paid_amount_2').val();
+	var paid_amount_3 = "&paid_amount_3=" + $('#paid_amount_3').val();
+	
+	var paid_description = "&paid_description=" + $('#paid_description').val();
+	var paid_provider_id = "&paid_provider_id=" + $('#paid_provider_id').val();
+	var paid_description = "&paid_description=" + $('#paid_description').val();
+	var paid_provider_name = "&paid_provider_name=" + $('#paid_provider_name').val();
+	
+	str = str 
+	+ id_paid_fund_1
+	+ id_paid_fund_2
+	+ id_paid_fund_3
+	+ paid_amount_1
+	+ paid_amount_2
+	+ paid_amount_3
+	+ paid_description
+	+ paid_provider_id
+	+ paid_provider_name
+		;
+	return processUrlString(str);
+}
