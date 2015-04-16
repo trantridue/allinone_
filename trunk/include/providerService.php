@@ -172,14 +172,17 @@ class ProviderService {
 		$fund_id_1 = $_REQUEST ['id_paid_fund_1'];
 		$fund_id_2 = $_REQUEST ['id_paid_fund_2'];
 		$fund_id_3 = $_REQUEST ['id_paid_fund_3'];
-
+		$desc = " | ".$fund_id_1.":".$amount1
+			   ." | ". $fund_id_2.":".$amount2
+			   ." | ". $fund_id_3.":".$amount3." | "
+		;
 		$str = "";
 		
 		$amount =  $amount1 + $amount2 + $amount3;
 		//insert provider_paid first
 		$qry = "insert into provider_paid(provider_id,amount,date,description) values (" 
 		. $parameterPaid['paid_provider_id'] . ","
-		. $amount.",now(),'".$parameterPaid['paid_description']."')";
+		. $amount.",now(),'".$parameterPaid['paid_description'].$desc."')";
 		if($amount != 0)
 			$str = $str.mysql_query ( $qry, $this->connection );
 		
