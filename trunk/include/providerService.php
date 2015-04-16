@@ -79,7 +79,7 @@ class ProviderService {
 				"remain" => "Remain",
 				"tel" => "Tel",
 				"address" => "Address",
-				"description" => "Description",
+// 				"description" => "Description",
 				"date" => "Modify date",
 				"id,name,tel,address,description" => "Edit",
 				"id" => "Delete"
@@ -164,13 +164,58 @@ class ProviderService {
 		$this->commonService->generateJqueryDatatable ( $result, "paidhisto", $array_column );
 	}
 	function paidMoneyProvider($parameterPaid){
-		$amount = $parameterPaid['paid_amount_1'] + $parameterPaid['paid_amount_2'] + $parameterPaid['paid_amount_3'];
+		session_start();
+		$amount1 = $parameterPaid['paid_amount_1'];
+		$amount2 = $parameterPaid['paid_amount_2'];
+		$amount3 = $parameterPaid['paid_amount_3'];
+		
+		$fund_id_1 = $_REQUEST ['id_paid_fund_1'];
+		$fund_id_2 = $_REQUEST ['id_paid_fund_2'];
+		$fund_id_3 = $_REQUEST ['id_paid_fund_3'];
+
+		$str = "";
+		
+		$amount =  $amount1 + $amount2 + $amount3;
 		//insert provider_paid first
 		$qry = "insert into provider_paid(provider_id,amount,date,description) values (" 
 		. $parameterPaid['paid_provider_id'] . ","
 		. $amount.",now(),'".$parameterPaid['paid_description']."')";
-		mysql_query ( $qry, $this->connection );
+		if($amount != 0)
+			$str = $str.mysql_query ( $qry, $this->connection );
+		
 		$provider_paid_id = mysql_insert_id ();
+		
+		// insert fund_change_histo fund 1
+		if($amount1 !=0 && $provider_paid_id !=null) {
+			$qry = "insert into fund_change_histo(fund_id,amount,date,description,ratio,user_id) 
+				values (".$fund_id_1.",".$amount1.",now(),'".$_REQUEST ['paid_description']."',1,".$_SESSION ['id_of_user'].")";
+			$str = $str.mysql_query ( $qry, $this->connection );
+			
+			$qry = "insert into provider_paid_fund_change_histo(fund_change_histo_id,provider_paid_id)
+				values (".mysql_insert_id ().",".$provider_paid_id.")";
+			$str = $str.mysql_query ( $qry, $this->connection );
+		}
+		// insert fund_change_histo fund 2
+		if($amount2 !=0 && $provider_paid_id !=null) {
+			$qry = "insert into fund_change_histo(fund_id,amount,date,description,ratio,user_id) 
+				values (".$fund_id_2.",".$amount2.",now(),'".$_REQUEST ['paid_description']."',1,".$_SESSION ['id_of_user'].")";
+			$str = $str.mysql_query ( $qry, $this->connection );
+			
+			$qry = "insert into provider_paid_fund_change_histo(fund_change_histo_id,provider_paid_id)
+				values (".mysql_insert_id ().",".$provider_paid_id.")";
+			$str = $str.mysql_query ( $qry, $this->connection );
+		}
+		// insert fund_change_histo fund 3
+		if($amount3 !=0 && $provider_paid_id !=null) {
+			$qry = "insert into fund_change_histo(fund_id,amount,date,description,ratio,user_id) 
+				values (".$fund_id_3.",".$amount3.",now(),'".$_REQUEST ['paid_description']."',1,".$_SESSION ['id_of_user'].")";
+			$str = $str.mysql_query ( $qry, $this->connection );
+			
+			$qry = "insert into provider_paid_fund_change_histo(fund_change_histo_id,provider_paid_id) 
+					values (".mysql_insert_id ().",".$provider_paid_id.")";
+			$str = $str.mysql_query ( $qry, $this->connection );
+		}
+		echo $str;
 	}
 }
 ?>
