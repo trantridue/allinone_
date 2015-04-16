@@ -445,7 +445,6 @@ class ImportService {
 //		$result_deviation = null;
 		if($parameterArray['edit_deviation'] != 0)
 		$result_deviation = mysql_query ( $qry_insert_deviation, $this->connection );
-		
 		echo $result_facture.$result_product.$result_product_import.$result_deviation;
 // 		echo $qry_product;
 	}
