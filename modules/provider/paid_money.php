@@ -42,17 +42,21 @@ echo $_REQUEST ['name'];
 			value="<?php
 			echo $_REQUEST ['paid'];
 			?>" />
+			<span id="paid_paid_update">
 		<?php
 		echo $_REQUEST ['paid'];
 		?>
+		</span>
 		</td>
 		<td><input type="hidden" id="paid_remain"
 			value="<?php
 			echo $_REQUEST ['remain'];
 			?>" />
+			<span id="paid_remain_update">
 		<?php
 		echo $_REQUEST ['remain'];
 		?>
+		</span>
 		</td>
 		<td><?php
 		$commonService->printDropDownListFromTableSelected ( 'fund', 'paid_fund_1', default_id_source_1 );

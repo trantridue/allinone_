@@ -18,6 +18,6 @@ function calculateImportFacture() {
 /* PROVIDER MODULE */
 function calculateProviderPaid() {
 	var remain = 0;
-	remain = $("#paid_remain").val() - $("#paid_amount_1").val() - $("#paid_amount_2").val() - $("#paid_amount_3").val();
+	remain = parseInt($('#paid_remain_update').html()) - $("#paid_amount_1").val() - $("#paid_amount_2").val() - $("#paid_amount_3").val();
 	$("#paid_remaining").val(remain.toFixed(0).replace(/\d(?=(\d{3})+\.)/g, '$&,'));
 }
