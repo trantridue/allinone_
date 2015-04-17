@@ -192,7 +192,7 @@ class ProviderService {
 			// insert fund_change_histo fund 1
 			if($amount1 !=0 && $provider_paid_id !=null) {
 				$qry = "insert into fund_change_histo(fund_id,amount,date,description,ratio,user_id) 
-					values (".$fund_id_1.",".$amount1.",now(),'"."Trả nợ : ".$_REQUEST ['paid_provider_name']." | ".$_REQUEST ['paid_description']."',1,".$_SESSION ['id_of_user'].")";
+					values (".$fund_id_1.",(0-".$amount1."),now(),'"."Trả nợ : ".$_REQUEST ['paid_provider_name']." | ".$_REQUEST ['paid_description']."',1,".$_SESSION ['id_of_user'].")";
 				$str = $str && (mysql_query ( $qry, $this->connection ) != null);
 				
 				$qry = "insert into provider_paid_fund_change_histo(fund_change_histo_id,provider_paid_id)
@@ -202,7 +202,7 @@ class ProviderService {
 			// insert fund_change_histo fund 2
 			if($amount2 !=0 && $provider_paid_id !=null) {
 				$qry = "insert into fund_change_histo(fund_id,amount,date,description,ratio,user_id) 
-					values (".$fund_id_2.",".$amount2.",now(),'"."Trả nợ : ".$_REQUEST ['paid_provider_name']." | ".$_REQUEST ['paid_description']."',1,".$_SESSION ['id_of_user'].")";
+					values (".$fund_id_2.",(0-".$amount2."),now(),'"."Trả nợ : ".$_REQUEST ['paid_provider_name']." | ".$_REQUEST ['paid_description']."',1,".$_SESSION ['id_of_user'].")";
 				$str = $str && (mysql_query ( $qry, $this->connection ) != null);
 				
 				$qry = "insert into provider_paid_fund_change_histo(fund_change_histo_id,provider_paid_id)
@@ -212,7 +212,7 @@ class ProviderService {
 			// insert fund_change_histo fund 3
 			if($amount3 !=0 && $provider_paid_id !=null) {
 				$qry = "insert into fund_change_histo(fund_id,amount,date,description,ratio,user_id) 
-					values (".$fund_id_3.",".$amount3.",now(),'"."Trả nợ : ".$_REQUEST ['paid_provider_name']." | ".$_REQUEST ['paid_description']."',1,".$_SESSION ['id_of_user'].")";
+					values (".$fund_id_3.",(0-".$amount3."),now(),'"."Trả nợ : ".$_REQUEST ['paid_provider_name']." | ".$_REQUEST ['paid_description']."',1,".$_SESSION ['id_of_user'].")";
 				$str = $str && (mysql_query ( $qry, $this->connection ) != null);
 				
 				$qry = "insert into provider_paid_fund_change_histo(fund_change_histo_id,provider_paid_id) 
