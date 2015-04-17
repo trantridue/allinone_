@@ -137,7 +137,16 @@ echo "</script> ";
 					}
 					echo "<td><a onclick='edit".$datatable_id."(\"".$str."\");' href='javascript:void(0);'><div class='editIcon'></div></a></td>";
 				} else if ($key == 'Delete') {
-					echo "<td><a onclick='delete" . $datatable_id . "(" . $rows [$value] . ");' href='javascript:void(0);'><div class='deleteIcon'></div></a></td>";
+					$fields = explode ( ",", $value );
+					$str = "";
+					for($i = 0; $i < sizeof ( $fields ); $i ++) {
+						if($i==sizeof ( $fields )-1){
+							$str = $str . $rows [$fields [$i]];
+						}else {
+							$str = $str . $rows [$fields [$i]] . ",";
+						}
+					}
+					echo "<td><a onclick='delete" . $datatable_id . "(" . $str . ");' href='javascript:void(0);'><div class='deleteIcon'></div></a></td>";
 				} else if ($value == 'status') {
 					if($rows [$value]=='y'){
 						echo "<td style='color:green;font-weight:bold'> Active </td>";

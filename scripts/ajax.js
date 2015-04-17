@@ -483,61 +483,67 @@ function paidMoneyProvider() {
 		url : paidMoneyProvider,
 		success : function(data) {
 			if (data == 'true') {
-				$('#rightpaid').load("modules/provider/paid_right.php?id="+idprovider);
+				$('#rightpaid').load(
+						"modules/provider/paid_right.php?id=" + idprovider);
 				listProvider();
-				$('#paid_paid_update').html(parseInt($('#paid_paid_update').html()) + parseInt($('#paid_amount_1').val()) + parseInt($('#paid_amount_2').val()) + parseInt($('#paid_amount_3').val()));
-				$('#paid_remain_update').html(parseInt($('#paid_remain_update').html()) - parseInt($('#paid_amount_1').val()) - parseInt($('#paid_amount_2').val()) - parseInt($('#paid_amount_3').val()));
-				$('#paid_remaining').val(parseInt($('#paid_remain_update').html()));
+				$('#paid_paid_update').html(
+						parseInt($('#paid_paid_update').html())
+								+ parseInt($('#paid_amount_1').val())
+								+ parseInt($('#paid_amount_2').val())
+								+ parseInt($('#paid_amount_3').val()));
+				$('#paid_remain_update').html(
+						parseInt($('#paid_remain_update').html())
+								- parseInt($('#paid_amount_1').val())
+								- parseInt($('#paid_amount_2').val())
+								- parseInt($('#paid_amount_3').val()));
+				$('#paid_remaining').val(
+						parseInt($('#paid_remain_update').html()));
 				$('#paid_amount_1').val(0);
 				$('#paid_amount_2').val(0);
 				$('#paid_amount_3').val(0);
-			}
-			else
+			} else
 				alert('error paid money provider!');
 		}
 	});
 }
-function deletepaidhisto(idpad) {
-	alert('aa');
+function deletepaidhisto(idpad, amount) {
 	var provider_id = $('#paid_provider_id').val();
-	var urls = 'modules/provider/paiddelete.php?idpad=' + idpad + "&idprovider=" + provider_id;
+	var oldremain = parseInt($('#paid_remain_update').html());
+	var paid = parseInt($('#paid_paid_update').html());
+	var urls = 'modules/provider/paiddelete.php?idpad=' + idpad
+			+ "&idprovider=" + provider_id;
 	$.ajax( {
 		url : urls,
 		success : function(data) {
 			if (data == 'true') {
-				$('#rightpaid').load("modules/provider/paid_right.php?id="+provider_id);
+				$('#rightpaid').load(
+						"modules/provider/paid_right.php?id=" + provider_id);
 				listProvider();
-			}
-			else
+				$('#paid_remain_update').html(oldremain + amount);
+				$('#paid_paid_update').html(paid - amount);
+			} else
 				alert('error delete payment!');
 		}
 	});
 }
-function getPaidProviderInformation(){
+function getPaidProviderInformation() {
 	var str = "";
 	var id_paid_fund_1 = "?id_paid_fund_1=" + $('#id_paid_fund_1').val();
 	var id_paid_fund_2 = "&id_paid_fund_2=" + $('#id_paid_fund_2').val();
 	var id_paid_fund_3 = "&id_paid_fund_3=" + $('#id_paid_fund_3').val();
-	
+
 	var paid_amount_1 = "&paid_amount_1=" + $('#paid_amount_1').val();
 	var paid_amount_2 = "&paid_amount_2=" + $('#paid_amount_2').val();
 	var paid_amount_3 = "&paid_amount_3=" + $('#paid_amount_3').val();
-	
+
 	var paid_description = "&paid_description=" + $('#paid_description').val();
 	var paid_provider_id = "&paid_provider_id=" + $('#paid_provider_id').val();
 	var paid_description = "&paid_description=" + $('#paid_description').val();
-	var paid_provider_name = "&paid_provider_name=" + $('#paid_provider_name').val();
-	
-	str = str 
-	+ id_paid_fund_1
-	+ id_paid_fund_2
-	+ id_paid_fund_3
-	+ paid_amount_1
-	+ paid_amount_2
-	+ paid_amount_3
-	+ paid_description
-	+ paid_provider_id
-	+ paid_provider_name
-		;
+	var paid_provider_name = "&paid_provider_name="
+			+ $('#paid_provider_name').val();
+
+	str = str + id_paid_fund_1 + id_paid_fund_2 + id_paid_fund_3
+			+ paid_amount_1 + paid_amount_2 + paid_amount_3 + paid_description
+			+ paid_provider_id + paid_provider_name;
 	return processUrlString(str);
 }
