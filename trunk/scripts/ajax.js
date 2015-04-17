@@ -482,7 +482,7 @@ function paidMoneyProvider() {
 	$.ajax( {
 		url : paidMoneyProvider,
 		success : function(data) {
-			if (data != null) {
+			if (data == 'true') {
 				$('#rightpaid').load("modules/provider/paid_right.php?id="+idprovider);
 				listProvider();
 				$('#paid_paid_update').html(parseInt($('#paid_paid_update').html()) + parseInt($('#paid_amount_1').val()) + parseInt($('#paid_amount_2').val()) + parseInt($('#paid_amount_3').val()));
@@ -491,7 +491,7 @@ function paidMoneyProvider() {
 				$('#paid_amount_1').val(0);
 				$('#paid_amount_2').val(0);
 				$('#paid_amount_3').val(0);
-//				alert(data);
+				alert(data);
 			}
 			else
 				alert('error paid money provider!');
