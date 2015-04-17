@@ -1,4 +1,5 @@
 ﻿#prepare table shop
+truncate table product_return;
 truncate table provider_paid_fund_change_histo;
 truncate table fund_change_histo;
 truncate table provider_paid;
@@ -115,3 +116,7 @@ SELECT id,CONVERT(CONVERT(CONVERT(name USING latin1) USING binary) USING utf8),C
 
 insert into fund_change_histo(id,fund_id,amount,date,description,ratio,user_id)
 SELECT id,cash_id,amount,inputdate,CONVERT(CONVERT(CONVERT(description USING latin1) USING binary) USING utf8),ratio,users_id FROM `zabuzach_store`.`cash_histo`;
+insert into product_return (product_code,quantity,date,description,provider_id,return_price)
+select t1.product_code,t1.quantity,t1.date,'migrated',t1.providers_id,
+(select import_price from product_import where product_code =t1.product_code limit 1)
+from zabuzach_store.return_provider t1;
