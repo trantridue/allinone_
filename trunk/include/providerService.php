@@ -165,6 +165,7 @@ class ProviderService {
 	}
 	function paidMoneyProvider($parameterPaid){
 		session_start();
+		mysql_query ( "BEGIN" );
 		$amount1 = $parameterPaid['paid_amount_1'];
 		$amount2 = $parameterPaid['paid_amount_2'];
 		$amount3 = $parameterPaid['paid_amount_3'];
@@ -215,13 +216,16 @@ class ProviderService {
 			$str = $str && (mysql_query ( $qry, $this->connection ) != null);
 			
 			$qry = "insert into provider_paid_fund_change_histo(fund_change_histo_id,provider_paid_id) 
-					values (".mysql_insert_id ().",".$provider_paid_id.")";
+					values (".mysql_insert_id ().",,".$provider_paid_id.")";
 			$str = $str && (mysql_query ( $qry, $this->connection ) != null);
 		}
-		if($str==false) 
-			echo "false"; 
-		else 
+		if($str==false) {
+			mysql_query ( "ROLLBACK" );
+			echo "false";
+		} else {
+			mysql_query ( "COMMIT" );
 			echo "true";
+		}
 		
 	}
 }
