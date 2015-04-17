@@ -497,6 +497,22 @@ function paidMoneyProvider() {
 		}
 	});
 }
+function deletepaidhisto(idpad) {
+	alert('aa');
+	var provider_id = $('#paid_provider_id').val();
+	var urls = 'modules/provider/paiddelete.php?idpad=' + idpad + "&idprovider=" + provider_id;
+	$.ajax( {
+		url : urls,
+		success : function(data) {
+			if (data == 'true') {
+				$('#rightpaid').load("modules/provider/paid_right.php?id="+provider_id);
+				listProvider();
+			}
+			else
+				alert('error delete payment!');
+		}
+	});
+}
 function getPaidProviderInformation(){
 	var str = "";
 	var id_paid_fund_1 = "?id_paid_fund_1=" + $('#id_paid_fund_1').val();

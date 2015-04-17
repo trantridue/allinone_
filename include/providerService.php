@@ -45,31 +45,31 @@ class ProviderService {
 		FROM product_import where import_facture_code in
 		(select code from import_facture where provider_id = t1.id)) as total, (select sum(amount) from provider_paid where provider_id=t1.id) as paid
 		 FROM provider t1  
-		 where t1.name like '%" . $parameterArray['provider_name'] . "%') t2 
-		 where t2.tel like '%".$parameterArray['provider_tel']."%'";
-		if($parameterArray['provider_address'] != null){
-			$qry = $qry." and t2.address like '%".$parameterArray['provider_address']."%'";
+		 where t1.name like '%" . $parameterArray ['provider_name'] . "%') t2 
+		 where t2.tel like '%" . $parameterArray ['provider_tel'] . "%'";
+		if ($parameterArray ['provider_address'] != null) {
+			$qry = $qry . " and t2.address like '%" . $parameterArray ['provider_address'] . "%'";
 		}
-		if($parameterArray['provider_description'] != null){
-			$qry = $qry." and t2.description like '%".$parameterArray['provider_description']."%'";
+		if ($parameterArray ['provider_description'] != null) {
+			$qry = $qry . " and t2.description like '%" . $parameterArray ['provider_description'] . "%'";
 		}
-		if($parameterArray['total_from'] != null){
-			$qry = $qry." and ifnull(t2.total,0) >= ".$parameterArray['total_from'];
+		if ($parameterArray ['total_from'] != null) {
+			$qry = $qry . " and ifnull(t2.total,0) >= " . $parameterArray ['total_from'];
 		}
-		if($parameterArray['total_to'] != null){
-			$qry = $qry." and ifnull(t2.total,0) <= ".$parameterArray['total_to'];
+		if ($parameterArray ['total_to'] != null) {
+			$qry = $qry . " and ifnull(t2.total,0) <= " . $parameterArray ['total_to'];
 		}
-		if($parameterArray['paid_from'] != null){
-			$qry = $qry." and ifnull(t2.paid,0) >= ".$parameterArray['paid_from'];
+		if ($parameterArray ['paid_from'] != null) {
+			$qry = $qry . " and ifnull(t2.paid,0) >= " . $parameterArray ['paid_from'];
 		}
-		if($parameterArray['paid_to'] != null){
-			$qry = $qry." and ifnull(t2.paid,0) <= ".$parameterArray['paid_to'];
+		if ($parameterArray ['paid_to'] != null) {
+			$qry = $qry . " and ifnull(t2.paid,0) <= " . $parameterArray ['paid_to'];
 		}
-		if($parameterArray['remain_from'] != null){
-			$qry = $qry." and (ifnull(t2.total,0)-ifnull(t2.paid,0)) >= ".$parameterArray['remain_from'];
+		if ($parameterArray ['remain_from'] != null) {
+			$qry = $qry . " and (ifnull(t2.total,0)-ifnull(t2.paid,0)) >= " . $parameterArray ['remain_from'];
 		}
-		if($parameterArray['remain_to'] != null){
-			$qry = $qry." and (ifnull(t2.total,0)-ifnull(t2.paid,0)) <= ".$parameterArray['remain_to'];
+		if ($parameterArray ['remain_to'] != null) {
+			$qry = $qry . " and (ifnull(t2.total,0)-ifnull(t2.paid,0)) <= " . $parameterArray ['remain_to'];
 		}
 		$result = mysql_query ( $qry, $this->connection );
 		$array_column = array (
@@ -79,10 +79,10 @@ class ProviderService {
 				"remain" => "Remain",
 				"tel" => "Tel",
 				"address" => "Address",
-// 				"description" => "Description",
+				// "description" => "Description",
 				"date" => "Modify date",
 				"id,name,tel,address,description" => "Edit",
-				"id" => "Delete"
+				"id" => "Delete" 
 		);
 		$array_total = array (
 				1 => "Tổng nợ",
@@ -112,114 +112,117 @@ class ProviderService {
 	}
 	function getProviderParameters() {
 		$parameterArray = array (
-		'provider_name' => $_REQUEST ['provider_name'], 
-		'provider_tel' => $_REQUEST ['provider_tel'], 
-		'provider_address' => $_REQUEST ['provider_address'], 
-		'provider_description' => $_REQUEST ['provider_description'], 
-		'total_from' => $_REQUEST ['total_from'], 
-		'total_to' => $_REQUEST ['total_to'], 
-		'paid_from' => $_REQUEST ['paid_from'],
-		'paid_to' => $_REQUEST ['paid_to'], 
-		'remain_from' => $_REQUEST ['remain_from'], 
-		'remain_to' => $_REQUEST ['remain_to'] );
+				'provider_name' => $_REQUEST ['provider_name'],
+				'provider_tel' => $_REQUEST ['provider_tel'],
+				'provider_address' => $_REQUEST ['provider_address'],
+				'provider_description' => $_REQUEST ['provider_description'],
+				'total_from' => $_REQUEST ['total_from'],
+				'total_to' => $_REQUEST ['total_to'],
+				'paid_from' => $_REQUEST ['paid_from'],
+				'paid_to' => $_REQUEST ['paid_to'],
+				'remain_from' => $_REQUEST ['remain_from'],
+				'remain_to' => $_REQUEST ['remain_to'] 
+		);
 		return $parameterArray;
 	}
 	function getPaidParameters() {
 		$parameterArray = array (
-		'id_paid_fund_1' => $_REQUEST ['id_paid_fund_1'], 
-		'id_paid_fund_2' => $_REQUEST ['id_paid_fund_1'], 
-		'id_paid_fund_3' => $_REQUEST ['id_paid_fund_1'], 
-		'paid_amount_1' => $_REQUEST ['paid_amount_1'], 
-		'paid_amount_2' => $_REQUEST ['paid_amount_2'], 
-		'paid_amount_3' => $_REQUEST ['paid_amount_3'], 
-		'paid_description' => $_REQUEST ['paid_description'],
-		'paid_provider_id' => $_REQUEST ['paid_provider_id'], 
-		'paid_provider_name' => $_REQUEST ['paid_provider_name'] );
+				'id_paid_fund_1' => $_REQUEST ['id_paid_fund_1'],
+				'id_paid_fund_2' => $_REQUEST ['id_paid_fund_1'],
+				'id_paid_fund_3' => $_REQUEST ['id_paid_fund_1'],
+				'paid_amount_1' => $_REQUEST ['paid_amount_1'],
+				'paid_amount_2' => $_REQUEST ['paid_amount_2'],
+				'paid_amount_3' => $_REQUEST ['paid_amount_3'],
+				'paid_description' => $_REQUEST ['paid_description'],
+				'paid_provider_id' => $_REQUEST ['paid_provider_id'],
+				'paid_provider_name' => $_REQUEST ['paid_provider_name'] 
+		);
+		return $parameterArray;
+	}
+	function getPaidParametersDelete() {
+		$parameterArray = array (
+				'idpad' => $_REQUEST ['idpad'],
+				'idprovider' => $_REQUEST ['idprovider'] 
+		);
 		return $parameterArray;
 	}
 	function listFactureProvider($provider_id) {
-	$qry = "select t1.*,date_format(t1.date,'%Y/%m/%d') as date1,(select sum(quantity*import_price) from product_import where import_facture_code = t1.code) as total from import_facture t1 where t1.provider_id = " .$provider_id;
+		$qry = "select t1.*,date_format(t1.date,'%Y/%m/%d') as date1,(select sum(quantity*import_price) from product_import where import_facture_code = t1.code) as total from import_facture t1 where t1.provider_id = " . $provider_id;
 		$result = mysql_query ( $qry, $this->connection );
 		$array_column = array (
 				"code" => "Facture",
 				"total" => "Total",
 				"date1" => "Date",
 				"description" => "Description",
-				"deadline" => "Deadline"
+				"deadline" => "Deadline" 
 		);
-		$this->commonService->generateJSDatatableSimple ("histofacture", 0, 'desc');
+		$this->commonService->generateJSDatatableSimple ( "histofacture", 0, 'desc' );
 		$this->commonService->generateJqueryDatatable ( $result, "histofacture", $array_column );
 	}
 	function listPaidHisto($provider_id) {
-	$qry = "select t1.*,date_format(t1.date,'%Y/%m/%d_%H:%i:%s') as date1 from provider_paid t1 where t1.provider_id = " .$provider_id;
+		$qry = "select t1.*,date_format(t1.date,'%Y/%m/%d_%H:%i:%s') as date1 from provider_paid t1 where t1.provider_id = " . $provider_id;
 		$result = mysql_query ( $qry, $this->connection );
 		$array_column = array (
 				"id" => "Delete",
 				"amount" => "amount",
 				"date1" => "Date",
-				"description" => "Description"
-				
+				"description" => "Description" 
 		);
-		$this->commonService->generateJSDatatableSimple ("paidhisto", 2, 'desc');
+		$this->commonService->generateJSDatatableSimple ( "paidhisto", 2, 'desc' );
 		$this->commonService->generateJqueryDatatable ( $result, "paidhisto", $array_column );
 	}
-	function paidMoneyProvider($parameterPaid){
-		session_start();
+	function paidMoneyProvider($parameterPaid) {
+		session_start ();
 		mysql_query ( "BEGIN" );
-		$amount1 = $parameterPaid['paid_amount_1'];
-		$amount2 = $parameterPaid['paid_amount_2'];
-		$amount3 = $parameterPaid['paid_amount_3'];
+		$amount1 = $parameterPaid ['paid_amount_1'];
+		$amount2 = $parameterPaid ['paid_amount_2'];
+		$amount3 = $parameterPaid ['paid_amount_3'];
 		
 		$fund_id_1 = $_REQUEST ['id_paid_fund_1'];
 		$fund_id_2 = $_REQUEST ['id_paid_fund_2'];
 		$fund_id_3 = $_REQUEST ['id_paid_fund_3'];
-		$desc = " | ".$fund_id_1.":".$amount1
-			   ." | ". $fund_id_2.":".$amount2
-			   ." | ". $fund_id_3.":".$amount3." | "
-		;
+		$desc = " | " . $fund_id_1 . ":" . $amount1 . " | " . $fund_id_2 . ":" . $amount2 . " | " . $fund_id_3 . ":" . $amount3 . " | ";
 		$str = true;
 		
-		$amount =  $amount1 + $amount2 + $amount3;
-		//insert provider_paid first
-		$qry = "insert into provider_paid(provider_id,amount,date,description) values (" 
-		. $parameterPaid['paid_provider_id'] . ","
-		. $amount.",now(),'".$parameterPaid['paid_description'].$desc."')";
-		if($amount != 0) {
+		$amount = $amount1 + $amount2 + $amount3;
+		// insert provider_paid first
+		$qry = "insert into provider_paid(provider_id,amount,date,description) values (" . $parameterPaid ['paid_provider_id'] . "," . $amount . ",now(),'" . $parameterPaid ['paid_description'] . $desc . "')";
+		if ($amount != 0) {
 			$str = $str && (mysql_query ( $qry, $this->connection ) != null);
-		
+			
 			$provider_paid_id = mysql_insert_id ();
 			
 			// insert fund_change_histo fund 1
-			if($amount1 !=0 && $provider_paid_id !=null) {
+			if ($amount1 != 0 && $provider_paid_id != null) {
 				$qry = "insert into fund_change_histo(fund_id,amount,date,description,ratio,user_id) 
-					values (".$fund_id_1.",(0-".$amount1."),now(),'"."Trả nợ : ".$_REQUEST ['paid_provider_name']." | ".$_REQUEST ['paid_description']."',1,".$_SESSION ['id_of_user'].")";
+					values (" . $fund_id_1 . ",(0-" . $amount1 . "),now(),'" . "Trả nợ : " . $_REQUEST ['paid_provider_name'] . " | " . $_REQUEST ['paid_description'] . "',1," . $_SESSION ['id_of_user'] . ")";
 				$str = $str && (mysql_query ( $qry, $this->connection ) != null);
 				
 				$qry = "insert into provider_paid_fund_change_histo(fund_change_histo_id,provider_paid_id)
-					values (".mysql_insert_id ().",".$provider_paid_id.")";
+					values (" . mysql_insert_id () . "," . $provider_paid_id . ")";
 				$str = $str && (mysql_query ( $qry, $this->connection ) != null);
 			}
 			// insert fund_change_histo fund 2
-			if($amount2 !=0 && $provider_paid_id !=null) {
+			if ($amount2 != 0 && $provider_paid_id != null) {
 				$qry = "insert into fund_change_histo(fund_id,amount,date,description,ratio,user_id) 
-					values (".$fund_id_2.",(0-".$amount2."),now(),'"."Trả nợ : ".$_REQUEST ['paid_provider_name']." | ".$_REQUEST ['paid_description']."',1,".$_SESSION ['id_of_user'].")";
+					values (" . $fund_id_2 . ",(0-" . $amount2 . "),now(),'" . "Trả nợ : " . $_REQUEST ['paid_provider_name'] . " | " . $_REQUEST ['paid_description'] . "',1," . $_SESSION ['id_of_user'] . ")";
 				$str = $str && (mysql_query ( $qry, $this->connection ) != null);
 				
 				$qry = "insert into provider_paid_fund_change_histo(fund_change_histo_id,provider_paid_id)
-					values (".mysql_insert_id ().",".$provider_paid_id.")";
+					values (" . mysql_insert_id () . "," . $provider_paid_id . ")";
 				$str = $str && (mysql_query ( $qry, $this->connection ) != null);
 			}
 			// insert fund_change_histo fund 3
-			if($amount3 !=0 && $provider_paid_id !=null) {
+			if ($amount3 != 0 && $provider_paid_id != null) {
 				$qry = "insert into fund_change_histo(fund_id,amount,date,description,ratio,user_id) 
-					values (".$fund_id_3.",(0-".$amount3."),now(),'"."Trả nợ : ".$_REQUEST ['paid_provider_name']." | ".$_REQUEST ['paid_description']."',1,".$_SESSION ['id_of_user'].")";
+					values (" . $fund_id_3 . ",(0-" . $amount3 . "),now(),'" . "Trả nợ : " . $_REQUEST ['paid_provider_name'] . " | " . $_REQUEST ['paid_description'] . "',1," . $_SESSION ['id_of_user'] . ")";
 				$str = $str && (mysql_query ( $qry, $this->connection ) != null);
 				
 				$qry = "insert into provider_paid_fund_change_histo(fund_change_histo_id,provider_paid_id) 
-						values (".mysql_insert_id ().",".$provider_paid_id.")";
+						values (" . mysql_insert_id () . "," . $provider_paid_id . ")";
 				$str = $str && (mysql_query ( $qry, $this->connection ) != null);
 			}
-			if($str==false) {
+			if ($str == false) {
 				mysql_query ( "ROLLBACK" );
 				echo "false";
 			} else {
@@ -228,6 +231,28 @@ class ProviderService {
 			}
 		} else {
 			mysql_query ( "ROLLBACK" );
+		}
+	}
+	function paidDelete($parameterPaidDelete) {
+		session_start ();
+		mysql_query ( "BEGIN" );
+		
+		$str = true;
+		
+		// delete casscade
+		$qry = "delete from fund_change_histo where id in (select fund_change_histo_id from provider_paid_fund_change_histo where provider_paid_id = " . $parameterPaidDelete ['idpad'] . ")";
+		$str = $str && (mysql_query ( $qry, $this->connection ) != null);
+		
+		$qry = "delete from provider_paid where id = ".$parameterPaidDelete ['idpad'];
+		
+		$str = $str && (mysql_query ( $qry, $this->connection ) != null);
+		
+		if ($str == false) {
+			mysql_query ( "ROLLBACK" );
+			echo "false";
+		} else {
+			mysql_query ( "COMMIT" );
+			echo "true";
 		}
 	}
 }
