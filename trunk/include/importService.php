@@ -136,7 +136,7 @@ class ImportService {
 			if ($parameterArray ['export_price'] != '')
 				$qry = $qry . " and t2.export_price = " . $parameterArray ['export_price'];
 		}
-		$qry = $qry . " order by t3.date desc";
+		$qry = $qry . "  order by t2.code desc";
 //		 echo $qry;
 		$this->processImportQuery($qry);
 		
@@ -416,6 +416,7 @@ class ImportService {
 		echo mysql_query ( $qry, $this->connection );
 	}
 	function updateImportProduct($parameterArray){
+		$isSuccess = true;
 		$qry_facture = "update import_facture set 
 						provider_id = ".$parameterArray['id_edit_provider'].", 
 						date = '".$parameterArray['edit_import_date']." ". date('H:i:s')."',
@@ -433,19 +434,20 @@ class ImportService {
 						brand_id=".$parameterArray['id_edit_brand'] ."
 						where code = '".$parameterArray['edit_product_code']."'";
 		$qry_product_import = "update product_import set 
-						quantity=".$parameterArray['edit_quantity'] ."
+						quantity=".$parameterArray['edit_quantity'] .", 
+						import_price = ".$parameterArray['edit_import_price']." 
 						where id = ".$parameterArray['edit_id'];
 		
 		$qry_insert_deviation = "insert into product_deviation(product_code,quantity, date) values 
 						('".$parameterArray['edit_product_code']."',".$parameterArray['edit_deviation'].",now())";
 		
-		$result_facture = mysql_query ( $qry_facture, $this->connection );
-		$result_product = mysql_query ( $qry_product, $this->connection );
-		$result_product_import = mysql_query ( $qry_product_import, $this->connection );
+		$isSuccess = $isSuccess && (mysql_query ( $qry_facture, $this->connection ) != null);
+		$isSuccess = $isSuccess && (mysql_query ( $qry_product, $this->connection ) != null);
+		$isSuccess = $isSuccess && (mysql_query ( $qry_product_import, $this->connection ) != null);
 //		$result_deviation = null;
 		if($parameterArray['edit_deviation'] != 0)
-		$result_deviation = mysql_query ( $qry_insert_deviation, $this->connection );
-		echo $result_facture.$result_product.$result_product_import.$result_deviation;
+			$isSuccess = $isSuccess && (mysql_query ( $qry_product_import, $this->connection ) != null);
+		if($isSuccess) echo "success";
 // 		echo $qry_product;
 	}
 	function listProductReturnDefault() {

@@ -32,14 +32,18 @@ function listUser() {
 }
 
 function deleteuser(userid) {
-	var deleteuser = 'modules/user/deleteuser.php?userid=' + userid;
-	$.ajax( {
-		url : deleteuser,
-		success : function(data) {
-			var actionType = "delete";
-			userpostaction(data, actionType);
-		}
-	});
+	if(confirm('Are you sure to delete?')) {
+		var deleteuser = 'modules/user/deleteuser.php?userid=' + userid;
+		$.ajax( {
+			url : deleteuser,
+			success : function(data) {
+				var actionType = "delete";
+				userpostaction(data, actionType);
+			}
+		});
+	} else {
+		return false;
+	}
 }
 function edituser(str) {
 	var inputUrl = processUrlString(str);
@@ -230,8 +234,8 @@ function buildSearchImportCriteria() {
 			+ export_price_to + remain_quantity_to + product_code_to;
 	return processUrlString(criteriaString);
 }
-function listProduct() {
-	var url = "modules/import/listproduct.php?" + buildSearchImportCriteria();
+function listProduct(isdefault) {
+	var url = "modules/import/listproduct.php?" + buildSearchImportCriteria(isdefault);
 	$('#mainListArea').load(url);
 }
 function show_product_season_id(url) {
@@ -259,7 +263,7 @@ function insertReturnProduct(codes, quantities, descriptions, providers) {
 	});
 }
 function updateSaleListProduct() {
-	var updatesaleproduct = 'modules/import/updatesaleproduct.php?' + buildSearchImportCriteria();
+	var updatesaleproduct = 'modules/import/updatesaleproduct.php?' + buildSearchImportCriteria('false');
 	alert(updatesaleproduct);
 	$.ajax( {
 		url : updatesaleproduct,
@@ -309,24 +313,33 @@ function editprovider(str) {
 	$('#paidArea').hide();
 }
 function deleteprovider(providerid) {
-	var deleteprovider = 'modules/provider/deleteprovider.php?providerid=' + providerid;
-	$.ajax( {
-		url : deleteprovider,
-		success : function(data) {
-			var actionType = "delete";
-			providerpostaction(data, actionType);
-		}
-	});
+	if(confirm('Are you sure to delete?')) {
+		var deleteprovider = 'modules/provider/deleteprovider.php?providerid=' + providerid;
+		$.ajax( {
+			url : deleteprovider,
+			success : function(data) {
+				var actionType = "delete";
+				providerpostaction(data, actionType);
+			}
+		});
+	} else {
+		return false;
+	}
 }
 function deleteproduct(product_import_id) {
-	var delete_product_import_id = 'modules/import/deleteproductimport.php?productimportid=' + product_import_id;
-	$.ajax( {
-		url : delete_product_import_id,
-		success : function(data) {
-			var actionType = "delete";
-			productimportpostaction(data, actionType);
-		}
-	});
+	if(confirm('Are you sure to delete?')) {
+		$('#datefrom').val('2015-04-01');
+		var delete_product_import_id = 'modules/import/deleteproductimport.php?productimportid=' + product_import_id;
+		$.ajax( {
+			url : delete_product_import_id,
+			success : function(data) {
+				var actionType = "delete";
+				//productimportpostaction(data, actionType);
+			}
+		});
+	} else {
+		return false;
+	}
 }
 function buildSearchProviderCriteria() {
 	var criteriaString = "isdefault=false";
@@ -362,14 +375,18 @@ function editcustomer(str) {
 	$('#inputArea').load(url);
 }
 function deletecustomer(customerid) {
-	var deletecustomer = 'modules/customer/deletecustomer.php?customerid=' + customerid;
-	$.ajax( {
-		url : deletecustomer,
-		success : function(data) {
-			var actionType = "delete";
-			customerpostaction(data, actionType);
-		}
-	});
+	if(confirm('Are you sure to delete?')) {
+		var deletecustomer = 'modules/customer/deletecustomer.php?customerid=' + customerid;
+		$.ajax( {
+			url : deletecustomer,
+			success : function(data) {
+				var actionType = "delete";
+				customerpostaction(data, actionType);
+			}
+		});
+	}else {
+		return false;
+	}
 }
 function updateProduct() {
 	var updateproduct = 'modules/import/updateproductimport.php?' + buildProductImportCriteria();
@@ -452,16 +469,20 @@ function buildSearchNewsCriteria(isdefault) {
 	return processUrlString(criteriaString);
 }
 function deletenews(newsid) {
-	var deletenews = 'modules/news/deletenews.php?newsid=' + newsid;
-	$.ajax( {
-		url : deletenews,
-		success : function(data) {
-			if (data != null)
-				listNews('false');
-			else
-				alert('error deleting news!');
-		}
-	});
+	if(confirm('Are you sure to delete?')) {
+		var deletenews = 'modules/news/deletenews.php?newsid=' + newsid;
+		$.ajax( {
+			url : deletenews,
+			success : function(data) {
+				if (data != null)
+					listNews('false');
+				else
+					alert('error deleting news!');
+			}
+		});
+	} else {
+		return false;
+	}
 }
 function editnews(str) {
 	var inputUrl = processUrlString(str);
@@ -507,24 +528,32 @@ function paidMoneyProvider() {
 	});
 }
 function deletepaidhisto(idpad, amount) {
-	var provider_id = $('#paid_provider_id').val();
-	var oldremain = parseInt($('#paid_remain_update').html());
-	var paid = parseInt($('#paid_paid_update').html());
-	var urls = 'modules/provider/paiddelete.php?idpad=' + idpad
-			+ "&idprovider=" + provider_id;
-	$.ajax( {
-		url : urls,
-		success : function(data) {
-			if (data == 'true') {
-				$('#rightpaid').load(
-						"modules/provider/paid_right.php?id=" + provider_id);
-				listProvider();
-				$('#paid_remain_update').html(oldremain + amount);
-				$('#paid_paid_update').html(paid - amount);
-			} else
-				alert('error delete payment!');
-		}
-	});
+	if(confirm('Are you sure to delete?')) {
+		var provider_id = $('#paid_provider_id').val();
+		var oldremain = parseInt($('#paid_remain_update').html());
+		var paid = parseInt($('#paid_paid_update').html());
+		var urls = 'modules/provider/paiddelete.php?idpad=' + idpad
+				+ "&idprovider=" + provider_id;
+		$.ajax( {
+			url : urls,
+			success : function(data) {
+				if (data == 'true') {
+					$('#rightpaid').load(
+							"modules/provider/paid_right.php?id=" + provider_id);
+					listProvider();
+					$('#paid_remain_update').html(oldremain + amount);
+					$('#paid_remaining').val(oldremain + amount);
+					$('#paid_paid_update').html(paid - amount);
+					$('#paid_amount_1').val(0);
+					$('#paid_amount_2').val(0);
+					$('#paid_amount_3').val(0);
+				} else
+					alert('error delete payment!');
+			}
+		});
+	} else {
+		return false;
+	}
 }
 function getPaidProviderInformation() {
 	var str = "";
@@ -546,4 +575,11 @@ function getPaidProviderInformation() {
 			+ paid_amount_1 + paid_amount_2 + paid_amount_3 + paid_description
 			+ paid_provider_id + paid_provider_name;
 	return processUrlString(str);
+}
+function paidAllByFund(fundName){
+	$('#paid_amount_1').val(0);
+	$('#paid_amount_2').val(0);
+	$('#paid_amount_3').val(0);
+	$('#'+ fundName).val(parseInt($('#paid_remain_update').html()));
+	calculateProviderPaid();
 }
