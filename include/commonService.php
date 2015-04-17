@@ -20,7 +20,7 @@ class CommonService {
 			echo "$('#" . datatable_prefix . $datatable_id . "').dataTable(  ";
 					echo "{ ";
 						echo "'destroy': true, 
-						'order': [[ " . $ordercolumn . ", '" . $ordertype . "' ]],'pageLength': 20, 
+						'order': [[ " . $ordercolumn . ", '" . $ordertype . "' ]],'pageLength': 10, 
 						";
 						echo "'footerCallback' : function(row, data, start, end, ";
 								echo "display) { ";
