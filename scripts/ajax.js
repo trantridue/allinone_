@@ -1,4 +1,5 @@
 /* COMMON MODULE */
+var defaultItemAfterAjax = 100;
 function processUrlString(str) {
 	var key = new Array();
 	var value = new Array();
@@ -224,6 +225,7 @@ function buildSearchImportCriteria() {
 	var remain_quantity_to = "&remain_quantity_to="
 			+ $('#remain_quantity_to').val();
 	var product_code_to = "&product_code_to=" + $('#product_code_to').val();
+	var limit_search = "&limit_search=" + $('#limit_search').val();
 
 	criteriaString = criteriaString + product_code + product_name
 			+ provider_name + category_name + brand_name + season + season_id
@@ -231,11 +233,11 @@ function buildSearchImportCriteria() {
 			+ export_price + remain_quantity + datefrom + dateto
 			+ import_facture_code + sale + sex_value_search + sale_to
 			+ import_quantity_to + import_price_to + export_quantity_to
-			+ export_price_to + remain_quantity_to + product_code_to;
+			+ export_price_to + remain_quantity_to + product_code_to + limit_search;
 	return processUrlString(criteriaString);
 }
-function listProduct(isdefault) {
-	var url = "modules/import/listproduct.php?" + buildSearchImportCriteria(isdefault);
+function listProduct() {
+	var url = "modules/import/listproduct.php?" + buildSearchImportCriteria();
 	$('#mainListArea').load(url);
 }
 function show_product_season_id(url) {
@@ -263,13 +265,15 @@ function insertReturnProduct(codes, quantities, descriptions, providers) {
 	});
 }
 function updateSaleListProduct() {
-	var updatesaleproduct = 'modules/import/updatesaleproduct.php?' + buildSearchImportCriteria('false');
-	alert(updatesaleproduct);
+	var updatesaleproduct = 'modules/import/updatesaleproduct.php?' + buildSearchImportCriteria();
 	$.ajax( {
 		url : updatesaleproduct,
 		success : function(data) {
+		$('#listArea').html(data);
 			var actionType = "sale";
+			$('#limit_search').val(defaultItemAfterAjax);
 			updatesalepostaction(data, actionType);
+			$('#limit_search').val('');
 		}
 	});
 }
@@ -328,13 +332,12 @@ function deleteprovider(providerid) {
 }
 function deleteproduct(product_import_id) {
 	if(confirm('Are you sure to delete?')) {
-		$('#datefrom').val('2015-04-01');
 		var delete_product_import_id = 'modules/import/deleteproductimport.php?productimportid=' + product_import_id;
 		$.ajax( {
 			url : delete_product_import_id,
 			success : function(data) {
 				var actionType = "delete";
-				//productimportpostaction(data, actionType);
+				productimportpostaction(data, actionType);
 			}
 		});
 	} else {
@@ -390,13 +393,13 @@ function deletecustomer(customerid) {
 }
 function updateProduct() {
 	var updateproduct = 'modules/import/updateproductimport.php?' + buildProductImportCriteria();
-	// alert(updateproduct);
 	$.ajax( {
 		url : updateproduct,
 		success : function(data) {
-			// alert(data);
 		var actionType = "update";
+		$('#limit_search').val(defaultItemAfterAjax);
 		updateproductpostaction(data, actionType);
+		$('#limit_search').val('');
 	}
 	});
 }

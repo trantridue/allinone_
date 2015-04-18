@@ -113,6 +113,7 @@ SELECT id,providers_id,paid,date,CONVERT(CONVERT(CONVERT(description USING latin
 truncate fund;
 insert into fund(id,name,description)
 SELECT id,CONVERT(CONVERT(CONVERT(name USING latin1) USING binary) USING utf8),CONVERT(CONVERT(CONVERT(description USING latin1) USING binary) USING utf8) FROM `zabuzach_store`.`cash`;
+insert into fund (name, description) values ('BALANCE','CÂN ĐỐI CHI TRẢ');
 
 insert into fund_change_histo(id,fund_id,amount,date,description,ratio,user_id)
 SELECT id,cash_id,amount,inputdate,CONVERT(CONVERT(CONVERT(description USING latin1) USING binary) USING utf8),ratio,users_id FROM `zabuzach_store`.`cash_histo`;

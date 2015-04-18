@@ -48,7 +48,7 @@ class ImportService {
 				  FROM product_import t1,product t2,import_facture t3,provider t4, brand t5, category t6, season t7 where t1.product_code = t2.code 
 				and t1.import_facture_code = t3.code and t4.id = t3.provider_id and t5.id = t2.brand_id and t6.id = t2.category_id and t7.id = t2.season_id 
 				and t3.date >= '" . $dateBefore3Months . "' order by t2.code desc";
-		$this->processImportQuery($qry);
+		$this->processImportQuery ( $qry );
 	}
 	
 	function listProduct($parameterArray) {
@@ -66,37 +66,36 @@ class ImportService {
 				 and t1.import_facture_code = t3.code and t4.id = t3.provider_id 
 				 and t5.id = t2.brand_id and t6.id = t2.category_id and t7.id = t2.season_id ";
 		
-			if ($parameterArray ['product_name'] != '')
-				$qry = $qry . " and t2.name like '%" . $parameterArray ['product_name'] . "%'";
+		if ($parameterArray ['product_name'] != '')
+			$qry = $qry . " and t2.name like '%" . $parameterArray ['product_name'] . "%'";
 		
-			if ($parameterArray ['category_name'] != '')
-				$qry = $qry . " and t6.name like '%" . $parameterArray ['category_name'] . "%'";
+		if ($parameterArray ['category_name'] != '')
+			$qry = $qry . " and t6.name like '%" . $parameterArray ['category_name'] . "%'";
 		
-			if ($parameterArray ['provider_name'] != '')
-				$qry = $qry . " and t4.name like '%" . $parameterArray ['provider_name'] . "%'";
+		if ($parameterArray ['provider_name'] != '')
+			$qry = $qry . " and t4.name like '%" . $parameterArray ['provider_name'] . "%'";
 		
-			if ($parameterArray ['season_id'] != '')
-				$qry = $qry . " and t7.id like '%" . $parameterArray ['season_id'] . "%'";
-				
-			if ($parameterArray ['brand_name'] != '')
-				$qry = $qry . " and t5.name like '%" . $parameterArray ['brand_name'] . "%'";
-				
-			if ($parameterArray ['description'] != '')
-				$qry = $qry . " and (t3.description like '%" . $parameterArray ['description'] . "%' or t2.description like '%" . $parameterArray ['description'] . "%') ";
+		if ($parameterArray ['season_id'] != '')
+			$qry = $qry . " and t7.id like '%" . $parameterArray ['season_id'] . "%'";
 		
-			if ($parameterArray ['import_facture_code'] != '')
-				$qry = $qry . " and t3.code like '%" . $parameterArray ['import_facture_code'] . "%'";
+		if ($parameterArray ['brand_name'] != '')
+			$qry = $qry . " and t5.name like '%" . $parameterArray ['brand_name'] . "%'";
 		
-			if ($parameterArray ['datefrom'] != '')
-				$qry = $qry . " and DATE_FORMAT(t3.date, '%Y-%m-%d') >= '" . $parameterArray ['datefrom'] . "'";
-				
-			if ($parameterArray ['dateto'] != '')
-				$qry = $qry . " and DATE_FORMAT(t3.date, '%Y-%m-%d') <= '" . $parameterArray ['dateto'] . "'";
-				
-			if ($parameterArray ['sex_value_search'] != '')
-				$qry = $qry . " and t2.sex_id = " . $parameterArray ['sex_value_search'];
-				
-				
+		if ($parameterArray ['description'] != '')
+			$qry = $qry . " and (t3.description like '%" . $parameterArray ['description'] . "%' or t2.description like '%" . $parameterArray ['description'] . "%') ";
+		
+		if ($parameterArray ['import_facture_code'] != '')
+			$qry = $qry . " and t3.code like '%" . $parameterArray ['import_facture_code'] . "%'";
+		
+		if ($parameterArray ['datefrom'] != '')
+			$qry = $qry . " and DATE_FORMAT(t3.date, '%Y-%m-%d') >= '" . $parameterArray ['datefrom'] . "'";
+		
+		if ($parameterArray ['dateto'] != '')
+			$qry = $qry . " and DATE_FORMAT(t3.date, '%Y-%m-%d') <= '" . $parameterArray ['dateto'] . "'";
+		
+		if ($parameterArray ['sex_value_search'] != '')
+			$qry = $qry . " and t2.sex_id = " . $parameterArray ['sex_value_search'];
+		
 		if ($parameterArray ['isadvancedsearch'] == 'true') {
 			
 			if ($parameterArray ['product_code_to'] != '')
@@ -108,22 +107,22 @@ class ImportService {
 				$qry = $qry . " and t2.sale <= " . $parameterArray ['sale_to'];
 			if ($parameterArray ['sale'] != '')
 				$qry = $qry . " and t2.sale >= " . $parameterArray ['sale'];
-				
+			
 			if ($parameterArray ['import_price_to'] != '')
 				$qry = $qry . " and t1.import_price <= " . $parameterArray ['import_price_to'];
 			if ($parameterArray ['import_price'] != '')
-				$qry = $qry . " and t1.import_price >= " . $parameterArray ['import_price'] ;
+				$qry = $qry . " and t1.import_price >= " . $parameterArray ['import_price'];
 			
 			if ($parameterArray ['export_price_to'] != '')
 				$qry = $qry . " and t2.export_price <= " . $parameterArray ['export_price_to'];
 			if ($parameterArray ['export_price'] != '')
-				$qry = $qry . " and t2.export_price >= " . $parameterArray ['export_price'] ;
-				
+				$qry = $qry . " and t2.export_price >= " . $parameterArray ['export_price'];
+			
 			if ($parameterArray ['import_quantity_to'] != '')
 				$qry = $qry . " and (select sum(quantity) from product_import where product_code = t2.code group by product_code) <= " . $parameterArray ['import_quantity_to'];
 			if ($parameterArray ['import_quantity'] != '')
 				$qry = $qry . " and (select sum(quantity) from product_import where product_code = t2.code group by product_code) >= " . $parameterArray ['import_quantity'];
-			
+		
 		} else {
 			if ($parameterArray ['product_code'] != '')
 				$qry = $qry . " and t1.product_code like '%" . $parameterArray ['product_code'] . "%' ";
@@ -136,41 +135,29 @@ class ImportService {
 			if ($parameterArray ['export_price'] != '')
 				$qry = $qry . " and t2.export_price = " . $parameterArray ['export_price'];
 		}
+		if ($_REQUEST ['limit_search'] != '') {
+			$qry = $qry . "  and t3.date >=' " . $this->commonService->getDateBefore3Months () . "' ";
+		}
 		$qry = $qry . "  order by t2.code desc";
-//		 echo $qry;
-		$this->processImportQuery($qry);
-		
+		if ($_REQUEST ['limit_search'] != '') {
+			$qry = $qry . "  limit " . $_REQUEST ['limit_search'];
+		}
+//		echo $qry;
+		$this->processImportQuery ( $qry );
+	
 	}
-	function processImportQuery($qry){
+	function processImportQuery($qry) {
 		$result = mysql_query ( $qry, $this->connection );
 		$resulttmp = mysql_query ( $qry, $this->connection );
-		$this->commonService->generateJSDatatableComplex ( $result, 'product', 7, 'desc', $this->getArrayTotalImport() );
-		$this->commonService->generateJqueryDatatable ( $result, 'product', $this->getArrayColumnImport() );
-		$this->commonService->generateJqueryToolTipScript ( $resulttmp, 'product', $this->getArrayColumnImport() );
+		$this->commonService->generateJSDatatableComplex ( $result, 'product', 7, 'desc', $this->getArrayTotalImport () );
+		$this->commonService->generateJqueryDatatable ( $result, 'product', $this->getArrayColumnImport () );
+		$this->commonService->generateJqueryToolTipScript ( $resulttmp, 'product', $this->getArrayColumnImport () );
 	}
-	function getArrayTotalImport(){
+	function getArrayTotalImport() {
 		return array (3 => "Số lượng", 8 => "Tổng nhập", 9 => "Tổng NY" );
 	}
 	function getArrayColumnImport() {
-		return array (
-			"product_code,description" => "Mã hàng,product_code,image", 
-		    "deviation,provider_id,descript,date,provider_name,brand_name,category_name,season_name,id,product_code,quantity,import_facture_code,import_price,name,category_id,season_id,sex_id,export_price,description,brand_id,sale,link" => "Edit",
-			"name,description,descript" => "Tên Hàng,name", 
-			"quantity" => "Số lượng", 
-			"import_price" => "Giá nhập", 
-			"export_price" => "Giá bán", 
-			"sale" => "Sale", 
-			"import_facture_code,date" => "Mã Hóa Đơn,import_facture_code", 
-			"quantity*import_price" => "complex", 
-			"quantity*export_price" => "complex", 
-			"deviation" => "Lệch", 
-			"provider_id,provider_name,name" => "Cung Cấp,provider_name", 
-			"category_name" => "Loại", 
-			"sex_id" => "Giới tính", 
-			"brand_name" => "Hiệu", 
-			"season_id,season_name" => "Mùa,season_name",
-			"id" => "Delete", 
-			"quantity*export_price" => "complex" );
+		return array ("product_code,description" => "Mã hàng,product_code,image", "deviation,provider_id,descript,date,provider_name,brand_name,category_name,season_name,id,product_code,quantity,import_facture_code,import_price,name,category_id,season_id,sex_id,export_price,description,brand_id,sale,link" => "Edit", "name,description,descript" => "Tên Hàng,name", "quantity" => "Số lượng", "import_price" => "Giá nhập", "export_price" => "Giá bán", "sale" => "Sale", "import_facture_code,date" => "Mã Hóa Đơn,import_facture_code", "quantity*import_price" => "complex", "quantity*export_price" => "complex", "deviation" => "Lệch", "provider_id,provider_name,name" => "Cung Cấp,provider_name", "category_name" => "Loại", "sex_id" => "Giới tính", "brand_name" => "Hiệu", "season_id,season_name" => "Mùa,season_name", "id" => "Delete", "quantity*export_price" => "complex" );
 	}
 	
 	function currentMaxProductCode($i) {
@@ -266,7 +253,7 @@ class ImportService {
 		$jsonArray = array ();
 		
 		while ( $rows = mysql_fetch_array ( $result ) ) {
-			$labelvalue = $rows ['product_code'] . " : Đã trả lại: " . ($rows ['qtyreturned'] ? $rows ['qtyreturned'] : '0')." : ". $rows ['name'];
+			$labelvalue = $rows ['product_code'] . " : Đã trả lại: " . ($rows ['qtyreturned'] ? $rows ['qtyreturned'] : '0') . " : " . $rows ['name'];
 			$element = array (code => $rows ['product_code'], qty => $rows ['qty'], facture => $rows ['import_facture_code'], provider_name => $rows ['provider_name'], provider_id => $rows ['provider_id'], provider_id => $rows ['provider_id'], qtyreturned => $rows ['qtyreturned'] ? $rows ['qtyreturned'] : '0', import_price => $rows ['import_price'], name => $rows ['name'], value => $rows ['product_code'], label => $labelvalue );
 			
 			$jsonArray [] = $element;
@@ -335,10 +322,10 @@ class ImportService {
 		}
 	}
 	// START BUSINESS IMPORT PROJECT
-	function importProduct($totalRow, $continueImport, $provider_id, $import_facture_code, $description, $season, $codeArray, $codeExistedArray, $nameArray, $qtyArray, $postArray, $imprArray, $sexArray, $categoryIdArray, $brandIdArray, $descriptionArray, $sale,$deadline,$number_day_paid) {
+	function importProduct($totalRow, $continueImport, $provider_id, $import_facture_code, $description, $season, $codeArray, $codeExistedArray, $nameArray, $qtyArray, $postArray, $imprArray, $sexArray, $categoryIdArray, $brandIdArray, $descriptionArray, $sale, $deadline, $number_day_paid) {
 		// If import the new facture then
 		if ($continueImport != "true") {
-			$this->addFacture ( $import_facture_code, $provider_id, $description,$deadline,$number_day_paid );
+			$this->addFacture ( $import_facture_code, $provider_id, $description, $deadline, $number_day_paid );
 		}
 		$this->addProducts ( $totalRow, $season, $codeArray, $codeExistedArray, $nameArray, $postArray, $sexArray, $categoryIdArray, $brandIdArray, $descriptiondArray, $sale );
 		$this->addProductImport ( $totalRow, $import_facture_code, $codeArray, $qtyArray, $imprArray );
@@ -357,20 +344,20 @@ class ImportService {
 		$qry = substr ( $qry, 0, - 1 ) . ";";
 		mysql_query ( $qry, $this->connection );
 	}
-	function addFacture($import_facture_code, $provider_id, $description,$deadline,$number_day_paid) {
-		$insertDeadline='';
+	function addFacture($import_facture_code, $provider_id, $description, $deadline, $number_day_paid) {
+		$insertDeadline = '';
 		$date = $this->commonService->getFullDateTime ();
-		if($deadline != null ){
-			$insertDeadline = $deadline ." " .date("H:i:s");
+		if ($deadline != null) {
+			$insertDeadline = $deadline . " " . date ( "H:i:s" );
 		} else {
-			if($number_day_paid != null ){
-				$insertDeadline = date("Y-m-d H:i:s",strtotime($date."+ ".$number_day_paid." days"));
+			if ($number_day_paid != null) {
+				$insertDeadline = date ( "Y-m-d H:i:s", strtotime ( $date . "+ " . $number_day_paid . " days" ) );
 			} else {
-				$insertDeadline = date("Y-m-d H:i:s",strtotime($date."+ ".default_nbr_day_paid." days"));
+				$insertDeadline = date ( "Y-m-d H:i:s", strtotime ( $date . "+ " . default_nbr_day_paid . " days" ) );
 			}
 		}
 		$qry = "insert into import_facture(code,date,description,provider_id,deadline) 
-		values ('" . $import_facture_code . "','" . $this->commonService->getFullDateTime () . "','" . $description . "'," . $provider_id . ",'".$insertDeadline."')";
+		values ('" . $import_facture_code . "','" . $this->commonService->getFullDateTime () . "','" . $description . "'," . $provider_id . ",'" . $insertDeadline . "')";
 		mysql_query ( $qry, $this->connection );
 	}
 	function addProducts($totalRow, $season, $codeArray, $codeExistedArray, $nameArray, $postArray, $sexArray, $categoryIdArray, $brandIdArray, $descriptiondArray, $sale) {
@@ -407,48 +394,61 @@ class ImportService {
 		}
 		echo mysql_query ( $qry, $this->connection );
 	}
-	function updateSaleProduct($sale, $product_code, $product_name, $provider_name, $category_name, $brand_name, $season_id, $description) {
-		$qry = "update product set sale = " . $sale . " where code like '" . $product_code . "' and name like '" . $product_name . "' and category_id in (select id from category where name like '" . $category_name . "') and brand_id in (select id from brand where name like '" . $brand_name . "') and code in (select product_code from product_import where import_facture_code in (select code from import_facture where provider_id in (select id from provider where name like '" . $provider_name . "')))";
-		if ($season_id != null && $season_id != '') {
-			$qry = $qry . " and season_id =" . $season_id;
+	function updateSaleProduct($parameterArray) {
+		$qry = "update product set sale = " . $parameterArray['sale'] . " where code like '%" 
+		. $parameterArray['product_code'] . "%' and name like '%" 
+		. $parameterArray['product_name'] . "%' and category_id in (select id from category where name like '%" 
+		. $parameterArray['category_name'] . "%') and brand_id in (select id from brand where name like '%" 
+		. $parameterArray['brand_name'] . "%') and code in 
+		(select product_code from product_import where import_facture_code in 
+			(select code from import_facture where provider_id in 
+			(select id from provider where name like '%" 
+		. $parameterArray['provider_name'] . "%')))";
+		if ($parameterArray['season_id'] != null && $parameterArray['season_id'] != '') {
+			$qry = $qry . " and season_id =" . $parameterArray['season_id'];
 		}
-		// 		echo $qry;
+		if ($parameterArray ['datefrom'] != '')
+			$qry = $qry . " and code in (select product_code from product_import where import_facture_code in (select code from import_facture where DATE_FORMAT(date, '%Y-%m-%d') >='".$parameterArray ['datefrom']."'))";
+		
+		if ($parameterArray ['dateto'] != '')
+			$qry = $qry . " and code in (select product_code from product_import where import_facture_code in (select code from import_facture where DATE_FORMAT(date, '%Y-%m-%d') <='".$parameterArray ['dateto']."'))";
+//		echo $qry;
 		echo mysql_query ( $qry, $this->connection );
 	}
-	function updateImportProduct($parameterArray){
+	function updateImportProduct($parameterArray) {
 		$isSuccess = true;
 		$qry_facture = "update import_facture set 
-						provider_id = ".$parameterArray['id_edit_provider'].", 
-						date = '".$parameterArray['edit_import_date']." ". date('H:i:s')."',
-						description='".$parameterArray['edit_import_description']
-						."' where code = '".$parameterArray['edit_import_facture_code']."'";
+						provider_id = " . $parameterArray ['id_edit_provider'] . ", 
+						date = '" . $parameterArray ['edit_import_date'] . " " . date ( 'H:i:s' ) . "',
+						description='" . $parameterArray ['edit_import_description'] . "' where code = '" . $parameterArray ['edit_import_facture_code'] . "'";
 		$qry_product = "update product set 
-						name='".$parameterArray['edit_product_name'] ."',
-						description='".$parameterArray['edit_product_description'] ."',
-						link='".$parameterArray['edit_link'] ."',
-						category_id=".$parameterArray['id_edit_category'] .",
-						season_id=".$parameterArray['id_edit_season'] .",
-						sex_id=".$parameterArray['id_edit_sex'] .",
-						export_price=".$parameterArray['edit_export_price'] .",
-						sale=".$parameterArray['edit_sale'] .",
-						brand_id=".$parameterArray['id_edit_brand'] ."
-						where code = '".$parameterArray['edit_product_code']."'";
+						name='" . $parameterArray ['edit_product_name'] . "',
+						description='" . $parameterArray ['edit_product_description'] . "',
+						link='" . $parameterArray ['edit_link'] . "',
+						category_id=" . $parameterArray ['id_edit_category'] . ",
+						season_id=" . $parameterArray ['id_edit_season'] . ",
+						sex_id=" . $parameterArray ['id_edit_sex'] . ",
+						export_price=" . $parameterArray ['edit_export_price'] . ",
+						sale=" . $parameterArray ['edit_sale'] . ",
+						brand_id=" . $parameterArray ['id_edit_brand'] . "
+						where code = '" . $parameterArray ['edit_product_code'] . "'";
 		$qry_product_import = "update product_import set 
-						quantity=".$parameterArray['edit_quantity'] .", 
-						import_price = ".$parameterArray['edit_import_price']." 
-						where id = ".$parameterArray['edit_id'];
+						quantity=" . $parameterArray ['edit_quantity'] . ", 
+						import_price = " . $parameterArray ['edit_import_price'] . " 
+						where id = " . $parameterArray ['edit_id'];
 		
 		$qry_insert_deviation = "insert into product_deviation(product_code,quantity, date) values 
-						('".$parameterArray['edit_product_code']."',".$parameterArray['edit_deviation'].",now())";
+						('" . $parameterArray ['edit_product_code'] . "'," . $parameterArray ['edit_deviation'] . ",now())";
 		
 		$isSuccess = $isSuccess && (mysql_query ( $qry_facture, $this->connection ) != null);
 		$isSuccess = $isSuccess && (mysql_query ( $qry_product, $this->connection ) != null);
 		$isSuccess = $isSuccess && (mysql_query ( $qry_product_import, $this->connection ) != null);
-//		$result_deviation = null;
-		if($parameterArray['edit_deviation'] != 0)
+		//		$result_deviation = null;
+		if ($parameterArray ['edit_deviation'] != 0)
 			$isSuccess = $isSuccess && (mysql_query ( $qry_product_import, $this->connection ) != null);
-		if($isSuccess) echo "success";
-// 		echo $qry_product;
+		if ($isSuccess)
+			echo "success";
+		// 		echo $qry_product;
 	}
 	function listProductReturnDefault() {
 		$qry = "select t1.*,t2.*,t3.*,t4.*,t1.description as description_r, t1.date as datereturn,t3.name as provider_name,t2.name as product_name,
@@ -456,137 +456,82 @@ class ImportService {
 				product_return t1, product t2, provider t3, category t4, brand t5,season t6 
 				where t1.product_code = t2.code and t1.provider_id = t3.id and t2.category_id = t4.id and t2.brand_id = t5.id and t2.season_id = t6.id";
 		$result = mysql_query ( $qry, $this->connection );
-	
-		$this->commonService->generateJSDatatableComplex ( $result, 'productreturn', 7, 'desc', $this->getArrayTotalReturn() );
-		$this->commonService->generateJqueryDatatable ( $result, 'productreturn', $this->getArrayColumnReturn() );
+		
+		$this->commonService->generateJSDatatableComplex ( $result, 'productreturn', 7, 'desc', $this->getArrayTotalReturn () );
+		$this->commonService->generateJqueryDatatable ( $result, 'productreturn', $this->getArrayColumnReturn () );
 	}
 	function listProductReturn($parameterArray) {
 		$qry = "select t1.*,t2.*,t3.*,t4.*,t1.description as description_r,t1.date as datereturn,t3.name as provider_name,t2.name as product_name,
 				(select import_price from product_import where product_code = t1.product_code and id = (select max(id) from product_import where product_code = t1.product_code )) as import_price 
 				from product_return t1, product t2, provider t3, category t4, brand t5, season t6
 				where t1.product_code = t2.code and t1.provider_id = t3.id and t2.category_id = t4.id and t2.brand_id = t5.id and t2.season_id = t6.id ";
-			
-			if ($parameterArray ['product_name'] != '')
-				$qry = $qry . " and t2.name like '%" . $parameterArray ['product_name'] . "%'";
 		
-			if ($parameterArray ['category_name'] != '')
-				$qry = $qry . " and t4.name like '%" . $parameterArray ['category_name'] . "%'";
+		if ($parameterArray ['product_name'] != '')
+			$qry = $qry . " and t2.name like '%" . $parameterArray ['product_name'] . "%'";
 		
-			if ($parameterArray ['provider_name'] != '')
-				$qry = $qry . " and t3.name like '%" . $parameterArray ['provider_name'] . "%'";
+		if ($parameterArray ['category_name'] != '')
+			$qry = $qry . " and t4.name like '%" . $parameterArray ['category_name'] . "%'";
 		
-			if ($parameterArray ['season_id'] != '')
-				$qry = $qry . " and t6.id like '%" . $parameterArray ['season_id'] . "%'";
-				
-			if ($parameterArray ['brand_name'] != '')
-				$qry = $qry . " and t5.name like '%" . $parameterArray ['brand_name'] . "%'";
-				
-			if ($parameterArray ['description'] != '')
-				$qry = $qry . " and  t2.description like '%" . $parameterArray ['description'] . "%' ";
-				
-			if ($parameterArray ['datefrom'] != '')
-				$qry = $qry . " and DATE_FORMAT(t1.date, '%Y-%m-%d') >= '" . $parameterArray ['datefrom'] . "'";
-				
-			if ($parameterArray ['dateto'] != '')
-				$qry = $qry . " and DATE_FORMAT(t1.date, '%Y-%m-%d') <= '" . $parameterArray ['dateto'] . "'";
-				
-			if ($parameterArray ['sex_value_search'] != '')
-				$qry = $qry . " and t2.sex_id = " . $parameterArray ['sex_value_search'];
+		if ($parameterArray ['provider_name'] != '')
+			$qry = $qry . " and t3.name like '%" . $parameterArray ['provider_name'] . "%'";
+		
+		if ($parameterArray ['season_id'] != '')
+			$qry = $qry . " and t6.id like '%" . $parameterArray ['season_id'] . "%'";
+		
+		if ($parameterArray ['brand_name'] != '')
+			$qry = $qry . " and t5.name like '%" . $parameterArray ['brand_name'] . "%'";
+		
+		if ($parameterArray ['description'] != '')
+			$qry = $qry . " and  t2.description like '%" . $parameterArray ['description'] . "%' ";
+		
+		if ($parameterArray ['datefrom'] != '')
+			$qry = $qry . " and DATE_FORMAT(t1.date, '%Y-%m-%d') >= '" . $parameterArray ['datefrom'] . "'";
+		
+		if ($parameterArray ['dateto'] != '')
+			$qry = $qry . " and DATE_FORMAT(t1.date, '%Y-%m-%d') <= '" . $parameterArray ['dateto'] . "'";
+		
+		if ($parameterArray ['sex_value_search'] != '')
+			$qry = $qry . " and t2.sex_id = " . $parameterArray ['sex_value_search'];
 			//TODO to be completed later
-			if ($parameterArray ['isadvancedsearch'] == 'true') {
-				if ($parameterArray ['product_code_to'] != '')
-					$qry = $qry . " and t1.product_code <= '" . $parameterArray ['product_code_to'] . "'";
-				if ($parameterArray ['product_code'] != '')
-					$qry = $qry . " and t1.product_code >= '" . $parameterArray ['product_code'] . "'";
-					
-				if ($parameterArray ['sale_to'] != '')
-					$qry = $qry . " and t2.sale <= " . $parameterArray ['sale_to'];
-				if ($parameterArray ['sale'] != '')
-					$qry = $qry . " and t2.sale >= " . $parameterArray ['sale'];
-			} else {
-				if ($parameterArray ['product_code'] != '')
-					$qry = $qry . " and t1.product_code like '%" . $parameterArray ['product_code'] . "%' ";
-				
-				if ($parameterArray ['sale'] != '')
-					$qry = $qry . " and t2.sale = " . $parameterArray ['sale'] ;
-			}
-//		 		echo $qry;
+		if ($parameterArray ['isadvancedsearch'] == 'true') {
+			if ($parameterArray ['product_code_to'] != '')
+				$qry = $qry . " and t1.product_code <= '" . $parameterArray ['product_code_to'] . "'";
+			if ($parameterArray ['product_code'] != '')
+				$qry = $qry . " and t1.product_code >= '" . $parameterArray ['product_code'] . "'";
+			
+			if ($parameterArray ['sale_to'] != '')
+				$qry = $qry . " and t2.sale <= " . $parameterArray ['sale_to'];
+			if ($parameterArray ['sale'] != '')
+				$qry = $qry . " and t2.sale >= " . $parameterArray ['sale'];
+		} else {
+			if ($parameterArray ['product_code'] != '')
+				$qry = $qry . " and t1.product_code like '%" . $parameterArray ['product_code'] . "%' ";
+			
+			if ($parameterArray ['sale'] != '')
+				$qry = $qry . " and t2.sale = " . $parameterArray ['sale'];
+		}
+		//		 		echo $qry;
 		$result = mysql_query ( $qry, $this->connection );
 		
-		$this->commonService->generateJSDatatableComplex ( $result, 'productreturn', 7, 'desc', $this->getArrayTotalReturn() );
-		$this->commonService->generateJqueryDatatable ( $result, 'productreturn', $this->getArrayColumnReturn() );
+		$this->commonService->generateJSDatatableComplex ( $result, 'productreturn', 7, 'desc', $this->getArrayTotalReturn () );
+		$this->commonService->generateJqueryDatatable ( $result, 'productreturn', $this->getArrayColumnReturn () );
 	}
-	function getArrayTotalReturn(){
-		return array (
-		2 => "Số lượng", 
-		5 => "Tổng tiền trả" );
+	function getArrayTotalReturn() {
+		return array (2 => "Số lượng", 5 => "Tổng tiền trả" );
 	}
 	function getArrayColumnReturn() {
-		return array (
-		"product_code" => "Mã hàng", 
-		"product_name" => "Tên hàng",
-		"quantity" => "Số lượng", 
-		"import_price" => "Giá nhập", 
-		"export_price" => "Giá NY", 
-		"quantity*import_price" => "complex", 
-		"description_r" => "Ghi chú",
-		"datereturn" => "Ngày trả", 
-		"provider_name" => "Cung cấp" ,
-		"tel" => "Phone" );
+		return array ("product_code" => "Mã hàng", "product_name" => "Tên hàng", "quantity" => "Số lượng", "import_price" => "Giá nhập", "export_price" => "Giá NY", "quantity*import_price" => "complex", "description_r" => "Ghi chú", "datereturn" => "Ngày trả", "provider_name" => "Cung cấp", "tel" => "Phone" );
 	}
 	function getInputSearchParameters() {
-		$parameterArray = array (
-		'product_code' => $_REQUEST ['product_code'], 
-		'product_code_to' => $_REQUEST ['product_code_to'], 
-		'product_name' => $_REQUEST ['product_name'], 
-		'category_name' => $_REQUEST ['category_name'], 
-		'provider_name' => $_REQUEST ['provider_name'], 
-		'brand_name' => $_REQUEST ['brand_name'], 
-		'season_id' => $_REQUEST ['season_id'],
-		'sale' => $_REQUEST ['sale'], 
-		'sale_to' => $_REQUEST ['sale_to'], 
-		'import_quantity' => $_REQUEST ['import_quantity'], 
-		'import_quantity_to' => $_REQUEST ['import_quantity_to'], 
-		'import_price' => $_REQUEST ['import_price'], 
-		'import_price_to' => $_REQUEST ['import_price_to'], 
-		'export_quantity' => $_REQUEST ['export_quantity'], 
-		'export_quantity_to' => $_REQUEST ['export_quantity_to'], 
-		'export_price' => $_REQUEST ['export_price'], 
-		'export_price_to' => $_REQUEST ['export_price_to'], 
-		'remain_quantity' => $_REQUEST ['remain_quantity'], 
-		'remain_quantity_to' => $_REQUEST ['remain_quantity_to'], 
-		'import_facture_code' => $_REQUEST ['import_facture_code'],
-		'sex_value_search' => $_REQUEST ['sex_value_search'], 
-		'description' => $_REQUEST ['description'], 
-		'datefrom' => $_REQUEST ['datefrom'], 
-		'dateto' => $_REQUEST ['dateto'], 
-		'isadvancedsearch' => $_REQUEST ['isadvancedsearch'] );
+		$parameterArray = array ('product_code' => $_REQUEST ['product_code'], 'product_code_to' => $_REQUEST ['product_code_to'], 'product_name' => $_REQUEST ['product_name'], 'category_name' => $_REQUEST ['category_name'], 'provider_name' => $_REQUEST ['provider_name'], 'brand_name' => $_REQUEST ['brand_name'], 'season_id' => $_REQUEST ['season_id'], 'sale' => $_REQUEST ['sale'], 'sale_to' => $_REQUEST ['sale_to'], 'import_quantity' => $_REQUEST ['import_quantity'], 'import_quantity_to' => $_REQUEST ['import_quantity_to'], 'import_price' => $_REQUEST ['import_price'], 'import_price_to' => $_REQUEST ['import_price_to'], 'export_quantity' => $_REQUEST ['export_quantity'], 'export_quantity_to' => $_REQUEST ['export_quantity_to'], 'export_price' => $_REQUEST ['export_price'], 'export_price_to' => $_REQUEST ['export_price_to'], 'remain_quantity' => $_REQUEST ['remain_quantity'], 'remain_quantity_to' => $_REQUEST ['remain_quantity_to'], 'import_facture_code' => $_REQUEST ['import_facture_code'], 'sex_value_search' => $_REQUEST ['sex_value_search'], 'description' => $_REQUEST ['description'], 'datefrom' => $_REQUEST ['datefrom'], 'dateto' => $_REQUEST ['dateto'], 'limit_search' => $_REQUEST ['limit_search'], 'isadvancedsearch' => $_REQUEST ['isadvancedsearch'] );
 		return $parameterArray;
 	}
 	function deleteProductImport($id) {
 		$qry = "delete from product_import where id = " . $id;
 		echo mysql_query ( $qry, $this->connection );
 	}
-function getProductParameters() {
-		$parameterArray = array (
-		'edit_import_facture_code' => $_REQUEST ['edit_import_facture_code'], 
-		'edit_import_date' => $_REQUEST ['edit_import_date'], 
-		'edit_import_description' => $_REQUEST ['edit_import_description'], 
-		'id_edit_provider' => $_REQUEST ['id_edit_provider'], 
-		'edit_product_code' => $_REQUEST ['edit_product_code'], 
-		'edit_product_name' => $_REQUEST ['edit_product_name'], 
-		'id_edit_category' => $_REQUEST ['id_edit_category'],
-		'id_edit_season' => $_REQUEST ['id_edit_season'], 
-		'id_edit_sex' => $_REQUEST ['id_edit_sex'], 
-		'id_edit_brand' => $_REQUEST ['id_edit_brand'], 
-		'edit_product_description' => $_REQUEST ['edit_product_description'], 
-		'edit_export_price' => $_REQUEST ['edit_export_price'], 
-		'edit_sale' => $_REQUEST ['edit_sale'], 
-		'edit_link' => $_REQUEST ['edit_link'], 
-		'edit_id' => $_REQUEST ['edit_id'], 
-		'edit_quantity' => $_REQUEST ['edit_quantity'], 
-		'edit_deviation' => $_REQUEST ['edit_deviation'], 
-		'edit_import_price' => $_REQUEST ['edit_import_price'] );
+	function getProductParameters() {
+		$parameterArray = array ('edit_import_facture_code' => $_REQUEST ['edit_import_facture_code'], 'edit_import_date' => $_REQUEST ['edit_import_date'], 'edit_import_description' => $_REQUEST ['edit_import_description'], 'id_edit_provider' => $_REQUEST ['id_edit_provider'], 'edit_product_code' => $_REQUEST ['edit_product_code'], 'edit_product_name' => $_REQUEST ['edit_product_name'], 'id_edit_category' => $_REQUEST ['id_edit_category'], 'id_edit_season' => $_REQUEST ['id_edit_season'], 'id_edit_sex' => $_REQUEST ['id_edit_sex'], 'id_edit_brand' => $_REQUEST ['id_edit_brand'], 'edit_product_description' => $_REQUEST ['edit_product_description'], 'edit_export_price' => $_REQUEST ['edit_export_price'], 'edit_sale' => $_REQUEST ['edit_sale'], 'edit_link' => $_REQUEST ['edit_link'], 'edit_id' => $_REQUEST ['edit_id'], 'edit_quantity' => $_REQUEST ['edit_quantity'], 'edit_deviation' => $_REQUEST ['edit_deviation'], 'edit_import_price' => $_REQUEST ['edit_import_price'] );
 		return $parameterArray;
 	}
 	// END BUSINESS IMPORT PROJECT
