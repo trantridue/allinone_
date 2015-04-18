@@ -29,6 +29,6 @@ define('default_row_product_return','5');
 define('default_nbr_day_paid','14');
 //Paid provider default source
 define('default_id_source_1','1');
-define('default_id_source_2','3');
-define('default_id_source_3','2');
+define('default_id_source_2','18');
+define('default_id_source_3','3');
 ?>

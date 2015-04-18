@@ -15,7 +15,7 @@ function validateBlankField(fieldid) {
 }
 function displayMessageServer(data, errorMessage, successMessage, module) {
 	if (data && data != '') {
-		$('#listArea').load("modules/" + module + "/list.php?isdefault=false");
+		$('#listArea').load("modules/" + module + "/list.php?isdefault=false&loadall=false");
 		$('#serverMessage').html(successMessage);
 		$('#serverMessage').addClass('successMessage');
 		$('#serverMessage').removeClass('errorMessage');
@@ -158,6 +158,7 @@ function updateproductpostaction(data, actionType) {
 	var successMessage = actionType + " product successful";
 	displayMessageServer(data, errorMessage, successMessage, "product");
 	listProduct();
+	
 }
 function productimportpostaction(data, actionType) {
 	$('#serverMessage').show();

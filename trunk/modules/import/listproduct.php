@@ -8,7 +8,11 @@ if ($isdefault == "false") {
 	$commonService = new CommonService ();
 	$importService = new ImportService ( hostname, username, password, database, $commonService );
 	$parameterArray = $importService->getInputSearchParameters();
-	$importService->listProduct($parameterArray);
+	if($_REQUEST ['loadall']=='false') {
+		$importService->listProductDefault();
+	} else {
+		$importService->listProduct($parameterArray);
+	}
 } else {
 	$importService->listProductDefault();
 }
