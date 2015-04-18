@@ -26,6 +26,7 @@
 	$date = $_REQUEST['date'];
 	$descript = $_REQUEST['descript'];
 	$provider_id = $_REQUEST['provider_id'];
+	$deadline = $_REQUEST['deadline'];
 ?>
 <form method="post">
 <table class="searchcriteriatable">
@@ -33,6 +34,18 @@
 <td align="right">Facture Code : </td>
 <td><?php echo $import_facture_code;?><input type="hidden" id="edit_import_facture_code" value="<?php echo $import_facture_code;?>"></td>
 <td align="right">Date : </td>
+<td><input class="datefield" value="<?php echo date('Y-m-d',strtotime($date));?>" name="edit_import_date" id="edit_import_date"> </td>
+<td align="right" title="<?php echo $descript;?>">Import Desc : </td>
+<td><input value="<?php echo $descript;?>" name="edit_import_description" id="edit_import_description"></td>
+<td align="right">Provider Name : </td>
+<td><?php $commonService->printDropDownListFromTableSelected('provider','edit_provider',$provider_id);?></td>
+<td align="right"></td>
+<td></td>
+</tr>
+<tr>
+<td align="right"></td>
+<td></td>
+<td align="right">Deadline : </td>
 <td><input class="datefield" value="<?php echo date('Y-m-d',strtotime($date));?>" name="edit_import_date" id="edit_import_date"> </td>
 <td align="right" title="<?php echo $descript;?>">Import Desc : </td>
 <td><input value="<?php echo $descript;?>" name="edit_import_description" id="edit_import_description"></td>

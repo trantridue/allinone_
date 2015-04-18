@@ -422,7 +422,7 @@ class ImportService {
 		$qry_facture = "update import_facture set 
 						provider_id = " . $parameterArray ['id_edit_provider'] . ", 
 						date = '" . $parameterArray ['edit_import_date'] . " " . date ( 'H:i:s' ) . "',
-						đealine = '" . $parameterArray ['edit_import_date'] . " " . date ( 'H:i:s' ) . "',
+						deadline = '" . $parameterArray ['edit_import_date'] . " " . date ( 'H:i:s' ) . "',
 						description='" . $parameterArray ['edit_import_description'] . "' where code = '" . $parameterArray ['edit_import_facture_code'] . "'";
 		$qry_product = "update product set 
 						name='" . $parameterArray ['edit_product_name'] . "',
@@ -448,10 +448,10 @@ class ImportService {
 		$isSuccess = $isSuccess && (mysql_query ( $qry_product_import, $this->connection ) != null);
 		//		$result_deviation = null;
 		if ($parameterArray ['edit_deviation'] != 0)
-			$isSuccess = $isSuccess && (mysql_query ( $qry_product_import, $this->connection ) != null);
+			$isSuccess = $isSuccess && (mysql_query ( $qry_insert_deviation, $this->connection ) != null);
 		if ($isSuccess)
 			echo "success";
-		// 		echo $qry_product;
+//		 		echo $qry_insert_deviation;
 	}
 	function listProductReturnDefault() {
 		$qry = "select t1.*,t2.*,t3.*,t4.*,t1.description as description_r, t1.date as datereturn,t3.name as provider_name,t2.name as product_name,
