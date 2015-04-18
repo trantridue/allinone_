@@ -44,7 +44,7 @@ class ImportService {
 		
 		$qry = "SELECT t4.name as provider_name, t5.name as brand_name,t6.name as category_name, t7.name as season_name,(select sum(quantity)
 				 from product_deviation where product_code = t2.code group by product_code) as deviation
-				 ,t1.*,t2.*,t3.code as facture_code,t3.date,t3.description as descript, t3.provider_id
+				 ,t1.*,t2.*,t3.code as facture_code,t3.date,t3.description as descript, t3.provider_id,date_format(t3.deadline,'%Y-%m-%d') as deadline
 				  FROM product_import t1,product t2,import_facture t3,provider t4, brand t5, category t6, season t7 where t1.product_code = t2.code 
 				and t1.import_facture_code = t3.code and t4.id = t3.provider_id and t5.id = t2.brand_id and t6.id = t2.category_id and t7.id = t2.season_id 
 				and t3.date >= '" . $dateBefore3Months . "' order by t2.code desc";
@@ -54,7 +54,7 @@ class ImportService {
 	function listProduct($parameterArray) {
 		$qry = "SELECT t4.name as provider_name, t5.name as brand_name,t6.name as category_name, t7.name as season_name,(select sum(quantity)
 				 from product_deviation where product_code = t2.code group by product_code) as deviation
-				 ,t1.*,t2.*,t3.code as facture_code,t3.date,t3.description as descript, t3.provider_id FROM 
+				 ,t1.*,t2.*,t3.code as facture_code,t3.date,t3.description as descript, t3.provider_id,date_format(t3.deadline,'%Y-%m-%d') as deadline FROM 
 				 product_import t1,
 				 product t2,
 				 import_facture t3,
@@ -157,7 +157,7 @@ class ImportService {
 		return array (3 => "Số lượng", 8 => "Tổng nhập", 9 => "Tổng NY" );
 	}
 	function getArrayColumnImport() {
-		return array ("product_code,description" => "Mã hàng,product_code,image", "deviation,provider_id,descript,date,provider_name,brand_name,category_name,season_name,id,product_code,quantity,import_facture_code,import_price,name,category_id,season_id,sex_id,export_price,description,brand_id,sale,link" => "Edit", "name,description,descript" => "Tên Hàng,name", "quantity" => "Số lượng", "import_price" => "Giá nhập", "export_price" => "Giá bán", "sale" => "Sale", "import_facture_code,date" => "Mã Hóa Đơn,import_facture_code", "quantity*import_price" => "complex", "quantity*export_price" => "complex", "deviation" => "Lệch", "provider_id,provider_name,name" => "Cung Cấp,provider_name", "category_name" => "Loại", "sex_id" => "Giới tính", "brand_name" => "Hiệu", "season_id,season_name" => "Mùa,season_name", "id" => "Delete", "quantity*export_price" => "complex" );
+		return array ("product_code,description" => "Mã hàng,product_code,image", "deviation,provider_id,descript,date,provider_name,brand_name,category_name,season_name,id,product_code,quantity,import_facture_code,import_price,name,category_id,season_id,sex_id,export_price,description,brand_id,sale,link,deadline" => "Edit", "name,description,descript" => "Tên Hàng,name", "quantity" => "Số lượng", "import_price" => "Giá nhập", "export_price" => "Giá bán", "sale" => "Sale", "import_facture_code,date" => "Mã Hóa Đơn,import_facture_code", "quantity*import_price" => "complex", "quantity*export_price" => "complex", "deviation" => "Lệch", "provider_id,provider_name,name" => "Cung Cấp,provider_name", "category_name" => "Loại", "sex_id" => "Giới tính", "brand_name" => "Hiệu", "season_id,season_name" => "Mùa,season_name", "id" => "Delete", "quantity*export_price" => "complex" );
 	}
 	
 	function currentMaxProductCode($i) {
@@ -422,6 +422,7 @@ class ImportService {
 		$qry_facture = "update import_facture set 
 						provider_id = " . $parameterArray ['id_edit_provider'] . ", 
 						date = '" . $parameterArray ['edit_import_date'] . " " . date ( 'H:i:s' ) . "',
+						đealine = '" . $parameterArray ['edit_import_date'] . " " . date ( 'H:i:s' ) . "',
 						description='" . $parameterArray ['edit_import_description'] . "' where code = '" . $parameterArray ['edit_import_facture_code'] . "'";
 		$qry_product = "update product set 
 						name='" . $parameterArray ['edit_product_name'] . "',

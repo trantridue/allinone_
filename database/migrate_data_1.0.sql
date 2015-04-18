@@ -120,3 +120,5 @@ insert into product_return (product_code,quantity,date,description,provider_id,r
 select t1.product_code,t1.quantity,t1.date,'migrated',t1.providers_id,
 (select import_price from product_import where product_code =t1.product_code limit 1)
 from zabuzach_store.return_provider t1;
+
+update import_facture set deadline = date;
