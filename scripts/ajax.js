@@ -396,6 +396,7 @@ function updateProduct() {
 	$.ajax( {
 		url : updateproduct,
 		success : function(data) {
+		alert(data);
 		var actionType = "update";
 		$('#limit_search').val(defaultItemAfterAjax);
 		updateproductpostaction(data, actionType);
