@@ -342,6 +342,7 @@ class ImportService {
 			}
 		}
 		$qry = substr ( $qry, 0, - 1 ) . ";";
+//		echo $qry;
 		mysql_query ( $qry, $this->connection );
 	}
 	function addFacture($import_facture_code, $provider_id, $description, $deadline, $number_day_paid) {
@@ -358,6 +359,7 @@ class ImportService {
 		}
 		$qry = "insert into import_facture(code,date,description,provider_id,deadline) 
 		values ('" . $import_facture_code . "','" . $this->commonService->getFullDateTime () . "','" . $description . "'," . $provider_id . ",'" . $insertDeadline . "')";
+//		echo $qry;
 		mysql_query ( $qry, $this->connection );
 	}
 	function addProducts($totalRow, $season, $codeArray, $codeExistedArray, $nameArray, $postArray, $sexArray, $categoryIdArray, $brandIdArray, $descriptiondArray, $sale) {
