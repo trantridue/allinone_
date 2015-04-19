@@ -1,4 +1,5 @@
 ﻿#prepare table shop
+use allinone;
 truncate table product_return;
 truncate table provider_paid_fund_change_histo;
 truncate table fund_change_histo;
@@ -29,6 +30,7 @@ CONVERT(CONVERT(CONVERT(t1.address USING latin1) USING binary) USING utf8),
 CONVERT(CONVERT(CONVERT(t1.description USING latin1) USING binary) USING utf8), now() from `zabuzach_store`.`providers` t1;
 
 #brand
+truncate product_deviation;
 truncate product;
 truncate brand;
 INSERT INTO `brand` (`name`) VALUES
