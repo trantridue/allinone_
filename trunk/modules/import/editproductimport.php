@@ -47,10 +47,10 @@
 <td></td>
 <td align="right">Deadline : </td>
 <td><input class="datefield" value="<?php echo date('Y-m-d',strtotime($deadline));?>" name="edit_deadline" id="edit_deadline"> </td>
-<td align="right" title="<?php echo $descript;?>">Import Desc : </td>
-<td><input value="<?php echo $descript;?>" name="edit_import_description" id="edit_import_description"></td>
-<td align="right">Provider Name : </td>
-<td><?php $commonService->printDropDownListFromTableSelected('provider','edit_provider',$provider_id);?></td>
+<td align="right" title="<?php echo $descript;?>"> </td>
+<td></td>
+<td align="right"> </td>
+<td></td>
 <td align="right"></td>
 <td></td>
 </tr>
