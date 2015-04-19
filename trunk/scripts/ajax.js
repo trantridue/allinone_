@@ -393,10 +393,11 @@ function deletecustomer(customerid) {
 }
 function updateProduct() {
 	var updateproduct = 'modules/import/updateproductimport.php?' + buildProductImportCriteria();
+//	alert(buildProductImportCriteria());
 	$.ajax( {
 		url : updateproduct,
 		success : function(data) {
-		alert(data);
+//		alert(data);
 		var actionType = "update";
 		$('#limit_search').val(defaultItemAfterAjax);
 		updateproductpostaction(data, actionType);
@@ -429,6 +430,7 @@ function buildProductImportCriteria() {
 	var edit_link = "&edit_link=" + $('#edit_link').val();
 	var edit_id = "&edit_id=" + $('#edit_id').val();
 	var edit_quantity = "&edit_quantity=" + $('#edit_quantity').val();
+	var edit_deadline = "&edit_deadline=" + $('#edit_deadline').val();
 	var edit_deviation = "&edit_deviation=" + $('#edit_deviation').val();
 	var edit_import_price = "&edit_import_price="
 			+ $('#edit_import_price').val();
@@ -438,7 +440,7 @@ function buildProductImportCriteria() {
 			+ edit_product_code + edit_product_name + id_edit_category
 			+ id_edit_season + id_edit_sex + id_edit_brand
 			+ edit_product_description + edit_export_price + edit_sale
-			+ edit_link + edit_id + edit_quantity + edit_deviation
+			+ edit_link + edit_id + edit_quantity + edit_deviation + edit_deadline
 			+ edit_import_price;
 
 	return processUrlString(criteriaString);

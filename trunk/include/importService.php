@@ -419,10 +419,9 @@ class ImportService {
 	}
 	function updateImportProduct($parameterArray) {
 		$isSuccess = true;
-		$qry_facture = "update import_facture set 
-						provider_id = " . $parameterArray ['id_edit_provider'] . ", 
+		$qry_facture = "update import_facture set provider_id = " . $parameterArray ['id_edit_provider'] . ", 
 						date = '" . $parameterArray ['edit_import_date'] . " " . date ( 'H:i:s' ) . "',
-						deadline = '" . $parameterArray ['edit_import_date'] . " " . date ( 'H:i:s' ) . "',
+						deadline = '" . $parameterArray ['edit_deadline'] . " " . date ( 'H:i:s' ) . "',
 						description='" . $parameterArray ['edit_import_description'] . "' where code = '" . $parameterArray ['edit_import_facture_code'] . "'";
 		$qry_product = "update product set 
 						name='" . $parameterArray ['edit_product_name'] . "',
@@ -450,7 +449,8 @@ class ImportService {
 		if ($parameterArray ['edit_deviation'] != 0)
 			$isSuccess = $isSuccess && (mysql_query ( $qry_insert_deviation, $this->connection ) != null);
 		if ($isSuccess)
-			echo "success";
+// 			echo "success";
+		echo $qry_facture;
 //		 		echo $qry_insert_deviation;
 	}
 	function listProductReturnDefault() {
@@ -534,7 +534,13 @@ class ImportService {
 		echo mysql_query ( $qry, $this->connection );
 	}
 	function getProductParameters() {
-		$parameterArray = array ('edit_import_facture_code' => $_REQUEST ['edit_import_facture_code'], 'edit_import_date' => $_REQUEST ['edit_import_date'], 'edit_import_description' => $_REQUEST ['edit_import_description'], 'id_edit_provider' => $_REQUEST ['id_edit_provider'], 'edit_product_code' => $_REQUEST ['edit_product_code'], 'edit_product_name' => $_REQUEST ['edit_product_name'], 'id_edit_category' => $_REQUEST ['id_edit_category'], 'id_edit_season' => $_REQUEST ['id_edit_season'], 'id_edit_sex' => $_REQUEST ['id_edit_sex'], 'id_edit_brand' => $_REQUEST ['id_edit_brand'], 'edit_product_description' => $_REQUEST ['edit_product_description'], 'edit_export_price' => $_REQUEST ['edit_export_price'], 'edit_sale' => $_REQUEST ['edit_sale'], 'edit_link' => $_REQUEST ['edit_link'], 'edit_id' => $_REQUEST ['edit_id'], 'edit_quantity' => $_REQUEST ['edit_quantity'], 'edit_deviation' => $_REQUEST ['edit_deviation'], 'edit_import_price' => $_REQUEST ['edit_import_price'] );
+		$parameterArray = array (
+				'edit_import_facture_code' => $_REQUEST ['edit_import_facture_code'], 
+				'edit_import_date' => $_REQUEST ['edit_import_date'], 
+				'edit_deadline' => $_REQUEST ['edit_deadline'], 
+				'edit_import_description' => $_REQUEST ['edit_import_description'], 
+				'id_edit_provider' => $_REQUEST ['id_edit_provider'], 
+				'edit_product_code' => $_REQUEST ['edit_product_code'], 'edit_product_name' => $_REQUEST ['edit_product_name'], 'id_edit_category' => $_REQUEST ['id_edit_category'], 'id_edit_season' => $_REQUEST ['id_edit_season'], 'id_edit_sex' => $_REQUEST ['id_edit_sex'], 'id_edit_brand' => $_REQUEST ['id_edit_brand'], 'edit_product_description' => $_REQUEST ['edit_product_description'], 'edit_export_price' => $_REQUEST ['edit_export_price'], 'edit_sale' => $_REQUEST ['edit_sale'], 'edit_link' => $_REQUEST ['edit_link'], 'edit_id' => $_REQUEST ['edit_id'], 'edit_quantity' => $_REQUEST ['edit_quantity'], 'edit_deviation' => $_REQUEST ['edit_deviation'], 'edit_import_price' => $_REQUEST ['edit_import_price'] );
 		return $parameterArray;
 	}
 	// END BUSINESS IMPORT PROJECT
