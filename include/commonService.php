@@ -250,7 +250,7 @@ function printDropDownListFromTableSelected($table,$fieldname,$selectedId) {
 	$selected = "";
 	$sql = "select * from " . $table ;	
 	if($table=="user"){
-		$sql = $sql . " and status ='y'";
+		$sql = $sql . " where status ='y'";
 	}
 	echo "<select name='" . $fieldname . "' id='id_" . $fieldname . "' style='width:110px;height:22px;'>";
 	$sql = $sql . " order by name asc";
@@ -262,6 +262,21 @@ function printDropDownListFromTableSelected($table,$fieldname,$selectedId) {
 		} else{
 			echo "<option value='" . $rows ['id'] . "'>" . $rows ['name'] . "</option>";
 		}
+	}
+	echo "</select>";
+}
+function printDropDownListFromTable($table,$fieldname) {
+	// get the query
+	$sql = "select * from " . $table ;	
+	if($table=="user"){
+		$sql = $sql . " where status ='y'";
+	}
+	echo "<select name='" . $fieldname . "' id='id_" . $fieldname . "' style='width:110px;height:22px;'>";
+	echo "<option value=''>...Please select...</option>";
+	$sql = $sql . " order by name asc";
+	$result = mysql_query ( $sql ) or die ( mysql_error () );
+	while ( $rows = mysql_fetch_array ( $result ) ) {
+		echo "<option value='" . $rows ['id'] . "'>" . $rows ['name'] . "</option>";
 	}
 	echo "</select>";
 }
