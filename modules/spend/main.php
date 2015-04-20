@@ -1,7 +1,11 @@
-<div id="inputArea">
+<div id="searchArea"  style="display: none;">
 <?php
-$submodule = isset ( $_REQUEST ['submenu'] ) ? $_REQUEST ['submenu'] : defaultsubmodule;
-include $submodule . '.php';
+include 'search.php';
+?>
+</div>
+<div id="addArea">
+<?php
+include 'add.php';
 ?>
 </div>
 <hr>
