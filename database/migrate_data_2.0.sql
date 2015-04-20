@@ -133,4 +133,6 @@ truncate spend_type;
 insert into spend_category(id,name) SELECT id,CONVERT(CONVERT(CONVERT(name USING latin1) USING binary) USING utf8) FROM `zabuzach_store`.`ref_spend_domain`;
 insert into spend_for(id,name) SELECT id,CONVERT(CONVERT(CONVERT(name USING latin1) USING binary) USING utf8) FROM `zabuzach_store`.`ref_spend_for`;
 insert into spend_type(id,name) SELECT id,CONVERT(CONVERT(CONVERT(name USING latin1) USING binary) USING utf8) FROM `zabuzach_store`.`ref_spend_type`;
-insert into spend ()
+insert into spend(id,spend_category_id,amount,user_id,description,date,spend_for_id,spend_type_id)
+
+SELECT id,spend_domain_id,amount,users_id,CONVERT(CONVERT(CONVERT(description USING latin1) USING binary) USING utf8),date,spend_for_id,spend_type_id FROM `zabuzach_store`.`spend`;
