@@ -1,4 +1,3 @@
 <?php
-echo $_REQUEST ['username'];
-$userService->listUser();
+echo 'list spend';
 ?>
