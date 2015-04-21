@@ -102,9 +102,9 @@ echo $commonService->isMobile();
 	</tr>
 	<tr>
 		<td></td>
-		<td align="left" colspan="6"><input type="reset" value="RESET" 
-			class="btn_m" /> <input type="button" value="SAVE"
-			class="btn_m" /><input type="button" value="SEARCH FORM"
+		<td align="left" colspan="6"><input type="reset" value="RESET&#13;&#10;&nbsp;" 
+			class="btn_m" /> <input type="button" value="SAVE&#13;&#10;&nbsp;"
+			class="btn_m" /><input type="button" value="SEARCH&#13;&#10;FORM"
 			class="btn_m" onclick="toggleDiv('searchArea');toggleDiv('addArea');"/></td>
 	</tr>
 </table>
