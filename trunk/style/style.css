@@ -320,3 +320,6 @@ textarea {
 .dataTables_paginate{
 	float: left !important;
 }
+.btn_m {
+	height: 200px; width: 200px;background-color: green;font-size: 3em;
+}
