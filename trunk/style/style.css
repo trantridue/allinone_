@@ -151,10 +151,10 @@ input[type='reset'] {
 /* ICON END*/ /* FIELD START */
 .datefield {
 	background-image: url("../images/date_ico.jpg");
-	background-position: 76px -5px;
+	background-position: 94px -5px;
 	background-repeat: no-repeat;
 	height: 17px;
-	width: 100px;
+	width: 120px;
 }
 
 /* FIELD RND */
