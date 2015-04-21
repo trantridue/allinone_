@@ -321,5 +321,8 @@ textarea {
 	float: left !important;
 }
 .btn_m {
-	height: 200px; width: 200px;background-color: green;font-size: 3em;
+	height: 200px !important; 
+	width: 200px !important;
+	background-color: green;
+	font-size: 3em;
 }
