@@ -1,37 +1,197 @@
+<?php
+echo $commonService->isMobile();
+?>
 <form>
 <h3>ADD SPEND</h3>
-<table class="addcriteriatable">
+<table class="addcriteriatable" style="text-align: center;">
+	<thead>
 	<tr>
-		<td align="right">Amount :</td>
-		<td><input type="text" size="4" id="add_amount" maxlength="8" onkeypress="validateNum(event);"/></td>
-		<td align="right">Date :</td>
-		<td><input type="text" id="add_date" class="datefield" /> </td>
-		<td align="right">Description :</td>
-		<td colspan="3"><textarea rows="3" cols="40"></textarea></td>
+	<th>Amount</th>
+	<th>Date</th>
+	<th>User</th>
+	<th>Category</th>
+	<th>Purpose</th>
+	<th>Type</th>
+	<th>Description</th>
+	</tr>
+	</thead>
+	<?php if($commonService->isMobile()) { ?>
+	<tr>
+		<td><input type="number" autocomplete="off" size="8" id="add_amount_1" maxlength="8" onkeypress="validateNum(event);"/></td>
+		<td><input type="text" autocomplete="off" id="add_date_1" class="datefield" value="<?php echo date('Y-m-d');?>"/></td>
+		<td ><?php
+		$commonService->printDropDownListFromTableSelected ( 'user', 'add_user_1',1 );
+		?></td>
+		<td><?php
+		$commonService->printDropDownListFromTableSelected ( 'spend_category', 'add_category_1',1 );
+		?></td>
+		<td><?php
+		$commonService->printDropDownListFromTableSelected ( 'spend_for', 'add_for_1',1 );
+		?></td>
+		<td><?php
+		$commonService->printDropDownListFromTableSelected ( 'spend_type', 'add_type_1',1 );
+		?></td>
+		<td><input type="text" autocomplete="off" id="add_description_1" size="40"/> </td>
 	</tr>
 	<tr>
-		<td align="right">User :</td>
-		<td><?php
-		$commonService->printDropDownListFromTableSelected ( 'user', 'add_user',1 );
+		<td><input type="number" autocomplete="off" size="8" id="add_amount_2" maxlength="8" onkeypress="validateNum(event);"/></td>
+		<td><input type="text" autocomplete="off" id="add_date_2" class="datefield" value="<?php echo date('Y-m-d');?>"/></td>
+		<td ><?php
+		$commonService->printDropDownListFromTableSelected ( 'user', 'add_user_2',1 );
 		?></td>
-		<td align="right">Spend Category :</td>
 		<td><?php
-		$commonService->printDropDownListFromTableSelected ( 'spend_category', 'add_category',1 );
+		$commonService->printDropDownListFromTableSelected ( 'spend_category', 'add_category_2',1 );
 		?></td>
-		<td align="right">Spend For :</td>
 		<td><?php
-		$commonService->printDropDownListFromTableSelected ( 'spend_for', 'add_for',1 );
+		$commonService->printDropDownListFromTableSelected ( 'spend_for', 'add_for_2',1 );
 		?></td>
-		<td align="right">Type :</td>
 		<td><?php
-		$commonService->printDropDownListFromTableSelected ( 'spend_type', 'add_type',1 );
+		$commonService->printDropDownListFromTableSelected ( 'spend_type', 'add_type_2',1 );
 		?></td>
+		<td><input type="text" autocomplete="off" id="add_description_2" size="40"/> </td>
 	</tr>
-
+	<tr>
+		<td><input type="number" autocomplete="off" size="8" id="add_amount_3" maxlength="8" onkeypress="validateNum(event);"/></td>
+		<td><input type="text" autocomplete="off" id="add_date_3" class="datefield" value="<?php echo date('Y-m-d');?>"/></td>
+		<td ><?php
+		$commonService->printDropDownListFromTableSelected ( 'user', 'add_user_3',1 );
+		?></td>
+		<td><?php
+		$commonService->printDropDownListFromTableSelected ( 'spend_category', 'add_category_3',1 );
+		?></td>
+		<td><?php
+		$commonService->printDropDownListFromTableSelected ( 'spend_for', 'add_for_3',1 );
+		?></td>
+		<td><?php
+		$commonService->printDropDownListFromTableSelected ( 'spend_type', 'add_type_3',1 );
+		?></td>
+		<td><input type="text" autocomplete="off" id="add_description_3" size="40"/> </td>
+	</tr>
+	<tr>
+		<td><input type="number" autocomplete="off" size="8" id="add_amount_4" maxlength="8" onkeypress="validateNum(event);"/></td>
+		<td><input type="text" autocomplete="off" id="add_date_4" class="datefield" value="<?php echo date('Y-m-d');?>"/></td>
+		<td ><?php
+		$commonService->printDropDownListFromTableSelected ( 'user', 'add_user_4',1 );
+		?></td>
+		<td><?php
+		$commonService->printDropDownListFromTableSelected ( 'spend_category', 'add_category_4',1 );
+		?></td>
+		<td><?php
+		$commonService->printDropDownListFromTableSelected ( 'spend_for', 'add_for_4',1 );
+		?></td>
+		<td><?php
+		$commonService->printDropDownListFromTableSelected ( 'spend_type', 'add_type_4',1 );
+		?></td>
+		<td><input type="text" autocomplete="off" id="add_description_4" size="40"/> </td>
+	</tr>
+	<tr>
+		<td><input type="number" autocomplete="off" size="8" id="add_amount_5" maxlength="8" onkeypress="validateNum(event);"/></td>
+		<td><input type="text" autocomplete="off" id="add_date_5" class="datefield" value="<?php echo date('Y-m-d');?>"/></td>
+		<td ><?php
+		$commonService->printDropDownListFromTableSelected ( 'user', 'add_user_5',1 );
+		?></td>
+		<td><?php
+		$commonService->printDropDownListFromTableSelected ( 'spend_category', 'add_category_5',1 );
+		?></td>
+		<td><?php
+		$commonService->printDropDownListFromTableSelected ( 'spend_for', 'add_for_5',1 );
+		?></td>
+		<td><?php
+		$commonService->printDropDownListFromTableSelected ( 'spend_type', 'add_type_5',1 );
+		?></td>
+		<td><input type="text" autocomplete="off" id="add_description_5" size="40"/> </td>
+	</tr>
+	<?php } else { ?>
+		<tr>
+		<td><input type="text" autocomplete="off" size="4" id="add_amount_1" maxlength="8" onkeypress="validateNum(event);"/></td>
+		<td><input type="text" autocomplete="off" id="add_date_1" class="datefield" value="<?php echo date('Y-m-d');?>"/></td>
+		<td ><?php
+		$commonService->printDropDownListFromTableSelected ( 'user', 'add_user_1',1 );
+		?></td>
+		<td><?php
+		$commonService->printDropDownListFromTableSelected ( 'spend_category', 'add_category_1',1 );
+		?></td>
+		<td><?php
+		$commonService->printDropDownListFromTableSelected ( 'spend_for', 'add_for_1',1 );
+		?></td>
+		<td><?php
+		$commonService->printDropDownListFromTableSelected ( 'spend_type', 'add_type_1',1 );
+		?></td>
+		<td><input type="text" autocomplete="off" id="add_description_1" size="40"/> </td>
+	</tr>
+	<tr>
+		<td><input type="text" autocomplete="off" size="4" id="add_amount_2" maxlength="8" onkeypress="validateNum(event);"/></td>
+		<td><input type="text" autocomplete="off" id="add_date_2" class="datefield" value="<?php echo date('Y-m-d');?>"/></td>
+		<td ><?php
+		$commonService->printDropDownListFromTableSelected ( 'user', 'add_user_2',1 );
+		?></td>
+		<td><?php
+		$commonService->printDropDownListFromTableSelected ( 'spend_category', 'add_category_2',1 );
+		?></td>
+		<td><?php
+		$commonService->printDropDownListFromTableSelected ( 'spend_for', 'add_for_2',1 );
+		?></td>
+		<td><?php
+		$commonService->printDropDownListFromTableSelected ( 'spend_type', 'add_type_2',1 );
+		?></td>
+		<td><input type="text" autocomplete="off" id="add_description_2" size="40"/> </td>
+	</tr>
+	<tr>
+		<td><input type="text" autocomplete="off" size="4" id="add_amount_3" maxlength="8" onkeypress="validateNum(event);"/></td>
+		<td><input type="text" autocomplete="off" id="add_date_3" class="datefield" value="<?php echo date('Y-m-d');?>"/></td>
+		<td ><?php
+		$commonService->printDropDownListFromTableSelected ( 'user', 'add_user_3',1 );
+		?></td>
+		<td><?php
+		$commonService->printDropDownListFromTableSelected ( 'spend_category', 'add_category_3',1 );
+		?></td>
+		<td><?php
+		$commonService->printDropDownListFromTableSelected ( 'spend_for', 'add_for_3',1 );
+		?></td>
+		<td><?php
+		$commonService->printDropDownListFromTableSelected ( 'spend_type', 'add_type_3',1 );
+		?></td>
+		<td><input type="text" autocomplete="off" id="add_description_3" size="40"/> </td>
+	</tr>
+	<tr>
+		<td><input type="text" autocomplete="off" size="4" id="add_amount_4" maxlength="8" onkeypress="validateNum(event);"/></td>
+		<td><input type="text" autocomplete="off" id="add_date_4" class="datefield" value="<?php echo date('Y-m-d');?>"/></td>
+		<td ><?php
+		$commonService->printDropDownListFromTableSelected ( 'user', 'add_user_4',1 );
+		?></td>
+		<td><?php
+		$commonService->printDropDownListFromTableSelected ( 'spend_category', 'add_category_4',1 );
+		?></td>
+		<td><?php
+		$commonService->printDropDownListFromTableSelected ( 'spend_for', 'add_for_4',1 );
+		?></td>
+		<td><?php
+		$commonService->printDropDownListFromTableSelected ( 'spend_type', 'add_type_4',1 );
+		?></td>
+		<td><input type="text" autocomplete="off" id="add_description_4" size="40"/> </td>
+	</tr>
+	<tr>
+		<td><input type="text" autocomplete="off" size="4" id="add_amount_5" maxlength="8" onkeypress="validateNum(event);"/></td>
+		<td><input type="text" autocomplete="off" id="add_date_5" class="datefield" value="<?php echo date('Y-m-d');?>"/></td>
+		<td ><?php
+		$commonService->printDropDownListFromTableSelected ( 'user', 'add_user_5',1 );
+		?></td>
+		<td><?php
+		$commonService->printDropDownListFromTableSelected ( 'spend_category', 'add_category_5',1 );
+		?></td>
+		<td><?php
+		$commonService->printDropDownListFromTableSelected ( 'spend_for', 'add_for_5',1 );
+		?></td>
+		<td><?php
+		$commonService->printDropDownListFromTableSelected ( 'spend_type', 'add_type_5',1 );
+		?></td>
+		<td><input type="text" autocomplete="off" id="add_description_5" size="40"/> </td>
+	</tr>
+	<?php }?>
 	<tr>
 		<td></td>
-		<td align="left" colspan="7"><input type="reset" value="RESET"
-			class="menu_btn_sub" /> <input type="button" value="ADD"
+		<td align="left" colspan="6"><input type="reset" value="RESET"
+			class="menu_btn_sub" /> <input type="button" value="SAVE"
 			class="menu_btn_sub" /><input type="button" value="SEARCH FORM"
 			class="menu_btn_sub" onclick="toggleDiv('searchArea');toggleDiv('addArea');"/></td>
 	</tr>
