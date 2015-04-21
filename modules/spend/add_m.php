@@ -15,8 +15,8 @@ echo $commonService->isMobile();
 	<th>Description</th>
 	</tr>
 	</thead>
-		<tr>
-		<td><input type="text" autocomplete="off" size="4" id="add_amount_1" maxlength="8" onkeypress="validateNum(event);"/></td>
+	<tr>
+		<td><input type="number" autocomplete="off" size="8" id="add_amount_1" maxlength="8" onkeypress="validateNum(event);"/></td>
 		<td><input type="text" autocomplete="off" id="add_date_1" class="datefield" value="<?php echo date('Y-m-d');?>"/></td>
 		<td ><?php
 		$commonService->printDropDownListFromTableSelected ( 'user', 'add_user_1',1 );
@@ -33,7 +33,7 @@ echo $commonService->isMobile();
 		<td><input type="text" autocomplete="off" id="add_description_1" size="40"/> </td>
 	</tr>
 	<tr>
-		<td><input type="text" autocomplete="off" size="4" id="add_amount_2" maxlength="8" onkeypress="validateNum(event);"/></td>
+		<td><input type="number" autocomplete="off" size="8" id="add_amount_2" maxlength="8" onkeypress="validateNum(event);"/></td>
 		<td><input type="text" autocomplete="off" id="add_date_2" class="datefield" value="<?php echo date('Y-m-d');?>"/></td>
 		<td ><?php
 		$commonService->printDropDownListFromTableSelected ( 'user', 'add_user_2',1 );
@@ -50,7 +50,7 @@ echo $commonService->isMobile();
 		<td><input type="text" autocomplete="off" id="add_description_2" size="40"/> </td>
 	</tr>
 	<tr>
-		<td><input type="text" autocomplete="off" size="4" id="add_amount_3" maxlength="8" onkeypress="validateNum(event);"/></td>
+		<td><input type="number" autocomplete="off" size="8" id="add_amount_3" maxlength="8" onkeypress="validateNum(event);"/></td>
 		<td><input type="text" autocomplete="off" id="add_date_3" class="datefield" value="<?php echo date('Y-m-d');?>"/></td>
 		<td ><?php
 		$commonService->printDropDownListFromTableSelected ( 'user', 'add_user_3',1 );
@@ -67,7 +67,7 @@ echo $commonService->isMobile();
 		<td><input type="text" autocomplete="off" id="add_description_3" size="40"/> </td>
 	</tr>
 	<tr>
-		<td><input type="text" autocomplete="off" size="4" id="add_amount_4" maxlength="8" onkeypress="validateNum(event);"/></td>
+		<td><input type="number" autocomplete="off" size="8" id="add_amount_4" maxlength="8" onkeypress="validateNum(event);"/></td>
 		<td><input type="text" autocomplete="off" id="add_date_4" class="datefield" value="<?php echo date('Y-m-d');?>"/></td>
 		<td ><?php
 		$commonService->printDropDownListFromTableSelected ( 'user', 'add_user_4',1 );
@@ -84,7 +84,7 @@ echo $commonService->isMobile();
 		<td><input type="text" autocomplete="off" id="add_description_4" size="40"/> </td>
 	</tr>
 	<tr>
-		<td><input type="text" autocomplete="off" size="4" id="add_amount_5" maxlength="8" onkeypress="validateNum(event);"/></td>
+		<td><input type="number" autocomplete="off" size="8" id="add_amount_5" maxlength="8" onkeypress="validateNum(event);"/></td>
 		<td><input type="text" autocomplete="off" id="add_date_5" class="datefield" value="<?php echo date('Y-m-d');?>"/></td>
 		<td ><?php
 		$commonService->printDropDownListFromTableSelected ( 'user', 'add_user_5',1 );
@@ -102,10 +102,10 @@ echo $commonService->isMobile();
 	</tr>
 	<tr>
 		<td></td>
-		<td align="left" colspan="6"><input type="reset" value="RESET"
-			class="menu_btn_sub" /> <input type="button" value="SAVE"
-			class="menu_btn_sub" /><input type="button" value="SEARCH FORM"
-			class="menu_btn_sub" onclick="toggleDiv('searchArea');toggleDiv('addArea');"/></td>
+		<td align="left" colspan="6"><input type="reset" value="RESET" 
+			class="btn_m" /> <input type="button" value="SAVE"
+			class="btn_m" /><input type="button" value="SEARCH FORM"
+			class="btn_m" onclick="toggleDiv('searchArea');toggleDiv('addArea');"/></td>
 	</tr>
 </table>
 </form>

@@ -1,14 +1,19 @@
-<div id="searchArea"  style="display: none;">
+<div id="searchArea" style="display: none;">
 <?php
 include 'search.php';
 ?>
 </div>
 <div id="addArea">
 <?php
-include 'add.php';
+if ($commonService->isMobile ())
+	include 'add_m.php';
+else
+	include 'add.php';
 ?>
+
 </div>
 <hr>
 <div id="listArea">
-<?php include 'list.php'?>
+<?php
+include 'list.php'?>
 </div>
