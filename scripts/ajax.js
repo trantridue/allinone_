@@ -589,3 +589,33 @@ function paidAllByFund(fundName){
 	$('#'+ fundName).val(parseInt($('#paid_remain_update').html()));
 	calculateProviderPaid();
 }
+
+/* SPEND */
+function addSpends() {
+	var urls = 'modules/spend/addspend.php' + getAddSpendInformation();
+//	alert(urls);
+	$.ajax( {
+		url : urls,
+		success : function(data) {
+			if (data != null) {
+				$('#addSpendFormId')[0].reset();
+			} else
+				alert('error created news!');
+		}
+	});
+}
+function getAddSpendInformation() {
+	
+	var nbrLine = $('#default_number_line_spend').val();
+	var params = "?isdefault=false";
+	for (var i = 1; i <= nbrLine; i++) {
+		params = params + "&add_amount_" + i + "=" + $('#add_amount_' + i).val();
+		params = params + "&add_date_" + i + "=" + $('#add_date_' + i).val();
+		params = params + "&id_add_user_" + i + "=" + $('#id_add_user_' + i).val();
+		params = params + "&id_add_category_" + i + "=" + $('#id_add_category_' + i).val();
+		params = params + "&id_add_for_" + i + "=" + $('#id_add_for_' + i).val();
+		params = params + "&id_add_type_" + i + "=" + $('#id_add_type_' + i).val();
+		params = params + "&add_description_" + i + "=" + $('#add_description_' + i).val();
+	}
+	return processUrlString(params);
+}
