@@ -303,6 +303,7 @@ class FGMembersite {
 		$_SESSION ['id_of_shop'] = $row ['shop_id'];
 		$_SESSION ['import_number_row'] = 10;
 		$_SESSION ['is_admin_user'] = ($rowIsAdmin['isAdmin'] == 0) ? false : true;
+// 		$_SESSION ['default_number_line_spend'] = default_number_line_spend;
 		return true;
 	}
 	function UpdateDBRecForConfirmation(&$user_rec) {

@@ -1,9 +1,10 @@
 <?php
 echo $commonService->isMobile();
 ?>
-<form>
+<form id="addSpendFormId">
 <h3>ADD SPEND</h3>
 <table class="addcriteriatable" style="text-align: center;">
+	<input type="hidden" id="default_number_line_spend" value ="<?php echo default_number_line_spend;?>"/>
 	<thead>
 	<tr>
 	<th>Amount</th>
@@ -15,9 +16,9 @@ echo $commonService->isMobile();
 	<th>Description</th>
 	</tr>
 	</thead>
-	<?php for ($i=0;$i<5;$i++) {?>
+	<?php for ($i=1;$i<=default_number_line_spend;$i++) {?>
 		<tr>
-		<td><input type="text" autocomplete="off" size="4" id="add_amount_<?php echo $i;?>" maxlength="8" onkeypress="validateNum(event);"/></td>
+		<td><input type="text" autocomplete="off" size="4" id="add_amount_<?php echo $i;?>" maxlength="8" onkeypress="validateNum(event);" tabindex="<?php echo $i;?>"/></td>
 		<td><input type="text" autocomplete="off" id="add_date_<?php echo $i;?>" class="datefield" value="<?php echo date('Y-m-d');?>"/></td>
 		<td ><?php
 		$commonService->printDropDownListFromTableSelected ( 'user', 'add_user_'.$i,1 );
@@ -39,7 +40,7 @@ echo $commonService->isMobile();
 	<tr>
 		<td></td>
 		<td align="left" colspan="6"><input type="reset" value="RESET"
-			class="menu_btn_sub" /> <input type="button" value="SAVE"
+			class="menu_btn_sub" /> <input type="button" value="SAVE" onclick="addSpends();";
 			class="menu_btn_sub" /><input type="button" value="SEARCH FORM"
 			class="menu_btn_sub" onclick="toggleDiv('searchArea');toggleDiv('addArea');"/></td>
 	</tr>
