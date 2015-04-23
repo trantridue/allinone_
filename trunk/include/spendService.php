@@ -80,5 +80,39 @@ class SpendService {
 			}
 		} 
 	}
+	function listSpendDefault() {
+		$firstDayOfCurrentMonth = date('Y-m').'-01';
+		$qry = "select t1.*, t2.name as category,t3.name as user,t4.name as fors, t5.name as types 
+				from 
+				spend t1,
+				spend_category t2,
+				user t3,
+				spend_for t4,
+				spend_type t5 
+				where t2.id = t1.spend_category_id
+				and t3.id = t1.user_id
+				and t4.id = t1.spend_for_id
+				and t5.id = t1.spend_type_id 
+				and t1.date >='".$firstDayOfCurrentMonth."'";
+		$result = mysql_query ( $qry, $this->connection );
+		$array_total = array (
+				0 => "Tổng Chi"
+		);
+		$this->commonService->generateJSDatatableComplex ( $result, spenddatatable, 2, 'desc', $array_total );
+		$this->commonService->generateJqueryDatatable ( $result, spenddatatable, $this->buildArrayParameter() );
+	}
+	function buildArrayParameter() {
+		return array (
+				"amount" => "Amount",
+				"description" => "Description",
+				"date" => "Date",
+				"category" => "Category",
+				"user" => "User",
+				"fors" => "For",
+				"types" => "Type",
+				"id,description,date,spend_category_id,spend_user,spend_for_id,spend_type_id" => "Edit",
+				"id" => "Delete"
+		);
+	}
 }
 ?>
