@@ -9,7 +9,7 @@
 		<td><input type="text" id="search_date_from" class="datefield" /> <input
 			type="text" id="search_date_to" class="datefield" /></td>
 		<td align="right">Description :</td>
-		<td colspan="3"><textarea rows="3" cols="40"></textarea></td>
+		<td colspan="3"><textarea rows="3" cols="40" id="search_description"></textarea></td>
 	</tr>
 	<tr>
 		<td align="right">User :</td>
@@ -33,7 +33,7 @@
 	<tr>
 		<td></td>
 		<td align="left" colspan="7"><input type="reset" value="RESET"
-			class="menu_btn_sub" /> <input type="button" value="SEARCH"
+			class="menu_btn_sub" /> <input type="button" value="SEARCH" onclick="listSpend('true');"
 			class="menu_btn_sub" /><input type="button" value="ADD FORM"
 			class="menu_btn_sub" onclick="toggleDiv('searchArea');toggleDiv('addArea');"/></td>
 	</tr>

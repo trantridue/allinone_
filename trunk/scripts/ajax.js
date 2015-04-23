@@ -628,3 +628,33 @@ function getAddSpendInformation(nbrLine) {
 	}
 	return processUrlString(params);
 }
+function listSpend(issearch) {
+	var url = "modules/spend/list.php" + getSpendSearchCriteria(issearch);
+	$('#listArea').load(url);
+}
+function getSpendSearchCriteria(issearch){
+	
+	var str = "?issearch=" + issearch + "&isdefault=false";
+	var search_amount_from = "&search_amount_from=" + $('#search_amount_from').val();
+	var search_amount_to = "&search_amount_to=" + $('#search_amount_to').val();
+	var search_date_from = "&search_date_from=" + $('#search_date_from').val();
+	var search_date_to = "&search_date_to=" + $('#search_date_to').val();
+	var search_description = "&search_description=" + $('#search_description').val();
+
+	var id_search_user = "&id_search_user=" + $('#id_search_user').val();
+	var id_search_category = "&id_search_category=" + $('#id_search_category').val();
+	var id_search_for = "&id_search_for=" + $('#id_search_for').val();
+	var id_search_type = "&id_search_type=" + $('#id_search_type').val();
+	
+	str = str + search_amount_from 
+			+ search_amount_to 
+			+ search_date_from 
+			+ search_date_to 
+			+ search_description 
+			+ id_search_user 
+			+ id_search_category 
+			+ id_search_for 
+			+ id_search_type 
+	;
+	return processUrlString(str);
+}
