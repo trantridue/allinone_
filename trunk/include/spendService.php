@@ -38,74 +38,47 @@ class SpendService {
 	function HandleDBError($err) {
 		$this->HandleError ( $err . "\r\n mysqlerror:" . mysql_error () );
 	}
-	function inserOrUpdatetNews($description, $id) {
-		session_start ();
-		$actionType = 'insert';
-		$date = date ( 'Y-m-d H:i:s' );
-		$user_id = $_SESSION ['id_of_user'];
-		$shop_id = $_SESSION ['id_of_shop'];
-		$qry = "";
-		if ($id == null)
-			$qry = "insert into news(description,date,shop_id,user_id) values ('" . $description . "',
-				'" . $date . "'," . $shop_id . "," . $user_id . ")";
-		else
-			$qry = "update news set description='" . $description . "', date ='" . $date . "' where id = " . $id;
-		
-		echo mysql_query ( $qry, $this->connection );
-	}
-	function listSpendDefault() {
-		$qry = "select t1.id as identification, t1.*, t2.name as shop, t3.name as username,
-				concat(DATE_FORMAT(t1.date,'%m-%d-%Y'),':',DATE_FORMAT(t1.date,'%T')) as displaydate
-			   from news t1, shop t2, `user` t3
-			   where t1.shop_id = t2.id
-         and t1.user_id = t3.id order by date desc limit 20";
-		$result = mysql_query ( $qry, $this->connection );
-		$this->commonService->generateJSDatatableSimple ( newsdatatable, 0, 'desc' );
-		$this->commonService->generateJqueryDatatable ( $result, newsdatatable, $this->buildArrayParameter() );
-	}
-	function listSpend($parameterArray) {
-		$qry = "select t1.id as identification, t1.*, t2.name as shop, t3.name as username,
-				concat(DATE_FORMAT(t1.date,'%m/%d/%Y'),':',DATE_FORMAT(t1.date,'%T')) as displaydate
-			   from news t1, shop t2, `user` t3
-			   where t1.shop_id = t2.id
-         		and t1.user_id = t3.id 
-				and t1.description like '%" . $parameterArray ['search_news_description'] . "%'
-				order by date desc";
-		$result = mysql_query ( $qry, $this->connection );
-		$this->commonService->generateJSDatatableSimple ( newsdatatable, 0, 'desc' );
-		$this->commonService->generateJqueryDatatable ( $result, newsdatatable, $this->buildArrayParameter() );
-	}
-	function buildArrayParameter() {
-		
-		if($this->commonService->isAdmin()){
-			return array (
-					"identification" => "ID",
-					"description" => "Description",
-					"username" => "Name",
-					"shop" => "Shop",
-					"displaydate" => "Date",
-					"id,description,date,shop,username,shop_id,user_id" => "Edit",
-					"id" => "Delete"
-			);
-		} else {
-			return array (
-					"identification" => "ID",
-					"description" => "Description",
-					"username" => "Name",
-					"shop" => "Shop",
-					"displaydate" => "Date"
-			);
+	
+	function getAddParameters($nbrLine) {
+		$paramsArray = array();
+		for($i=1;$i<=$nbrLine;$i++){
+			$paramsArray['add_amount_'.$i] 		= $_REQUEST['add_amount_'.$i];
+			$paramsArray['add_date_'.$i] 		= $_REQUEST['add_date_'.$i];
+			$paramsArray['id_add_user_'.$i] 	= $_REQUEST['id_add_user_'.$i];
+			$paramsArray['id_add_category_'.$i] = $_REQUEST['id_add_category_'.$i];
+			$paramsArray['id_add_for_'.$i] 		= $_REQUEST['id_add_for_'.$i];
+			$paramsArray['id_add_type_'.$i] 	= $_REQUEST['id_add_type_'.$i];
+			$paramsArray['add_description_'.$i] = $_REQUEST['add_description_'.$i];
 		}
+		return $paramsArray;
 	}
-	function getInputSearchParameters() {
-		$parameterArray = array (
-				'search_news_description' => $_REQUEST ['search_news_description'] 
-		);
-		return $parameterArray;
-	}
-	function deleteNews($newsid) {
-		$qry = "delete from news where id = " . $newsid;
-		echo mysql_query ( $qry, $this->connection );
+	function insertSpends($nbrLine,$params){
+		session_start ();
+		mysql_query ( "BEGIN" );
+		$qry = "insert into spend(spend_category_id,amount,user_id,description,date,spend_for_id,spend_type_id) values ";
+		$counter = 0;
+		for($i=1;$i<=$nbrLine;$i++){
+			if($params['add_amount_'.$i] != 0 ) {
+				$counter++;
+				$qry = $qry. "(".$params['id_add_category_'.$i].","
+								.$params['add_amount_'.$i].","
+								.$params['id_add_user_'.$i].",'"
+								.$params['add_description_'.$i]."','"
+								.$params['add_date_'.$i]."',"
+								.$params['id_add_for_'.$i].","
+								.$params['id_add_type_'.$i]."),";
+			}
+		}
+		if($counter>0) {
+			$qry = substr($qry,0,-1);
+			if(mysql_query ( $qry, $this->connection ) != null){
+				mysql_query ( "COMMIT" );
+				echo 'success';
+			}else {
+				mysql_query ( "ROLLBACK" );
+				echo 'error';
+			}
+		} 
 	}
 }
 ?>

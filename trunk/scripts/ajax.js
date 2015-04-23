@@ -592,22 +592,31 @@ function paidAllByFund(fundName){
 
 /* SPEND */
 function addSpends() {
-	var urls = 'modules/spend/addspend.php' + getAddSpendInformation();
+	var nbrLine = $('#default_number_line_spend').val();
+	var urls = 'modules/spend/addspend.php' + getAddSpendInformation(nbrLine);
 //	alert(urls);
 	$.ajax( {
 		url : urls,
 		success : function(data) {
-			if (data != null) {
+		alert(data);
+			if (data == 'success') {
+				$('#serverMessage').show();
+				$('#serverMessage').html('Operation success!');
+				$('#serverMessage').addClass('successMessage');
+				$('#serverMessage').removeClass('errorMessage');
 				$('#addSpendFormId')[0].reset();
-			} else
-				alert('error created news!');
+			} else {
+				$('#serverMessage').show();
+				$('#serverMessage').html('Operation failed!');
+				$('#serverMessage').removeClass('successMessage');
+				$('#serverMessage').addClass('errorMessage');
+			}
 		}
 	});
 }
-function getAddSpendInformation() {
+function getAddSpendInformation(nbrLine) {
 	
-	var nbrLine = $('#default_number_line_spend').val();
-	var params = "?isdefault=false";
+	var params = "?nbrLine=" + nbrLine;
 	for (var i = 1; i <= nbrLine; i++) {
 		params = params + "&add_amount_" + i + "=" + $('#add_amount_' + i).val();
 		params = params + "&add_date_" + i + "=" + $('#add_date_' + i).val();
