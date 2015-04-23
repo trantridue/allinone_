@@ -17,6 +17,7 @@ define('defaultmodule','spend');
 define('defaultsubmodule','search');
 //datatableid
 define('userdatatable','user');
+define('spenddatatable','spend');
 define('newsdatatable','news');
 define('providerdatatable','provider');
 define('customerdatatable','customer');
