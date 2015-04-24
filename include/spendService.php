@@ -176,5 +176,13 @@ class SpendService {
 		$this->commonService->generateJSDatatableComplex ( $result, spenddatatable, 2, 'desc', $array_total );
 		$this->commonService->generateJqueryDatatable ( $result, spenddatatable, $this->buildArrayParameter() );
 	}
+	function deleteSpend($spendid) {
+		$qry = "delete from spend where id = " . $spendid;
+		if(mysql_query ( $qry, $this->connection ) != null) {
+			echo 'success';
+		} else {
+			echo 'error';
+		}
+	}
 }
 ?>
