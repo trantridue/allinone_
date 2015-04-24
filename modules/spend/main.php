@@ -3,6 +3,8 @@
 include 'search.php';
 ?>
 </div>
+<div id="editArea" style="display: none;">
+</div>
 <div id="addArea">
 <?php
 if ($commonService->isMobile ())
@@ -10,7 +12,6 @@ if ($commonService->isMobile ())
 else
 	include 'add.php';
 ?>
-
 </div>
 <hr>
 <div id="listArea">

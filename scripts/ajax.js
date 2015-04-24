@@ -657,14 +657,22 @@ function deletespend(id) {
 		url : urls,
 		success : function(data) {
 //			alert(data);
-			if (data == 'success') {
-				operationSuccess();
-				listSpend('false');
-			} else {
-				operationError();
-			}
+		if (data == 'success') {
+			operationSuccess();
+			listSpend('false');
+		} else {
+			operationError();
 		}
+	}
 	});
+}
+function editspend(str) {
+	var inputparams = processUrlString(str);
+	var url = 'modules/spend/editspend.php?' + inputparams;
+	$('#editArea').show();
+//	$('#searchArea').hide();
+	$('#addArea').hide();
+	$('#editArea').load(url);
 }
 function operationSuccess() {
 	$('#serverMessage').show();
