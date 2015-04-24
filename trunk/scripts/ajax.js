@@ -594,11 +594,9 @@ function paidAllByFund(fundName){
 function addSpends() {
 	var nbrLine = $('#default_number_line_spend').val();
 	var urls = 'modules/spend/addspend.php' + getAddSpendInformation(nbrLine);
-//	alert(urls);
 	$.ajax( {
 		url : urls,
 		success : function(data) {
-		alert(data);
 			if (data == 'success') {
 				$('#serverMessage').show();
 				$('#serverMessage').html('Operation success!');
@@ -657,4 +655,26 @@ function getSpendSearchCriteria(issearch){
 			+ id_search_type 
 	;
 	return processUrlString(str);
+}
+function deletespend(id) {
+	var urls = 'modules/spend/deletespend.php?id=' + id;
+//	alert(urls);
+	$.ajax( {
+		url : urls,
+		success : function(data) {
+//			alert(data);
+			if (data == 'success') {
+				$('#serverMessage').show();
+				$('#serverMessage').html('Operation success!');
+				$('#serverMessage').addClass('successMessage');
+				$('#serverMessage').removeClass('errorMessage');
+				listSpend('false');
+			} else {
+				$('#serverMessage').show();
+				$('#serverMessage').html('Operation failed!');
+				$('#serverMessage').removeClass('successMessage');
+				$('#serverMessage').addClass('errorMessage');
+			}
+		}
+	});
 }
