@@ -40,14 +40,14 @@ class ImportService {
 	}
 	//
 	function listProductDefault() {
-		$dateBefore3Months = $this->commonService->getDateBefore3Months ();
+		$dateBeforeSomeDays = $this->commonService->getDateBeforeSomeDays (default_nbr_days_load_import);
 		
 		$qry = "SELECT t4.name as provider_name, t5.name as brand_name,t6.name as category_name, t7.name as season_name,(select sum(quantity)
 				 from product_deviation where product_code = t2.code group by product_code) as deviation
 				 ,t1.*,t2.*,t3.code as facture_code,t3.date,t3.description as descript, t3.provider_id,date_format(t3.deadline,'%Y-%m-%d') as deadline
 				  FROM product_import t1,product t2,import_facture t3,provider t4, brand t5, category t6, season t7 where t1.product_code = t2.code 
 				and t1.import_facture_code = t3.code and t4.id = t3.provider_id and t5.id = t2.brand_id and t6.id = t2.category_id and t7.id = t2.season_id 
-				and t3.date >= '" . $dateBefore3Months . "' order by t2.code desc";
+				and t3.date >= '" . $dateBeforeSomeDays . "' order by t2.code desc";
 		$this->processImportQuery ( $qry );
 	}
 	

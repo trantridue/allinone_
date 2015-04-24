@@ -620,6 +620,19 @@ function getAddSpendInformation(nbrLine) {
 	}
 	return processUrlString(params);
 }
+function getUpdateSpendInformation() {
+	
+	var params = "?idspend=" + $('#idspend').val();; 
+		params = params + "&add_amount=" + $('#add_amount').val();
+		params = params + "&add_date=" + $('#add_date').val();
+		params = params + "&id_add_user=" + $('#id_add_user').val();
+		params = params + "&id_add_category=" + $('#id_add_category').val();
+		params = params + "&id_add_for=" + $('#id_add_for').val();
+		params = params + "&id_add_type=" + $('#id_add_type').val();
+		params = params + "&add_description=" + $('#add_description').val();
+		
+	return processUrlString(params);
+}
 function listSpend(issearch) {
 	var url = "modules/spend/list.php" + getSpendSearchCriteria(issearch);
 	$('#listArea').load(url);
@@ -652,11 +665,9 @@ function getSpendSearchCriteria(issearch){
 }
 function deletespend(id) {
 	var urls = 'modules/spend/deletespend.php?id=' + id;
-//	alert(urls);
 	$.ajax( {
 		url : urls,
 		success : function(data) {
-//			alert(data);
 		if (data == 'success') {
 			operationSuccess();
 			listSpend('false');
@@ -670,9 +681,24 @@ function editspend(str) {
 	var inputparams = processUrlString(str);
 	var url = 'modules/spend/editspend.php?' + inputparams;
 	$('#editArea').show();
-//	$('#searchArea').hide();
 	$('#addArea').hide();
+	$('#serverMessage').hide();
 	$('#editArea').load(url);
+}
+function updateSpend(){
+	var urls = 'modules/spend/updatespend.php' + getUpdateSpendInformation();
+//	alert(urls);
+	$.ajax( {
+		url : urls,
+		success : function(data) {
+			if (data == 'success') {
+				operationSuccess();
+				listSpend('true');
+			} else {
+				operationError();
+			}
+		}
+	});
 }
 function operationSuccess() {
 	$('#serverMessage').show();

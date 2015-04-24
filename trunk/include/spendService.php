@@ -52,7 +52,39 @@ class SpendService {
 		}
 		return $paramsArray;
 	}
-	
+	function getUpdateParameters() {
+		$paramsArray = array();
+		$paramsArray['idspend'] 		= $_REQUEST['idspend'];
+		$paramsArray['add_amount'] 		= $_REQUEST['add_amount'];
+		$paramsArray['add_date'] 		= $_REQUEST['add_date'];
+		$paramsArray['id_add_user'] 	= $_REQUEST['id_add_user'];
+		$paramsArray['id_add_category'] = $_REQUEST['id_add_category'];
+		$paramsArray['id_add_for'] 		= $_REQUEST['id_add_for'];
+		$paramsArray['id_add_type'] 	= $_REQUEST['id_add_type'];
+		$paramsArray['add_description'] = $_REQUEST['add_description'];
+		return $paramsArray;
+	}
+	function updateSpend($paramsArray){
+		session_start ();
+		mysql_query ( "BEGIN" );
+		$timeDate = ' '.date('H:i:s');
+		$qry = "update spend set amount=".$paramsArray['add_amount']
+		.", date = '".$paramsArray['add_date'].$timeDate
+		."', user_id = ".$paramsArray['id_add_user']
+		.", spend_category_id = ".$paramsArray['id_add_category']
+		.", spend_for_id = ".$paramsArray['id_add_for']
+		.", spend_type_id = ".$paramsArray['id_add_type']
+		.", description = '".$paramsArray['add_description']
+		."' where id =" . $paramsArray['idspend'];
+		
+		if(mysql_query ( $qry, $this->connection ) != null){
+			mysql_query ( "COMMIT" );
+			echo 'success';
+		}else {
+			mysql_query ( "ROLLBACK" );
+			echo 'error';
+		}
+	}
 	function insertSpends($nbrLine,$params){
 		session_start ();
 		mysql_query ( "BEGIN" );
@@ -108,12 +140,12 @@ class SpendService {
 				"amount" => "Amount",
 				"description" => "Description",
 				"date" => "Date",
+				"id,description,date,spend_category_id,user_id,spend_for_id,spend_type_id,amount" => "Edit",
+				"id" => "Delete",
 				"category" => "Category",
 				"user" => "User",
 				"fors" => "For",
-				"types" => "Type",
-				"id,description,date,spend_category_id,spend_user,spend_for_id,spend_type_id" => "Edit",
-				"id" => "Delete"
+				"types" => "Type"
 		);
 	}
 	function getInputParameters() {
