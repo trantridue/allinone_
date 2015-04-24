@@ -1,5 +1,6 @@
 ﻿#prepare table shop
 use allinone;
+truncate table spend;
 truncate table product_return;
 truncate table provider_paid_fund_change_histo;
 truncate table fund_change_histo;
