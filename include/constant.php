@@ -33,4 +33,6 @@ define('default_nbr_day_paid','14');
 define('default_id_source_1','1');
 define('default_id_source_2','18');
 define('default_id_source_3','3');
+//default number months load product import
+define('default_nbr_days_load_import','30');
 ?>
