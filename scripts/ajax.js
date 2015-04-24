@@ -598,16 +598,10 @@ function addSpends() {
 		url : urls,
 		success : function(data) {
 			if (data == 'success') {
-				$('#serverMessage').show();
-				$('#serverMessage').html('Operation success!');
-				$('#serverMessage').addClass('successMessage');
-				$('#serverMessage').removeClass('errorMessage');
+				operationSuccess();
 				$('#addSpendFormId')[0].reset();
 			} else {
-				$('#serverMessage').show();
-				$('#serverMessage').html('Operation failed!');
-				$('#serverMessage').removeClass('successMessage');
-				$('#serverMessage').addClass('errorMessage');
+				operationError();
 			}
 		}
 	});
@@ -664,17 +658,23 @@ function deletespend(id) {
 		success : function(data) {
 //			alert(data);
 			if (data == 'success') {
-				$('#serverMessage').show();
-				$('#serverMessage').html('Operation success!');
-				$('#serverMessage').addClass('successMessage');
-				$('#serverMessage').removeClass('errorMessage');
+				operationSuccess();
 				listSpend('false');
 			} else {
-				$('#serverMessage').show();
-				$('#serverMessage').html('Operation failed!');
-				$('#serverMessage').removeClass('successMessage');
-				$('#serverMessage').addClass('errorMessage');
+				operationError();
 			}
 		}
 	});
+}
+function operationSuccess() {
+	$('#serverMessage').show();
+	$('#serverMessage').html('Operation success!');
+	$('#serverMessage').addClass('successMessage');
+	$('#serverMessage').removeClass('errorMessage');
+}
+function operationError() {
+	$('#serverMessage').show();
+	$('#serverMessage').html('Operation failed!');
+	$('#serverMessage').removeClass('successMessage');
+	$('#serverMessage').addClass('errorMessage');
 }
