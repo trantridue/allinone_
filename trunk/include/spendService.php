@@ -149,10 +149,10 @@ class SpendService {
 				$qry = $qry. " and t1.amount <=".$parameterArray['search_amount_to'];
 				
 				if($parameterArray['search_date_from'] != '' )
-				$qry = $qry. " and t1.date >=".$parameterArray['search_date_from'];
+				$qry = $qry. " and date_format(t1.date,'%Y-%m-%d') >='".$parameterArray['search_date_from']."'";
 				
 				if($parameterArray['search_date_to'] != '' )
-				$qry = $qry. " and t1.date <=".$parameterArray['search_date_to'];
+				$qry = $qry. " and date_format(t1.date,'%Y-%m-%d') <='".$parameterArray['search_date_to']."'";
 				
 				if($parameterArray['search_description'] != '' )
 				$qry = $qry. " and t1.description like '%".$parameterArray['search_description']."%'";
@@ -173,6 +173,7 @@ class SpendService {
 		$array_total = array (
 				0 => "Tổng Chi"
 		);
+//		echo $qry;
 		$this->commonService->generateJSDatatableComplex ( $result, spenddatatable, 2, 'desc', $array_total );
 		$this->commonService->generateJqueryDatatable ( $result, spenddatatable, $this->buildArrayParameter() );
 	}
