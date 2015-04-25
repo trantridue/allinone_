@@ -9,7 +9,7 @@ if ($isdefault == "false") {
 	$inoutService = new InoutService ( hostname, username, password, database, $commonService );
 	$parameterArray = $inoutService->getInputParameters ();
 	if($isSearch == 'true') {
-		$inoutService->listSpend ( $parameterArray );
+		$inoutService->listInout ( $parameterArray );
 	} else {
 		$inoutService->listInoutDefault ();
 	}

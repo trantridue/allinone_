@@ -85,55 +85,49 @@ class InoutService {
 			echo 'error';
 		}
 	}
-	function insertSpends($nbrLine,$params){
-		session_start ();
-		mysql_query ( "BEGIN" );
-		$timeDate = ' '.date('H:i:s');
-		$qry = "insert into spend(spend_category_id,amount,user_id,description,date,spend_for_id,spend_type_id) values ";
-		$counter = 0;
-		for($i=1;$i<=$nbrLine;$i++){
-			if($params['add_amount_'.$i] != 0 ) {
-				$counter++;
-				$qry = $qry. "(".$params['id_add_category_'.$i].","
-								.$params['add_amount_'.$i].","
-								.$params['id_add_user_'.$i].",'"
-								.$params['add_description_'.$i]."','"
-								.$params['add_date_'.$i].$timeDate."',"
-								.$params['id_add_for_'.$i].","
-								.$params['id_add_type_'.$i]."),";
-			}
-		}
-		if($counter>0) {
-			$qry = substr($qry,0,-1);
-			if(mysql_query ( $qry, $this->connection ) != null){
-				mysql_query ( "COMMIT" );
-				echo 'success';
-			}else {
-				mysql_query ( "ROLLBACK" );
-				echo 'error';
-			}
-		} 
-	}
-	function listInoutDefault() {
+	function listInout($params) {
 		$today = date('Y-m-d');
-		$qry = "select t1.*, t2.name as shop,t3.name as user
-				from 
+		$qry = "select t1.*,if(t1.amount>0,t1.amount,0) as `in`,if(t1.amount<0,t1.amount,0) as `out`, t2.name as shop,t3.name as user
+				from
 				money_inout t1,
 				shop t2,
 				user t3
 				where t2.id = t1.shop_id
-				and t3.id = t1.user_id 
+				and t3.id = t1.user_id
+				and date_format(t1.date,'%Y-%m-%d') <='".$today."' order by date desc";
+		$result = mysql_query ( $qry, $this->connection );
+		$array_total = array (
+				0 => "Total",
+				1 => "In",
+				2 => "Out",
+		);
+		$this->commonService->generateJSDatatableComplex ( $result, inoutdatatable, 4, 'desc', $array_total );
+		$this->commonService->generateJqueryDatatable ( $result, inoutdatatable, $this->buildArrayParameter() );
+	}
+	function listInoutDefault() {
+		$today = date('Y-m-d');
+		$qry = "select t1.*,if(t1.amount>0,t1.amount,0) as `in`,if(t1.amount<0,t1.amount,0) as `out`, t2.name as shop,t3.name as user
+				from
+				money_inout t1,
+				shop t2,
+				user t3
+				where t2.id = t1.shop_id
+				and t3.id = t1.user_id
 				and date_format(t1.date,'%Y-%m-%d') ='".$today."' order by date desc";
 		$result = mysql_query ( $qry, $this->connection );
 		$array_total = array (
-				0 => "amount"
+				0 => "Total",
+				1 => "In",
+				2 => "Out",
 		);
-		$this->commonService->generateJSDatatableComplex ( $result, inoutdatatable, 3, 'desc', $array_total );
+		$this->commonService->generateJSDatatableComplex ( $result, inoutdatatable, 4, 'desc', $array_total );
 		$this->commonService->generateJqueryDatatable ( $result, inoutdatatable, $this->buildArrayParameter() );
 	}
 	function buildArrayParameter() {
 		return array (
 				"amount" => "Amount",
+				"in" => "In",
+				"out" => "Out",
 				"description" => "Description",
 				"date" => "Date",
 				"id,description,date,spend_category_id,user_id,spend_for_id,spend_type_id,amount" => "Edit",
