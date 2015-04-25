@@ -91,7 +91,20 @@ class InoutService {
 				user t3
 				where t2.id = t1.shop_id
 				and t3.id = t1.user_id";
-
+		if($parameterArray['id_search_type'] == 1 || $parameterArray['id_search_type'] == '') {
+			if($parameterArray['search_amount_from'] != '' )
+				$qry = $qry. " and t1.amount >=".$parameterArray['search_amount_from'];
+			
+			if($parameterArray['search_amount_to'] != '' )
+				$qry = $qry. " and t1.amount <=".$parameterArray['search_amount_to'];
+		} else if ($parameterArray['id_search_type'] == 2) {
+			if($parameterArray['search_amount_from'] != '' )
+				$qry = $qry. " and t1.amount >=(0-".$parameterArray['search_amount_to'].")";
+				
+			if($parameterArray['search_amount_to'] != '' )
+				$qry = $qry. " and t1.amount <=(0-".$parameterArray['search_amount_from'].")";
+		} 
+		
 		if($parameterArray['search_date_from'] != '' )
 			$qry = $qry. " and date_format(t1.date,'%Y-%m-%d') >='".$parameterArray['search_date_from']."'";
 		

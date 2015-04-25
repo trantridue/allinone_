@@ -776,7 +776,7 @@ function validateAddMoneyInout(){
 }
 function listInOut(issearch) {
 	var url = "modules/inout/list.php" + getInoutSearchCriteria(issearch);
-	alert(url);
+//	alert(url);
 	$('#listArea').load(url);
 }
 function getInoutSearchCriteria(issearch){
