@@ -715,10 +715,35 @@ function operationError() {
 /* MONEY INOUT */
 function addInOut() {
 	if(validateAddMoneyInout()) {
+		saveInOut();
 		return true;
 	} else {
 		return false;
 	}
+}
+function saveInOut() {
+	var urls = 'modules/inout/addinout.php' + getAddInoutInformation();
+	$.ajax( {
+		url : urls,
+		success : function(data) {
+			if (data == 'success') {
+				operationSuccess();
+				$('#addInoutFormId')[0].reset();
+			} else {
+				operationError();
+			}
+		}
+	});
+}
+function getAddInoutInformation() {
+	var params = '';
+	params = params + "?add_amount" + "=" + $('#add_amount').val();
+	params = params + "&add_date" + "=" + $('#add_date').val();
+	params = params + "&id_add_user" + "=" + $('#id_add_user').val();
+	params = params + "&id_add_inout_type" + "=" + $('#id_add_inout_type').val();
+	params = params + "&id_add_shop" + "=" + $('#id_add_shop').val();
+	params = params + "&add_description" + "=" + $('#add_description').val();
+return processUrlString(params);
 }
 function validateAddMoneyInout(){
 	var flag = true;

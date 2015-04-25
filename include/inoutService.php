@@ -38,18 +38,14 @@ class InoutService {
 	function HandleDBError($err) {
 		$this->HandleError ( $err . "\r\n mysqlerror:" . mysql_error () );
 	}
-	
-	function getAddParameters($nbrLine) {
+	function getAddParameters() {
 		$paramsArray = array();
-		for($i=1;$i<=$nbrLine;$i++){
-			$paramsArray['add_amount_'.$i] 		= $_REQUEST['add_amount_'.$i];
-			$paramsArray['add_date_'.$i] 		= $_REQUEST['add_date_'.$i];
-			$paramsArray['id_add_user_'.$i] 	= $_REQUEST['id_add_user_'.$i];
-			$paramsArray['id_add_category_'.$i] = $_REQUEST['id_add_category_'.$i];
-			$paramsArray['id_add_for_'.$i] 		= $_REQUEST['id_add_for_'.$i];
-			$paramsArray['id_add_type_'.$i] 	= $_REQUEST['id_add_type_'.$i];
-			$paramsArray['add_description_'.$i] = $_REQUEST['add_description_'.$i];
-		}
+		$paramsArray['add_amount'] 		= $_REQUEST['add_amount'];
+		$paramsArray['add_date'] 		= $_REQUEST['add_date'];
+		$paramsArray['id_add_user'] 	= $_REQUEST['id_add_user'];
+		$paramsArray['id_add_inout_type'] = $_REQUEST['id_add_inout_type'];
+		$paramsArray['id_add_shop'] 		= $_REQUEST['id_add_shop'];
+		$paramsArray['add_description'] = $_REQUEST['add_description'];
 		return $paramsArray;
 	}
 	function getUpdateParameters() {
@@ -127,8 +123,8 @@ class InoutService {
 		if($this->commonService->isAdmin())
 		return array (
 				"amount" => "Amount",
-				"in" => "In",
-				"out" => "Out",
+				"in" => "hidden_field",
+				"out" => "hidden_field",
 				"description" => "Description",
 				"date" => "Date",
 				"id,description,date,spend_category_id,user_id,spend_for_id,spend_type_id,amount" => "Edit",
@@ -204,7 +200,6 @@ class InoutService {
 		$array_total = array (
 				0 => "Tổng Chi"
 		);
-//		echo $qry;
 		$this->commonService->generateJSDatatableComplex ( $result, spenddatatable, 2, 'desc', $array_total );
 		$this->commonService->generateJqueryDatatable ( $result, spenddatatable, $this->buildArrayParameter() );
 	}
@@ -213,6 +208,27 @@ class InoutService {
 		if(mysql_query ( $qry, $this->connection ) != null) {
 			echo 'success';
 		} else {
+			echo 'error';
+		}
+	}
+	function insertInout($params){
+		session_start ();
+		mysql_query ( "BEGIN" );
+		$timeDate = ' '.date('H:i:s');
+		$date = ($params['add_date'] != '')?$params['add_date'].$timeDate:date('Y-m-d H:i:s');
+		$amount = ($params['id_add_inout_type'] == 1)?$params['add_amount']:(0-$params['add_amount']);
+		$qry = "insert into money_inout(shop_id,amount,user_id,description,date) values ";
+		
+		$qry = $qry. "(".$params['id_add_shop'].","
+			.$amount.","
+			.$params['id_add_user'].",'"
+			.$params['add_description']."','"
+			.$date."')";
+		if(mysql_query ( $qry, $this->connection ) != null){
+			mysql_query ( "COMMIT" );
+			echo 'success';
+		}else {
+			mysql_query ( "ROLLBACK" );
 			echo 'error';
 		}
 	}
