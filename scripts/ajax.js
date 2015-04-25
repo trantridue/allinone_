@@ -712,3 +712,27 @@ function operationError() {
 	$('#serverMessage').removeClass('successMessage');
 	$('#serverMessage').addClass('errorMessage');
 }
+/* MONEY INOUT */
+function addInOut() {
+	if(validateAddMoneyInout()) {
+		return true;
+	} else {
+		return false;
+	}
+}
+function validateAddMoneyInout(){
+	var flag = true;
+	if($('#add_amount').val()=='' || $('#add_amount').val()=='0') {
+		$('#add_amount').addClass('errorField');
+		return false;
+	} else {
+		$('#add_amount').removeClass('errorField');
+	}
+	if($('#id_add_inout_type').val()=='' || $('#id_add_inout_type').val()== null) {
+		$('#id_add_inout_type').addClass('errorField');
+		return false;
+	} else {
+		$('#id_add_inout_type').removeClass('errorField');
+	}
+	return flag;
+}

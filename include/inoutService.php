@@ -124,6 +124,7 @@ class InoutService {
 		$this->commonService->generateJqueryDatatable ( $result, inoutdatatable, $this->buildArrayParameter() );
 	}
 	function buildArrayParameter() {
+		if($this->commonService->isAdmin())
 		return array (
 				"amount" => "Amount",
 				"in" => "In",
@@ -132,6 +133,16 @@ class InoutService {
 				"date" => "Date",
 				"id,description,date,spend_category_id,user_id,spend_for_id,spend_type_id,amount" => "Edit",
 				"id" => "Delete",
+				"user" => "User",
+				"shop" => "Shop"
+		);
+		else 
+		return array (
+				"amount" => "Amount",
+				"in" => "In",
+				"out" => "Out",
+				"description" => "Description",
+				"date" => "Date",
 				"user" => "User",
 				"shop" => "Shop"
 		);
