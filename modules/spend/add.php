@@ -1,6 +1,3 @@
-<?php
-echo $commonService->isMobile();
-?>
 <form id="addSpendFormId">
 <h3>ADD SPEND</h3>
 <table class="addcriteriatable" style="text-align: center;">

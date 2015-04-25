@@ -7,9 +7,9 @@ include 'search.php';
 </div>
 <div id="addArea">
 <?php
-if ($commonService->isMobile ())
-	include 'add_m.php';
-else
+//if ($commonService->isMobile ())
+//	include 'add_m.php';
+//else
 	include 'add.php';
 ?>
 </div>
