@@ -81,7 +81,8 @@ class InoutService {
 			echo 'error';
 		}
 	}
-	function listInout($params) {
+	function listInout($parameterArray) {
+		
 		$today = date('Y-m-d');
 		$qry = "select t1.*,if(t1.amount>0,t1.amount,0) as `in`,if(t1.amount<0,t1.amount,0) as `out`, t2.name as shop,t3.name as user
 				from
@@ -89,9 +90,28 @@ class InoutService {
 				shop t2,
 				user t3
 				where t2.id = t1.shop_id
-				and t3.id = t1.user_id
-				and date_format(t1.date,'%Y-%m-%d') <='".$today."' order by date desc";
+				and t3.id = t1.user_id";
+
+		if($parameterArray['search_date_from'] != '' )
+			$qry = $qry. " and date_format(t1.date,'%Y-%m-%d') >='".$parameterArray['search_date_from']."'";
+		
+		if($parameterArray['search_date_to'] != '' )
+			$qry = $qry. " and date_format(t1.date,'%Y-%m-%d') <='".$parameterArray['search_date_to']."'";
+		
+		if($parameterArray['search_description'] != '' )
+			$qry = $qry. " and t1.description like '%".$parameterArray['search_description']."%'";
+		
+		if($parameterArray['id_search_user'] != '' )
+			$qry = $qry. " and t3.id =".$parameterArray['id_search_user'];
+		
+		if($parameterArray['id_search_shop'] != '' )
+			$qry = $qry. " and t2.id =".$parameterArray['id_search_shop'];
+		
+		
+		$qry = $qry. " order by date desc";
+// 		echo $qry;
 		$result = mysql_query ( $qry, $this->connection );
+		
 		$array_total = array (
 				0 => "Total",
 				1 => "In",
@@ -151,8 +171,7 @@ class InoutService {
 			'search_date_to' 			=> $_REQUEST['search_date_to'],
 			'search_description' 		=> $_REQUEST['search_description'],
 			'id_search_user' 			=> $_REQUEST['id_search_user'],
-			'id_search_category' 		=> $_REQUEST['id_search_category'],
-			'id_search_for' 			=> $_REQUEST['id_search_for'],
+			'id_search_shop' 			=> $_REQUEST['id_search_shop'],
 			'id_search_type' 			=> $_REQUEST['id_search_type']
 		);
 	}
