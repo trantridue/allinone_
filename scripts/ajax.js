@@ -774,3 +774,32 @@ function validateAddMoneyInout(){
 	}
 	return flag;
 }
+function listInOut(issearch) {
+	var url = "modules/inout/list.php" + getInoutSearchCriteria(issearch);
+	alert(url);
+	$('#listArea').load(url);
+}
+function getInoutSearchCriteria(issearch){
+	
+	var str = "?issearch=" + issearch + "&isdefault=false";
+	var search_amount_from = "&search_amount_from=" + $('#search_amount_from').val();
+	var search_amount_to = "&search_amount_to=" + $('#search_amount_to').val();
+	var search_date_from = "&search_date_from=" + $('#search_date_from').val();
+	var search_date_to = "&search_date_to=" + $('#search_date_to').val();
+	var search_description = "&search_description=" + $('#search_description').val();
+
+	var id_search_user = "&id_search_user=" + $('#id_search_user').val();
+	var id_search_shop = "&id_search_shop=" + $('#id_search_shop').val();
+	var id_search_type = "&id_search_type=" + $('#id_search_type').val();
+	
+	str = str + search_amount_from 
+			+ search_amount_to 
+			+ search_date_from 
+			+ search_date_to 
+			+ search_description 
+			+ id_search_user 
+			+ id_search_shop 
+			+ id_search_type 
+	;
+	return processUrlString(str);
+}
