@@ -16,18 +16,16 @@
 		<td><?php
 		$commonService->printDropDownListFromTable ( 'user', 'search_user' );
 		?></td>
-		<td align="right">Spend Category :</td>
+		<td align="right">Inout shop :</td>
 		<td><?php
-		$commonService->printDropDownListFromTable ( 'spend_category', 'search_category' );
+		$commonService->printDropDownListFromTable ( 'shop', 'search_shop' );
 		?></td>
-		<td align="right">Spend For :</td>
+		<td align="right">Inout Type :</td>
 		<td><?php
-		$commonService->printDropDownListFromTable ( 'spend_for', 'search_for' );
+		$commonService->printDropDownListFromTable ( 'inout_type', 'search_type' );
 		?></td>
-		<td align="right">Type :</td>
-		<td><?php
-		$commonService->printDropDownListFromTable ( 'spend_type', 'search_type' );
-		?></td>
+		<td align="right"></td>
+		<td></td>
 	</tr>
 
 	<tr>

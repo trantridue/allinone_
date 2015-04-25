@@ -1,4 +1,4 @@
-<form id="addSpendFormId">
+<form id="addInoutFormId">
 <h3>ADD INOUT</h3>
 <table class="addcriteriatable" style="text-align: center;" >
 	<thead>
