@@ -1,6 +1,7 @@
 ﻿#prepare table shop
 use allinone;
 truncate table spend;
+truncate table money_inout;
 truncate table product_return;
 truncate table provider_paid_fund_change_histo;
 truncate table fund_change_histo;
@@ -135,5 +136,10 @@ insert into spend_category(id,name) SELECT id,CONVERT(CONVERT(CONVERT(name USING
 insert into spend_for(id,name) SELECT id,CONVERT(CONVERT(CONVERT(name USING latin1) USING binary) USING utf8) FROM `zabuzach_store`.`ref_spend_for`;
 insert into spend_type(id,name) SELECT id,CONVERT(CONVERT(CONVERT(name USING latin1) USING binary) USING utf8) FROM `zabuzach_store`.`ref_spend_type`;
 insert into spend(id,spend_category_id,amount,user_id,description,date,spend_for_id,spend_type_id)
-
 SELECT id,spend_domain_id,amount,users_id,CONVERT(CONVERT(CONVERT(description USING latin1) USING binary) USING utf8),date,spend_for_id,spend_type_id FROM `zabuzach_store`.`spend`;
+
+#money in out
+insert into money_inout(id,shop_id,user_id,date,amount,description)
+select id,shops_id,users_id,fulldate,amount,CONVERT(CONVERT(CONVERT(description USING latin1) USING binary) USING utf8) from `zabuzach_store`.`money_inout` where type='in';
+insert into money_inout(id,shop_id,user_id,date,amount,description)
+select id,shops_id,users_id,fulldate,(0-amount),CONVERT(CONVERT(CONVERT(description USING latin1) USING binary) USING utf8) from `zabuzach_store`.`money_inout` where type='out';

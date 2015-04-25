@@ -21,6 +21,7 @@ define('spenddatatable','spend');
 define('newsdatatable','news');
 define('providerdatatable','provider');
 define('customerdatatable','customer');
+define('inoutdatatable','money_inout');
 define('datatable_prefix','table_list_');
 //default password
 define('default_password','123456');

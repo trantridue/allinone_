@@ -8,6 +8,7 @@ require_once ("./include/providerService.php");
 require_once ("./include/customerService.php");
 require_once ("./include/newsService.php");
 require_once ("./include/spendService.php");
+require_once ("./include/inoutService.php");
 
 $fgmembersite = new FGMembersite ( hostname, username, password, database, tablename );
 $commonService = new CommonService ();
@@ -17,6 +18,7 @@ $providerService = new ProviderService ( hostname, username, password, database,
 $customerService = new CustomerService ( hostname, username, password, database,$commonService );
 $newsService = new NewsService ( hostname, username, password, database,$commonService );
 $spendService = new SpendService ( hostname, username, password, database,$commonService );
+$inoutService = new InoutService ( hostname, username, password, database,$commonService );
 
 // Provide your site name here
 $fgmembersite->SetWebsiteName ( 'user11.com' );
