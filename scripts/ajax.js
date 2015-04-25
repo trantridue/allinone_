@@ -724,15 +724,28 @@ function validateAddMoneyInout(){
 	var flag = true;
 	if($('#add_amount').val()=='' || $('#add_amount').val()=='0') {
 		$('#add_amount').addClass('errorField');
-		return false;
+		flag = false;
 	} else {
 		$('#add_amount').removeClass('errorField');
 	}
 	if($('#id_add_inout_type').val()=='' || $('#id_add_inout_type').val()== null) {
 		$('#id_add_inout_type').addClass('errorField');
-		return false;
+		flag = false;
 	} else {
 		$('#id_add_inout_type').removeClass('errorField');
+	}
+	
+	if($('#id_add_user').val()=='' || $('#id_add_user').val()== null) {
+		$('#id_add_user').addClass('errorField');
+		flag = false;
+	} else {
+		$('#id_add_user').removeClass('errorField');
+	}
+	if($('#add_description').val()=='' || $('#add_description').val()== null) {
+		$('#add_description').addClass('errorField');
+		flag = false;
+	} else {
+		$('#add_description').removeClass('errorField');
 	}
 	return flag;
 }
