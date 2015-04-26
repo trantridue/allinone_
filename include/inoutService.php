@@ -50,29 +50,26 @@ class InoutService {
 	}
 	function getUpdateParameters() {
 		$paramsArray = array();
-		$paramsArray['idspend'] 		= $_REQUEST['idspend'];
+		$paramsArray['idinout'] 		= $_REQUEST['idinout'];
 		$paramsArray['add_amount'] 		= $_REQUEST['add_amount'];
 		$paramsArray['add_date'] 		= $_REQUEST['add_date'];
 		$paramsArray['id_add_user'] 	= $_REQUEST['id_add_user'];
-		$paramsArray['id_add_category'] = $_REQUEST['id_add_category'];
-		$paramsArray['id_add_for'] 		= $_REQUEST['id_add_for'];
+		$paramsArray['id_add_shop'] 	= $_REQUEST['id_add_shop'];
 		$paramsArray['id_add_type'] 	= $_REQUEST['id_add_type'];
 		$paramsArray['add_description'] = $_REQUEST['add_description'];
 		return $paramsArray;
 	}
-	function updateSpend($paramsArray){
+	function updateInout($paramsArray){
 		session_start ();
 		mysql_query ( "BEGIN" );
 		$timeDate = ' '.date('H:i:s');
-		$qry = "update spend set amount=".$paramsArray['add_amount']
+		$amount = ($paramsArray['id_add_type'] == 1) ? $paramsArray['add_amount'] : (0-$paramsArray['add_amount']);
+		$qry = "update money_inout set amount=".$amount
 		.", date = '".$paramsArray['add_date'].$timeDate
 		."', user_id = ".$paramsArray['id_add_user']
-		.", spend_category_id = ".$paramsArray['id_add_category']
-		.", spend_for_id = ".$paramsArray['id_add_for']
-		.", spend_type_id = ".$paramsArray['id_add_type']
+		.", shop_id = ".$paramsArray['id_add_shop']
 		.", description = '".$paramsArray['add_description']
-		."' where id =" . $paramsArray['idspend'];
-		
+		."' where id =" . $paramsArray['idinout'];
 		if(mysql_query ( $qry, $this->connection ) != null){
 			mysql_query ( "COMMIT" );
 			echo 'success';
@@ -84,14 +81,15 @@ class InoutService {
 	function listInout($parameterArray) {
 		
 		$today = date('Y-m-d');
-		$qry = "select t1.*,if(t1.amount>0,t1.amount,0) as `in`,if(t1.amount<0,t1.amount,0) as `out`, t2.name as shop,t3.name as user
+		$qry = "select t1.*,if(t1.amount>0,1,2) as `type`,if(t1.amount>0,t1.amount,0) as `in`,if(t1.amount<0,t1.amount,0) as `out`, t2.name as shop,t3.name as user
 				from
 				money_inout t1,
 				shop t2,
 				user t3
 				where t2.id = t1.shop_id
 				and t3.id = t1.user_id";
-		if($parameterArray['id_search_type'] == 1 || $parameterArray['id_search_type'] == '') {
+		
+		if($parameterArray['id_search_type'] == 1) {
 			if($parameterArray['search_amount_from'] != '' )
 				$qry = $qry. " and t1.amount >=".$parameterArray['search_amount_from'];
 			else 
@@ -106,7 +104,13 @@ class InoutService {
 				$qry = $qry. " and t1.amount <=(0-".$parameterArray['search_amount_from'].")";
 			else 
 				$qry = $qry. " and t1.amount <=0";
-		} 
+		} else if($parameterArray['id_search_type'] == '') {
+			if($parameterArray['search_amount_from'] != '' )
+				$qry = $qry. " and t1.amount >=".$parameterArray['search_amount_from'];
+			
+			if($parameterArray['search_amount_to'] != '' )
+				$qry = $qry. " and t1.amount <=".$parameterArray['search_amount_to'];
+		}
 		
 		if($parameterArray['search_date_from'] != '' )
 			$qry = $qry. " and date_format(t1.date,'%Y-%m-%d') >='".$parameterArray['search_date_from']."'";
@@ -138,7 +142,7 @@ class InoutService {
 	}
 	function listInoutDefault() {
 		$today = date('Y-m-d');
-		$qry = "select t1.*,if(t1.amount>0,t1.amount,0) as `in`,if(t1.amount<0,t1.amount,0) as `out`, t2.name as shop,t3.name as user
+		$qry = "select t1.*,if(t1.amount>0,1,2) as `type`, if(t1.amount>0,t1.amount,0) as `in`,if(t1.amount<0,t1.amount,0) as `out`, t2.name as shop,t3.name as user
 				from
 				money_inout t1,
 				shop t2,
@@ -152,6 +156,7 @@ class InoutService {
 				1 => "In",
 				2 => "Out",
 		);
+		
 		$this->commonService->generateJSDatatableComplex ( $result, inoutdatatable, 4, 'desc', $array_total );
 		$this->commonService->generateJqueryDatatable ( $result, inoutdatatable, $this->buildArrayParameter() );
 	}
@@ -163,7 +168,7 @@ class InoutService {
 				"out" => "hidden_field",
 				"description" => "Description",
 				"date" => "Date",
-				"id,description,date,spend_category_id,user_id,spend_for_id,spend_type_id,amount" => "Edit",
+				"id,description,date,shop_id,user_id,amount,type" => "Edit",
 				"id" => "Delete",
 				"user" => "User",
 				"shop" => "Shop"

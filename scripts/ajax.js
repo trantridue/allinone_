@@ -620,6 +620,18 @@ function getAddSpendInformation(nbrLine) {
 	}
 	return processUrlString(params);
 }
+function getUpdateInoutInformation() {
+	
+	var params = "?idinout=" + $('#idinout').val();; 
+	params = params + "&add_amount=" + $('#add_amount').val();
+	params = params + "&add_date=" + $('#add_date').val();
+	params = params + "&id_add_user=" + $('#id_add_user').val();
+	params = params + "&id_add_shop=" + $('#id_add_shop').val();
+	params = params + "&id_add_type=" + $('#id_add_type').val();
+	params = params + "&add_description=" + $('#add_description').val();
+	
+	return processUrlString(params);
+}
 function getUpdateSpendInformation() {
 	
 	var params = "?idspend=" + $('#idspend').val();; 
@@ -703,6 +715,14 @@ function editspend(str) {
 	$('#serverMessage').hide();
 	$('#editArea').load(url);
 }
+function editmoney_inout(str) {
+	var inputparams = processUrlString(str);
+	var url = 'modules/inout/editinout.php?' + inputparams;
+	$('#editArea').show();
+	$('#addArea').hide();
+	$('#serverMessage').hide();
+	$('#editArea').load(url);
+}
 function updateSpend(){
 	var urls = 'modules/spend/updatespend.php' + getUpdateSpendInformation();
 //	alert(urls);
@@ -712,6 +732,22 @@ function updateSpend(){
 			if (data == 'success') {
 				operationSuccess();
 				listSpend('true');
+			} else {
+				operationError();
+			}
+		}
+	});
+}
+function updateInout(){
+	var urls = 'modules/inout/updateinout.php' + getUpdateInoutInformation();
+//	alert(urls);
+	$.ajax( {
+		url : urls,
+		success : function(data) {
+//			alert(data);
+			if (data == 'success') {
+				operationSuccess();
+				listInOut('true');
 			} else {
 				operationError();
 			}
