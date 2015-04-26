@@ -668,14 +668,32 @@ function deletespend(id) {
 	$.ajax( {
 		url : urls,
 		success : function(data) {
-		if (data == 'success') {
-			operationSuccess();
-			listSpend('false');
-		} else {
-			operationError();
+			if (data == 'success') {
+				operationSuccess();
+				listSpend('false');
+			} else {
+				operationError();
+			}
 		}
-	}
 	});
+}
+function deletemoney_inout(id) {
+	if(confirm('Are you sure to delete?')) {
+		var urls = 'modules/inout/deleteinout.php?id=' + id;
+		$.ajax( {
+			url : urls,
+			success : function(data) {
+			if (data == 'success') {
+				operationSuccess();
+				listInOut('false');
+			} else {
+				operationError();
+			}
+		}
+		});
+	} else {
+		return false;
+	}
 }
 function editspend(str) {
 	var inputparams = processUrlString(str);
@@ -716,10 +734,7 @@ function operationError() {
 function addInOut() {
 	if(validateAddMoneyInout()) {
 		saveInOut();
-		return true;
-	} else {
-		return false;
-	}
+	} 
 }
 function saveInOut() {
 	var urls = 'modules/inout/addinout.php' + getAddInoutInformation();
@@ -728,6 +743,7 @@ function saveInOut() {
 		success : function(data) {
 			if (data == 'success') {
 				operationSuccess();
+				listInOut('false');
 				$('#addInoutFormId')[0].reset();
 			} else {
 				operationError();
@@ -776,7 +792,6 @@ function validateAddMoneyInout(){
 }
 function listInOut(issearch) {
 	var url = "modules/inout/list.php" + getInoutSearchCriteria(issearch);
-//	alert(url);
 	$('#listArea').load(url);
 }
 function getInoutSearchCriteria(issearch){

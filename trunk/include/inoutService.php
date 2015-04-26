@@ -94,7 +94,8 @@ class InoutService {
 		if($parameterArray['id_search_type'] == 1 || $parameterArray['id_search_type'] == '') {
 			if($parameterArray['search_amount_from'] != '' )
 				$qry = $qry. " and t1.amount >=".$parameterArray['search_amount_from'];
-			
+			else 
+				$qry = $qry. " and t1.amount >=0";
 			if($parameterArray['search_amount_to'] != '' )
 				$qry = $qry. " and t1.amount <=".$parameterArray['search_amount_to'];
 		} else if ($parameterArray['id_search_type'] == 2) {
@@ -103,6 +104,8 @@ class InoutService {
 				
 			if($parameterArray['search_amount_to'] != '' )
 				$qry = $qry. " and t1.amount <=(0-".$parameterArray['search_amount_from'].")";
+			else 
+				$qry = $qry. " and t1.amount <=0";
 		} 
 		
 		if($parameterArray['search_date_from'] != '' )
@@ -122,7 +125,7 @@ class InoutService {
 		
 		
 		$qry = $qry. " order by date desc";
-// 		echo $qry;
+		echo $qry;
 		$result = mysql_query ( $qry, $this->connection );
 		
 		$array_total = array (
@@ -188,55 +191,9 @@ class InoutService {
 			'id_search_type' 			=> $_REQUEST['id_search_type']
 		);
 	}
-	function listSpend($parameterArray) {
-		$qry = "select t1.*, t2.name as category,t3.name as user,t4.name as fors, t5.name as types
-				from
-				spend t1,
-				spend_category t2,
-				user t3,
-				spend_for t4,
-				spend_type t5
-				where t2.id = t1.spend_category_id
-				and t3.id = t1.user_id
-				and t4.id = t1.spend_for_id
-				and t5.id = t1.spend_type_id ";
-				
-				if($parameterArray['search_amount_from'] != '' )
-				$qry = $qry. " and t1.amount >=".$parameterArray['search_amount_from'];
-				
-				if($parameterArray['search_amount_to'] != '' )
-				$qry = $qry. " and t1.amount <=".$parameterArray['search_amount_to'];
-				
-				if($parameterArray['search_date_from'] != '' )
-				$qry = $qry. " and date_format(t1.date,'%Y-%m-%d') >='".$parameterArray['search_date_from']."'";
-				
-				if($parameterArray['search_date_to'] != '' )
-				$qry = $qry. " and date_format(t1.date,'%Y-%m-%d') <='".$parameterArray['search_date_to']."'";
-				
-				if($parameterArray['search_description'] != '' )
-				$qry = $qry. " and t1.description like '%".$parameterArray['search_description']."%'";
-				
-				if($parameterArray['id_search_user'] != '' )
-				$qry = $qry. " and t3.id =".$parameterArray['id_search_user'];
-				
-				if($parameterArray['id_search_category'] != '' )
-				$qry = $qry. " and t2.id =".$parameterArray['id_search_category'];
-				
-				if($parameterArray['id_search_for'] != '' )
-				$qry = $qry. " and t4.id =".$parameterArray['id_search_for'];
-				
-				if($parameterArray['id_search_type'] != '' )
-				$qry = $qry. " and t5.id =".$parameterArray['id_search_type'];
-				
-		$result = mysql_query ( $qry, $this->connection );
-		$array_total = array (
-				0 => "Tổng Chi"
-		);
-		$this->commonService->generateJSDatatableComplex ( $result, spenddatatable, 2, 'desc', $array_total );
-		$this->commonService->generateJqueryDatatable ( $result, spenddatatable, $this->buildArrayParameter() );
-	}
-	function deleteSpend($spendid) {
-		$qry = "delete from spend where id = " . $spendid;
+	
+	function deleteInout($id) {
+		$qry = "delete from money_inout where id = " . $id;
 		if(mysql_query ( $qry, $this->connection ) != null) {
 			echo 'success';
 		} else {
