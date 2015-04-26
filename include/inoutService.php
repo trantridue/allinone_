@@ -125,7 +125,7 @@ class InoutService {
 		
 		
 		$qry = $qry. " order by date desc";
-		echo $qry;
+//		echo $qry;
 		$result = mysql_query ( $qry, $this->connection );
 		
 		$array_total = array (

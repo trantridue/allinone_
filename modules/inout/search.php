@@ -6,8 +6,8 @@
 		<td><input type="text" size="4" id="search_amount_from" maxlength="8" onkeypress="validateNum(event);"/>
 		<input type="text" size="4" id="search_amount_to" maxlength="8" onkeypress="validateNum(event);"/></td>
 		<td align="right">Date :</td>
-		<td><input type="text" id="search_date_from" class="datefield" value="<?php echo date('Y-m-').'01';?>"/> <input
-			type="text" id="search_date_to" class="datefield" /></td>
+		<td><input type="text" id="search_date_from" class="datefield" value="<?php echo date('Y-m-1');?>"/> <input
+			type="text" id="search_date_to" class="datefield" value="<?php echo date("Y-m-t");?>"/></td>
 		<td align="right">Description :</td>
 		<td colspan="3"><textarea rows="3" cols="40" id="search_description"></textarea></td>
 	</tr>
