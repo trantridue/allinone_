@@ -145,5 +145,6 @@ select id,shops_id,users_id,fulldate,amount,CONVERT(CONVERT(CONVERT(description 
 insert into money_inout(id,shop_id,user_id,date,amount,description)
 select id,shops_id,users_id,fulldate,(0-amount),CONVERT(CONVERT(CONVERT(description USING latin1) USING binary) USING utf8) from `zabuzach_store`.`money_inout` where type='out';
 insert into inout_type(id,name) values (1,'Thêm tiền'),(2,'Rút tiền');
+delete from money_inout where description='De lai' and amount = 500;
 #news
 insert into news (id,date,description,shop_id,user_id) select id,date,CONVERT(CONVERT(CONVERT(description USING latin1) USING binary) USING utf8),1,users_id from `zabuzach_store`.`news`;
