@@ -136,7 +136,7 @@ class ImportService {
 				$qry = $qry . " and t2.export_price = " . $parameterArray ['export_price'];
 		}
 		if ($_REQUEST ['limit_search'] != '') {
-			$qry = $qry . "  and t3.date >=' " . $this->commonService->getDateBefore3Months () . "' ";
+			$qry = $qry . "  and t3.date >=' " . $this->commonService->getDateBeforeSomeDays (default_nbr_days_load_import) . "' ";
 		}
 		$qry = $qry . "  order by t2.code desc";
 		if ($_REQUEST ['limit_search'] != '') {
