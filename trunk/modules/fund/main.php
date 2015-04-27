@@ -1,10 +1,11 @@
-<div id="inputArea">
-<?php
-$submodule = isset ( $_REQUEST ['submenu'] ) ? $_REQUEST ['submenu'] : defaultsubmodule;
-include $submodule . '.php';
-?>
+<div id=mainFund>
+<div id="topFund">
+	<div id="exchangeFund">exchangeFund</div>
+	<div id="addFund">addFund</div>
+	<div id="searchFund" style="display: none;">searchFund</div>
 </div>
-<hr>
-<div id="listArea">
-<?php include 'list.php'?>
+<div id="bottomFund">
+	<div id="listFund"><?php include 'listfund.php'?></div>
+	<div id="histoFund">histoFund</div>
+</div>
 </div>
