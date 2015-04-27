@@ -326,3 +326,39 @@ textarea {
 	background-color: green;
 	font-size: 3em;
 }
+/* FUND */
+#mainFund{
+	padding: 5px;
+}
+#topFund{
+	width: 100%;
+	padding-bottom:1.5%; 
+}
+#bottomFund{
+	width: 100%;
+}
+#exchangeFund{
+	width: 30%;
+	background-color: bisque;
+	float: left;
+}
+#addFund{
+	width: 69%;
+	background-color: yellow;
+	float: right;
+}
+#searchFund{
+	width: 69%;
+	background-color: yellow;
+	float: right;
+}
+#histoFund{
+	width: 69%;
+	background-color: pink;
+	float: right;
+}
+#listFund{
+	width: 30%;
+	background-color: gray;
+	float: left;
+}
