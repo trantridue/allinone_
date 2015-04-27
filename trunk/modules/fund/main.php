@@ -5,7 +5,7 @@
 	<div id="searchFund" style="display: none;">searchFund</div>
 </div>
 <div id="bottomFund">
-	<div id="listFund"><?php include 'listfund.php'?></div>
+	<div id="listFund"><?php $fundService->listFund();?></div>
 	<div id="histoFund">histoFund</div>
 </div>
 </div>
