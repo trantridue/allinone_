@@ -329,10 +329,12 @@ textarea {
 /* FUND */
 #mainFund{
 	padding: 5px;
+	overflow: auto;
 }
 #topFund{
 	width: 100%;
-	padding-bottom:1.5%; 
+	padding-bottom:1%;
+	overflow: auto;
 }
 #bottomFund{
 	width: 100%;

@@ -1,7 +1,7 @@
 <div id=mainFund>
 <div id="topFund">
-	<div id="exchangeFund">exchangeFund</div>
-	<div id="addFund">addFund</div>
+	<div id="exchangeFund"><?php include 'exchangeFund.php';?></div>
+	<div id="addFund"><?php include 'addFund.php';?></div>
 	<div id="searchFund" style="display: none;">searchFund</div>
 </div>
 <div id="bottomFund">
