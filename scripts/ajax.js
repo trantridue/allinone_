@@ -787,6 +787,7 @@ function saveInOut() {
 		}
 	});
 }
+
 function getAddInoutInformation() {
 	var params = '';
 	params = params + "?add_amount" + "=" + $('#add_amount').val();
@@ -853,4 +854,70 @@ function getInoutSearchCriteria(issearch){
 			+ id_search_type 
 	;
 	return processUrlString(str);
+}
+function exchangeFund(){
+	if(validateExchangeFund()) {
+		saveExchange();
+	}
+}
+function saveExchange() {
+	var urls = 'modules/fund/saveExchange.php' + getFundExchangeInformation();
+	alert(urls);
+	$.ajax( {
+		url : urls,
+		success : function(data) {
+			if (data == 'success') {
+				operationSuccess();
+//				listInOut('false');
+				$('#fundExchangeFormId')[0].reset();
+			} else {
+				operationError();
+			}
+		}
+	});
+}
+function validateExchangeFund(){
+	var flag = true;
+	if($('#id_exchange_fund_source').val()=='' || $('#id_exchange_fund_source').val()==null) {
+		$('#id_exchange_fund_source').addClass('errorField');
+		flag = false;
+	} else {
+		$('#id_exchange_fund_source').removeClass('errorField');
+	}
+	if($('#id_exchange_fund_destination').val()=='' || $('#id_exchange_fund_destination').val()== null) {
+		$('#id_exchange_fund_destination').addClass('errorField');
+		flag = false;
+	} else {
+		$('#id_exchange_fund_destination').removeClass('errorField');
+	}
+	
+	if($('#exchange_amount').val()=='' || $('#exchange_amount').val()== '0') {
+		$('#exchange_amount').addClass('errorField');
+		flag = false;
+	} else {
+		$('#exchange_amount').removeClass('errorField');
+	}
+	if($('#exchange_description').val()=='' || $('#exchange_description').val()== null) {
+		$('#exchange_description').addClass('errorField');
+		flag = false;
+	} else {
+		$('#exchange_description').removeClass('errorField');
+	}
+	if($('#id_exchange_fund_source').val()==$('#id_exchange_fund_destination').val()) {
+		$('#id_exchange_fund_source').addClass('errorField');
+		$('#id_exchange_fund_destination').addClass('errorField');
+		flag = false;
+	} else {
+		$('#id_exchange_fund_source').removeClass('errorField');
+		$('#id_exchange_fund_destination').removeClass('errorField');
+	}
+	return flag;
+}
+function getFundExchangeInformation() {
+	var params = '';
+	params = params + "?id_exchange_fund_source" + "=" + $('#id_exchange_fund_source').val();
+	params = params + "&id_exchange_fund_destination" + "=" + $('#id_exchange_fund_destination').val();
+	params = params + "&exchange_amount" + "=" + $('#exchange_amount').val();
+	params = params + "&exchange_description" + "=" + $('#exchange_description').val();
+	return processUrlString(params);
 }
