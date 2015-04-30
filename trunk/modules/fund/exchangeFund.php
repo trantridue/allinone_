@@ -1,20 +1,26 @@
 <form id="fundExchangeFormId">
-<table>
+<table  class="addcriteriatable">
 	<tr>
 		<td align="right">SOURCE : </td>
 		<td><?php
 		$commonService->printDropDownListFromTable( 'fund', 'exchange_fund_source');
-		?></td>
+		?>
+		<input type="text" size="4" maxlength="8" autocomplete="off" onkeypress="validateNum(event)" id="exchange_source_amount"  onkeyup="updateExchangeFundDestAmount();">
+		<input type="text" size="3" maxlength="8" autocomplete="off" onkeypress="validateFloat(event)" id="exchange_source_ratio" value="1" onkeyup="updateExchangeFundDestAmount();">
+		</td>
 	</tr>
 	<tr>
 		<td align="right">DESTINATION :</td>
 		<td><?php
-		$commonService->printDropDownListFromTable( 'fund', 'exchange_fund_destination');
-		?></td>
+		$commonService->printDropDownListFromTable( 'fund', 'exchange_fund_destination');		
+		?>
+		<input type="text" size="4" maxlength="8" autocomplete="off" onkeypress="validateNum(event)" id="exchange_destination_amount">
+		<input type="text" size="3" maxlength="8" autocomplete="off" onkeypress="validateFloat(event)" id="exchange_destination_ratio" value="1"  onkeyup="updateExchangeFundDestAmount();">
+		</td>
 	</tr>
 	<tr>
-		<td align="right">Amount :</td>
-		<td><input type="text" size="4" maxlength="8" autocomplete="off" onkeypress="validateNum(event)" id="exchange_amount"></td>
+		<td align="right">Date :</td>
+		<td><input type="text" class="datefield" id="exchange_date" value=<?php echo date('Y-m-d');?> /></td>
 	</tr>
 	<tr>
 		<td align="right">Description :</td>

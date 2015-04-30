@@ -860,6 +860,27 @@ function exchangeFund(){
 		saveExchange();
 	}
 }
+function addFund(){
+	if(validateAddFund()) {
+		saveAdd();
+	}
+}
+function saveAdd() {
+	var urls = 'modules/fund/saveAdd.php' + getFundAddInformation();
+	alert(urls);
+	$.ajax( {
+		url : urls,
+		success : function(data) {
+			if (data == 'success') {
+				operationSuccess();
+//				listInOut('false');
+				$('#fundAddFormId')[0].reset();
+			} else {
+				operationError();
+			}
+		}
+	});
+}
 function saveExchange() {
 	var urls = 'modules/fund/saveExchange.php' + getFundExchangeInformation();
 	alert(urls);
@@ -876,6 +897,42 @@ function saveExchange() {
 		}
 	});
 }
+function validateAddFund(){
+	var flag = true;
+	if($('#id_add_fund').val()=='' || $('#id_add_fund').val()==null) {
+		$('#id_add_fund').addClass('errorField');
+		flag = false;
+	} else {
+		$('#id_add_fund').removeClass('errorField');
+	}
+	if($('#id_add_user').val()=='' || $('#id_add_user').val()== null) {
+		$('#id_add_user').addClass('errorField');
+		flag = false;
+	} else {
+		$('#id_add_user').removeClass('errorField');
+	}
+	
+	if($('#add_amount').val()=='' || $('#add_amount').val()== '0') {
+		$('#add_amount').addClass('errorField');
+		flag = false;
+	} else {
+		$('#add_amount').removeClass('errorField');
+	}
+	if($('#add_ratio').val()=='' || $('#add_ratio').val()== '0') {
+		$('#add_ratio').addClass('errorField');
+		flag = false;
+	} else {
+		$('#add_ratio').removeClass('errorField');
+	}
+	if($('#add_description').val()=='' || $('#add_description').val()== null) {
+		$('#add_description').addClass('errorField');
+		flag = false;
+	} else {
+		$('#add_description').removeClass('errorField');
+	}
+	
+	return flag;
+}
 function validateExchangeFund(){
 	var flag = true;
 	if($('#id_exchange_fund_source').val()=='' || $('#id_exchange_fund_source').val()==null) {
@@ -891,12 +948,20 @@ function validateExchangeFund(){
 		$('#id_exchange_fund_destination').removeClass('errorField');
 	}
 	
-	if($('#exchange_amount').val()=='' || $('#exchange_amount').val()== '0') {
-		$('#exchange_amount').addClass('errorField');
+	if($('#exchange_source_amount').val()=='' || $('#exchange_source_amount').val()== '0') {
+		$('#exchange_source_amount').addClass('errorField');
 		flag = false;
 	} else {
-		$('#exchange_amount').removeClass('errorField');
+		$('#exchange_source_amount').removeClass('errorField');
 	}
+	
+	if($('#exchange_destination_amount').val()=='' || $('#exchange_destination_amount').val()== '0') {
+		$('#exchange_destination_amount').addClass('errorField');
+		flag = false;
+	} else {
+		$('#exchange_destination_amount').removeClass('errorField');
+	}
+	
 	if($('#exchange_description').val()=='' || $('#exchange_description').val()== null) {
 		$('#exchange_description').addClass('errorField');
 		flag = false;
@@ -913,11 +978,59 @@ function validateExchangeFund(){
 	}
 	return flag;
 }
+function getFundAddInformation() {
+	var params = '';
+	params = params + "?id_add_fund" + "=" + $('#id_add_fund').val();
+	params = params + "&id_add_user" + "=" + $('#id_add_user').val();
+	params = params + "&add_date" + "=" + $('#add_date').val();
+	params = params + "&add_amount" + "=" + $('#add_amount').val();
+	params = params + "&add_ratio" + "=" + $('#add_ratio').val();
+	params = params + "&add_description" + "=" + $('#add_description').val();
+	return processUrlString(params);
+}
 function getFundExchangeInformation() {
 	var params = '';
 	params = params + "?id_exchange_fund_source" + "=" + $('#id_exchange_fund_source').val();
 	params = params + "&id_exchange_fund_destination" + "=" + $('#id_exchange_fund_destination').val();
-	params = params + "&exchange_amount" + "=" + $('#exchange_amount').val();
+	params = params + "&add_date" + "=" + $('#add_date').val();
+	params = params + "&exchange_destination_ratio" + "=" + $('#exchange_destination_ratio').val();
+	params = params + "&exchange_source_ratio" + "=" + $('#exchange_source_ratio').val();
+	params = params + "&exchange_source_amount" + "=" + $('#exchange_source_amount').val();
+	params = params + "&exchange_destination_amount" + "=" + $('#exchange_destination_amount').val();
 	params = params + "&exchange_description" + "=" + $('#exchange_description').val();
 	return processUrlString(params);
+}
+function updateExchangeFundSourceAmount() {
+	var sourceAmount = 0;
+	var destAmount = 0;
+	var sourceRatio = 1;
+	var destRatio = 1;
+	
+	if($('#exchange_destination_amount').val()!='') {
+		destAmount = parseInt($('#exchange_destination_amount').val());
+	}
+	if($('#exchange_source_ratio').val()!='') {
+		sourceRatio = parseInt($('#exchange_source_ratio').val());
+	}
+	if($('#exchange_destination_ratio').val()!='') {
+		destRatio = parseInt($('#exchange_destination_ratio').val());
+	}
+	$('#exchange_source_amount').val(destAmount*destRatio/sourceRatio);	
+}
+function updateExchangeFundDestAmount() {
+	var sourceAmount = 0;
+	var destAmount = 0;
+	var sourceRatio = 1;
+	var destRatio = 1;
+	
+	if($('#exchange_source_amount').val()!='') {
+		sourceAmount = parseInt($('#exchange_source_amount').val());
+	}
+	if($('#exchange_source_ratio').val()!='') {
+		sourceRatio = parseInt($('#exchange_source_ratio').val());
+	}
+	if($('#exchange_destination_ratio').val()!='') {
+		destRatio = parseInt($('#exchange_destination_ratio').val());
+	}
+	$('#exchange_destination_amount').val(sourceAmount*sourceRatio/destRatio);	
 }
