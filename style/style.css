@@ -211,6 +211,8 @@ textarea {
 .datatableDisplaySum {
 	text-align: center;
 	font-weight: bold;
+	padding-top: 10px;
+	padding-bottom: 10px;
 }
 
 .transparentText {
@@ -301,9 +303,7 @@ textarea {
 	width: 100%;
 	padding-top: 5px;
 }
-.datatableDisplaySum{
-	padding-top: 15px;
-}
+
 .dataTables_wrapper {
 	/*text-align: center;*/
 }
@@ -359,8 +359,11 @@ textarea {
 	background-color: pink;
 	float: right;
 }
-#listFund{
+#listFund {
 	width: 30%;
 	background-color: gray;
 	float: left;
+}
+.dataTables_wrapper .dataTables_filter input {
+	width: 150px !important;
 }
