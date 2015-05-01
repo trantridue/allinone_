@@ -883,13 +883,13 @@ function saveAdd() {
 }
 function saveExchange() {
 	var urls = 'modules/fund/saveExchange.php' + getFundExchangeInformation();
-	alert(urls);
 	$.ajax( {
 		url : urls,
 		success : function(data) {
 			if (data == 'success') {
 				operationSuccess();
-//				listInOut('false');
+				$('#listFund').load('modules/fund/listFund.php?isdefault=false');
+				$('#histoFund').load('modules/fund/list.php?isdefault=false');
 				$('#fundExchangeFormId')[0].reset();
 			} else {
 				operationError();
@@ -992,7 +992,7 @@ function getFundExchangeInformation() {
 	var params = '';
 	params = params + "?id_exchange_fund_source" + "=" + $('#id_exchange_fund_source').val();
 	params = params + "&id_exchange_fund_destination" + "=" + $('#id_exchange_fund_destination').val();
-	params = params + "&add_date" + "=" + $('#add_date').val();
+	params = params + "&exchange_date" + "=" + $('#exchange_date').val();
 	params = params + "&exchange_destination_ratio" + "=" + $('#exchange_destination_ratio').val();
 	params = params + "&exchange_source_ratio" + "=" + $('#exchange_source_ratio').val();
 	params = params + "&exchange_source_amount" + "=" + $('#exchange_source_amount').val();

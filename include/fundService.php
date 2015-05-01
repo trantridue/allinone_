@@ -52,6 +52,20 @@ class FundService {
 		}
 		return $paramsArray;
 	}
+	function getExchangeFundParameters() {
+		$paramsArray = array();
+		
+		$paramsArray['id_exchange_fund_source'] 		= $_REQUEST['id_exchange_fund_source'];
+		$paramsArray['exchange_source_amount'] 			= $_REQUEST['exchange_source_amount'];
+		$paramsArray['exchange_source_ratio'] 			= $_REQUEST['exchange_source_ratio'];
+		$paramsArray['id_exchange_fund_destination'] 	= $_REQUEST['id_exchange_fund_destination'];
+		$paramsArray['exchange_destination_amount'] 	= $_REQUEST['exchange_destination_amount'];
+		$paramsArray['exchange_destination_ratio'] 		= $_REQUEST['exchange_destination_ratio'];
+		$paramsArray['exchange_date'] 					= $_REQUEST['exchange_date'];
+		$paramsArray['exchange_description'] 			= $_REQUEST['exchange_description'];
+		
+		return $paramsArray;
+	}
 	function getUpdateParameters() {
 		$paramsArray = array();
 		$paramsArray['idspend'] 		= $_REQUEST['idspend'];
@@ -85,34 +99,32 @@ class FundService {
 			echo 'error';
 		}
 	}
-	function insertSpends($nbrLine,$params){
+	function saveExchange($paramsArray){
 		session_start ();
 		mysql_query ( "BEGIN" );
 		$timeDate = ' '.date('H:i:s');
-		$qry = "insert into spend(spend_category_id,amount,user_id,description,date,spend_for_id,spend_type_id) values ";
-		$counter = 0;
-		for($i=1;$i<=$nbrLine;$i++){
-			if($params['add_amount_'.$i] != 0 ) {
-				$counter++;
-				$qry = $qry. "(".$params['id_add_category_'.$i].","
-								.$params['add_amount_'.$i].","
-								.$params['id_add_user_'.$i].",'"
-								.$params['add_description_'.$i]."','"
-								.$params['add_date_'.$i].$timeDate."',"
-								.$params['id_add_for_'.$i].","
-								.$params['id_add_type_'.$i]."),";
-			}
+		
+		$qry = "insert into fund_change_histo (fund_id,amount,date,description,ratio,user_id) values ("
+				.$paramsArray['id_exchange_fund_source'].","
+				.(0-$paramsArray['exchange_source_amount']).",'"
+				.$paramsArray['exchange_date'].$timeDate."','"
+				.$paramsArray['exchange_description']."',"
+				.$paramsArray['exchange_source_ratio'].","
+				."1),("
+				.$paramsArray['id_exchange_fund_destination'].","
+				.$paramsArray['exchange_destination_amount'].",'"
+				.$paramsArray['exchange_date'].$timeDate."','"
+				.$paramsArray['exchange_description']."',"
+				.$paramsArray['exchange_destination_ratio'].","
+				."1)";
+// 		echo $qry;
+		if(mysql_query ( $qry, $this->connection ) != null){
+			mysql_query ( "COMMIT" );
+			echo 'success';
+		}else {
+			mysql_query ( "ROLLBACK" );
+			echo 'error';
 		}
-		if($counter>0) {
-			$qry = substr($qry,0,-1);
-			if(mysql_query ( $qry, $this->connection ) != null){
-				mysql_query ( "COMMIT" );
-				echo 'success';
-			}else {
-				mysql_query ( "ROLLBACK" );
-				echo 'error';
-			}
-		} 
 	}
 	function listFund() {
 		$qry = "select t1.*, (select sum(t2.amount*ratio) from fund_change_histo t2 where t2.fund_id = t1.id) as total,
@@ -136,7 +148,8 @@ class FundService {
 	function buildArrayParameterHisto() {
 		return array (
 				"fundname" => "Fund",
-				"amount" => "Amount",
+				"amount" => "hidden_field",
+				"amount_dis" => "Amount",
 				"date" => "Date",
 				"description" => "Description",
 				"ratio" => "Ratio",
@@ -159,7 +172,7 @@ class FundService {
 	}
 	function listFundHistoDefault() {
 		$dateBeforeSomeDays = $this->commonService->getDateBeforeSomeDays (default_nbr_days_load_import);
-		$qry = "select t1.*,t2.name as username,t3.name as fundname from fund_change_histo t1,user t2,fund t3 where 
+		$qry = "select t1.*,t2.name as username,t3.name as fundname, format(t1.amount,0) as amount_dis from fund_change_histo t1,user t2,fund t3 where 
 				t1.fund_id = t3.id and t1.user_id = t2.id and date >= '".$dateBeforeSomeDays."'";
 				
 				
