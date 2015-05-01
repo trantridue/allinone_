@@ -66,39 +66,21 @@ class FundService {
 		
 		return $paramsArray;
 	}
-	function getUpdateParameters() {
+	function getUpdateFundParameters() {
 		$paramsArray = array();
-		$paramsArray['idspend'] 		= $_REQUEST['idspend'];
-		$paramsArray['add_amount'] 		= $_REQUEST['add_amount'];
-		$paramsArray['add_date'] 		= $_REQUEST['add_date'];
-		$paramsArray['id_add_user'] 	= $_REQUEST['id_add_user'];
-		$paramsArray['id_add_category'] = $_REQUEST['id_add_category'];
-		$paramsArray['id_add_for'] 		= $_REQUEST['id_add_for'];
-		$paramsArray['id_add_type'] 	= $_REQUEST['id_add_type'];
-		$paramsArray['add_description'] = $_REQUEST['add_description'];
+		
+		$paramsArray['id_histo_fund'] 		= $_REQUEST['id_histo_fund'];
+		$paramsArray['id_edit_fund'] 		= $_REQUEST['id_edit_fund'];
+		$paramsArray['id_edit_user'] 		= $_REQUEST['id_edit_user'];
+		$paramsArray['edit_date'] 			= $_REQUEST['edit_date'];
+		$paramsArray['edit_amount'] 		= $_REQUEST['edit_amount'];
+		$paramsArray['edit_ratio'] 			= $_REQUEST['edit_ratio'];
+		$paramsArray['edit_description'] 	= $_REQUEST['edit_description'];
+		
 		return $paramsArray;
 	}
-	function updateSpend($paramsArray){
-		session_start ();
-		mysql_query ( "BEGIN" );
-		$timeDate = ' '.date('H:i:s');
-		$qry = "update spend set amount=".$paramsArray['add_amount']
-		.", date = '".$paramsArray['add_date'].$timeDate
-		."', user_id = ".$paramsArray['id_add_user']
-		.", spend_category_id = ".$paramsArray['id_add_category']
-		.", spend_for_id = ".$paramsArray['id_add_for']
-		.", spend_type_id = ".$paramsArray['id_add_type']
-		.", description = '".$paramsArray['add_description']
-		."' where id =" . $paramsArray['idspend'];
-		
-		if(mysql_query ( $qry, $this->connection ) != null){
-			mysql_query ( "COMMIT" );
-			echo 'success';
-		}else {
-			mysql_query ( "ROLLBACK" );
-			echo 'error';
-		}
-	}
+	
+	
 	function saveExchange($paramsArray){
 		session_start ();
 		mysql_query ( "BEGIN" );
@@ -118,6 +100,27 @@ class FundService {
 				.$paramsArray['exchange_destination_ratio'].","
 				."1)";
 // 		echo $qry;
+		if(mysql_query ( $qry, $this->connection ) != null){
+			mysql_query ( "COMMIT" );
+			echo 'success';
+		}else {
+			mysql_query ( "ROLLBACK" );
+			echo 'error';
+		}
+	}
+	function updateFund($paramsArray){
+		session_start ();
+		mysql_query ( "BEGIN" );
+		$timeDate = ' '.date('H:i:s');
+		
+		$qry = "update fund_change_histo set fund_id = ".$paramsArray['id_edit_fund']
+				.",amount =".$paramsArray['edit_amount']
+				.",date='".$paramsArray['edit_date'].$timeDate
+				."',description='".$paramsArray['edit_description']
+				."',ratio=".$paramsArray['edit_ratio']
+				.",user_id=".$paramsArray['id_edit_user']
+				." where id =".$paramsArray['id_histo_fund'];
+//				echo $qry;
 		if(mysql_query ( $qry, $this->connection ) != null){
 			mysql_query ( "COMMIT" );
 			echo 'success';
@@ -168,7 +171,7 @@ class FundService {
 	function buildArrayParameterHisto() {
 		return array (
 				"fundname" => "Fund",
-				"amount" => "hidden_field",
+				"total" => "hidden_field",
 				"amount_dis" => "Amount",
 				"date" => "Date",
 				"description" => "Description",
@@ -193,9 +196,8 @@ class FundService {
 	}
 	function listFundHistoDefault() {
 		$dateBeforeSomeDays = $this->commonService->getDateBeforeSomeDays (default_nbr_days_load_import);
-		$qry = "select t1.*,t2.name as username,t3.name as fundname, format(t1.amount,0) as amount_dis from fund_change_histo t1,user t2,fund t3 where 
+		$qry = "select (t1.amount*t1.ratio) as total,t1.*,t2.name as username,t3.name as fundname, format(t1.amount,0) as amount_dis from fund_change_histo t1,user t2,fund t3 where 
 				t1.fund_id = t3.id and t1.user_id = t2.id and date >= '".$dateBeforeSomeDays."'";
-				
 				
 		$result = mysql_query ( $qry, $this->connection );
 		$array_total = array (
@@ -213,7 +215,7 @@ class FundService {
 		}
 	}
 	function listFundHisto($parameterArray) {
-		$qry = "select t1.*,t2.name as username,t3.name as fundname, format(t1.amount,0) as amount_dis from fund_change_histo t1,user t2,fund t3 where 
+		$qry = "select (t1.amount*t1.ratio) as total,t1.*,t2.name as username,t3.name as fundname, format(t1.amount,0) as amount_dis from fund_change_histo t1,user t2,fund t3 where 
 				t1.fund_id = t3.id and t1.user_id = t2.id";
 		
 		if($parameterArray['search_date_from'] != '' )
