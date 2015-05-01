@@ -6,6 +6,6 @@
 </div>
 <div id="bottomFund">
 	<div id="listFund"><?php include 'listFund.php';?></div>
-	<div id="histoFund">histoFund</div>
+	<div id="histoFund"><?php include 'list.php';?></div>
 </div>
 </div>
