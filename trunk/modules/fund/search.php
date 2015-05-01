@@ -26,7 +26,7 @@
 	</tr>
 	<tr>
 		<td align="right">Description :</td>
-		<td colspan="3"><textarea rows="3" cols="20" id="search_description"></textarea> </td>
+		<td colspan="3"><textarea rows="3" cols="40" id="search_description"></textarea> </td>
 	</tr>
 	<tr>
 		<td align="right"></td>

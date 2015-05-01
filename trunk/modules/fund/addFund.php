@@ -24,7 +24,7 @@
 	</tr>
 	<tr>
 		<td align="right">Description :</td>
-		<td><textarea rows="3" cols="20" id="add_description"></textarea> </td>
+		<td><textarea rows="3" cols="40" id="add_description"></textarea> </td>
 	</tr>
 	<tr>
 		<td align="right"></td>

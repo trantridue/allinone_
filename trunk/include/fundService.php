@@ -173,8 +173,9 @@ class FundService {
 				"date" => "Date",
 				"description" => "Description",
 				"ratio" => "Ratio",
-				"username" => "User"
-	
+				"username" => "User",
+				"id,fund_id,user_id,amount,description,date,ratio" => "Edit",
+				"id" => "Delete"
 		);
 	}
 	function getInputParameters() {
@@ -200,11 +201,11 @@ class FundService {
 		$array_total = array (
 				1 => "Tổng"
 		);
-		$this->commonService->generateJSDatatableComplex ( $result, fundhistodatatable, 2, 'desc', $array_total );
+		$this->commonService->generateJSDatatableComplex ( $result, fundhistodatatable, 3, 'desc', $array_total );
 		$this->commonService->generateJqueryDatatable ( $result, fundhistodatatable, $this->buildArrayParameterHisto() );
 	}
-	function deleteSpend($spendid) {
-		$qry = "delete from spend where id = " . $spendid;
+	function deleteFundHisto($id) {
+		$qry = "delete from fund_change_histo where id = " . $id;
 		if(mysql_query ( $qry, $this->connection ) != null) {
 			echo 'success';
 		} else {
