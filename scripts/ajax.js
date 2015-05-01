@@ -755,6 +755,22 @@ function updateInout(){
 		url : urls,
 		success : function(data) {
 //			alert(data);
+		if (data == 'success') {
+			operationSuccess();
+			listInOut('true');
+		} else {
+			operationError();
+		}
+	}
+	});
+}
+function updateInout(){
+	var urls = 'modules/inout/updateinout.php' + getUpdateInoutInformation();
+//	alert(urls);
+	$.ajax( {
+		url : urls,
+		success : function(data) {
+//			alert(data);
 			if (data == 'success') {
 				operationSuccess();
 				listInOut('true');
@@ -1093,5 +1109,32 @@ function deletefund_change_histo(id) {
 }
 function reloadFundList() {
 	$('#listFund').load('modules/fund/listFund.php?isdefault=false');
-	$('#histoFund').load('modules/fund/list.php?isdefault=false');
+	listHistoFund('true');
+}
+function updateFund(){
+	var urls = 'modules/fund/updatefundhisto.php' + getUpdateFundInformation();
+	$.ajax( {
+		url : urls,
+		success : function(data) {
+			if (data == 'success') {
+				operationSuccess();
+				reloadFundList();
+				$('#searchFund').show();
+				$('#editFund').hide();
+			} else {
+				operationError();
+			}
+		}
+	});
+}
+function getUpdateFundInformation() {
+	var params = '';
+	params = params + "?id_edit_fund" + "=" + $('#id_edit_fund').val();
+	params = params + "&id_edit_user" + "=" + $('#id_edit_user').val();
+	params = params + "&id_histo_fund" + "=" + $('#id_histo_fund').val();
+	params = params + "&edit_date" + "=" + $('#edit_date').val();
+	params = params + "&edit_amount" + "=" + $('#edit_amount').val();
+	params = params + "&edit_ratio" + "=" + $('#edit_ratio').val();
+	params = params + "&edit_description" + "=" + $('#edit_description').val();
+	return processUrlString(params);
 }
