@@ -39,19 +39,7 @@ class FundService {
 		$this->HandleError ( $err . "\r\n mysqlerror:" . mysql_error () );
 	}
 	
-	function getAddParameters($nbrLine) {
-		$paramsArray = array();
-		for($i=1;$i<=$nbrLine;$i++){
-			$paramsArray['add_amount_'.$i] 		= $_REQUEST['add_amount_'.$i];
-			$paramsArray['add_date_'.$i] 		= $_REQUEST['add_date_'.$i];
-			$paramsArray['id_add_user_'.$i] 	= $_REQUEST['id_add_user_'.$i];
-			$paramsArray['id_add_category_'.$i] = $_REQUEST['id_add_category_'.$i];
-			$paramsArray['id_add_for_'.$i] 		= $_REQUEST['id_add_for_'.$i];
-			$paramsArray['id_add_type_'.$i] 	= $_REQUEST['id_add_type_'.$i];
-			$paramsArray['add_description_'.$i] = $_REQUEST['add_description_'.$i];
-		}
-		return $paramsArray;
-	}
+
 	function getExchangeFundParameters() {
 		$paramsArray = array();
 		
@@ -63,6 +51,18 @@ class FundService {
 		$paramsArray['exchange_destination_ratio'] 		= $_REQUEST['exchange_destination_ratio'];
 		$paramsArray['exchange_date'] 					= $_REQUEST['exchange_date'];
 		$paramsArray['exchange_description'] 			= $_REQUEST['exchange_description'];
+		
+		return $paramsArray;
+	}
+	function getAddFundParameters() {
+		$paramsArray = array();
+		
+		$paramsArray['id_add_fund'] 		= $_REQUEST['id_add_fund'];
+		$paramsArray['id_add_user'] 		= $_REQUEST['id_add_user'];
+		$paramsArray['add_date'] 			= $_REQUEST['add_date'];
+		$paramsArray['add_amount'] 			= $_REQUEST['add_amount'];
+		$paramsArray['add_ratio'] 			= $_REQUEST['add_ratio'];
+		$paramsArray['add_description'] 	= $_REQUEST['add_description'];
 		
 		return $paramsArray;
 	}
@@ -118,6 +118,26 @@ class FundService {
 				.$paramsArray['exchange_destination_ratio'].","
 				."1)";
 // 		echo $qry;
+		if(mysql_query ( $qry, $this->connection ) != null){
+			mysql_query ( "COMMIT" );
+			echo 'success';
+		}else {
+			mysql_query ( "ROLLBACK" );
+			echo 'error';
+		}
+	}
+	function saveAddFund($paramsArray){
+		session_start ();
+		mysql_query ( "BEGIN" );
+		$timeDate = ' '.date('H:i:s');
+		
+		$qry = "insert into fund_change_histo (fund_id,amount,date,description,ratio,user_id) values ("
+				.$paramsArray['id_add_fund'].","
+				.$paramsArray['add_amount'].",'"
+				.$paramsArray['add_date'].$timeDate."','"
+				.$paramsArray['add_description']."',"
+				.$paramsArray['add_ratio'].","
+				.$paramsArray['id_add_user'].")";
 		if(mysql_query ( $qry, $this->connection ) != null){
 			mysql_query ( "COMMIT" );
 			echo 'success';
@@ -190,6 +210,50 @@ class FundService {
 		} else {
 			echo 'error';
 		}
+	}
+	function listFundHisto($parameterArray) {
+		$qry = "select t1.*,t2.name as username,t3.name as fundname, format(t1.amount,0) as amount_dis from fund_change_histo t1,user t2,fund t3 where 
+				t1.fund_id = t3.id and t1.user_id = t2.id";
+		
+		if($parameterArray['search_date_from'] != '' )
+			$qry = $qry. " and date_format(t1.date,'%Y-%m-%d') >='".$parameterArray['search_date_from']."'";
+		
+		if($parameterArray['search_date_to'] != '' )
+			$qry = $qry. " and date_format(t1.date,'%Y-%m-%d') <='".$parameterArray['search_date_to']."'";
+		
+		if($parameterArray['search_amount_from'] != '' )
+			$qry = $qry. " and t1.amount >=".$parameterArray['search_amount_from'];
+		
+		if($parameterArray['search_amount_to'] != '' )
+			$qry = $qry. " and t1.amount <=".$parameterArray['search_amount_to'];
+		
+		if($parameterArray['search_description'] != '' )
+			$qry = $qry. " and t1.description like '%".$parameterArray['search_description']."%'";
+		
+		if($parameterArray['id_search_user'] != '' )
+			$qry = $qry. " and t2.id =".$parameterArray['id_search_user'];
+		
+		if($parameterArray['id_search_fund'] != '' )
+			$qry = $qry. " and t3.id =".$parameterArray['id_search_fund'];
+		
+// 		echo $qry;		
+		$result = mysql_query ( $qry, $this->connection );
+		$array_total = array (
+				1 => "Tổng"
+		);
+		$this->commonService->generateJSDatatableComplex ( $result, fundhistodatatable, 3, 'desc', $array_total );
+		$this->commonService->generateJqueryDatatable ( $result, fundhistodatatable, $this->buildArrayParameterHisto() );
+	}
+	function getFundSearchParameters() {
+		return array (
+			'search_amount_from' 		=> $_REQUEST['search_amount_from'],
+			'search_amount_to' 			=> $_REQUEST['search_amount_to'],
+			'search_date_from' 			=> $_REQUEST['search_date_from'],
+			'search_date_to' 			=> $_REQUEST['search_date_to'],
+			'search_description' 		=> $_REQUEST['search_description'],
+			'id_search_user' 			=> $_REQUEST['id_search_user'],
+			'id_search_fund' 			=> $_REQUEST['id_search_fund']
+		);
 	}
 }
 ?>

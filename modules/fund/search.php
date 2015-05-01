@@ -4,33 +4,35 @@
 	<tr>
 		<td align="right">FUND : </td>
 		<td><?php
-		$commonService->printDropDownListFromTable( 'fund', 'add_fund');
+		$commonService->printDropDownListFromTable( 'fund', 'search_fund');
 		?>
-		<input type="text" class="datefield" id="add_date" value=<?php echo date('Y-m-d');?> />
 		</td>
-	</tr>
-	<tr>
 		<td align="right">User :</td>
 		<td><?php
-		$commonService->printDropDownListFromTable( 'user', 'add_user');
+		$commonService->printDropDownListFromTable( 'user', 'search_user');
 		?></td>
 	</tr>
 	<tr>
 		<td align="right">Amount :</td>
 		<td>
-		<input type="text" size="4" maxlength="12" autocomplete="off" onkeypress="validateFloat(event)" id="add_amount">
-		<input type="text" size="3" maxlength="8" autocomplete="off" onkeypress="validateFloat(event)" id="add_ratio" value="1">
+		<input type="text" size="4" maxlength="12" autocomplete="off" onkeypress="validateFloat(event)" id="search_amount_from">
+		<input type="text" size="4" maxlength="12" autocomplete="off" onkeypress="validateFloat(event)" id="search_amount_to">
+		</td>
+		<td align="right">Date :</td>
+		<td>
+		<input type="text" class="datefield" id="search_date_from" value=<?php echo date('Y-m-01');?> />
+		<input type="text" class="datefield" id="search_date_to" value=<?php echo date('Y-m-t');?> />
 		</td>
 	</tr>
 	<tr>
 		<td align="right">Description :</td>
-		<td><textarea rows="3" cols="20" id="add_description"></textarea> </td>
+		<td colspan="3"><textarea rows="3" cols="20" id="search_description"></textarea> </td>
 	</tr>
 	<tr>
 		<td align="right"></td>
-		<td>
+		<td colspan="3">
 			<input type="reset" value="RESET" class="menu_btn_sub">
-			<input type="button" value="SEARCH" class="menu_btn_sub" onclick="listHistoFund();">
+			<input type="button" value="SEARCH" class="menu_btn_sub" onclick="listHistoFund('true');">
 			<input type="button" value="ADD FORM FORM" class="menu_btn_sub" onclick="$('#searchFund').hide();$('#addFund').show();">
 		</td>
 	</tr>

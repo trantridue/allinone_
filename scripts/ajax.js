@@ -831,6 +831,7 @@ function listInOut(issearch) {
 	var url = "modules/inout/list.php" + getInoutSearchCriteria(issearch);
 	$('#listArea').load(url);
 }
+
 function getInoutSearchCriteria(issearch){
 	
 	var str = "?issearch=" + issearch + "&isdefault=false";
@@ -862,18 +863,19 @@ function exchangeFund(){
 }
 function addFund(){
 	if(validateAddFund()) {
-		saveAdd();
+		saveAddFund();
 	}
 }
-function saveAdd() {
+function saveAddFund() {
 	var urls = 'modules/fund/saveAdd.php' + getFundAddInformation();
-	alert(urls);
+//	alert(urls);
 	$.ajax( {
 		url : urls,
 		success : function(data) {
 			if (data == 'success') {
 				operationSuccess();
-//				listInOut('false');
+				$('#listFund').load('modules/fund/listFund.php?isdefault=false');
+				$('#histoFund').load('modules/fund/list.php?isdefault=false');
 				$('#fundAddFormId')[0].reset();
 			} else {
 				operationError();
@@ -1033,4 +1035,33 @@ function updateExchangeFundDestAmount() {
 		destRatio = parseInt($('#exchange_destination_ratio').val());
 	}
 	$('#exchange_destination_amount').val(sourceAmount*sourceRatio/destRatio);	
+}
+function listHistoFund(issearch) {
+	var url = "modules/fund/list.php" + getFundSearchCriteria(issearch);
+//	alert(url);
+	$('#histoFund').load(url);
+}
+function getFundSearchCriteria(issearch){
+	
+	var str = "?issearch=" + issearch + "&isdefault=false";
+	var search_amount_from = "&search_amount_from=" + $('#search_amount_from').val();
+	var search_amount_to = "&search_amount_to=" + $('#search_amount_to').val();
+	var search_date_from = "&search_date_from=" + $('#search_date_from').val();
+	var search_date_to = "&search_date_to=" + $('#search_date_to').val();
+	var search_description = "&search_description=" + $('#search_description').val();
+
+	var id_search_user = "&id_search_user=" + $('#id_search_user').val();
+	var id_search_fund = "&id_search_fund=" + $('#id_search_fund').val();
+//	var id_search_type = "&id_search_type=" + $('#id_search_type').val();
+	
+	str = str + search_amount_from 
+			+ search_amount_to 
+			+ search_date_from 
+			+ search_date_to 
+			+ search_description 
+			+ id_search_user 
+			+ id_search_fund 
+//			+ id_search_type 
+	;
+	return processUrlString(str);
 }
