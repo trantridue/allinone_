@@ -707,6 +707,7 @@ function deletemoney_inout(id) {
 		return false;
 	}
 }
+
 function editspend(str) {
 	var inputparams = processUrlString(str);
 	var url = 'modules/spend/editspend.php?' + inputparams;
@@ -714,6 +715,15 @@ function editspend(str) {
 	$('#addArea').hide();
 	$('#serverMessage').hide();
 	$('#editArea').load(url);
+}
+function editfund_change_histo(str) {
+	var inputparams = processUrlString(str);
+	var url = 'modules/fund/editfundhisto.php?' + inputparams;
+	$('#addFund').hide();
+	$('#searchFund').hide();
+	$('#editFund').show();
+	$('#serverMessage').hide();
+	$('#editFund').load(url);
 }
 function editmoney_inout(str) {
 	var inputparams = processUrlString(str);
@@ -874,8 +884,7 @@ function saveAddFund() {
 		success : function(data) {
 			if (data == 'success') {
 				operationSuccess();
-				$('#listFund').load('modules/fund/listFund.php?isdefault=false');
-				$('#histoFund').load('modules/fund/list.php?isdefault=false');
+				reloadFundList();
 				$('#fundAddFormId')[0].reset();
 			} else {
 				operationError();
@@ -890,8 +899,7 @@ function saveExchange() {
 		success : function(data) {
 			if (data == 'success') {
 				operationSuccess();
-				$('#listFund').load('modules/fund/listFund.php?isdefault=false');
-				$('#histoFund').load('modules/fund/list.php?isdefault=false');
+				reloadFundList();
 				$('#fundExchangeFormId')[0].reset();
 			} else {
 				operationError();
@@ -1064,4 +1072,26 @@ function getFundSearchCriteria(issearch){
 //			+ id_search_type 
 	;
 	return processUrlString(str);
+}
+function deletefund_change_histo(id) {
+	if(confirm('Are you sure to delete?')) {
+		var urls = 'modules/fund/deletefundhisto.php?id=' + id;
+		$.ajax( {
+			url : urls,
+			success : function(data) {
+			if (data == 'success') {
+				operationSuccess();
+				reloadFundList();
+			} else {
+				operationError();
+			}
+		}
+		});
+	} else {
+		return false;
+	}
+}
+function reloadFundList() {
+	$('#listFund').load('modules/fund/listFund.php?isdefault=false');
+	$('#histoFund').load('modules/fund/list.php?isdefault=false');
 }

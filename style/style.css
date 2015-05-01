@@ -346,12 +346,17 @@ textarea {
 }
 #addFund{
 	width: 69%;
-	background-color: yellow;
+	background-color: green;
 	float: right;
 }
 #searchFund{
 	width: 69%;
 	background-color: yellow;
+	float: right;
+}
+#editFund{
+	width: 69%;
+	background-color: #4EA0FF;
 	float: right;
 }
 #histoFund{
