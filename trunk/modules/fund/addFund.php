@@ -1,4 +1,5 @@
 <form id="fundAddFormId">
+<h4>ADD FUND</h4>
 <table class="addcriteriatable">
 	<tr>
 		<td align="right">FUND : </td>

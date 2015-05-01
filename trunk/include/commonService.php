@@ -188,6 +188,8 @@ echo "</script> ";
 					}
 					echo "<td><a title='".$title."' onclick='show_".$datatable_id."_".$fields [0]."(\"".$str."\");' href='javascript:void(0);' >".$rows [$fieldskey [1]]."</a></td>";
 					
+				} else if ($value == 'date'){
+					echo "<td style='width:120px;'>" . $rows [$value] . "</td>";
 				} else {
 					echo "<td>" . $rows [$value] . "</td>";
 				}
