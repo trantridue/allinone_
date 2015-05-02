@@ -1,10 +1,25 @@
-<div id="inputArea">
-<?php
-$submodule = isset ( $_REQUEST ['submenu'] ) ? $_REQUEST ['submenu'] : defaultsubmodule;
-include $submodule . '.php';
-?>
+<style>
+#exportLeft{
+	float: left;
+	width: 40%;
+	height: 515px;
+	overflow: auto;
+	background-color: pink;
+	padding: 5px;
+}
+#exportRight{
+	float: right;
+	padding:5px;
+	width: 58%;
+	height: 515px;
+	overflow: auto;
+	background-color: bisque;
+}
+</style>
+<div id="exportLeft">
+	<div id="exportCustomerInformation"><?php include 'customerInfor.php';?></div>
+	<div id="exportFactureInformation"><?php include 'factureInfor.php';?></div>
+	<div id="exportProductList">3</div>
 </div>
-<hr>
-<div id="listArea">
-<?php include 'list.php'?>
+<div id="exportRight">
 </div>
