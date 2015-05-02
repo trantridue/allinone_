@@ -597,8 +597,10 @@ function addSpends() {
 	$.ajax( {
 		url : urls,
 		success : function(data) {
+//			alert(data);
 			if (data == 'success') {
 				operationSuccess();
+				listSpend('false');
 				$('#addSpendFormId')[0].reset();
 			} else {
 				operationError();
@@ -612,6 +614,7 @@ function getAddSpendInformation(nbrLine) {
 	for (var i = 1; i <= nbrLine; i++) {
 		params = params + "&add_amount_" + i + "=" + $('#add_amount_' + i).val();
 		params = params + "&add_date_" + i + "=" + $('#add_date_' + i).val();
+		params = params + "&id_add_fund_" + i + "=" + $('#id_add_fund_' + i).val();
 		params = params + "&id_add_user_" + i + "=" + $('#id_add_user_' + i).val();
 		params = params + "&id_add_category_" + i + "=" + $('#id_add_category_' + i).val();
 		params = params + "&id_add_for_" + i + "=" + $('#id_add_for_' + i).val();
@@ -676,18 +679,20 @@ function getSpendSearchCriteria(issearch){
 	return processUrlString(str);
 }
 function deletespend(id) {
-	var urls = 'modules/spend/deletespend.php?id=' + id;
-	$.ajax( {
-		url : urls,
-		success : function(data) {
-			if (data == 'success') {
-				operationSuccess();
-				listSpend('false');
-			} else {
-				operationError();
+	if(confirm('Are you sure to delete?')) {
+		var urls = 'modules/spend/deletespend.php?id=' + id;
+		$.ajax( {
+			url : urls,
+			success : function(data) {
+				if (data == 'success') {
+					operationSuccess();
+					listSpend('false');
+				} else {
+					operationError();
+				}
 			}
-		}
-	});
+		});
+	}
 }
 function deletemoney_inout(id) {
 	if(confirm('Are you sure to delete?')) {
@@ -741,7 +746,7 @@ function updateSpend(){
 		success : function(data) {
 			if (data == 'success') {
 				operationSuccess();
-				listSpend('true');
+				listSpend('false');
 			} else {
 				operationError();
 			}

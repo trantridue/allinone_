@@ -45,6 +45,7 @@ class SpendService {
 			$paramsArray['add_amount_'.$i] 		= $_REQUEST['add_amount_'.$i];
 			$paramsArray['add_date_'.$i] 		= $_REQUEST['add_date_'.$i];
 			$paramsArray['id_add_user_'.$i] 	= $_REQUEST['id_add_user_'.$i];
+			$paramsArray['id_add_fund_'.$i] 	= $_REQUEST['id_add_fund_'.$i];
 			$paramsArray['id_add_category_'.$i] = $_REQUEST['id_add_category_'.$i];
 			$paramsArray['id_add_for_'.$i] 		= $_REQUEST['id_add_for_'.$i];
 			$paramsArray['id_add_type_'.$i] 	= $_REQUEST['id_add_type_'.$i];
@@ -90,7 +91,9 @@ class SpendService {
 		mysql_query ( "BEGIN" );
 		$timeDate = ' '.date('H:i:s');
 		$qry = "insert into spend(spend_category_id,amount,user_id,description,date,spend_for_id,spend_type_id) values ";
+		$qryFund = "insert into fund_change_histo(fund_id,amount,description,date,ratio,user_id) values ";
 		$counter = 0;
+		$counterFund = 0;
 		for($i=1;$i<=$nbrLine;$i++){
 			if($params['add_amount_'.$i] != 0 ) {
 				$counter++;
@@ -102,17 +105,32 @@ class SpendService {
 								.$params['id_add_for_'.$i].","
 								.$params['id_add_type_'.$i]."),";
 			}
+			if($params['id_add_fund_'.$i] != '' ) {
+					$counterFund++;
+					$qryFund = $qryFund. "(".$params['id_add_fund_'.$i].","
+									.(0-$params['add_amount_'.$i]).",'See spend : "
+									.$params['add_description_'.$i]."','"
+									.$params['add_date_'.$i].$timeDate."',"
+									."1".","
+									.$params['id_add_user_'.$i]."),";
+			}
 		}
+		$str = true;
 		if($counter>0) {
 			$qry = substr($qry,0,-1);
-			if(mysql_query ( $qry, $this->connection ) != null){
-				mysql_query ( "COMMIT" );
-				echo 'success';
-			}else {
-				mysql_query ( "ROLLBACK" );
-				echo 'error';
+			$str = $str && (mysql_query ( $qry, $this->connection ) != null);
+			if($counterFund>0){
+				$qryFund = substr($qryFund,0,-1);
+				$str = $str && (mysql_query ( $qryFund, $this->connection ) != null);
 			}
 		} 
+		if ($str == false) {
+			mysql_query ( "ROLLBACK" );
+			echo "error";
+		} else {
+			mysql_query ( "COMMIT" );
+			echo "success";
+		}
 	}
 	function listSpendDefault() {
 		$firstDayOfCurrentMonth = date('Y-m').'-01';
