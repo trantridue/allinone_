@@ -5,7 +5,7 @@ class CommonService {
 		echo "<script>";
 		echo "$(document).ready(function() { $('#" . datatable_prefix . $datatable_id . "').dataTable({
 				'order': [[ " . $ordercolumn . ", '" . $ordertype . "' ]], 
-				'pageLength': 5, 
+				'pageLength': 10, 
 				'aLengthMenu': [[5, 10, 15, 100], ['5 Per Page', '10 Per Page', '15 Per Page', '100 Per Page']],
 				 'bPaginate': true,
         'sDom':'fptip'
