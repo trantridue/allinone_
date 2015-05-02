@@ -165,9 +165,9 @@ echo "</script> ";
 					$str = "";
 					for($i = 0; $i < sizeof ( $fields ); $i ++) {
 						if($i==sizeof ( $fields )-1){
-							$str = $str . $fields [$i] . "=" . $rows [$fields [$i]];
+							$str = $str . $fields [$i] . "=" . urlencode($rows [$fields [$i]]);
 						}else {
-							$str = $str . $fields [$i] . "=" . $rows [$fields [$i]] . "&";
+							$str = $str . $fields [$i] . "=" . urlencode($rows [$fields [$i]]) . "&";
 						}
 					}
 					echo "<td><a title='' onclick='show_".$datatable_id."_".$fields [0]."(\"".$str."\");' href='javascript:void(0);' id='".$fieldskey [1].$rows [$fieldskey [1]]."'>".$rows [$fieldskey [1]]."</a></td>";
@@ -179,10 +179,10 @@ echo "</script> ";
 					$title = "";
 					for($i = 0; $i < sizeof ( $fields ); $i ++) {
 						if($i==sizeof ( $fields )-1){
-							$str = $str . $fields [$i] . "=" . $rows [$fields [$i]];
+							$str = $str . $fields [$i] . "=" . urlencode($rows [$fields [$i]]);
 							$title = $title . $fields [$i] . ":<strong>" . $rows [$fields [$i]]."</strong>";
 						}else {
-							$str = $str . $fields [$i] . "=" . $rows [$fields [$i]] . "&";
+							$str = $str . $fields [$i] . "=" . urlencode($rows [$fields [$i]]) . "&";
 							$title = $title . $fields [$i] . ":<strong>" . $rows [$fields [$i]] . "</strong><br>";
 						}						
 					}
