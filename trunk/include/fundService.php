@@ -172,9 +172,10 @@ class FundService {
 		return array (
 				"fundname" => "Fund",
 				"total" => "hidden_field",
-				"amount_dis" => "Amount",
+				"amount_dis" => "Total",
 				"date" => "Date",
 				"description" => "Description",
+				"amount" => "Amount",
 				"ratio" => "Ratio",
 				"username" => "User",
 				"id,fund_id,user_id,amount,description,date,ratio" => "Edit",
@@ -196,7 +197,7 @@ class FundService {
 	}
 	function listFundHistoDefault() {
 		$dateBeforeSomeDays = $this->commonService->getDateBeforeSomeDays (default_nbr_days_load_import);
-		$qry = "select (t1.amount*t1.ratio) as total,t1.*,t2.name as username,t3.name as fundname, format(t1.amount,0) as amount_dis from fund_change_histo t1,user t2,fund t3 where 
+		$qry = "select (t1.amount*t1.ratio) as total,t1.*,t2.name as username,t3.name as fundname, format(t1.amount*t1.ratio,0) as amount_dis from fund_change_histo t1,user t2,fund t3 where 
 				t1.fund_id = t3.id and t1.user_id = t2.id and date >= '".$dateBeforeSomeDays."'";
 				
 		$result = mysql_query ( $qry, $this->connection );
@@ -215,7 +216,7 @@ class FundService {
 		}
 	}
 	function listFundHisto($parameterArray) {
-		$qry = "select (t1.amount*t1.ratio) as total,t1.*,t2.name as username,t3.name as fundname, format(t1.amount,0) as amount_dis from fund_change_histo t1,user t2,fund t3 where 
+		$qry = "select (t1.amount*t1.ratio) as total,t1.*,t2.name as username,t3.name as fundname, format(t1.amount*t1.ratio,0) as amount_dis from fund_change_histo t1,user t2,fund t3 where 
 				t1.fund_id = t3.id and t1.user_id = t2.id";
 		
 		if($parameterArray['search_date_from'] != '' )
@@ -225,10 +226,10 @@ class FundService {
 			$qry = $qry. " and date_format(t1.date,'%Y-%m-%d') <='".$parameterArray['search_date_to']."'";
 		
 		if($parameterArray['search_amount_from'] != '' )
-			$qry = $qry. " and t1.amount >=".$parameterArray['search_amount_from'];
+			$qry = $qry. " and (t1.amount*t1.ratio) >=".$parameterArray['search_amount_from'];
 		
 		if($parameterArray['search_amount_to'] != '' )
-			$qry = $qry. " and t1.amount <=".$parameterArray['search_amount_to'];
+			$qry = $qry. " and (t1.amount*t1.ratio) <=".$parameterArray['search_amount_to'];
 		
 		if($parameterArray['search_description'] != '' )
 			$qry = $qry. " and t1.description like '%".$parameterArray['search_description']."%'";
