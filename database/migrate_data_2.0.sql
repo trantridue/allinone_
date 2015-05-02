@@ -14,7 +14,8 @@ truncate user;
 truncate shop;
 
 insert into shop(id,name,address,date) values (1, 'shop1', '19 Vạn phúc Hà Đông Hà Nội',now());
-insert into shop(id,name,address,date) values (2, 'shop2', 'Số 3 Lê Văn lương',now());
+insert into shop(id,name,address,date) values (2, 'shop2', 'Số 3 Lê Văn Lương - Vạn Phúc',now());
+insert into shop(id,name,address,date) values (3, 'shop3', 'Số 5 Lê Văn Lương - Vạn Phúc',now());
 
 #Prepare table user
 insert into user SELECT t1.id,t1.shops_id,CONVERT(CONVERT(CONVERT(t1.name USING latin1) USING binary) USING utf8),t1.email, t1.phone_number, t1.username, t1.password, t1.confirmcode, t1.active,

@@ -15,7 +15,7 @@ function validateBlankField(fieldid) {
 }
 function displayMessageServer(data, errorMessage, successMessage, module) {
 	if (data && data != '') {
-		$('#listArea').load("modules/" + module + "/list.php?isdefault=false&loadall=false");
+		$('#listArea').load("modules/" + module + "/list.php?isdefault=false&loadall=true");
 		$('#serverMessage').html(successMessage);
 		$('#serverMessage').addClass('successMessage');
 		$('#serverMessage').removeClass('errorMessage');
