@@ -130,9 +130,9 @@ echo "</script> ";
 					$str = "";
 					for($i = 0; $i < sizeof ( $fields ); $i ++) {
 						if($i==sizeof ( $fields )-1){
-							$str = $str . $fields [$i] . "=" . $rows [$fields [$i]];
+							$str = $str . $fields [$i] . "=" . urlencode($rows [$fields [$i]]);
 						}else {
-							$str = $str . $fields [$i] . "=" . $rows [$fields [$i]] . "&";
+							$str = $str . $fields [$i] . "=" . urlencode($rows [$fields [$i]]) . "&";
 						}
 					}
 					echo "<td><a onclick='edit".$datatable_id."(\"".$str."\");' href='javascript:void(0);'><div class='editIcon'></div></a></td>";

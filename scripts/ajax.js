@@ -6,7 +6,7 @@ function processUrlString(str) {
 	key = str.split("&");
 	var inputUrl = "";
 	for (i in key) {
-		value[i] = encodeURIComponent(key[i].split("=")[1]);
+		value[i] = key[i].split("=")[1];
 		key[i] = key[i].split("=")[0];
 	}
 	for (i in key) {
