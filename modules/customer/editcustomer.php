@@ -25,8 +25,9 @@ $customerService = new CustomerService ( hostname, username, password, database,
 		</tr>
 		
 		<tr>
-			<td style="text-align: right;" colspan="4"><input type="submit"
-				value="Update"></td>
+			<td></td>
+			<td colspan="3"><input type="submit" class="menu_btn_sub"
+				value="UPDATE"></td>
 		</tr>
 
 	</table>
