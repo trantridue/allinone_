@@ -63,5 +63,18 @@ class CustomerService {
 		$result = mysql_query ( $qry, $this->connection );
 		echo "<script>customerpostaction('" . $result . "','" . $actionType . "');</script>";
 	}
+	function getJsonCustomerTel($term) {
+		$qry = "select t1.id,t1.name,t1.tel from customer t1 where t1.tel like '%" . $term . "' limit 10";
+		$result = mysql_query ( $qry, $this->connection );
+		$jsonArray = array ();
+		
+		while ( $rows = mysql_fetch_array ( $result ) ) {
+			$labelvalue = "Tel : " . $rows ['tel'] . ", name :" . $rows ['name'] . ", ID: " . $rows ['id'];
+			$element = array (value => $rows ['tel'], name => $rows ['name'], id => $rows ['id'], label => $labelvalue );
+			
+			$jsonArray [] = $element;
+		}
+		return $jsonArray;
+	}
 }
 ?>
