@@ -1,6 +1,7 @@
 <?php
 session_start(); 
 ?>
+<input type="hidden" id="export_number_row" value="<?php echo $_SESSION ['export_number_row'];?>"/>
 <table class="addcriteriatable" style="border-collapse: collapse;" border="1">
 <tr>
 	<th width="10%">Mã</th>
@@ -23,8 +24,12 @@ for($i = 1; $i <= $_SESSION ['export_number_row']; $i ++) {
 <td>
 <input type="number" id="quantity_<?php	echo $i;?>" style="width:35px;" value="1" autocomplete="off" onkeyup="calculateExportForm();" onclick="calculateExportForm();" />
 </td>
-<td></td>
-<td></td>
+<td>
+<label id="exportpostedprice_<?php echo $i;?>"></label>
+</td>
+<td>
+<input type="text" size="2"	id="exportprice_<?php echo $i;?>" maxlength="4" autocomplete="off" onkeypress="validateNum(event);"/>
+</td>
 <td></td>
 </tr>
 <?php }?>

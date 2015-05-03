@@ -1148,9 +1148,11 @@ function saveExport(){
 //	$('#customer_debt').html('1000');
 }
 function calculateExportForm(){
+	
 	if($('#quantity_1').val()==0) {
 		$('#quantity_1').addClass('errorField');
 		$('#quantity_1').val(1);
+//		alert($('#export_number_row').val());
 	}
 	$('#productcode_1').val($('#quantity_1').val());
 	
