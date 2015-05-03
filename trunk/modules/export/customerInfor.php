@@ -1,7 +1,4 @@
 <table class="addcriteriatable">
-<tr style="text-align: center;">
-	<td colspan="2">THÔNG TIN KHÁCH HÀNG</td>
-</tr>
 <tr>
 	<td align="right">Điện thoại : </td>
 	<td>
