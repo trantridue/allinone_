@@ -1143,3 +1143,15 @@ function getUpdateFundInformation() {
 	params = params + "&edit_description" + "=" + $('#edit_description').val();
 	return processUrlString(params);
 }
+/* EXPORT */
+function saveExport(){
+//	$('#customer_debt').html('1000');
+}
+function calculateExportForm(){
+	if($('#quantity_1').val()==0) {
+		$('#quantity_1').addClass('errorField');
+		$('#quantity_1').val(1);
+	}
+	$('#productcode_1').val($('#quantity_1').val());
+	
+}

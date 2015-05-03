@@ -1,18 +1,32 @@
-<table class="addcriteriatable">
+<table class="addcriteriatable" border="1" style="border-collapse: collapse;border-color: red;">
 <tr>
-	<td>Nợ</td>
-	<td>Đã đặt</td>
-	<td>Trả hàng</td>
-	<td>Hóa đơn</td>
-	<td>Tổng</td>
+	<td width="11%">Nợ</td>
+	<td width="11%">Đã đặt</td>
+	<td width="11%">Trả </td>
+	<td width="11%">Hóa đơn</td>
+	<td width="11%">Điểm</td>
+	<td width="11%">Tổng</td>
+	<td width="11%">Đặt thêm</td>
+	<td width="11%">Khách đưa</td>
+	<td>Trả lại</td>
 </tr>
-<tr>
-	<td><input type="text" class="gridTxt" id="customer_debt" size="3" autocomplete="off" onkeypress="validateNon(event);" value="0"/></td>
-	<td><input type="text" class="gridTxt" id="customer_reserved" size="3" autocomplete="off" onkeypress="validateNon(event);" value="0"/></td>
-	<td><input type="text" class="gridTxt" id="customer_returned" size="3" autocomplete="off" onkeypress="validateNon(event);" value="0"/></td>
-	<td><input type="text" class="gridTxt" id="total_facture" size="3" autocomplete="off" onkeypress="validateNon(event);" value="0"/></td>
-	<td><input type="text" class="gridTxt" id="final_total" size="3" autocomplete="off" onkeypress="validateNon(event);" value="0"/></td>
-	
+<tr style="color: blue;">
+	<td><label id="customer_debt">0</label></td>
+	<td><label id="customer_reserved">0</label></td>
+	<td><label id="customer_returned">0</label></td>
+	<td><label id="total_facture">0</label></td>
+	<td><label id="customer_bonus">0</label></td>
+	<td style="background-color: bisque;"><label id="final_total">0</label></td>
+	<td><input type="text" maxlength="6" id="customer_reserver_more" size="3" autocomplete="off" onkeypress="validateNum(event);" value="0"/></td>
+	<td><input type="text" maxlength="6" id="customer_give" size="3" autocomplete="off" onkeypress="validateNum(event);" value="0"/></td>
+	<td><input type="text" maxlength="6" id="give_customer" size="3" autocomplete="off" onkeypress="validateNum(event);" value="0"/></td>
 </tr>
-
+<tr height="30px">
+	<td colspan="2"> N : <label id="total_quantity">0</label> </td> 	   
+	<td colspan="2">∑ : <label id="total_origine">0</label> </td>
+	<td colspan="2">$ : <label id="total_after_saled">0</label> </td>
+	<td colspan="2">~ : <label id="sale_different">0</label> </td>
+	<td>↓ : <label id="sale_percentage">0</label>% </td>
+	</td>
+</tr>
 </table>
