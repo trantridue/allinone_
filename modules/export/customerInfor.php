@@ -12,7 +12,7 @@
 </tr>
 <tr>
 	<td align="right">Ghi chú : </td>
-	<td><textarea rows="3" cols="40" id="customer_description"></textarea></td>
+	<td><textarea rows="2" cols="40" id="customer_description"></textarea></td>
 </tr>
 <tr>
 <td colspan="4">

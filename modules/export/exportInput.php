@@ -1,6 +1,26 @@
 <?php
 session_start(); 
 ?>
+<script language="javascript">
+<?php
+for($i = 1; $i <= $_SESSION ['export_number_row']; $i ++) {
+?>
+$(document).ready(function(){
+	var ac_config_export_product_<?php echo $i;?> = {
+		source: "autocomplete/completed_export_products_code.php",
+		select: function(event, ui){
+			$("#productcode_<?php echo $i;?>").val(ui.item.code);
+			$("#productname_<?php echo $i;?>").html(ui.item.name);
+			$("#exportprice_<?php echo $i;?>").val(Math.trunc(ui.item.price));
+			$("#exportpostedprice_<?php echo $i;?>").html(ui.item.posted_price);
+			calculateExportForm();
+		},
+		minLength:1
+	};
+	$("#productcode_<?php echo $i;?>").autocomplete(ac_config_export_product_<?php echo $i;?>);
+});
+<?php }?>
+</script>
 <input type="hidden" id="export_number_row" value="<?php echo $_SESSION ['export_number_row'];?>"/>
 <table class="addcriteriatable" style="border-collapse: collapse;" border="1">
 <tr>
@@ -24,13 +44,13 @@ for($i = 1; $i <= $_SESSION ['export_number_row']; $i ++) {
 <td>
 <input type="number" id="quantity_<?php	echo $i;?>" style="width:35px;" value="1" autocomplete="off" onkeyup="calculateExportForm();" onclick="calculateExportForm();" />
 </td>
-<td>
+<td style="text-align: center;">
 <label id="exportpostedprice_<?php echo $i;?>"></label>
 </td>
 <td>
-<input type="text" size="2"	id="exportprice_<?php echo $i;?>" maxlength="4" autocomplete="off" onkeypress="validateNum(event);"/>
+<input style="text-align: center;" type="text" size="2"	id="exportprice_<?php echo $i;?>" maxlength="4" autocomplete="off" onkeypress="validateNum(event);" onkeyup="calculateExportForm();"/>
 </td>
-<td></td>
+<td><input type="button" onclick="cancelExportLine('<?php echo $i;?>');" value="Hủy"/></td>
 </tr>
 <?php }?>
 </table>
