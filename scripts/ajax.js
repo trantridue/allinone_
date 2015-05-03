@@ -1160,6 +1160,8 @@ function validateQuantity(nbrow) {
 		if($('#quantity_'+i).val()==0) {
 			$('#quantity_'+i).addClass('errorField');
 			$('#quantity_'+i).val(1);
+		} else {
+			$('#quantity_'+i).removeClass('errorField');
 		}
 	}
 }
@@ -1207,3 +1209,15 @@ function cancelExportLine(line) {
 	$('#exportprice_'+line).val('');
 	calculateExportForm();
 }
+$(document).ready(function() {
+	var ac_config_export_customer_tel = {
+		source : "autocomplete/completed_import_customer_tel.php",
+		select : function(event, ui) {
+			$("#customer_tel").val(ui.item.tel);
+			$("#customer_id").val(ui.item.id);
+			$("#customer_name").val(ui.item.name);
+		},
+		minLength : 1
+	};
+	$("#customer_tel").autocomplete(ac_config_export_customer_tel);
+});
