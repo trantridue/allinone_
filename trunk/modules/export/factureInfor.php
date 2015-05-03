@@ -22,7 +22,7 @@
 	<td><input type="text" maxlength="6" id="give_customer" size="3" autocomplete="off" onkeypress="validateNum(event);" value="0"/></td>
 </tr>
 <tr height="30px">
-	<td colspan="2"> N : <label id="total_quantity">0</label> </td> 	   
+	<td colspan="2">N : <label id="total_quantity">0</label> </td> 	   
 	<td colspan="2">∑ : <label id="total_origine">0</label> </td>
 	<td colspan="2">$ : <label id="total_after_saled">0</label> </td>
 	<td colspan="2">~ : <label id="sale_different">0</label> </td>
