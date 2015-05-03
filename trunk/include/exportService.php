@@ -38,6 +38,18 @@ class ExportService {
 	function HandleDBError($err) {
 		$this->HandleError ( $err . "\r\n mysqlerror:" . mysql_error () );
 	}
+	function getJsonProductCode($term) {
+		$qry = "select t1.* from product t1 where t1.code like '%" . $term . "%' limit 10";
+		$result = mysql_query ( $qry, $this->connection );
+		$jsonArray = array ();
 	
+		while ( $rows = mysql_fetch_array ( $result ) ) {
+			$labelvalue = "Code : " . $rows ['code'] . ", name :" . $rows ['name'];
+			$element = array (code => $rows ['code'], name => $rows ['name'], price => $rows ['export_price'],posted_price => $rows ['export_price'], value => $rows ['code'], label => $labelvalue );
+				
+			$jsonArray [] = $element;
+		}
+		return $jsonArray;
+	}
 }
 ?>

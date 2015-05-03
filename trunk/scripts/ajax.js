@@ -1154,6 +1154,13 @@ function calculateExportForm(){
 		$('#quantity_1').val(1);
 //		alert($('#export_number_row').val());
 	}
-	$('#productcode_1').val($('#quantity_1').val());
 	
+}
+function cancelExportLine(line) {
+	$('#productcode_'+line).val('');
+	$('#productname_'+line).html('');
+	$('#exportpostedprice_'+line).html('');
+	$('#quantity_'+line).val(1);
+	$('#exportprice_'+line).val('');
+	calculateExportForm();
 }
