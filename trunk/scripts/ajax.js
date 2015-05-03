@@ -1151,6 +1151,8 @@ function calculateExportForm(){
 	var nbrow = parseInt($('#export_number_row').val());
 	validateQuantity(nbrow);
 	calculateTotalQuality(nbrow);
+	calculateTotalFactureOrigin(nbrow);
+	calculateTotalFactureSaled(nbrow);
 	
 }
 function validateQuantity(nbrow) {
@@ -1169,6 +1171,27 @@ function calculateTotalQuality(nbrow) {
 		}
 	}
 	$('#total_quantity').html(total);
+}
+function calculateTotalFactureOrigin(nbrow) {
+	var total = 0;
+	for(var i=1;i<=nbrow;i++) {
+		if($('#productcode_'+i).val()!= '') {
+			total = total + parseInt($('#quantity_'+i).val()) * parseInt($('#exportpostedprice_'+i).html());
+		}
+	}
+	$('#total_origine').html(total);
+}
+function calculateTotalFactureSaled(nbrow) {
+	var total = 0;
+	for(var i=1;i<=nbrow;i++) {
+		if($('#productcode_'+i).val()!= '') {
+			total = total + parseInt($('#quantity_'+i).val()) * parseInt($('#exportprice_'+i).val());
+		}
+	}
+	$('#total_after_saled').html(total);
+	$('#sale_different').html(parseInt($('#total_origine').html()) - total);
+	$('#sale_percentage').html(Math.round((1-(total/parseInt($('#total_origine').html())))*100));
+	$('#sale_percentage').prop('title',((1-(total/parseInt($('#total_origine').html())))*100).toFixed(2));
 }
 $(function() {
 	$(".productcode").autocomplete( {
