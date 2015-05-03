@@ -372,3 +372,28 @@ textarea {
 .dataTables_wrapper .dataTables_filter input {
 	width: 150px !important;
 }
+#exportLeft{
+	float: left;
+	width: 40%;
+	height: 515px;
+	overflow: auto;
+	background-color: pink;
+	padding: 5px;
+}
+#exportRight{
+	float: right;
+	padding:5px;
+	width: 58%;
+	height: 515px;
+	overflow: auto;
+	background-color: bisque;
+}
+#exportCustomerInformation{
+	background-color: #FFFEE0;
+}
+#exportFactureInformation{
+	background-color: #0FFEE0;
+}
+#exportInputProduct{
+	background-color: #1FF1FF;
+}
