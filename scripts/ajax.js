@@ -1148,14 +1148,34 @@ function saveExport(){
 //	$('#customer_debt').html('1000');
 }
 function calculateExportForm(){
-	
-	if($('#quantity_1').val()==0) {
-		$('#quantity_1').addClass('errorField');
-		$('#quantity_1').val(1);
-//		alert($('#export_number_row').val());
-	}
+	var nbrow = parseInt($('#export_number_row').val());
+	validateQuantity(nbrow);
+	calculateTotalQuality(nbrow);
 	
 }
+function validateQuantity(nbrow) {
+	for(var i=1;i<=nbrow;i++) {
+		if($('#quantity_'+i).val()==0) {
+			$('#quantity_'+i).addClass('errorField');
+			$('#quantity_'+i).val(1);
+		}
+	}
+}
+function calculateTotalQuality(nbrow) {
+	var total = 0;
+	for(var i=1;i<=nbrow;i++) {
+		if($('#productcode_'+i).val()!= '') {
+			total = total + parseInt($('#quantity_'+i).val());
+		}
+	}
+	$('#total_quantity').html(total);
+}
+$(function() {
+	$(".productcode").autocomplete( {
+		source : "autocomplete/productcode.php",
+		minLength : 1
+	});
+});
 function cancelExportLine(line) {
 	$('#productcode_'+line).val('');
 	$('#productname_'+line).html('');
