@@ -1214,7 +1214,6 @@ $(document).ready(function() {
 		source : "autocomplete/completed_import_customer_tel.php",
 		select : function(event, ui) {
 			$("#customer_tel").val(ui.item.tel);
-			$("#customer_tel_hidden").val(ui.item.tel);
 			$("#customer_id").val(ui.item.id);
 			$("#customer_name").val(ui.item.name);
 			calculateExportForm();
@@ -1224,7 +1223,5 @@ $(document).ready(function() {
 	$("#customer_tel").autocomplete(ac_config_export_customer_tel);
 });
 function updateCusIdWhenChangeTel(){
-	if($("#customer_tel").val() != $("#customer_tel_hidden").val()) {
-		$("#customer_id").val('');
-	}
+	$("#customer_id").val('');
 }

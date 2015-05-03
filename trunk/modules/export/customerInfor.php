@@ -4,7 +4,6 @@
 	<td>
 		<input type="text" id="customer_tel" maxlength="12" onkeypress="validateNum(event);" autocomplete="off" onkeyup="updateCusIdWhenChangeTel();"/>
 		<input type="hidden" id="customer_id"/>
-		<input type="hidden" id="customer_tel_hidden"/>
 		<input id="export_date" type="text" class="datefield" <?php $commonService->displayByAdmin();?>/>
 	</td>
 </tr>

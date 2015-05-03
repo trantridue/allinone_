@@ -64,7 +64,8 @@ class CustomerService {
 		echo "<script>customerpostaction('" . $result . "','" . $actionType . "');</script>";
 	}
 	function getJsonCustomerTel($term) {
-		$qry = "select t1.id,t1.name,t1.tel from customer t1 where t1.tel like '%" . $term . "' limit 10";
+		$qry = "select t1.id,t1.name,t1.tel from customer t1
+		where t1.tel like '%" . $term . "' limit 10";
 		$result = mysql_query ( $qry, $this->connection );
 		$jsonArray = array ();
 		
