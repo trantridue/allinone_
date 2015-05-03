@@ -1,1 +1,18 @@
-Không quân Hải quân; Hải quân đánh bộ, Đặc công Hải quân và lực lượng phòng thủ đảo. Theo Đô đốc Nguyễn Văn Hiến, Ủy viên BCH TƯ Đảng, Thứ trưởng Bộ Quốc phòng - Tư lệnh Hải quân, trước yêu cầu của việc quản lý, bảo vệ vùng biển, đảo miền Bắc, chấp hành nghị quyết của Tổng Quân ủy, sau một thời gian chuẩn bị, ngày 7/5/1955, Bộ Quốc phòng ra Nghị định thành lập Cục Phòng thủ bờ bể, tiền thân của Hải quân Nhân dân Việt Nam ngày nay. Từ những ngày đầu với 2 đơn vị tiền thân là Trường
+<table class="addcriteriatable">
+<tr>
+	<td>Nợ</td>
+	<td>Đã đặt</td>
+	<td>Trả hàng</td>
+	<td>Hóa đơn</td>
+	<td>Tổng</td>
+</tr>
+<tr>
+	<td><input type="text" class="gridTxt" id="customer_debt" size="3" autocomplete="off" onkeypress="validateNon(event);" value="0"/></td>
+	<td><input type="text" class="gridTxt" id="customer_reserved" size="3" autocomplete="off" onkeypress="validateNon(event);" value="0"/></td>
+	<td><input type="text" class="gridTxt" id="customer_returned" size="3" autocomplete="off" onkeypress="validateNon(event);" value="0"/></td>
+	<td><input type="text" class="gridTxt" id="total_facture" size="3" autocomplete="off" onkeypress="validateNon(event);" value="0"/></td>
+	<td><input type="text" class="gridTxt" id="final_total" size="3" autocomplete="off" onkeypress="validateNon(event);" value="0"/></td>
+	
+</tr>
+
+</table>

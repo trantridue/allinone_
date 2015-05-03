@@ -307,6 +307,9 @@ function isAdmin() {
 	session_start();
 	return $_SESSION ['is_admin_user'];
 }
+function displayByAdmin() {
+	echo ($this->isAdmin()?'':'style="display:none;"');
+}
 function isMobile(){
 	$useragent=$_SERVER['HTTP_USER_AGENT'];
 	

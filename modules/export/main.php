@@ -1,11 +1,16 @@
+<form>
 <div id="exportLeft">
 	<div id="exportCustomerInformation"><?php include 'customerInfor.php';?></div>
+	<div id="exportCustomerOrder" style="display: none;"><?php include 'customerOrder.php';?></div>
+	<hr>
 	<div id="exportFactureInformation"><?php include 'factureInfor.php';?></div>
+	<hr>
 	<div id="exportInputProduct"><?php include 'exportInput.php';?></div>
 </div>
+</form>
 <div id="exportRight">
 	<div id="exportSearch"><?php include 'exportSearch.php';?></div>
-	<hr>
+	<div id="exportButtonRight"><?php include 'exportButtonRight.php';?></div>
 	<div id="exportDebt"><?php include 'exportDebt.php';?></div>
 	<div id="exportReservation"><?php include 'exportReservation.php';?></div>
 	<div id="exportReturn"><?php include 'exportReturn.php';?></div>
