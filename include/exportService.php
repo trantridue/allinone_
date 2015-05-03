@@ -39,7 +39,8 @@ class ExportService {
 		$this->HandleError ( $err . "\r\n mysqlerror:" . mysql_error () );
 	}
 	function getJsonProductCode($term) {
-		$qry = "select t1.* from product t1 where t1.code like '%" . $term . "%' limit 10";
+		$qry = "select t1.* from product t1		
+		where t1.code like '%" . $term . "%' limit 10";
 		$result = mysql_query ( $qry, $this->connection );
 		$jsonArray = array ();
 	
