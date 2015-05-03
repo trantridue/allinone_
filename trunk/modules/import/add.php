@@ -47,44 +47,44 @@ function resetContinue(){
 		style="border-collapse: collapse;">
 		<tbody>
 			<tr style="text-align: center; font-weight: bold;">
-				<td>Code</td>
+				<td width="8%">Code</td>
 				<td>Name</td>
-				<td>Qty</td>
-				<td>Post</td>
-				<td>ImPr</td>
-				<td>Sex</td>
-				<td>Category</td>
-				<td>Brand</td>
+				<td width="5%">Qty</td>
+				<td width="5%">Post</td>
+				<td width="5%">ImPr</td>
+				<td width="5%">Sex</td>
+				<td width="8%">Category</td>
+				<td width="8%">Brand</td>
 				<td>Description</td>
 			</tr>       
     <?php for ($i=1;$i<=$rowNum;$i++) { ?>
     <tr>
 				<td><input name="code_<?php echo $i;?>" id="code_<?php echo $i;?>" onkeypress="resetExisted('<?php echo $i;?>');"
-					autocomplete="off" size="7"
+					autocomplete="off" size="5"
 					value="<?php echo $importService->currentMaxProductCode($i);?>" />
 					<input type="hidden" name="isExisted_<?php echo $i;?>"
 					id="isExisted_<?php echo $i;?>" value="false" /></td>
 				<td><input class="product_name" name="name_<?php echo $i;?>"
 					id="name_<?php echo $i;?>" autocomplete="off" size="40" /></td>
 				<td><input name="qty_<?php echo $i;?>" id="qty_<?php echo $i;?>" onkeyup="calculateImportFacture();" onkeypress="validateFloat(event);"
-					autocomplete="off" size="7" maxlength="4" /></td>
+					autocomplete="off" size="5" maxlength="4" /></td>
 				<td><input name="post_<?php echo $i;?>" id="post_<?php echo $i;?>" onkeypress="validateFloat(event);"  
 				maxlength="6"
-					autocomplete="off" size="7" /></td>
+					autocomplete="off" size="5" /></td>
 				<td><input name="impr_<?php echo $i;?>" id="impr_<?php echo $i;?>" onkeyup="calculateImportFacture();" 
 				onkeypress="validateFloat(event);"  maxlength="6"
-					autocomplete="off" size="7" /></td>
+					autocomplete="off" size="5" /></td>
 				<td><div id="sex_<?php echo $i;?>" name="sex_<?php echo $i;?>"
 						class="sex_woman" onclick="changeSex('<?php echo $i;?>');">WOMAN</div>
 					<input type="hidden" name="sex_value_<?php echo $i;?>"
 					id="sex_value_<?php echo $i;?>" value="1" /></td>
 				<td><input name="category_<?php echo $i;?>" onkeypress="resetCategoryId('<?php echo $i;?>');"
-					id="category_<?php echo $i;?>" autocomplete="off" size="20" value="VAY"/>
+					id="category_<?php echo $i;?>" autocomplete="off" size="10" value="VAY"/>
 					<input type="hidden" name="category_id_<?php echo $i;?>"
 					id="category_id_<?php echo $i;?>" value="1" />
 					</td>
 				<td><input name="brand_<?php echo $i;?>" value="MADEVN" onkeypress="resetBrandId('<?php echo $i;?>');"
-					id="brand_<?php echo $i;?>" autocomplete="off" size="15" />
+					id="brand_<?php echo $i;?>" autocomplete="off" size="10" />
 					<input type="hidden" name="brand_id_<?php echo $i;?>"
 					id="brand_id_<?php echo $i;?>" value="1" />
 					</td>
