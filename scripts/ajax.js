@@ -1211,7 +1211,7 @@ function cancelExportLine(line) {
 }
 $(document).ready(function() {
 	var ac_config_export_customer_tel = {
-		source : "autocomplete/completed_import_customer_tel.php",
+		source : "autocomplete/completed_export_customer_tel.php",
 		select : function(event, ui) {
 			$("#customer_tel").val(ui.item.tel);
 			$("#customer_id").val(ui.item.id);
