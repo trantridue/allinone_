@@ -1,5 +1,6 @@
 ﻿#prepare table shop
 use allinone;
+truncate customer_return;
 truncate customer_reservation_histo;
 truncate customer_paid;
 truncate export_facture_product;
@@ -162,3 +163,26 @@ insert into export_facture(code,customer_id,shop_id,`date`,description,user_id) 
 #export_facture_product
 insert into export_facture_product(id,product_code,quantity,export_price,export_facture_code)
 select id,products_code,quantity,price,export_facture_code from `zabuzach_store`.`export`;
+
+truncate table customer_paid;
+truncate table customer_reservation_histo;
+
+insert into  `customer_paid`(customer_id,amount,`date`,description,shop_id)
+SELECT t1.id
+,ifnull((select sum(quantity*price) from `zabuzach_store`.export where export_facture_code in (select code from `zabuzach_store`.export_facture where customers_id=t1.id)),0) totalbuy
+,now()
+,'migrate'
+,1 FROM `zabuzach_store`.`customers` t1 where
+t1.id in (SELECT id FROM `zabuzach_store`.`customer_order` union SELECT id FROM `zabuzach_store`.`customer_debt`);
+
+
+
+insert into customer_reservation_histo(id,customer_id,description,amount,status,date,complete_date)
+select id,customers_id,description,amount,status,date,date_complete FROM zabuzach_store.customer_order ;
+
+update customer_reservation_histo set status = 'Y' where status ='C';
+update customer_reservation_histo set status = 'N' where status ='P';
+
+insert into customer_return (date,description,product_code,customer_id,quantity,return_price)
+SELECT t1.date,CONVERT(CONVERT(CONVERT(t1.description USING latin1) USING binary) USING utf8),t1.products_code,t2.customers_id,t1.quantity,t1.price
+ FROM `zabuzach_store`.`export` t1, `zabuzach_store`.`export_facture` t2 where t1.qty_return > 0 and t1.export_facture_code = t2.code;
