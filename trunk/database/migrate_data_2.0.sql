@@ -1,6 +1,6 @@
 ﻿#prepare table shop
 use allinone;
-truncate customer_debt;
+truncate customer_paid;
 truncate export_facture_product;
 truncate export_facture;
 truncate table spend;
@@ -158,7 +158,7 @@ insert into news (id,date,description,shop_id,user_id) select id,date,CONVERT(CO
 #export
 insert into export_facture(code,customer_id,shop_id,`date`,description,user_id) select code,customers_id,shops_id,`date`,CONVERT(CONVERT(CONVERT(description USING latin1) USING binary) USING utf8),users_id FROM `zabuzach_store`.`export_facture`;
 
-#customer_debt
-insert into customer_debt(id,customer_id,amount,`date`,description,`status`,shop_id,shop_id_completed,date_complete) select id, customers_id,amount,`date`,CONVERT(CONVERT(CONVERT(description USING latin1) USING binary) USING utf8),`status`,shops_id,shops_id_complete,date_complete from `zabuzach_store`.`customer_debt`;
-update `customer_debt` set `status` = 'Y' where status = 'C';
-update `customer_debt` set `status` = 'N' where status = 'P';
+#export_facture_product
+insert into export_facture_product(id,product_code,quantity,export_price,export_facture_code)
+select id,products_code,quantity,price,export_facture_code from `zabuzach_store`.`export`;
+SELECT t1.tel,t1.name,t1.id, (select sum(quantity*export_price) from export_facture_product where export_facture_code in (select code from export_facture where customer_id=t1.id)) totalbuy FROM `customer` t1 where t1.tel like '%833';
