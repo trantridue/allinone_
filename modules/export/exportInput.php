@@ -11,6 +11,7 @@ $(document).ready(function(){
 		select: function(event, ui){
 			$("#productcode_<?php echo $i;?>").val(ui.item.code);
 			$("#productname_<?php echo $i;?>").html(ui.item.name);
+			$("#productname_<?php echo $i;?>").prop('title',ui.item.name);
 			$("#exportprice_<?php echo $i;?>").val(Math.trunc(ui.item.price));
 			$("#exportpostedprice_<?php echo $i;?>").html(ui.item.posted_price);
 			calculateExportForm();
