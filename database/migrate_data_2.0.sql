@@ -173,16 +173,17 @@ SELECT t1.id
 ,now()
 ,'migrate'
 ,1 FROM `zabuzach_store`.`customers` t1 where
-t1.id in (SELECT id FROM `zabuzach_store`.`customer_order` union SELECT id FROM `zabuzach_store`.`customer_debt`);
+t1.id in (SELECT customers_id FROM `zabuzach_store`.`customer_order` union SELECT customers_id FROM `zabuzach_store`.`customer_debt`);
 
 
 
 insert into customer_reservation_histo(id,customer_id,description,amount,status,date,complete_date)
-select id,customers_id,description,amount,status,date,date_complete FROM zabuzach_store.customer_order ;
+select id,customers_id,description,amount,status,date,date_complete FROM zabuzach_store.customer_order;
 
 update customer_reservation_histo set status = 'Y' where status ='C';
 update customer_reservation_histo set status = 'N' where status ='P';
 
 insert into customer_return (date,description,product_code,customer_id,quantity,return_price)
 SELECT t1.date,CONVERT(CONVERT(CONVERT(t1.description USING latin1) USING binary) USING utf8),t1.products_code,t2.customers_id,t1.quantity,t1.price
- FROM `zabuzach_store`.`export` t1, `zabuzach_store`.`export_facture` t2 where t1.qty_return > 0 and t1.export_facture_code = t2.code;
+ FROM `zabuzach_store`.`export` t1, `zabuzach_store`.`export_facture` t2 where t1.qty_return > 0
+ and t1.export_facture_code = t2.code and t2.customers_id in (SELECT customers_id FROM `zabuzach_store`.`customer_order` union SELECT customers_id FROM `zabuzach_store`.`customer_debt`);
