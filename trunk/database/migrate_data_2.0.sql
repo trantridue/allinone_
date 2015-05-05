@@ -1,6 +1,7 @@
 ﻿#prepare table shop
 use allinone;
 truncate customer_return;
+truncate customer_bonus_used;
 truncate customer_reservation_histo;
 truncate customer_paid;
 truncate export_facture_product;
@@ -187,3 +188,6 @@ insert into customer_return (date,description,product_code,customer_id,quantity,
 SELECT t1.date,CONVERT(CONVERT(CONVERT(t1.description USING latin1) USING binary) USING utf8),t1.products_code,t2.customers_id,t1.quantity,t1.price
  FROM `zabuzach_store`.`export` t1, `zabuzach_store`.`export_facture` t2 where t1.qty_return > 0
  and t1.export_facture_code = t2.code and t2.customers_id in (SELECT customers_id FROM `zabuzach_store`.`customer_order` union SELECT customers_id FROM `zabuzach_store`.`customer_debt`);
+
+insert into `customer_bonus_used` (id,customer_id,amount,date)
+select id,customer_id,total_sale,date FROM `zabuzach_store`.`customer_sale_histo`;
