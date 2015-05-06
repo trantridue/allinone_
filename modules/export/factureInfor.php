@@ -25,8 +25,9 @@
 	<td colspan="2">N : <label id="total_quantity">0</label> </td> 	   
 	<td colspan="2">∑ : <label id="total_origine">0</label> </td>
 	<td colspan="2">$ : <label id="total_after_saled">0</label> </td>
-	<td colspan="2">~ : <label id="sale_different">0</label> </td>
+	<td>~ : <label id="sale_different">0</label></td>
 	<td>↓ : <label id="sale_percentage">0</label>% </td>
+	<td><input type="number" size="2" maxlength="2" value="0" id="salefacture" onkeyup="updatePriceProduct();" onclick="updatePriceProduct();" style="width:40px;"></td>
 	</td>
 </tr>
 </table>

@@ -1153,7 +1153,18 @@ function calculateExportForm(){
 	calculateTotalQuality(nbrow);
 	calculateTotalFactureOrigin(nbrow);
 	calculateTotalFactureSaled(nbrow);
+	calculateTotalFactureFinal();
 	
+}
+function calculateTotalFactureFinal() {
+	
+	$('#final_total').html(
+			parseInt($('#total_facture').html()) + 
+			parseInt($('#customer_debt').html()) - 
+			parseInt($('#customer_returned').html()) -
+			parseInt($('#customer_bonus').html()) -
+			parseInt($('#customer_reserved').html()) 
+			);
 }
 function validateQuantity(nbrow) {
 	for(var i=1;i<=nbrow;i++) {
@@ -1191,6 +1202,7 @@ function calculateTotalFactureSaled(nbrow) {
 		}
 	}
 	$('#total_after_saled').html(total);
+	$('#total_facture').html(total);
 	$('#sale_different').html(parseInt($('#total_origine').html()) - total);
 	$('#sale_percentage').html(Math.round((1-(total/parseInt($('#total_origine').html())))*100));
 	$('#sale_percentage').prop('title',((1-(total/parseInt($('#total_origine').html())))*100).toFixed(2));
@@ -1216,6 +1228,10 @@ $(document).ready(function() {
 			$("#customer_tel").val(ui.item.tel);
 			$("#customer_id").val(ui.item.id);
 			$("#customer_name").val(ui.item.name);
+			$("#customer_debt").html(ui.item.debt);
+			$("#customer_reserved").html(ui.item.reserved);
+			$("#customer_returned").html(ui.item.returned);
+			$("#isBoss").prop('checked',ui.item.isboss);
 			calculateExportForm();
 		},
 		minLength : 1
@@ -1224,4 +1240,16 @@ $(document).ready(function() {
 });
 function updateCusIdWhenChangeTel(){
 	$("#customer_id").val('');
+}
+function updatePriceProduct(){
+	if($('#salefacture').val()<0) {
+		$('#salefacture').val('0');
+	} else if($('#salefacture').val()>100) {
+		$('#salefacture').val('100');
+	}
+	for ( var i = 1; i <= 10; i++) {
+		if($('#productcode_'+i).val() != '')
+		$('#exportprice_'+i).val(Math.ceil(parseInt($('#exportpostedprice_'+i).html())*(100-$('#salefacture').val())/100));
+	}
+	calculateExportForm();
 }
