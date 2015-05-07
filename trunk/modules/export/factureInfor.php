@@ -17,9 +17,9 @@
 	<td><label id="total_facture">0</label></td>
 	<td><label id="customer_bonus">0</label></td>
 	<td style="background-color: bisque;"><label id="final_total">0</label></td>
-	<td><input type="text" maxlength="6" id="customer_reserver_more" size="3" autocomplete="off" onkeypress="validateNum(event);" value="0"/></td>
-	<td><input type="text" maxlength="6" id="customer_give" size="3" autocomplete="off" onkeypress="validateNum(event);" value="0"/></td>
-	<td><input type="text" maxlength="6" id="give_customer" size="3" autocomplete="off" onkeypress="validateNum(event);" value="0"/></td>
+	<td><input type="text" maxlength="6" id="customer_reserver_more" size="3" autocomplete="off" onkeypress="validateNum(event);" value="0" onkeyup="calculateExportForm();"/></td>
+	<td><input type="text" maxlength="6" id="customer_give" size="3" autocomplete="off" onkeypress="validateNum(event);" value="0" onkeyup="calculateExportForm();" ondblclick="dbclickCustomerGive();"/></td>
+	<td><input type="text" maxlength="6" id="give_customer" size="3" autocomplete="off" onkeypress="validateNum(event);" value="0" onkeyup="calculateExportForm();"/></td>
 </tr>
 <tr height="30px">
 	<td colspan="2">N : <label id="total_quantity">0</label> </td> 	   
