@@ -5,7 +5,7 @@
 	onclick="saveExport();">
 <input type="checkbox" id="isBoss" value="value">
 <label for="isboss" title="Check nếu chị Châu hay anh Duệ lấy">Người nhà</label>
-<input type="checkbox" id="useBonus" value="value">
+<input type="checkbox" id="useBonus" value="value" onclick="calculateExportForm();">
 <label for="useBonus"  title="Check nếu khách muốn dùng điểm thưởng">Điểm</label>
 <input type="checkbox"  id="byCard" value="value">
 <label for="byCard"  title="Check nếu khách thanh toán bằng thẻ">Thẻ</label>

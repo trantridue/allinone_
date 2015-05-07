@@ -1165,15 +1165,26 @@ function dbclickCustomerGive() {
 	calculateExportForm();
 }
 function calculateTotalFactureFinal() {
+	var usedBonus = $('#useBonus').is(":checked");
+	if(usedBonus) {
+		$('#final_total').html(
+				parseInt($('#total_facture').html()) + 
+				parseInt($('#customer_debt').html()) - 
+				parseInt($('#customer_returned').html()) -
+				parseInt($('#customer_bonus').html()) -
+				parseInt($('#customer_reserved').html()) 
+				);
+	} else {
+		$('#final_total').html(
+				parseInt($('#total_facture').html()) + 
+				parseInt($('#customer_debt').html()) - 
+				parseInt($('#customer_returned').html()) -
+				parseInt($('#customer_reserved').html()) 
+				);
+	}
 	
-	$('#final_total').html(
-			parseInt($('#total_facture').html()) + 
-			parseInt($('#customer_debt').html()) - 
-			parseInt($('#customer_returned').html()) -
-			parseInt($('#customer_bonus').html()) -
-			parseInt($('#customer_reserved').html()) 
-			);
 }
+
 function validateQuantity(nbrow) {
 	for(var i=1;i<=nbrow;i++) {
 		if($('#quantity_'+i).val()==0) {
@@ -1239,6 +1250,7 @@ $(document).ready(function() {
 			$("#customer_debt").html(ui.item.debt);
 			$("#customer_reserved").html(ui.item.reserved);
 			$("#customer_returned").html(ui.item.returned);
+			$("#customer_bonus").html(ui.item.bonus);
 			$("#isBoss").prop('checked',ui.item.isboss);
 			calculateExportForm();
 		},
