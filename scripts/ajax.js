@@ -1154,7 +1154,15 @@ function calculateExportForm(){
 	calculateTotalFactureOrigin(nbrow);
 	calculateTotalFactureSaled(nbrow);
 	calculateTotalFactureFinal();
+	calculateGiveCustomer();
 	
+}
+function calculateGiveCustomer() {
+	$('#give_customer').val($('#customer_give').val()-$('#customer_reserver_more').val()-$('#final_total').html());
+}
+function dbclickCustomerGive() {
+	$('#customer_give').val(parseInt($('#customer_reserver_more').val()+$('#final_total').html()));
+	calculateExportForm();
 }
 function calculateTotalFactureFinal() {
 	
