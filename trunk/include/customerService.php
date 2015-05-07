@@ -65,7 +65,7 @@ class CustomerService {
 	}
 	function getJsonCustomerTel($term) {
 		
-		$qry = "select ta.*,(ta.totalbuy - ta.reserved - ta.paid - ta.returned) as debt,floor((ta.totalbuy-bonus_used)/100) as bonus from (SELECT t1.isboss,t1.tel,t1.name,t1.id
+		$qry = "select ta.*,(ta.totalbuy - ta.reserved - ta.paid - ta.returned) as debt,floor((ta.totalbuy-ta.bonus_used-ta.returned)/100) as bonus from (SELECT t1.isboss,t1.tel,t1.name,t1.id
 			,ifnull((select sum(quantity*export_price) from export_facture_product where export_facture_code in (select code from export_facture where customer_id=t1.id)),0) totalbuy
 			,ifnull((select sum(amount) from customer_paid where customer_id = t1.id),0) as paid
 			,ifnull((select sum(amount) from customer_reservation_histo where customer_id = t1.id and status='N'),0) as reserved
@@ -80,11 +80,11 @@ class CustomerService {
 			$labelvalue = "Tel : " . $rows ['tel'] . ", name :" . $rows ['name'] 
 			. ", ID: " . $rows ['id']
 			.", totalbuy:".$rows['totalbuy']
-			.", paid:".$rows['paid']
-			.", reserved:".$rows['reserved']
-			.", debt:".$rows['debt']
+// 			.", paid:".$rows['paid']
+// 			.", reserved:".$rows['reserved']
+// 			.", debt:".$rows['debt']
 			.", returned:".$rows['returned']
-			.", bonus:".$rows['bonus']
+// 			.", bonus:".$rows['bonus']
 			.", isBoss:".(($rows['isboss']==1)?'true':'false');
 			$element = array (value => $rows ['tel'], 
 					name => $rows ['name'],

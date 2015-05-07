@@ -2,7 +2,7 @@
 <tr>
 	<td width="11%">Nợ</td>
 	<td width="11%">Đã đặt</td>
-	<td width="11%">Trả </td>
+	<td width="11%">Trả lại</td>
 	<td width="11%">Hóa đơn</td>
 	<td width="11%">Điểm</td>
 	<td width="11%">Tổng</td>
