@@ -297,6 +297,24 @@ class ImportService {
 		}
 		return $jsonArray;
 	}
+	function getJsonOrderSize($term) {
+		$qry = "select distinct size from customer_order where size like '%" . $term . "%' limit 10 ";
+		$result = mysql_query ( $qry, $this->connection );
+		$jsonArray = array ();
+		while ( $rows = mysql_fetch_array ( $result ) ) {
+			$jsonArray [] = $rows ['size'];
+		}
+		return $jsonArray;
+	}
+	function getJsonOrderColor($term) {
+		$qry = "select distinct color from customer_order where color like '%" . $term . "%' limit 10 ";
+		$result = mysql_query ( $qry, $this->connection );
+		$jsonArray = array ();
+		while ( $rows = mysql_fetch_array ( $result ) ) {
+			$jsonArray [] = $rows ['color'];
+		}
+		return $jsonArray;
+	}
 	function loadDefaultSeason() {
 		$season_time = date ( 'm-d' );
 		$qry = "select * from season where '" . $season_time . "' between DATE_FORMAT(start_time,'%m-%d') and DATE_FORMAT(end_time,'%m-%d') ";
