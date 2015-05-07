@@ -32,7 +32,7 @@
 #main_page_content {
 	float: right;
 	width: 90%;
-	min-height: 550px;
+	min-height: 600px;
 	background-color: white;
 }
 
@@ -53,7 +53,7 @@
 	width: 100%;
 	background-color: #74DD89;
 	margin-top: 5px;
-	min-height: 520px;
+	min-height: 580px;
 	padding-top: 5px;
 	overflow: auto;
 }
@@ -375,7 +375,7 @@ textarea {
 #exportLeft{
 	float: left;
 	width: 40%;
-	height: 515px;
+	height: 570px;
 	overflow: auto;
 	background-color: pink;
 	padding: 5px;
@@ -384,7 +384,7 @@ textarea {
 	float: right;
 	padding:5px;
 	width: 58%;
-	height: 515px;
+	height: 570px;
 	overflow: auto;
 	background-color: bisque;
 }

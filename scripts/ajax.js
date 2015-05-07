@@ -1259,7 +1259,15 @@ $(document).ready(function() {
 	$("#customer_tel").autocomplete(ac_config_export_customer_tel);
 });
 function updateCusIdWhenChangeTel(){
+	$("#customer_name").val('');
 	$("#customer_id").val('');
+	$("#customer_debt").html('0');
+	$("#customer_reserved").html('0');
+	$("#customer_returned").html('0');
+	$("#customer_bonus").html('0');
+	$("#isBoss").prop('checked',false);
+	
+	calculateExportForm();
 }
 function updatePriceProduct(){
 	if($('#salefacture').val()<0) {
