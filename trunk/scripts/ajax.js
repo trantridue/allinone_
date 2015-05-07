@@ -1232,6 +1232,18 @@ $(function() {
 		minLength : 1
 	});
 });
+$(function() {
+	$(".order_size").autocomplete( {
+		source : "autocomplete/order_size.php",
+		minLength : 1
+	});
+});
+$(function() {
+	$(".order_color").autocomplete( {
+		source : "autocomplete/order_color.php",
+		minLength : 1
+	});
+});
 function cancelExportLine(line) {
 	$('#productcode_'+line).val('');
 	$('#productname_'+line).html('');
