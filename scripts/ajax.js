@@ -1158,16 +1158,17 @@ function calculateExportForm(){
 	
 }
 function calculateGiveCustomer() {
-	$('#give_customer').val($('#customer_give').val()-$('#customer_reserver_more').val()-$('#final_total').html());
+	$('#give_customer').val($('#customer_give').val()-$('#final_total').html());
 }
 function dbclickCustomerGive() {
-	$('#customer_give').val(parseInt($('#customer_reserver_more').val()+$('#final_total').html()));
+	$('#customer_give').val(parseInt($('#final_total').html()));
 	calculateExportForm();
 }
 function calculateTotalFactureFinal() {
 	var usedBonus = $('#useBonus').is(":checked");
 	if(usedBonus) {
 		$('#final_total').html(
+				parseInt($('#customer_reserver_more').val()) + 
 				parseInt($('#total_facture').html()) + 
 				parseInt($('#customer_debt').html()) - 
 				parseInt($('#customer_returned').html()) -
@@ -1176,6 +1177,7 @@ function calculateTotalFactureFinal() {
 				);
 	} else {
 		$('#final_total').html(
+				parseInt($('#customer_reserver_more').val()) + 
 				parseInt($('#total_facture').html()) + 
 				parseInt($('#customer_debt').html()) - 
 				parseInt($('#customer_returned').html()) -
