@@ -944,7 +944,7 @@ function saveExchange() {
 }
 function saveOrderProduct() {
 	var urls = 'modules/export/saveOrder.php' + getOrderInformation();
-	alert(validateOrderForm());
+//	alert(validateOrderForm());
 	if(validateOrderForm()) {
 		$.ajax( {
 			url : urls,
