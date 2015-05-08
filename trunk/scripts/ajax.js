@@ -1289,6 +1289,12 @@ $(function() {
 	});
 });
 $(function() {
+	$(".productname").autocomplete( {
+		source : "autocomplete/productname.php",
+		minLength : 1
+	});
+});
+$(function() {
 	$(".order_size").autocomplete( {
 		source : "autocomplete/order_size.php",
 		minLength : 1
