@@ -1,6 +1,6 @@
 <?php
 //Timeout server
-define('timeout', '1000');
+define('timeout', '3600');
 //DB configuration
 define('hostname', 'localhost');
 define('username', 'root');
