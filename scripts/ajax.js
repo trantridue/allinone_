@@ -944,7 +944,7 @@ function saveExchange() {
 }
 function saveOrderProduct() {
 	var urls = 'modules/export/saveOrder.php' + getOrderInformation();
-//	alert(urls);
+	alert(validateOrderForm());
 	if(validateOrderForm()) {
 		$.ajax( {
 			url : urls,
@@ -956,28 +956,21 @@ function saveOrderProduct() {
 					$('#order_size').val('');
 					$('#order_color').val('');
 					$('#order_description').val('');
+					$('#order_product_code').removeClass("errorField");
+					$('#order_size').removeClass("errorField");
+					$('#order_color').removeClass("errorField");
+					$('#order_description').removeClass("errorField");
+					$('#customer_tel').removeClass("errorField");
+					$('#customer_name').removeClass("errorField");
 				} else {
 					operationError();
 				}
 			}
 		});
-	} else {
-		$('#order_product_code').addClass("errorField");
-		$('#order_size').addClass("errorField");
-		$('#order_color').addClass("errorField");
-		$('#order_description').addClass("errorField");
-		$('#customer_tel').addClass("errorField");
-		$('#customer_name').addClass("errorField");
 	}
 }
 function validateOrderForm() {
-	return 
-	validateBlankField('order_product_code')&
-	validateBlankField('order_size')&
-	validateBlankField('order_color')&
-	validateBlankField('order_description')&
-	validateBlankField('customer_tel')&
-	validateBlankField('customer_name');
+	return 	validateBlankField('order_product_code') &&	validateBlankField('order_size') &&	validateBlankField('order_color') && validateBlankField('order_description') &&	validateBlankField('customer_tel') &&	validateBlankField('customer_name');
 }
 function validateAddFund(){
 	var flag = true;
