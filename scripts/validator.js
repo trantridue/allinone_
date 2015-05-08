@@ -1,7 +1,7 @@
 /* COMMON FUNCTION */
 // VERIFY IF A FIELD IS BLANK BY INPUT OF IT'S ID
 function validateBlankField(fieldid) {
-	if ($("#" + fieldid).val() == "") {
+	if ($("#" + fieldid).val() == "" || $("#" + fieldid).val() == null) {
 		$("#" + fieldid).addClass("errorField");
 		if (fieldid == "provider_id")
 			$("#provider_name").addClass("errorField");

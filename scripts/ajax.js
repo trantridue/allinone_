@@ -14,6 +14,20 @@ function processUrlString(str) {
 	}
 	return inputUrl;
 }
+function processUrlStringEncode(str) {
+	var key = new Array();
+	var value = new Array();
+	key = str.split("&");
+	var inputUrl = "";
+	for (i in key) {
+		value[i] = key[i].split("=")[1];
+		key[i] = key[i].split("=")[0];
+	}
+	for (i in key) {
+		inputUrl = inputUrl + key[i] + "=" + encodeURIComponent(value[i]) + "&";
+	}
+	return inputUrl;
+}
 
 /* USER MODULE */
 function listUser() {
@@ -928,6 +942,43 @@ function saveExchange() {
 		}
 	});
 }
+function saveOrderProduct() {
+	var urls = 'modules/export/saveOrder.php' + getOrderInformation();
+//	alert(urls);
+	if(validateOrderForm()) {
+		$.ajax( {
+			url : urls,
+			success : function(data) {
+	//			alert(data);
+				if (data == 'success') {
+					operationSuccess();
+					$('#order_product_code').val('');
+					$('#order_size').val('');
+					$('#order_color').val('');
+					$('#order_description').val('');
+				} else {
+					operationError();
+				}
+			}
+		});
+	} else {
+		$('#order_product_code').addClass("errorField");
+		$('#order_size').addClass("errorField");
+		$('#order_color').addClass("errorField");
+		$('#order_description').addClass("errorField");
+		$('#customer_tel').addClass("errorField");
+		$('#customer_name').addClass("errorField");
+	}
+}
+function validateOrderForm() {
+	return 
+	validateBlankField('order_product_code')&
+	validateBlankField('order_size')&
+	validateBlankField('order_color')&
+	validateBlankField('order_description')&
+	validateBlankField('customer_tel')&
+	validateBlankField('customer_name');
+}
 function validateAddFund(){
 	var flag = true;
 	if($('#id_add_fund').val()=='' || $('#id_add_fund').val()==null) {
@@ -1030,6 +1081,16 @@ function getFundExchangeInformation() {
 	params = params + "&exchange_destination_amount" + "=" + $('#exchange_destination_amount').val();
 	params = params + "&exchange_description" + "=" + $('#exchange_description').val();
 	return processUrlString(params);
+}
+function getOrderInformation() {
+	var params = '';
+	params = params + "?customer_tel" + "=" + $('#customer_tel').val();
+	params = params + "&customer_name" + "=" + $('#customer_name').val();
+	params = params + "&order_product_code" + "=" + $('#order_product_code').val();
+	params = params + "&order_size" + "=" + $('#order_size').val();
+	params = params + "&order_color" + "=" + $('#order_color').val();
+	params = params + "&order_description" + "=" + $('#order_description').val();
+	return processUrlStringEncode(params);
 }
 function updateExchangeFundSourceAmount() {
 	var sourceAmount = 0;

@@ -1,4 +1,5 @@
 <hr> 
+
 <table class="addcriteriatable">
 <tr>
 	<td>Mã</td>
@@ -18,3 +19,4 @@
 </td>
 </tr>
 </table>
+
