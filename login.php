@@ -3,6 +3,8 @@ require_once ("./include/membersite_config.php");
 
 if (isset ( $_POST ['submitted'] )) {
 	if ($fgmembersite->Login ()) {
+		$_SESSION['start1'] = time();
+		$_SESSION['expire1'] = $_SESSION['start1'] + timeoutfixed ;
 		$fgmembersite->RedirectToURL ( "login-home.php" );
 	}
 }
