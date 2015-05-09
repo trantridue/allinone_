@@ -1,0 +1,1 @@
+SELECT * FROM `customer_paid` order by amount desc;
