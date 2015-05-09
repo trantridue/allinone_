@@ -169,14 +169,10 @@ truncate table customer_paid;
 truncate table customer_reservation_histo;
 
 insert into  `customer_paid`(customer_id,amount,`date`,description,shop_id)
-SELECT t1.id
-,ifnull((select sum(quantity*price) from `zabuzach_store`.export where export_facture_code in (select code from `zabuzach_store`.export_facture where customers_id=t1.id)),0) totalbuy
-,now()
-,'migrate'
-,1 FROM `zabuzach_store`.`customers` t1 where
-t1.id in (SELECT customers_id FROM `zabuzach_store`.`customer_order` union SELECT customers_id FROM `zabuzach_store`.`customer_debt`);
-
-
+select t1.id as customer_id,t3.price*t3.quantity as amount,t2.date,CONVERT(CONVERT(CONVERT(t2.description USING latin1) USING binary) USING utf8),t2.shops_id
+from zabuzach_store.customers t1,zabuzach_store.export_facture t2, zabuzach_store.export t3
+where t1.id = t2.customers_id
+and t2.code = t3.export_facture_code;
 
 insert into customer_reservation_histo(id,customer_id,description,amount,status,date,complete_date)
 select id,customers_id,description,amount,status,date,date_complete FROM zabuzach_store.customer_order;
