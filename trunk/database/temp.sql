@@ -26,3 +26,7 @@ update customer_reservation_histo set status = 'N' where status ='P';
 
 --------------
 SELECT sum(t1.quantity*t1.return_price), t1.customer_id,t1.date,(select name from customer where id = t1.customer_id) FROM `customer_return` t1 group by t1.customer_id order by sum(t1.quantity*t1.return_price) desc;
+
+-- 20150509
+SELECT t1.name,sum(t3.quantity*t3.export_price) FROM `customer` t1, export_facture t2,export_facture_product t3
+where t1.id= t2.customer_id and t2.code = t3.export_facture_code group by t1.id order by sum(t3.quantity*t3.export_price) desc;
