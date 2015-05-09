@@ -69,7 +69,7 @@ class CustomerService {
 			,ifnull((select sum(quantity*export_price) from export_facture_product where export_facture_code in (select code from export_facture where customer_id=t1.id)),0) totalbuy
 			,ifnull((select sum(amount) from customer_paid where customer_id = t1.id),0) as paid
 			,ifnull((select sum(amount) from customer_reservation_histo where customer_id = t1.id and status='N'),0) as reserved
-			,ifnull((select sum(quantity*return_price) from customer_return where customer_id = t1.id ),0) as returned
+			,ifnull((select sum(re_qty*export_price) from export_facture_product where export_facture_code in (select code from export_facture where customer_id=t1.id)),0) returned
 			,ifnull((select sum(amount) from customer_bonus_used where customer_id = t1.id ),0) as bonus_used
 			 FROM `customer` t1 where t1.tel like '%" . $term . "' limit 10) ta";
 		
