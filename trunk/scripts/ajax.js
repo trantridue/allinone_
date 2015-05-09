@@ -804,6 +804,10 @@ function operationSuccess() {
 	$('#serverMessage').html('Operation success!');
 	$('#serverMessage').addClass('successMessage');
 	$('#serverMessage').removeClass('errorMessage');
+	setTimeout(function() {
+	    $('#serverMessage').fadeOut('slow');
+	}, 2000);
+	//$('#serverMessage').hide();
 }
 function operationError() {
 	$('#serverMessage').show();
