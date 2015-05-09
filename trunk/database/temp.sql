@@ -30,3 +30,11 @@ SELECT sum(t1.quantity*t1.return_price), t1.customer_id,t1.date,(select name fro
 -- 20150509
 SELECT t1.name,sum(t3.quantity*t3.export_price) FROM `customer` t1, export_facture t2,export_facture_product t3
 where t1.id= t2.customer_id and t2.code = t3.export_facture_code group by t1.id order by sum(t3.quantity*t3.export_price) desc;
+
+insert into customer_paid (customer_id,amount,date,description,shop_id)
+SELECT t1.id,sum(t3.quantity*t3.export_price)as amount,t2.date, t2.description,t2.shop_id
+FROM `customer` t1, export_facture t2,export_facture_product t3
+where t1.id= t2.customer_id
+and t2.code = t3.export_facture_code
+group by t1.id
+order by sum(t3.quantity*t3.export_price) desc;
