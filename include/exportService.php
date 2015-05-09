@@ -39,14 +39,25 @@ class ExportService {
 		$this->HandleError ( $err . "\r\n mysqlerror:" . mysql_error () );
 	}
 	function getJsonProductCode($term) {
-		$qry = "select t1.* from product t1		
+		session_start();
+		
+		$isSaleAll = $_SESSION ['is_sale_for_all'];
+		$saleAllTaux = $_SESSION ['sale_all_taux'];
+		if($isSaleAll) {
+			$qry = "select t1.*,t1.export_price * (100-".$saleAllTaux.")/100 as price from product t1		
 		where t1.code like '%" . $term . "%' limit 10";
+		} else {
+			$qry = "select t1.*,t1.export_price * (100-t1.sale)/100 as price from product t1		
+		where t1.code like '%" . $term . "%' limit 10";
+		}
+		
 		$result = mysql_query ( $qry, $this->connection );
+		
 		$jsonArray = array ();
 	
 		while ( $rows = mysql_fetch_array ( $result ) ) {
 			$labelvalue = "Code : " . $rows ['code'] . ", name :" . $rows ['name'];
-			$element = array (code => $rows ['code'], name => $rows ['name'], price => $rows ['export_price'],posted_price => $rows ['export_price'], value => $rows ['code'], label => $labelvalue );
+			$element = array (code => $rows ['code'], name => $rows ['name'], price => $rows ['price'],posted_price => $rows ['export_price'], value => $rows ['code'], label => $labelvalue );
 				
 			$jsonArray [] = $element;
 		}
