@@ -14,5 +14,6 @@
 	<div id="exportDebt"><?php include 'exportDebt.php';?></div>
 	<div id="exportReservation"><?php include 'exportReservation.php';?></div>
 	<div id="exportReturn"><?php include 'exportReturn.php';?></div>
+	<div id="exportOrderList"><?php include 'exportOrderList.php';?></div>
 	<div id="exportList"><?php include 'exportList.php';?></div>
 </div>
