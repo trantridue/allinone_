@@ -115,8 +115,9 @@ echo "</script> ";
 		echo "</tr>";
 		echo "</tfoot>";
 		echo "<tbody";
-		
+		$counter_colum = 0;
 		while ( $rows = mysql_fetch_array ( $result ) ) {
+			$counter_colum = $counter_colum + 1;
 			echo "<tr>";
 			foreach ( $array_column as $value => $key ) {
 				if ($key == 'hidden_field') {
@@ -190,6 +191,8 @@ echo "</script> ";
 					
 				} else if ($value == 'date'){
 					echo "<td style='width:120px;'>" . $rows [$value] . "</td>";
+				} else if ($value == 'counter_colum'){
+					echo "<td>" . $counter_colum . "</td>";
 				} else {
 					echo "<td>" . $rows [$value] . "</td>";
 				}
