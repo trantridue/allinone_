@@ -1336,7 +1336,7 @@ $(document).ready(function() {
 			$("#customer_name").val(ui.item.name);
 			$("#customer_debt").html(ui.item.debt);
 			$("#customer_reserved").html(ui.item.reserved);
-//			$("#customer_returned").html(ui.item.returned);
+			$("#customer_bonus").prop('title',ui.item.totalbuy);
 			$("#customer_bonus").html(ui.item.bonus);
 			$("#isBoss").prop('checked',ui.item.isboss);
 			calculateExportForm();
