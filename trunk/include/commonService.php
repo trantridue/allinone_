@@ -149,10 +149,16 @@ echo "</script> ";
 					}
 					echo "<td><a onclick='delete" . $datatable_id . "(" . $str . ");' href='javascript:void(0);'><div class='deleteIcon'></div></a></td>";
 				} else if ($value == 'status') {
-					if($rows [$value]=='y'){
+					if($rows [$value]=='y' || $rows [$value]=='Y'){
 						echo "<td style='color:green;font-weight:bold'> Active </td>";
 					} else {
 						echo "<td style='color:red;font-weight:bold'> Desactive </td>";
+					}
+				}else if ($value == 'reservation_status') {
+					if($rows [$value]=='Y'){
+						echo "<td style='color:green;font-weight:bold'> Đã thanh toán </td>";
+					} else {
+						echo "<td style='color:red;font-weight:bold'> Chưa Thanh toán </td>";
 					}
 				}else if ($value == 'sex_id') {
 					if($rows [$value]=='1'){

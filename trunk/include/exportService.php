@@ -134,5 +134,53 @@ class ExportService {
 				
 		);
 	}
+	function listReturn() {
+		$qry = "SELECT t1.re_date as date,t3.name,t3.tel,t1.product_code,t4.name as product,t1.quantity,t1.export_price,t2.code,t1.re_qty,t1.re_date
+FROM `export_facture_product` t1,export_facture t2,customer t3,product t4
+where t1.re_qty > 0
+and t1.export_facture_code = t2.code
+and t3.id = t2.customer_id
+and t4.code = t1.product_code order by t1.re_date desc";
+		$result = mysql_query ( $qry, $this->connection );
+		$array_total = array (
+				3 => "Total"
+		);
+		$this->commonService->generateJSDatatableComplex ( $result, customerreturndatatable, 7, 'desc', $array_total );
+		$this->commonService->generateJqueryDatatable ( $result, customerreturndatatable, $this->buildArrayReturnParameter() );
+	}
+	function buildArrayReturnParameter() {
+		return array (
+				"counter_colum" => "No",
+				"name" => "Khách Hàng",
+				"tel" => "Điện thoại",
+				"re_qty*export_price" => "complex",
+				"quantity" => "Qty",
+				"re_qty" => "Qty_re",
+				"export_price" => "Price",
+				"date" => "Ngày trả"
+		);
+	}
+	function listReservation() {
+		$qry = "SELECT t1.*,t1.status as reservation_status,t2.name,t2.tel FROM `customer_reservation_histo` t1 
+		left join customer t2 on (t2.id = t1.customer_id) order by status asc";
+		$result = mysql_query ( $qry, $this->connection );
+		$array_total = array (
+				3 => "Total"
+		);
+		$this->commonService->generateJSDatatableComplex ( $result, customerreservationdatatable, 6, 'asc', $array_total );
+		$this->commonService->generateJqueryDatatable ( $result, customerreservationdatatable, $this->buildArrayReservationParameter() );
+	}
+	function buildArrayReservationParameter() {
+		return array (
+				"counter_colum" => "No",
+				"name" => "Khách Hàng",
+				"tel" => "Điện thoại",
+				"amount" => "Tổng",
+				"date" => "Ngày đặt",
+				"complete_date" => "Ngày thanh toán",
+				"reservation_status" => "Trạng thái"
+				
+		);
+	}
 }
 ?>
