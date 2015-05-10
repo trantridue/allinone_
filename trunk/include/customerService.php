@@ -77,7 +77,7 @@ class CustomerService {
 		
 		while ( $rows = mysql_fetch_array ( $result ) ) {
 			$labelvalue = $rows ['name']." : " . $rows ['tel']
-//			. ", ID: " . $rows ['id']
+			. ", ID: " . $rows ['id']
 //			.", totalbuy:".$rows['totalbuy']
 // 			.", paid:".$rows['paid']
 // 			.", reserved:".$rows['reserved']
