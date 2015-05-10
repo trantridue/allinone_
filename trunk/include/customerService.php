@@ -88,6 +88,7 @@ class CustomerService {
 ;
 			$element = array (value => $rows ['tel'], 
 					name => $rows ['name'],
+					totalbuy => $rows ['totalbuy'],
 					debt => $rows ['debt'],
 					reserved => $rows ['reserved'],
 //					returned => $rows ['returned'],
