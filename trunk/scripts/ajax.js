@@ -1207,6 +1207,7 @@ function saveExport(){
 }
 function calculateExportForm(){
 	var nbrow = parseInt($('#export_number_row').val());
+	updateCheckBoxIfIsboss();
 	validateQuantity(nbrow);
 	calculateTotalQuality(nbrow);
 	calculateTotalFactureOrigin(nbrow);
@@ -1215,6 +1216,14 @@ function calculateExportForm(){
 	calculateGiveCustomer();
 	
 }
+function updateCheckBoxIfIsboss(){
+	var isBoss = $('#isBoss').is(":checked");
+	if(isBoss) {
+		$('#useBonus').prop('checked',false);
+		$('#byCard').prop('checked',false);
+	}
+}
+
 function calculateGiveCustomer() {
 	$('#give_customer').val($('#customer_give').val()-$('#final_total').html());
 }
@@ -1327,7 +1336,7 @@ $(document).ready(function() {
 			$("#customer_name").val(ui.item.name);
 			$("#customer_debt").html(ui.item.debt);
 			$("#customer_reserved").html(ui.item.reserved);
-			$("#customer_returned").html(ui.item.returned);
+//			$("#customer_returned").html(ui.item.returned);
 			$("#customer_bonus").html(ui.item.bonus);
 			$("#isBoss").prop('checked',ui.item.isboss);
 			calculateExportForm();

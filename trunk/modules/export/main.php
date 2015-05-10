@@ -4,7 +4,6 @@
 	<div id="exportCustomerOrder" style="display: none;"><?php include 'customerOrder.php';?></div>
 	<hr>
 	<div id="exportFactureInformation"><?php include 'factureInfor.php';?></div>
-	<hr>
 	<div id="exportInputProduct"><?php include 'exportInput.php';?></div>
 </div>
 </form>
