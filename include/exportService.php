@@ -140,7 +140,7 @@ FROM `export_facture_product` t1,export_facture t2,customer t3,product t4
 where t1.re_qty > 0
 and t1.export_facture_code = t2.code
 and t3.id = t2.customer_id
-and t4.code = t1.product_code order by t1.re_date desc";
+and t4.code = t1.product_code and t1.re_date >=' " . $this->commonService->getDateBeforeSomeDays (default_nbr_days_load_import) . "' order by t1.re_date desc";
 		$result = mysql_query ( $qry, $this->connection );
 		$array_total = array (
 				3 => "Total"
