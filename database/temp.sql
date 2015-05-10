@@ -38,3 +38,10 @@ where t1.id= t2.customer_id
 and t2.code = t3.export_facture_code
 group by t1.id
 order by sum(t3.quantity*t3.export_price) desc;
+
+select t1.id,t1.name,t1.tel,sum(t3.quantity*t3.export_price) as total,
+sum((t3.quantity-t3.re_qty)*t3.export_price) as total1,
+t4.amount as paid
+from customer t1, export_facture t2, export_facture_product t3, customer_paid t4
+where t1.id = t2.customer_id and t2.code = t3.export_facture_code and t4.customer_id = t1.id
+group by t1.id order by total desc;
