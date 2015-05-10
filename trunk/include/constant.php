@@ -17,6 +17,7 @@ define('defaultmodule','export');
 define('defaultsubmodule','search');
 //datatableid
 define('userdatatable','user');
+define('customerdebtdatatable','customer_debt');
 define('spenddatatable','spend');
 define('fundhistodatatable','fund_change_histo');
 define('newsdatatable','news');

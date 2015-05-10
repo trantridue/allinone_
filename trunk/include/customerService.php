@@ -91,7 +91,7 @@ class CustomerService {
 					totalbuy => $rows ['totalbuy'],
 					debt => $rows ['debt'],
 					reserved => $rows ['reserved'],
-//					returned => $rows ['returned'],
+					bonus_used => $rows ['bonus_used'],
 					bonus => $rows ['bonus'],
 					isboss => (($rows['isboss']==1)?true:false), 
 					id => $rows ['id'], 

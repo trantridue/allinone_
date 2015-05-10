@@ -99,5 +99,40 @@ class ExportService {
 		}
 	}
 	
+	function listDebt() {
+		$qry = "select *,(t.total-t.paid) as debt from (SELECT
+				       t1.id,
+				       t1.tel,
+				       t1.name,
+				       (select max(t4.date) from export_facture t4 where t4.customer_id = t1.id) as date,
+				       sum((t3.quantity-t3.re_qty)*t3.export_price) as total,
+				       (select sum(amount) from customer_paid t4 where t4.customer_id = t1.id) AS paid
+				FROM   customer t1,
+				       export_facture t2,
+				       export_facture_product t3
+				WHERE  t1.id = t2.customer_id
+				       AND t2.code = t3.export_facture_code
+				       and t1.tel not like '%aaaaaaa%' group by t1.id) t where (t.total-t.paid) > 0 order by date desc";
+		$result = mysql_query ( $qry, $this->connection );
+		$array_total = array (
+				3 => "Total",
+				4 => "Paid",
+				5 => "Debt"
+		);
+		$this->commonService->generateJSDatatableComplex ( $result, customerdebtdatatable, 6, 'desc', $array_total );
+		$this->commonService->generateJqueryDatatable ( $result, customerdebtdatatable, $this->buildArrayDebtParameter() );
+	}
+	function buildArrayDebtParameter() {
+		return array (
+				"counter_colum" => "No",
+				"name" => "Khách Hàng",
+				"tel" => "Điện thoại",
+				"total" => "Tổng hàng",
+				"paid" => "Đã Thanh Toán",
+				"debt" => "Còn nợ",
+				"date" => "Ngày mua gần nhất"
+				
+		);
+	}
 }
 ?>
