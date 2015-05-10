@@ -18,6 +18,8 @@ define('defaultsubmodule','search');
 //datatableid
 define('userdatatable','user');
 define('customerdebtdatatable','customer_debt');
+define('customerreservationdatatable','customer_reservation_histo');
+define('customerreturndatatable','customer_return');
 define('spenddatatable','spend');
 define('fundhistodatatable','fund_change_histo');
 define('newsdatatable','news');
