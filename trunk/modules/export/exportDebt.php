@@ -1,4 +1,5 @@
 <hr>
+<div class="titlecss">Danh sách nợ</div>
 <?php 
 $isdefault = $_REQUEST ['isdefault'];
 if ($isdefault == "false") {

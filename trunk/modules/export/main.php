@@ -12,7 +12,7 @@
 	<div id="exportButtonRight"><?php include 'exportButtonRight.php';?></div>
 	<div id="exportDebt" style="display: none;"><?php include 'exportDebt.php';?></div>
 	<div id="exportReservation" style="display: none;"><?php include 'exportReservation.php';?></div>
-	<div id="exportReturn"><?php include 'exportReturn.php';?></div>
+	<div id="exportReturn" style="display: none;"><?php include 'exportReturn.php';?></div>
 	<div id="exportOrderList"><?php include 'exportOrderList.php';?></div>
 	<div id="exportList"><?php include 'exportList.php';?></div>
 </div>

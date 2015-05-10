@@ -77,6 +77,7 @@
 	margin-left: 10px;
 	font-weight: bold;
 	/*float: left;*/
+	background-color:#EBEBEB;
 	min-width: 100px;
 }
 
@@ -396,4 +397,12 @@ textarea {
 }
 #exportInputProduct{
 	background-color: #1FF1FF;
+}
+.titlecss{
+	height: 20px;
+	text-align: center;
+	background-color: pink;
+	font-weight: bold;
+	text-transform: uppercase;
+	padding-top: 10px;
 }
