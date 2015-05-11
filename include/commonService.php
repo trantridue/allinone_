@@ -154,17 +154,11 @@ echo "</script> ";
 					} else {
 						echo "<td style='color:red;font-weight:bold'> Desactive </td>";
 					}
-				} else if ($value == 'reservation_status') {
+				} else if ($value == 'order_status' || $value == 'reservation_status') {
 					if($rows [$value]=='Y'){
-						echo "<td style='color:green;font-weight:bold'> Đã thanh toán </td>";
+						echo "<td style='background-color:green;font-weight:bold'> Xử lý xong </td>";
 					} else {
-						echo "<td style='color:red;font-weight:bold'> Chưa Thanh toán </td>";
-					}
-				} else if ($value == 'order_status') {
-					if($rows [$value]=='Y'){
-						echo "<td style='color:green;font-weight:bold'> Xử lý xong </td>";
-					} else {
-						echo "<td style='color:red;font-weight:bold'> Chưa xong </td>";
+						echo "<td style='color:red;font-weight:bold;background-color:yellow'> Chưa xong </td>";
 					}
 				}else if ($value == 'sex_id') {
 					if($rows [$value]=='1'){
