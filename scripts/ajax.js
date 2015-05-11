@@ -958,6 +958,7 @@ function saveOrderProduct() {
 					operationSuccess();
 					$('#order_product_code').val('');
 					$('#order_size').val('');
+					$('#order_qty').val(1);
 					$('#order_color').val('');
 					$('#order_description').val('');
 					$('#order_product_code').removeClass("errorField");
@@ -966,6 +967,7 @@ function saveOrderProduct() {
 					$('#order_description').removeClass("errorField");
 					$('#customer_tel').removeClass("errorField");
 					$('#customer_name').removeClass("errorField");
+					reloadCustomerOrder();
 				} else {
 					operationError();
 				}
@@ -1084,6 +1086,7 @@ function getOrderInformation() {
 	params = params + "?customer_tel" + "=" + $('#customer_tel').val();
 	params = params + "&customer_name" + "=" + $('#customer_name').val();
 	params = params + "&order_product_code" + "=" + $('#order_product_code').val();
+	params = params + "&order_qty" + "=" + $('#order_qty').val();
 	params = params + "&order_size" + "=" + $('#order_size').val();
 	params = params + "&order_color" + "=" + $('#order_color').val();
 	params = params + "&order_description" + "=" + $('#order_description').val();
@@ -1367,4 +1370,7 @@ function updatePriceProduct(){
 		$('#exportprice_'+i).val(Math.ceil(parseInt($('#exportpostedprice_'+i).html())*(100-$('#salefacture').val())/100));
 	}
 	calculateExportForm();
+}
+function reloadCustomerOrder() {
+	$('#exportOrderList').load('modules/export/exportOrderList.php?isdefault=false');
 }
