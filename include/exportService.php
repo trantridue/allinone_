@@ -182,5 +182,18 @@ and t4.code = t1.product_code and t1.re_date >=' " . $this->commonService->getDa
 				
 		);
 	}
+	function listOrder() {
+		$qry = "SELECT *,datediff(now(),date) as diff,status as order_status from customer_order";
+		$result = mysql_query ( $qry, $this->connection );
+		$array_column = array (
+		"id,customer_name,customer_tel,date" => "Name,customer_name", 
+		"color" => "Mau", 
+		"size" => "Size", 
+		"order_status" => "Status",
+		"description" => "Description"
+		);
+		$this->commonService->generateJSDatatableSimple ( customerorderdatatable, 0, 'desc' );
+		$this->commonService->generateJqueryDatatable ( $result, customerorderdatatable, $array_column );
+	}
 }
 ?>

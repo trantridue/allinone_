@@ -3,13 +3,16 @@
 <table class="addcriteriatable">
 <tr>
 	<td>Mã</td>
+	<td>SL</td>
 	<td>Size</td>
 	<td>Màu</td>
 	<td>Ghi chú</td>
 </tr>
 <tr>
-	<td><input type="text" id="order_product_code" size="8" autocomplete="off" class="productcode"/></td>
-	<td><input type="text" id="order_size" class="order_size" size="8" autocomplete="off"/></td>
+	<td><input type="text" id="order_product_code" size="5" autocomplete="off" class="productcode"/></td>
+	<td><input type="number" id="order_qty" class="order_qty" style="width: 30px;" autocomplete="off" value="1"
+	onkeyup="if(parseInt($('#order_qty').val())<1) $('#order_qty').val(1);" /></td>
+	<td><input type="text" id="order_size" class="order_size" size="5" autocomplete="off"/></td>
 	<td><input type="text" id="order_color" class="order_color" size="8" autocomplete="off"/></td>
 	<td><input type="text" id="order_description" autocomplete="off"/></td>
 </tr>
