@@ -182,22 +182,41 @@ and t4.code = t1.product_code and t1.re_date >=' " . $this->commonService->getDa
 		);
 	}
 	function listOrder() {
-		$qry = "SELECT *,datediff(now(),date) as diff,status as order_status from customer_order order by diff desc ,status";
+		$qry = "SELECT t1.*,t2.name as product_name,datediff(now(),t1.date) as diff,t1.status as order_status from customer_order t1 left join product t2 on (t1.product_code = t2.code) order by diff desc ,t1.status";
 		$result = mysql_query ( $qry, $this->connection );
 		$array_total = array (
-				1 => "Quantity"
+				2 => "Quantity"
 		);
 		$array_column1 = array (
-			"id,customer_name,customer_tel,date,status" => "Name,customer_name", 
+			"id,customer_name,customer_tel,date,status,description" => "Name,customer_name", 
+		    "product_code" => "Pro. Name,product_name",
 			"quantity" => "SL", 
 			"size" => "Size",
 			"color" => "Màu", 
-			"order_status" => "Status",
 			"diff" => "Days",
-			"description" => "Description"
+			"order_status" => "Status"
 		);
-		$this->commonService->generateJSDatatableComplex ( $result, customerorderdatatable, 4, 'asc', $array_total );
+		$this->commonService->generateJSDatatableComplex ( $result, customerorderdatatable, 6, 'asc', $array_total );
 		$this->commonService->generateJqueryDatatable ( $result, customerorderdatatable, $array_column1 );
+	}
+	
+	function updateOrderStatus($id,$status){
+		if($status=='Y') {
+			$status = 'N';
+		} else {
+			$status = 'Y';
+		}
+		session_start ();
+		mysql_query ( "BEGIN" );
+		$qry = "update customer_order set status = '".$status."' where id =".$id;
+// 		echo $qry;
+		if(mysql_query ( $qry, $this->connection ) != null){
+			mysql_query ( "COMMIT" );
+			echo 'success';
+		}else {
+			mysql_query ( "ROLLBACK" );
+			echo 'error';
+		}
 	}
 }
 ?>
