@@ -1389,3 +1389,16 @@ function show_customer_order_id(str) {
 		}
 	});
 }
+function changeStatusFor(i) {
+	
+	var hidenVal = $('#id_add_for_'+i).val();
+	if(hidenVal==1) {
+		$('#id_add_for_'+i).val(2);
+		$('#spend_for_btn_'+i).val('CỬA HÀNG');
+		$('#spend_for_btn_'+i).addClass('shopStyle');
+	} else {
+		$('#id_add_for_'+i).val(1);
+		$('#spend_for_btn_'+i).val(' GIA  ĐÌNH ');
+		$('#spend_for_btn_'+i).removeClass('shopStyle');
+	}
+}

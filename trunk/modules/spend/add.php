@@ -27,9 +27,10 @@
 		<td><?php
 		$commonService->printDropDownListFromTableSelected ( 'spend_category', 'add_category_'.$i,1 );
 		?></td>
-		<td><?php
-		$commonService->printDropDownListFromTableSelected ( 'spend_for', 'add_for_'.$i,1 );
-		?></td>
+		<td>
+		<input type="button" id="spend_for_btn_<?php echo $i;?>" onclick="changeStatusFor('<?php echo $i;?>')" value=" GIA  ĐÌNH "/>
+		<input type="hidden" id="id_add_for_<?php echo $i;?>" value="1">
+		</td>
 		<td><?php
 		$commonService->printDropDownListFromTableSelected ( 'spend_type', 'add_type_'.$i,1 );
 		?></td>
