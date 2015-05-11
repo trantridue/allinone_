@@ -142,7 +142,8 @@ and t3.id = t2.customer_id
 and t4.code = t1.product_code and t1.re_date >=' " . $this->commonService->getDateBeforeSomeDays (default_nbr_days_load_import) . "' order by t1.re_date desc";
 		$result = mysql_query ( $qry, $this->connection );
 		$array_total = array (
-				3 => "Total"
+				3 => "Total return",
+				4 => "Quantity"
 		);
 		$this->commonService->generateJSDatatableComplex ( $result, customerreturndatatable, 7, 'desc', $array_total );
 		$this->commonService->generateJqueryDatatable ( $result, customerreturndatatable, $this->buildArrayReturnParameter() );
