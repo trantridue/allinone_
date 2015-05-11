@@ -70,6 +70,7 @@ class ExportService {
 		$paramsArray['customer_name'] 			= $_REQUEST['customer_name'];
 		$paramsArray['order_product_code'] 			= $_REQUEST['order_product_code'];
 		$paramsArray['order_size'] 	= $_REQUEST['order_size'];
+		$paramsArray['order_qty'] 	= $_REQUEST['order_qty'];
 		$paramsArray['order_color'] 	= $_REQUEST['order_color'];
 		$paramsArray['order_description'] 			= $_REQUEST['order_description'];
 	
@@ -78,17 +79,15 @@ class ExportService {
 	function saveOrder($paramsArray){
 		session_start ();
 		mysql_query ( "BEGIN" );
-		$timeDate = date('Y-m-d H:i:s');
-		$color = $paramsArray['order_color'];		
-		$size = $paramsArray['order_size'];		
-		$qry = "insert into customer_order (customer_tel,customer_name,product_code,color,size,date,description) values ('"
+		$qry = "insert into customer_order (customer_tel,customer_name,product_code,color,size,date,description,quantity) values ('"
 				.$paramsArray['customer_tel']."','"
 				.$paramsArray['customer_name']."','"
 				.$paramsArray['order_product_code']."','"
-				.$color."','"
-				.$size."','"
-				.$timeDate."','"
-				.$paramsArray['order_description']."')";
+				.$paramsArray['order_color']."','"
+				.$paramsArray['order_size']."','"
+				.date('Y-m-d H:i:s')."','"
+				.$paramsArray['order_description']."',"
+				.$paramsArray['order_qty'].")";
 // 		echo $qry;
 		if(mysql_query ( $qry, $this->connection ) != null){
 			mysql_query ( "COMMIT" );
@@ -183,17 +182,22 @@ and t4.code = t1.product_code and t1.re_date >=' " . $this->commonService->getDa
 		);
 	}
 	function listOrder() {
-		$qry = "SELECT *,datediff(now(),date) as diff,status as order_status from customer_order";
+		$qry = "SELECT *,datediff(now(),date) as diff,status as order_status from customer_order order by diff desc ,status";
 		$result = mysql_query ( $qry, $this->connection );
-		$array_column = array (
-		"id,customer_name,customer_tel,date" => "Name,customer_name", 
-		"color" => "Mau", 
-		"size" => "Size", 
-		"order_status" => "Status",
-		"description" => "Description"
+		$array_total = array (
+				1 => "Quantity"
 		);
-		$this->commonService->generateJSDatatableSimple ( customerorderdatatable, 0, 'desc' );
-		$this->commonService->generateJqueryDatatable ( $result, customerorderdatatable, $array_column );
+		$array_column1 = array (
+			"id,customer_name,customer_tel,date,status" => "Name,customer_name", 
+			"quantity" => "SL", 
+			"size" => "Size",
+			"color" => "Màu", 
+			"order_status" => "Status",
+			"diff" => "Days",
+			"description" => "Description"
+		);
+		$this->commonService->generateJSDatatableComplex ( $result, customerorderdatatable, 4, 'asc', $array_total );
+		$this->commonService->generateJqueryDatatable ( $result, customerorderdatatable, $array_column1 );
 	}
 }
 ?>
