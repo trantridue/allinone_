@@ -804,9 +804,9 @@ function operationSuccess() {
 	$('#serverMessage').html('Operation success!');
 	$('#serverMessage').addClass('successMessage');
 	$('#serverMessage').removeClass('errorMessage');
-	setTimeout(function() {
-	    $('#serverMessage').fadeOut('slow');
-	}, 2000);
+//	setTimeout(function() {
+//	    $('#serverMessage').fadeOut('fast');
+//	}, 10000);
 	//$('#serverMessage').hide();
 }
 function operationError() {
@@ -1373,4 +1373,19 @@ function updatePriceProduct(){
 }
 function reloadCustomerOrder() {
 	$('#exportOrderList').load('modules/export/exportOrderList.php?isdefault=false');
+}
+function show_customer_order_id(str) {
+	var urls = 'modules/export/updatecustomerorder.php?' + str;
+//	alert(urls);
+	$.ajax( {
+		url : urls,
+		success : function(data) {
+			if (data == 'success') {
+				operationSuccess();
+				reloadCustomerOrder();
+			} else {
+				operationError();
+			}
+		}
+	});
 }
