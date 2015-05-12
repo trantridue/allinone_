@@ -1217,7 +1217,6 @@ function calculateExportForm(){
 	calculateTotalFactureSaled(nbrow);
 	calculateTotalFactureFinal();
 	calculateGiveCustomer();
-	
 }
 function updateCheckBoxIfIsboss(){
 	var isBoss = $('#isBoss').is(":checked");
@@ -1353,7 +1352,7 @@ function updateCusIdWhenChangeTel(){
 	$("#customer_id").val('');
 	$("#customer_debt").html('0');
 	$("#customer_reserved").html('0');
-	$("#customer_returned").html('0');
+//	$("#customer_returned").html('0');
 	$("#customer_bonus").html('0');
 	$("#isBoss").prop('checked',false);
 	
@@ -1407,5 +1406,28 @@ function changeReturnQty(line) {
 	var quantity = "quantity_" + line;
 	
 	if($('#'+quantity_return).val()<=0) $('#'+quantity_return).val(1);
-	if($('#'+quantity_return).val()>$('#'+quantity).val()) $('#'+quantity_return).val($('#'+quantity).val());
+	if($('#'+quantity_return).val()> $('#'+quantity).val()) $('#'+quantity_return).val($('#'+quantity).val());
+	updateListProductAndTotalReturn();
+}
+function checkTheReturnCheckBox() {
+//	alert('checkTheReturnCheckBox()');
+	updateListProductAndTotalReturn();
+}
+function updateListProductAndTotalReturn(){
+	var nbrLine = $('#numberlineexport').val();
+	var totalReturn = 0;
+	var lstReturn='';
+	for(var i=1; i<=10; i++) {
+		var isCheckedReturn = $('#checkbox_return_'+i).is(":checked");
+		if(isCheckedReturn){
+			var qty_return = parseInt($('#quantity_return_'+i).val());
+			var export_price = parseInt($('#export_price_'+i).val());
+			var export_facture_product_id = $('#export_facture_product_id_'+i).val();
+			totalReturn = totalReturn + qty_return * export_price;
+			lstReturn = lstReturn + export_facture_product_id + ":" + qty_return + ";";
+		}
+	}
+	$('#customer_returned').html(totalReturn);
+	$('#listProductReturn').val(lstReturn);
+	calculateExportForm();
 }

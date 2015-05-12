@@ -1,5 +1,6 @@
 <hr>
 <div class="titlecss">Danh sách sản phẩm đã bán</div>
+<input type="hidden" id="listProductReturn" value=""/>
 <?php
 $isdefault = $_REQUEST ['isdefault'];
 $isSearch = $_REQUEST ['issearch'];
