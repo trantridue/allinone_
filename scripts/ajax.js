@@ -1417,7 +1417,7 @@ function updateListProductAndTotalReturn(){
 	var nbrLine = $('#numberlineexport').val();
 	var totalReturn = 0;
 	var lstReturn='';
-	for(var i=1; i<=10; i++) {
+	for(var i=1; i<=nbrLine; i++) {
 		var isCheckedReturn = $('#checkbox_return_'+i).is(":checked");
 		if(isCheckedReturn){
 			var qty_return = parseInt($('#quantity_return_'+i).val());
