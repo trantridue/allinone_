@@ -212,6 +212,7 @@ echo "</script> ";
 		}
 	}
 function generateJqueryDatatableExport($result, $datatable_id, $array_column) {
+		$counter_colum = 0;
 		if(mysql_num_rows($result)>0) {
 		$num_colum = sizeof ( $array_column );
 		// generate header
@@ -239,7 +240,7 @@ function generateJqueryDatatableExport($result, $datatable_id, $array_column) {
 		echo "</tr>";
 		echo "</tfoot>";
 		echo "<tbody";
-		$counter_colum = 0;
+		
 		while ( $rows = mysql_fetch_array ( $result ) ) {
 			$counter_colum = $counter_colum + 1;
 			echo "<tr>";
@@ -325,11 +326,12 @@ function generateJqueryDatatableExport($result, $datatable_id, $array_column) {
 					echo "<td style='width:15px;'>" . $counter_colum . "</td>";
 				}else if ($value == 'checkbox'){
 					echo "<td><input type='checkbox' onclick='toggleDivCheckBox(\"quantity_return_".$counter_colum
-					."\")' id='checkbox_return_".$counter_colum."'/></td>";
+					."\");checkTheReturnCheckBox();' id='checkbox_return_".$counter_colum."'/></td>";
 				}else if ($value == 'qtyre'){
 					echo "<td><input type='number' style='width:30px;height:13px;display:none;margin-top:1px;' value='"
-					.$rows ['quantity']."' id='quantity_return_".$counter_colum."' onclick='changeReturnQty(".$counter_colum.")'>
+					.$rows ['quantity']."' id='quantity_return_".$counter_colum."' onclick='changeReturnQty(".$counter_colum.")'  onkeyup='changeReturnQty(".$counter_colum.")'>
 					<input type='hidden' value='".$rows ['quantity']."' id='quantity_".$counter_colum."'>
+					<input type='hidden' value='".$rows ['export_price']."' id='export_price_".$counter_colum."'>
 					<input type='hidden' value='".$rows ['id']."' id='export_facture_product_id_".$counter_colum."'></td>";
 				} else {
 					echo "<td>" . $rows [$value] . "</td>";
@@ -337,12 +339,13 @@ function generateJqueryDatatableExport($result, $datatable_id, $array_column) {
 			}
 			echo "</tr>";
 		}
-		echo "<input type='hidden' value='".$counter_colum."' id='numberlineexport'/>";
+		
 		echo "</tbody>";
 		echo "</table>";
 		} else {
 			echo "<span align='center'>No data has been found!</span>";
 		}
+		echo "<input type='hidden' value='".$counter_colum."' id='numberlineexport'/>";
 	}
 	function RedirectToURL($url) {
 		header ( "Location: $url" );
