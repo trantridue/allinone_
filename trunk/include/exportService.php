@@ -230,7 +230,7 @@ and t4.code = t1.product_code and t1.re_date >=' " . $this->commonService->getDa
 		and datediff(now(),t2.date) < 3 order by date desc";
 		$result = mysql_query ( $qry, $this->connection );
 		
-		$this->commonService->generateJSDatatableComplex ( $result, exportproductdatatable, 12, 'desc', $this->getExportListArrayTotal() );
+		$this->commonService->generateJSDatatableComplexExport ( $result, exportproductdatatable, 12, 'desc', $this->getExportListArrayTotal() );
 		$this->commonService->generateJqueryDatatableExport ( $result, exportproductdatatable, $this->getExportListArrayColumn() );		
 	}
 	function getExportListArrayTotal() {

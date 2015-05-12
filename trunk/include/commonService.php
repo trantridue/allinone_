@@ -65,6 +65,59 @@ class CommonService {
 echo "</script> ";
 		} 
 	}
+function generateJSDatatableComplexExport($result, $datatable_id, $ordercolumn, $ordertype, $array_total) {
+		if(mysql_num_rows($result)>0) {
+		echo "<script>  ";
+		echo "$(document).ready(  ";
+		echo "function() {  ";
+			echo "$('#" . datatable_prefix . $datatable_id . "').dataTable(  ";
+					echo "{ ";
+						echo "'destroy': true, 
+						'order': [[ " . $ordercolumn . ", '" . $ordertype . "' ]],scrollY: 280,paging: false, 
+						";
+						echo "'footerCallback' : function(row, data, start, end, ";
+								echo "display) { ";
+							echo "var api = this.api(), data; ";
+							echo "var intVal = function(i) { ";
+								echo "return typeof i === 'string' ? i.replace( ";
+										echo "/[\$,]/g, '') * 1  ";
+										echo ": typeof i === 'number' ? i : 0; ";
+							echo "}; ";
+							echo "var allContent='';";
+							foreach ( $array_total as $value => $key ) {
+								echo "var all".$value." = 0; ";
+								echo "for (var i = 0; i < data.length; i++) { ";
+								echo "all".$value." += data[i][".$value."]*1; ";
+								echo "} ";
+								echo "all".$value. "=all".$value.".toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');";
+							}
+							echo "var currentContent='';";
+							
+							foreach ( $array_total as $value => $key ) {
+								echo "var current".$value." = api.column(".$value." , { ";
+								echo "page : 'current' ";
+								echo "}).data().reduce(function(a, b) { ";
+								echo "return (intVal(a) + intVal(b)).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'); ";
+								echo "}); ";
+							}
+							$counter = 1;
+							foreach ( $array_total as $value => $key ) {
+								if($counter < count($array_total)) {
+									echo "currentContent = currentContent + '".$key." : ' + current".$value." + '&nbsp;|&nbsp;';";
+									echo "allContent = allContent + '".$key." : ' + all".$value." + '&nbsp;|&nbsp;';";
+								} else {
+									echo "currentContent = currentContent + '".$key." : ' + current".$value." + '&nbsp;&nbsp;';";
+									echo "allContent = allContent + '".$key." : ' + all".$value." + '&nbsp;&nbsp;';";
+								}
+								$counter++;
+							}
+							echo "$(api.column(1).footer()).html('<span>' + allContent + '</span>' +'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + currentContent );";
+							echo "$('#datatableDisplaySum".$datatable_id."').html('<span>' + allContent + '</span>' +'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + currentContent );";
+					echo "}});";
+		echo "}); ";
+echo "</script> ";
+		} 
+	}
 	function generateJqueryToolTipScript($result, $datatable_id, $array_column) {
 		if(mysql_num_rows($result)>0) {
 			$num_colum = sizeof ( $array_column );
