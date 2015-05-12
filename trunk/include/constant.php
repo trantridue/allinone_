@@ -19,6 +19,7 @@ define('defaultsubmodule','search');
 define('userdatatable','user');
 define('customerdebtdatatable','customer_debt');
 define('customerorderdatatable','customer_order');
+define('exportproductdatatable','export_facture_product');
 define('customerreservationdatatable','customer_reservation_histo');
 define('customerreturndatatable','customer_return');
 define('spenddatatable','spend');

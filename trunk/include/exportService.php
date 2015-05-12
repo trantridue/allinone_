@@ -219,5 +219,30 @@ and t4.code = t1.product_code and t1.re_date >=' " . $this->commonService->getDa
 			echo 'error';
 		}
 	}
+	function listExportDefault() {
+		$qry = "SELECT t1.*,t1.status as reservation_status,t2.name,t2.tel FROM `customer_reservation_histo` t1 
+		left join customer t2 on (t2.id = t1.customer_id) order by status asc";
+		$result = mysql_query ( $qry, $this->connection );
+		
+		$this->commonService->generateJSDatatableComplex ( $result, exportproductdatatable, 6, 'asc', $this->getExportListArrayTotal() );
+		$this->commonService->generateJqueryDatatable ( $result, exportproductdatatable, $this->getExportListArrayColumn() );		
+	}
+	function getExportListArrayTotal() {
+		return  $array_total = array (
+				3 => "Total"
+		);
+	}
+	function getExportListArrayColumn() {
+		return array (
+				"counter_colum" => "No",
+				"name" => "Khách Hàng",
+				"tel" => "Điện thoại",
+				"amount" => "Tổng",
+				"date" => "Ngày đặt",
+				"complete_date" => "Ngày thanh toán",
+				"reservation_status" => "Trạng thái"
+				
+		);
+	}
 }
 ?>
