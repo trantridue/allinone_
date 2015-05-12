@@ -409,3 +409,10 @@ textarea {
 .shopStyle {
 	background-color: green;
 }
+
+div#table_list_export_facture_product_wrapper table.dataTable tbody th,div#table_list_export_facture_product_wrapper table.dataTable tbody td,div#table_list_export_facture_product_wrapper table.dataTable thead th, table.dataTable thead td {
+  padding-top: 5px !important;
+  padding-left: 1px !important;
+  padding-bottom: 5px !important;
+  padding-right: 1px !important;
+}

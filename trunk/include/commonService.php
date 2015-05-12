@@ -211,6 +211,139 @@ echo "</script> ";
 			echo "<span align='center'>No data has been found!</span>";
 		}
 	}
+function generateJqueryDatatableExport($result, $datatable_id, $array_column) {
+		if(mysql_num_rows($result)>0) {
+		$num_colum = sizeof ( $array_column );
+		// generate header
+		echo "<div class='datatableDisplaySum' id='datatableDisplaySum".$datatable_id."'></div>";
+		echo "<table id='" . datatable_prefix . $datatable_id . "' class='display' cellspacing='0' class='order-column' width='100%'>";
+		echo "<thead>";
+		echo "<tr>";
+		
+		foreach ( $array_column as $value => $key ) {
+			if ($key == 'hidden_field' || $key == 'complex') {
+				echo "<th style='display: none;'>" . $key . "</th>";
+			} else if(sizeof(explode ( ",", $key ))>1){
+				$fieldskey = explode ( ",", $key );
+				echo "<th>" . $fieldskey[0] . "</th>";
+			} else {
+				echo "<th>" . $key . "</th>";
+			}
+		}
+		
+		echo "</tr>";
+		echo "</thead>";
+		echo "<tfoot>";
+		echo "<tr>";
+		echo "<th colspan='" . $num_colum . "'></th>";
+		echo "</tr>";
+		echo "</tfoot>";
+		echo "<tbody";
+		$counter_colum = 0;
+		while ( $rows = mysql_fetch_array ( $result ) ) {
+			$counter_colum = $counter_colum + 1;
+			echo "<tr>";
+			foreach ( $array_column as $value => $key ) {
+				if ($key == 'hidden_field') {
+					echo "<td style='display: none;'>" . $rows [$value] . "</td>";
+				} else if ($key == 'complex') {
+					$fields = explode ( "*", $value );
+					echo "<td style='display: none;'>" . ($rows [$fields [0]] * $rows [$fields [1]]) . "</td>";
+				
+				} else if ($key == 'Edit') {
+					$fields = explode ( ",", $value );
+					$str = "";
+					for($i = 0; $i < sizeof ( $fields ); $i ++) {
+						if($i==sizeof ( $fields )-1){
+							$str = $str . $fields [$i] . "=" . urlencode($rows [$fields [$i]]);
+						}else {
+							$str = $str . $fields [$i] . "=" . urlencode($rows [$fields [$i]]) . "&";
+						}
+					}
+					echo "<td><a onclick='edit".$datatable_id."(\"".$str."\");' href='javascript:void(0);'><div class='editIcon'></div></a></td>";
+				} else if ($key == 'Delete') {
+					$fields = explode ( ",", $value );
+					$str = "";
+					for($i = 0; $i < sizeof ( $fields ); $i ++) {
+						if($i==sizeof ( $fields )-1){
+							$str = $str . $rows [$fields [$i]];
+						}else {
+							$str = $str . $rows [$fields [$i]] . ",";
+						}
+					}
+					echo "<td><a onclick='delete" . $datatable_id . "(" . $str . ");' href='javascript:void(0);'><div class='deleteIcon'></div></a></td>";
+				} else if ($value == 'status') {
+					if($rows [$value]=='y' || $rows [$value]=='Y'){
+						echo "<td style='color:green;font-weight:bold'> Active </td>";
+					} else {
+						echo "<td style='color:red;font-weight:bold'> Desactive </td>";
+					}
+				} else if ($value == 'order_status' || $value == 'reservation_status') {
+					if($rows [$value]=='Y'){
+						echo "<td style='background-color:green;font-weight:bold'> Xử lý xong </td>";
+					} else {
+						echo "<td style='color:red;font-weight:bold;background-color:yellow'> Chưa xong </td>";
+					}
+				}else if ($value == 'sex_id') {
+					if($rows [$value]=='1'){
+						echo "<td style='color:green;font-weight:bold'> WOMAN </td>";
+					} else {
+						echo "<td style='color:red;font-weight:bold'> MAN </td>";
+					}
+				} else if(sizeof(explode ( ",", $key ))>2) {
+					$fields = explode ( ",", $value );
+					$fieldskey = explode ( ",", $key );
+					$str = "";
+					for($i = 0; $i < sizeof ( $fields ); $i ++) {
+						if($i==sizeof ( $fields )-1){
+							$str = $str . $fields [$i] . "=" . urlencode($rows [$fields [$i]]);
+						}else {
+							$str = $str . $fields [$i] . "=" . urlencode($rows [$fields [$i]]) . "&";
+						}
+					}
+					echo "<td><a title='' onclick='show_".$datatable_id."_".$fields [0]."(\"".$str."\");' href='javascript:void(0);' id='".$fieldskey [1].$rows [$fieldskey [1]]."'>".$rows [$fieldskey [1]]."</a></td>";
+					
+				}	else if(sizeof(explode ( ",", $key ))>1 && sizeof(explode ( ",", $key ))<=2) {
+					$fields = explode ( ",", $value );
+					$fieldskey = explode ( ",", $key );
+					$str = "";
+					$title = "";
+					for($i = 0; $i < sizeof ( $fields ); $i ++) {
+						if($i==sizeof ( $fields )-1){
+							$str = $str . $fields [$i] . "=" . urlencode($rows [$fields [$i]]);
+							$title = $title . $fields [$i] . ":<strong>" . $rows [$fields [$i]]."</strong>";
+						}else {
+							$str = $str . $fields [$i] . "=" . urlencode($rows [$fields [$i]]) . "&";
+							$title = $title . $fields [$i] . ":<strong>" . $rows [$fields [$i]] . "</strong><br>";
+						}						
+					}
+					echo "<td><a title='".$title."' onclick='show_".$datatable_id."_".$fields [0]."(\"".$str."\");' href='javascript:void(0);' >".$rows [$fieldskey [1]]."</a></td>";
+					
+				} else if ($value == 'date'){
+					echo "<td style='width:120px;'>" . $rows [$value] . "</td>";
+				} else if ($value == 'counter_colum'){
+					echo "<td style='width:15px;'>" . $counter_colum . "</td>";
+				}else if ($value == 'checkbox'){
+					echo "<td><input type='checkbox' onclick='toggleDivCheckBox(\"quantity_return_".$counter_colum
+					."\")' id='checkbox_return_".$counter_colum."'/></td>";
+				}else if ($value == 'qtyre'){
+					echo "<td><input type='number' style='width:30px;height:13px;display:none;margin-top:1px;' value='"
+					.$rows ['quantity']."' id='quantity_return_".$counter_colum."' onclick='changeReturnQty(".$counter_colum.")'>
+					<input type='hidden' value='".$rows ['quantity']."' id='quantity_".$counter_colum."'>
+					<input type='hidden' value='".$rows ['id']."' id='export_facture_product_id_".$counter_colum."'></td>";
+				} else {
+					echo "<td>" . $rows [$value] . "</td>";
+				}
+			}
+			echo "</tr>";
+		}
+		echo "<input type='hidden' value='".$counter_colum."' id='numberlineexport'/>";
+		echo "</tbody>";
+		echo "</table>";
+		} else {
+			echo "<span align='center'>No data has been found!</span>";
+		}
+	}
 	function RedirectToURL($url) {
 		header ( "Location: $url" );
 		exit ();
