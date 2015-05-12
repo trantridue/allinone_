@@ -134,7 +134,8 @@ class ExportService {
 		);
 	}
 	function listReturn() {
-		$qry = "SELECT t1.re_date as date,t3.name,t3.tel,t1.product_code,t4.name as product,t1.quantity,t1.export_price,t2.code,t1.re_qty,t1.re_date
+		$qry = "SELECT t1.re_date as date,if(datediff(now(),t1.re_date)=0,'Hôm nay',t1.re_date) as istoday ,
+		t3.name,t3.tel,t1.product_code,t4.name as product,t1.quantity,t1.export_price,t2.code,t1.re_qty,t1.re_date
 FROM `export_facture_product` t1,export_facture t2,customer t3,product t4
 where t1.re_qty > 0
 and t1.export_facture_code = t2.code
@@ -143,9 +144,9 @@ and t4.code = t1.product_code and t1.re_date >=' " . $this->commonService->getDa
 		$result = mysql_query ( $qry, $this->connection );
 		$array_total = array (
 				3 => "Total return",
-				4 => "Quantity"
+				5 => "Quantity"
 		);
-		$this->commonService->generateJSDatatableComplex ( $result, customerreturndatatable, 7, 'desc', $array_total );
+		$this->commonService->generateJSDatatableComplex ( $result, customerreturndatatable, 8, 'desc', $array_total );
 		$this->commonService->generateJqueryDatatable ( $result, customerreturndatatable, $this->buildArrayReturnParameter() );
 	}
 	function buildArrayReturnParameter() {
@@ -154,10 +155,11 @@ and t4.code = t1.product_code and t1.re_date >=' " . $this->commonService->getDa
 				"name" => "Khách Hàng",
 				"tel" => "Điện thoại",
 				"re_qty*export_price" => "complex",
-				"quantity" => "Qty",
-				"re_qty" => "Qty_re",
-				"export_price" => "Price",
-				"date" => "Ngày trả"
+				"product_code,code" => "Sản phẩm,product",
+				"quantity" => "Đã mua",
+				"re_qty" => "Trả lại",
+				"export_price" => "Giá bán",
+				"date" => "Ngày trả,istoday"
 		);
 	}
 	function listReservation() {
