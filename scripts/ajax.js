@@ -1402,3 +1402,10 @@ function changeStatusFor(i) {
 		$('#spend_for_btn_'+i).removeClass('shopStyle');
 	}
 }
+function changeReturnQty(line) {
+	var quantity_return = "quantity_return_" + line;
+	var quantity = "quantity_" + line;
+	
+	if($('#'+quantity_return).val()<=0) $('#'+quantity_return).val(1);
+	if($('#'+quantity_return).val()>$('#'+quantity).val()) $('#'+quantity_return).val($('#'+quantity).val());
+}

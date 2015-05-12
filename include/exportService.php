@@ -221,36 +221,41 @@ and t4.code = t1.product_code and t1.re_date >=' " . $this->commonService->getDa
 	}
 	function listExportDefault() {
 		$qry = "SELECT t1.id,t1.product_code,t1.quantity,t1.export_price,t1.re_qty,t3.name as product_name,
-t1.export_facture_code, t2.date,t4.name as customer,t4.tel as customer_tel,t5.name as shop
- FROM `export_facture_product` t1, export_facture t2, product t3, customer t4, shop t5
-where t1.export_facture_code = t2.code
-and t1.product_code = t3.code
-and t4.id = t2.customer_id
-and t5.id = t2.shop_id
-and datediff(now(),t2.date) < 3 order by date desc";
+		t1.export_facture_code, t2.date,date_format(t2.date,'%H:%m:%s') as time,t4.name as customer,t4.tel as customer_tel,t5.name as shop
+		 FROM `export_facture_product` t1, export_facture t2, product t3, customer t4, shop t5
+		where t1.export_facture_code = t2.code
+		and t1.product_code = t3.code
+		and t4.id = t2.customer_id
+		and t5.id = t2.shop_id
+		and datediff(now(),t2.date) < 3 order by date desc";
 		$result = mysql_query ( $qry, $this->connection );
 		
-		$this->commonService->generateJSDatatableComplex ( $result, exportproductdatatable, 8, 'desc', $this->getExportListArrayTotal() );
-		$this->commonService->generateJqueryDatatable ( $result, exportproductdatatable, $this->getExportListArrayColumn() );		
+		$this->commonService->generateJSDatatableComplex ( $result, exportproductdatatable, 12, 'desc', $this->getExportListArrayTotal() );
+		$this->commonService->generateJqueryDatatableExport ( $result, exportproductdatatable, $this->getExportListArrayColumn() );		
 	}
 	function getExportListArrayTotal() {
 		return  $array_total = array (
-				3 => "Quantity",
-				5 => "Total"
+				5 => "Q",
+				6 => "RE",
+				8 => "T",
+				9 => "TRE"
 		);
 	}
 	function getExportListArrayColumn() {
 		return array (
-				"counter_colum" => "No",
+				"checkbox" => "RE",
+				"qtyre" => "&nbsp;&nbsp;",
 				"product_code" => "Mã",
 				"product_name" => "Tên hàng",
-				"quantity" => "Số lượng",
-				"export_price" => "Giá bán",
+				"customer,customer_tel" => "Khách,customer",
+				"quantity" => "SL&nbsp;&nbsp;",
+				"re_qty" => "RQ&nbsp;&nbsp;",
+				"export_price" => "PRI&nbsp;&nbsp;&nbsp;&nbsp;",
 				"export_price*quantity" => "complex",
-				"export_facture_code" => "Hóa đơn",
-				"shop" => "Shop",
-				"date" => "Ngày"
-				
+				"export_price*re_qty" => "complex",
+				"export_facture_code" => "MÃ_HÓA_ĐƠN&nbsp;&nbsp;",
+				"shop" => "Shop&nbsp;&nbsp;",
+				"date" => "Time,time"
 		);
 	}
 }

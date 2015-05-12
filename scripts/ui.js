@@ -11,6 +11,7 @@ $(function() {
 		changeYear : true
 	});
 });
+
 // TOOLTIP WITH STYLE AND ALLOW HTML TAGS VALID
 $(function() {
 	$(document).tooltip(
@@ -41,6 +42,15 @@ function toggleDiv(divID) {
 	}
 	$('#serverMessage').hide(delaytime);
 }
+function toggleDivCheckBox(divID) {
+	
+	if ($('#' + divID).css('display') == "none") {
+		$('#' + divID).show(10);
+	} else {
+		$('#' + divID).hide(10);
+	}
+	$('#serverMessage').hide(delaytime);
+}
 function toggleDivShowBtnStatus(divID,this1) {
 	
 	if ($('#' + divID).css('display') == "none") {
@@ -50,7 +60,6 @@ function toggleDivShowBtnStatus(divID,this1) {
 		$('#' + divID).hide(delaytime);
 		this1.style.backgroundColor='#EBEBEB';
 	}
-	
 	$('#serverMessage').hide(delaytime);
 }
 // IMPORT TOGGLE FIELD
