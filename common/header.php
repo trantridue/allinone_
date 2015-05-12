@@ -7,3 +7,5 @@ Welcome back <strong><?= $fgmembersite->UserFullName(); ?>!</strong>
 <a href='login-home.php'>HOME</a>
 <?php echo tab16;?>
 IsAdmin : <?php echo $commonService->isAdmin();?>
+<?php echo tab16;?>
+Logged in time : <?php echo Date('Y-m-d H:i:s');?>
