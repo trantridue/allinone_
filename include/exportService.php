@@ -196,7 +196,7 @@ and t4.code = t1.product_code and t1.re_date >=' " . $this->commonService->getDa
 			"quantity" => "SL", 
 			"size" => "Size",
 			"color" => "Màu", 
-			"diff" => "Days",
+			"diff,date" => "Days,diff",
 			"order_status" => "Status"
 		);
 		$this->commonService->generateJSDatatableComplex ( $result, customerorderdatatable, 6, 'asc', $array_total );
@@ -229,7 +229,7 @@ and t4.code = t1.product_code and t1.re_date >=' " . $this->commonService->getDa
 		and t1.product_code = t3.code
 		and t4.id = t2.customer_id
 		and t5.id = t2.shop_id
-		and datediff(now(),t2.date) < 3 order by date desc";
+		and datediff(now(),t2.date) < 1 order by date desc";
 		$result = mysql_query ( $qry, $this->connection );
 		
 		$this->commonService->generateJSDatatableComplexExport ( $result, exportproductdatatable, 12, 'desc', $this->getExportListArrayTotal() );

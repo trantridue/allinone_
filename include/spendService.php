@@ -145,16 +145,17 @@ class SpendService {
 				and t3.id = t1.user_id
 				and t4.id = t1.spend_for_id
 				and t5.id = t1.spend_type_id 
-				and t1.date >='".$firstDayOfCurrentMonth."'";
+				and t1.date >='".$firstDayOfCurrentMonth."' order by date desc";
 		$result = mysql_query ( $qry, $this->connection );
 		$array_total = array (
-				0 => "Tổng Chi"
+				1 => "Tổng Chi"
 		);
-		$this->commonService->generateJSDatatableComplex ( $result, spenddatatable, 2, 'desc', $array_total );
+		$this->commonService->generateJSDatatableComplex ( $result, spenddatatable, 3, 'desc', $array_total );
 		$this->commonService->generateJqueryDatatable ( $result, spenddatatable, $this->buildArrayParameter() );
 	}
 	function buildArrayParameter() {
 		return array (
+				"counter_colum" => "No",
 				"amount" => "Amount",
 				"description" => "Description",
 				"date" => "Date",
