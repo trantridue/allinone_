@@ -59,6 +59,7 @@ class FundService {
 		
 		$paramsArray['id_add_fund'] 		= $_REQUEST['id_add_fund'];
 		$paramsArray['id_add_user'] 		= $_REQUEST['id_add_user'];
+		$paramsArray['fund_id_txt'] 		= $_REQUEST['fund_id_txt'];
 		$paramsArray['add_date'] 			= $_REQUEST['add_date'];
 		$paramsArray['add_amount'] 			= $_REQUEST['add_amount'];
 		$paramsArray['add_ratio'] 			= $_REQUEST['add_ratio'];
@@ -134,19 +135,31 @@ class FundService {
 		mysql_query ( "BEGIN" );
 		$timeDate = ' '.date('H:i:s');
 		
+		$fundId=$this->saveNewFund($paramsArray['fund_id_txt'],$paramsArray['id_add_fund']);
+		
 		$qry = "insert into fund_change_histo (fund_id,amount,date,description,ratio,user_id) values ("
-				.$paramsArray['id_add_fund'].","
+				.$fundId.","
 				.$paramsArray['add_amount'].",'"
 				.$paramsArray['add_date'].$timeDate."','"
 				.$paramsArray['add_description']."',"
 				.$paramsArray['add_ratio'].","
 				.$paramsArray['id_add_user'].")";
+//				echo $qry;
 		if(mysql_query ( $qry, $this->connection ) != null){
 			mysql_query ( "COMMIT" );
 			echo 'success';
 		}else {
 			mysql_query ( "ROLLBACK" );
 			echo 'error';
+		}
+	}
+	function saveNewFund($fundName,$fundId) {
+		if ($fundId == null) {
+			$qry = "insert into fund(name) values ('" . $fundName . "')";
+			mysql_query ( $qry, $this->connection );
+			return mysql_insert_id ();
+		} else {
+			return $fundId;
 		}
 	}
 	function listFund() {
@@ -258,6 +271,19 @@ class FundService {
 			'id_search_user' 			=> $_REQUEST['id_search_user'],
 			'id_search_fund' 			=> $_REQUEST['id_search_fund']
 		);
+	}
+function getJsonFund($term) {
+		$qry = "select * from fund where name like '%" . $term . "%' limit 10";
+		$result = mysql_query ( $qry, $this->connection );
+		$jsonArray = array ();
+		
+		while ( $rows = mysql_fetch_array ( $result ) ) {
+			$labelvalue = $rows ['name'];
+			$element = array (name => $rows ['name'], id => $rows ['id'], value => $rows ['name'], label => $labelvalue );
+			
+			$jsonArray [] = $element;
+		}
+		return $jsonArray;
 	}
 }
 ?>

@@ -921,6 +921,7 @@ function saveAddFund() {
 	$.ajax( {
 		url : urls,
 		success : function(data) {
+		alert(data);
 			if (data == 'success') {
 				operationSuccess();
 				reloadFundList();
@@ -980,12 +981,12 @@ function validateOrderForm() {
 }
 function validateAddFund(){
 	var flag = true;
-	if($('#id_add_fund').val()=='' || $('#id_add_fund').val()==null) {
-		$('#id_add_fund').addClass('errorField');
-		flag = false;
-	} else {
-		$('#id_add_fund').removeClass('errorField');
-	}
+//	if($('#id_add_fund').val()=='' || $('#id_add_fund').val()==null) {
+//		$('#id_add_fund').addClass('errorField');
+//		flag = false;
+//	} else {
+//		$('#id_add_fund').removeClass('errorField');
+//	}
 	if($('#id_add_user').val()=='' || $('#id_add_user').val()== null) {
 		$('#id_add_user').addClass('errorField');
 		flag = false;
@@ -1062,6 +1063,7 @@ function validateExchangeFund(){
 function getFundAddInformation() {
 	var params = '';
 	params = params + "?id_add_fund" + "=" + $('#id_add_fund').val();
+	params = params + "&fund_id_txt" + "=" + $('#fund_id_txt').val();
 	params = params + "&id_add_user" + "=" + $('#id_add_user').val();
 	params = params + "&add_date" + "=" + $('#add_date').val();
 	params = params + "&add_amount" + "=" + $('#add_amount').val();
@@ -1347,6 +1349,17 @@ $(document).ready(function() {
 	};
 	$("#customer_tel").autocomplete(ac_config_export_customer_tel);
 });
+$(document).ready(function() {
+	var ac_config_fund = {
+		source : "autocomplete/completed_fund.php",
+		select : function(event, ui) {
+			$("#fund_id_txt").val(ui.item.name);
+			$("#id_add_fund").val(ui.item.id);
+		},
+		minLength : 1
+	};
+	$("#fund_id_txt").autocomplete(ac_config_fund);
+});
 function updateCusIdWhenChangeTel(){
 	$("#customer_name").val('');
 	$("#customer_id").val('');
@@ -1430,4 +1443,7 @@ function updateListProductAndTotalReturn(){
 	$('#customer_returned').html(totalReturn);
 	$('#listProductReturn').val(lstReturn);
 	calculateExportForm();
+}
+function resetHiddenFundId(){
+	$("#id_add_fund").val('');
 }

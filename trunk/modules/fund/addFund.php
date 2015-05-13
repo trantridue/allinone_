@@ -3,9 +3,9 @@
 <table class="addcriteriatable">
 	<tr>
 		<td align="right">FUND : </td>
-		<td><?php
-		$commonService->printDropDownListFromTable( 'fund', 'add_fund');
-		?>
+		<td>
+		<input type="hidden" id="id_add_fund"/>
+		<input type="text" id="fund_id_txt" size="11" onkeyup="resetHiddenFundId();">
 		<input type="text" class="datefield" id="add_date" value=<?php echo date('Y-m-d');?> />
 		</td>
 	</tr>
@@ -29,8 +29,8 @@
 	<tr>
 		<td align="right"></td>
 		<td>
-			<input type="reset" value="RESET" class="menu_btn_sub">
 			<input type="button" value="SAVE" class="menu_btn_sub" onclick="addFund();">
+			<input type="reset" value="RESET" class="menu_btn_sub">
 			<input type="button" value="SEARCH FORM" class="menu_btn_sub" onclick="$('#searchFund').show();$('#addFund').hide();">
 		</td>
 	</tr>
