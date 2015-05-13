@@ -30,8 +30,8 @@
 	<tr>
 		<td align="right"></td>
 		<td>
-			<input type="reset" value="RESET" class="menu_btn_sub">
 			<input type="button" value="SAVE" class="menu_btn_sub" onclick="exchangeFund();">
+			<input type="reset" value="RESET" class="menu_btn_sub">
 		</td>
 	</tr>
 </table>
