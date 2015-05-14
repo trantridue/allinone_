@@ -17,14 +17,14 @@
 <td align="right">Tên Hàng : </td>
 <td><input type="text" id="search_product_name" maxlength="12" size="12" class="productname"></td>
 <td align="right" rowspan="2">Ngày bán : </td>
-<td><input type="text" id="search_date_from" class="datefield"></td>
+<td><input type="text" id="search_date_from" class="datetimefield"></td>
 </tr>
 <tr>
 <td align="right">Shop : </td>
 <td><?php $commonService->printDropDownListFromTable( 'shop', 'search_shop');?></td>
 <td align="right">Nhân viên : </td>
 <td><?php $commonService->printDropDownListFromTable( 'user', 'search_user');?></td>
-<td><input type="text" id="search_date_to" class="datefield"></td>
+<td><input type="text" id="search_date_to" class="datetimefield"></td>
 </tr>
 </table>
 </form>

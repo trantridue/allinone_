@@ -28,9 +28,11 @@ $_SESSION ['expire1'] = $_SESSION ['start1'] + timeout;
 <script src="scripts/jquery.dataTables.min.js"></script>
 <script src="scripts/datatables.js"></script>
 <script src="scripts/ui.js"></script>
+<script src="scripts/jquery.datetimepicker.js"></script>
 
 <script src="scripts/validator.js"></script>
 <script src="scripts/input-validator.js"></script>
+<link rel="stylesheet" href="style/jquery.datetimepicker.css">
 <link rel="stylesheet" href="style/jquery-ui.css">
 <script src="scripts/jquery-ui.js"></script>
 <script src="scripts/ajax.js"></script>
