@@ -157,6 +157,13 @@ input[type='reset'] {
 	height: 17px;
 	width: 120px;
 }
+.datetimefield {
+	background-image: url("../images/time_ico.png");
+	background-position: 128px -4px;
+	background-repeat: no-repeat;
+	height: 17px;
+	width: 150px;
+}
 
 /* FIELD RND */
 .status_on {
