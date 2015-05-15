@@ -30,9 +30,9 @@ define('customerdatatable','customer');
 define('inoutdatatable','money_inout');
 define('datatable_prefix','table_list_');
 //default password
-define('default_password','123456');
+//define('default_password','123456');
 //Default product row return
-define('default_row_product_return','5');
+//define('default_row_product_return','5');
 define('default_number_line_spend','5');
 //Default number days for paid
 define('default_nbr_day_paid','14');

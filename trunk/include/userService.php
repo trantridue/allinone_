@@ -86,6 +86,7 @@ class UserService {
 		echo "<script>userpostaction('" . $result . "','" . $actionType . "');</script>";
 	}
 	function addUser($user_username, $user_name, $user_email, $user_phone_number, $user_description, $user_password, $shop_dropdown_user, $status_value) {
+		session_start();
 		$actionType = 'insert';
 		$new_password = '';
 		$date = date ( 'Y-m-d H:i:s' );
@@ -93,7 +94,7 @@ class UserService {
 		if ($user_password != null && $user_password != '') {
 			$new_password = md5 ( $user_password );
 		} else {
-			$new_password = md5 ( default_password );
+			$new_password = md5 ( $_SESSION['default_password'] );
 		}
 		$qry = "insert into user(username,name,email,phone_number,shop_id,password,confirmcode,status,start_date,description) values ('" . $user_username . "',
 				'" . $user_name . "','" . $user_email . "','" . $user_phone_number . "'," . $shop_dropdown_user . ",'" . $new_password . "','y','" . $status_value . "','" . $date . "','" . $user_description . "')";
