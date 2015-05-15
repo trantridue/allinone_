@@ -301,13 +301,21 @@ class FGMembersite {
 		$_SESSION ['email_of_user'] = $row ['email'];
 		$_SESSION ['id_of_user'] = $row ['id'];
 		$_SESSION ['id_of_shop'] = $row ['shop_id'];
-		$_SESSION ['import_number_row'] = 15;
-		$_SESSION ['export_number_row'] = 9;
-		$_SESSION ['is_sale_for_all'] = true;
-		$_SESSION ['sale_all_taux'] = 10;
 		$_SESSION ['is_admin_user'] = ($rowIsAdmin['isAdmin'] == 0) ? false : true;
-// 		$_SESSION ['default_number_line_spend'] = default_number_line_spend;
+		$this->loadConfigParam();
 		return true;
+	}
+	function loadConfigParam(){
+		$params = array('import_number_row', 'export_number_row', 'is_sale_for_all', 'sale_all_taux');
+		$qry = "select * from configuration";
+		$result = mysql_query ( $qry, $this->connection );
+		while ( $rows = mysql_fetch_array ( $result ) ) {
+			for($i =0; $i< sizeof($params);$i++){
+				if($rows['name'] == $params[$i]) 
+				$_SESSION[$params[$i]] = $rows['value'];
+			}
+		}
+		echo $_SESSION['import_number_row'];
 	}
 	function UpdateDBRecForConfirmation(&$user_rec) {
 		if (! $this->DBLogin ()) {

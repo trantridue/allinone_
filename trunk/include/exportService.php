@@ -302,5 +302,17 @@ and t4.code = t1.product_code and t1.re_date >=' " . $this->commonService->getDa
 			'id_search_user' 			=> $_REQUEST['id_search_user']
 		);
 	}
+	function loadConfigParam(){
+		session_start();
+		$params = array('import_number_row', 'export_number_row', 'is_sale_for_all', 'sale_all_taux');
+		$qry = "select * from configuration";
+		$result = mysql_query ( $qry, $this->connection );
+		while ( $rows = mysql_fetch_array ( $result ) ) {
+			for($i =0; $i< sizeof($params);$i++){
+				if($rows['name'] == $params[$i]) 
+				$_SESSION[$params[$i]] = $rows['value'];
+			}
+		}
+	}
 }
 ?>
