@@ -1,4 +1,5 @@
 <?php
+ob_start ();
 class ExportService {
 	var $host;
 	var $username;
@@ -235,6 +236,32 @@ and t4.code = t1.product_code and t1.re_date >=' " . $this->commonService->getDa
 		$this->commonService->generateJSDatatableComplexExport ( $result, exportproductdatatable, 12, 'desc', $this->getExportListArrayTotal() );
 		$this->commonService->generateJqueryDatatableExport ( $result, exportproductdatatable, $this->getExportListArrayColumn() );		
 	}
+	function listExport($params) {
+		$qry = "SELECT t1.id,t1.product_code,t1.quantity,t1.export_price,t1.re_qty,t3.name as product_name,
+		t1.export_facture_code, t2.date,date_format(t2.date,'%H:%m:%s') as time,t4.name as customer,t4.tel as customer_tel,t5.name as shop
+		 FROM `export_facture_product` t1, export_facture t2, product t3, customer t4, shop t5
+		where t1.export_facture_code = t2.code
+		and t1.product_code = t3.code
+		and t4.id = t2.customer_id
+		and t5.id = t2.shop_id ";
+		if($params['search_date_from'] != ''){
+			$qry = $qry." and t2.date >= '".$params['search_date_from']."'";
+		}
+		if($params['search_date_to'] != ''){
+			$qry = $qry." and t2.date <= '".$params['search_date_to']."'";
+		}
+		if($_REQUEST['isAdminField'] != '1') {
+			echo "<div style='text-align:center;background-color:pink;padding-bottom:5px;font-weight:bold;font-style:italic;'>".
+			"(Bạn chỉ xem được các sản phầm đã bán từ tối đa ".default_nbr_days_load_export." ngày gần đây!)</div>";
+			$qry = $qry." and datediff(now(),t2.date) < ". default_nbr_days_load_export;
+		}
+		
+		$qry = $qry . "  order by date desc";
+		$result = mysql_query ( $qry, $this->connection );
+		
+		$this->commonService->generateJSDatatableComplexExport ( $result, exportproductdatatable, 12, 'desc', $this->getExportListArrayTotal() );
+		$this->commonService->generateJqueryDatatableExport ( $result, exportproductdatatable, $this->getExportListArrayColumn() );		
+	}
 	function getExportListArrayTotal() {
 		return  $array_total = array (
 				5 => "Q",
@@ -258,6 +285,21 @@ and t4.code = t1.product_code and t1.re_date >=' " . $this->commonService->getDa
 				"export_facture_code" => "MÃ_HÓA_ĐƠN&nbsp;&nbsp;",
 				"shop" => "Shop&nbsp;&nbsp;",
 				"date" => "Time,time"
+		);
+	}
+	function getSearchParameters(){
+			return array (
+			'isAdminField' 				=> $_REQUEST['isAdminField'],
+			'search_customer_name' 		=> $_REQUEST['search_customer_name'],
+			'search_product_code' 		=> $_REQUEST['search_product_code'],
+			'search_price_from' 		=> $_REQUEST['search_price_from'],
+			'search_price_to' 			=> $_REQUEST['search_price_to'],
+			'search_customer_tel' 		=> $_REQUEST['search_customer_tel'],
+			'search_product_name' 		=> $_REQUEST['search_product_name'],
+			'search_date_from' 			=> $_REQUEST['search_date_from'],
+			'search_date_to' 			=> $_REQUEST['search_date_to'],
+			'id_search_shop' 			=> $_REQUEST['id_search_shop'],
+			'id_search_user' 			=> $_REQUEST['id_search_user']
 		);
 	}
 }

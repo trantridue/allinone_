@@ -1447,3 +1447,38 @@ function updateListProductAndTotalReturn(){
 function resetHiddenFundId(){
 	$("#id_add_fund").val('');
 }
+function searchExport(issearch) {
+	var url = "modules/export/exportList.php" + getExportSearchCriteria(issearch);
+//	alert(url);
+	$('#exportList').load(url);
+}
+function getExportSearchCriteria(issearch){
+	
+	var str = "?issearch=" + issearch + "&isdefault=false";
+	var isAdminField = "&isAdminField=" + $('#isAdminField').val();
+	var search_customer_name = "&search_customer_name=" + $('#search_customer_name').val();
+	var search_product_code = "&search_product_code=" + $('#search_product_code').val();
+	var search_price_from = "&search_price_from=" + $('#search_price_from').val();
+	var search_price_to = "&search_price_to=" + $('#search_price_to').val();
+	var search_customer_tel = "&search_customer_tel=" + $('#search_customer_tel').val();
+
+	var search_product_name = "&search_product_name=" + $('#search_product_name').val();
+	var search_date_from = "&search_date_from=" + $('#search_date_from').val();
+	var search_date_to = "&search_date_to=" + $('#search_date_to').val();
+	var id_search_shop = "&id_search_shop=" + $('#id_search_shop').val();
+	var id_search_user = "&id_search_user=" + $('#id_search_user').val();
+	
+	str = str + search_customer_name 
+			+ search_product_code 
+			+ search_price_from 
+			+ search_price_to 
+			+ search_customer_tel 
+			+ search_product_name 
+			+ search_date_from 
+			+ search_date_to 
+			+ id_search_shop 
+			+ id_search_user 
+			+ isAdminField 
+	;
+	return processUrlStringEncode(str);
+}
