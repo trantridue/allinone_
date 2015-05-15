@@ -17,7 +17,7 @@
 <td align="right">Tên Hàng : </td>
 <td><input type="text" id="search_product_name" maxlength="12" size="12" class="productname"></td>
 <td align="right" rowspan="2">Ngày bán : </td>
-<td><input type="text" id="search_date_from" class="datetimefield"></td>
+<td><input type="text" id="search_date_from" class="datetimefield" value="<?php echo date('Y-m-d 06:00:00',strtotime("0 days"));?>"></td>
 </tr>
 <tr>
 <td align="right">Shop : </td>

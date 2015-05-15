@@ -1482,3 +1482,12 @@ function getExportSearchCriteria(issearch){
 	;
 	return processUrlStringEncode(str);
 }
+function reloadParams(){
+	var urls = 'modules/config/reloadparams.php';
+	$.ajax( {
+		url : urls,
+		success : function(data) {
+			operationSuccess();
+		}
+	});
+}

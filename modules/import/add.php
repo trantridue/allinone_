@@ -4,7 +4,10 @@ function resetContinue(){
 }
 
 </script>
-<?php $importService->loadDefaultSeason();?>
+<?php 
+$importService->loadDefaultSeason();
+session_start();
+?>
 <form method="post" action="?module=import&submenu=addproduct"
 	onsubmit="return validateImportForm();">
 	

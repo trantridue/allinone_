@@ -1,4 +1,5 @@
 <strong>
+<a href='javascript:void(0);' onclick="reloadParams();">Refresh</a><?php echo tab4;?>
 <a href='login-home.php'>HOME</a><?php echo tab4;?>
 <a href='logout.php'>Logout</a><?php echo tab4;?>
 <a href='change-pwd.php'>Change password</a><?php echo tab4;?>
