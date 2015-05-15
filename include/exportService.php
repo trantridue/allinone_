@@ -238,7 +238,7 @@ and t4.code = t1.product_code and t1.re_date >=' " . $this->commonService->getDa
 	}
 	function listExport($params) {
 		$qry = "SELECT t1.id,t1.product_code,t1.quantity,t1.export_price,t1.re_qty,t3.name as product_name,
-		t1.export_facture_code, t2.date,date_format(t2.date,'%H:%m:%s') as time,t4.name as customer,t4.tel as customer_tel,t5.name as shop
+		t1.export_facture_code, t2.date,subStr(t2.date,12,8) as time,t4.name as customer,t4.tel as customer_tel,t5.name as shop
 		 FROM `export_facture_product` t1, export_facture t2, product t3, customer t4, shop t5
 		where t1.export_facture_code = t2.code
 		and t1.product_code = t3.code
@@ -255,7 +255,6 @@ and t4.code = t1.product_code and t1.re_date >=' " . $this->commonService->getDa
 			"(Bạn chỉ xem được các sản phầm đã bán từ tối đa ".default_nbr_days_load_export." ngày gần đây!)</div>";
 			$qry = $qry." and datediff(now(),t2.date) < ". default_nbr_days_load_export;
 		}
-		
 		$qry = $qry . "  order by date desc";
 		$result = mysql_query ( $qry, $this->connection );
 		
