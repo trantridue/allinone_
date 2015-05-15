@@ -76,12 +76,13 @@ function returnProduct(){
 
 </script>
 <hr>
+<?php session_start();?>
 <form id="returnproductForm">
 <div> 
 <input type="button" value="SAVE" class="menu_btn_sub" onclick="returnProduct();listReturnProduct();"/>
 <input type="button" value="SEARCH" class="menu_btn_sub" onclick="listReturnProduct();$('#returnproducttable').hide(300);"/>
 <input type="reset" value="TRẢ HÀNG" onclick="$('#returnproducttable').show(300);">
-<input type="hidden" name="numberrows" id="numberrows" value="<?php echo default_row_product_return;?>"/>
+<input type="hidden" name="numberrows" id="numberrows" value="<?php echo $_SESSION['default_row_product_return'];?>"/>
 <?php echo tab4;?> <strong> TOTAL: </strong>
 <input type="text" id="total_return" value="0" style="opacity:100%;" size="8" onkeypress="validateNon(event);"/>
 </div>
@@ -100,7 +101,7 @@ function returnProduct(){
 </tr>
 
 <?php
-for($i = 1; $i <= default_row_product_return; $i ++) {
+for($i = 1; $i <= $_SESSION['default_row_product_return']; $i ++) {
 	?>
 <script type="text/javascript">
 $(document).ready(function(){

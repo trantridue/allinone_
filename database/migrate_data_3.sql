@@ -193,4 +193,9 @@ where t1.customer_id in (SELECT customers_id FROM `zabuzach_store`.`customer_deb
 
 #
 insert into `configuration`(`name`,`value`) values
-('import_number_row','15'),('export_number_row','9'),('is_sale_for_all','1'),('sale_all_taux','10');
+('import_number_row','15'),
+('export_number_row','9'),
+('default_row_product_return','5'),
+('default_password','123456'),
+('is_sale_for_all','1'),
+('sale_all_taux','10');

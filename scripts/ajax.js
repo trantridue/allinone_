@@ -1487,6 +1487,7 @@ function reloadParams(){
 	$.ajax( {
 		url : urls,
 		success : function(data) {
+			alert(data);
 			operationSuccess();
 		}
 	});
