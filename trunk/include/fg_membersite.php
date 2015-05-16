@@ -31,12 +31,14 @@ class FGMembersite {
 	var $connection;
 	var $rand_key;
 	var $error_message;
+	var $configService;
 	
 	// -----Initialization -------
-	function FGMembersite($host, $uname, $pwd, $database, $tablename) {
+	function FGMembersite($host, $uname, $pwd, $database, $tablename,$configService) {
 		$this->sitename = 'YourWebsiteName.com';
 		$this->rand_key = '0iQx5oBk66oVZep';
 		$this->InitDB ( $host, $uname, $pwd, $database, $tablename );
+		$this->configService = $configService;
 	}
 	function InitDB($host, $uname, $pwd, $database, $tablename) {
 		$this->db_host = $host;
@@ -302,25 +304,10 @@ class FGMembersite {
 		$_SESSION ['id_of_user'] = $row ['id'];
 		$_SESSION ['id_of_shop'] = $row ['shop_id'];
 		$_SESSION ['is_admin_user'] = ($rowIsAdmin['isAdmin'] == 0) ? false : true;
-		$this->loadConfigParam();
+		$this->configService->loadConfigParam();
 		return true;
 	}
-	function loadConfigParam(){
-		$params = array('import_number_row', 
-		'default_password', 
-		'default_row_product_return', 
-		'export_number_row', 
-		'is_sale_for_all', 
-		'sale_all_taux');
-		$qry = "select * from configuration";
-		$result = mysql_query ( $qry, $this->connection );
-		while ( $rows = mysql_fetch_array ( $result ) ) {
-			for($i =0; $i< sizeof($params);$i++){
-				if($rows['name'] == $params[$i]) 
-				$_SESSION[$params[$i]] = $rows['value'];
-			}
-		}
-	}
+	
 	function UpdateDBRecForConfirmation(&$user_rec) {
 		if (! $this->DBLogin ()) {
 			$this->HandleError ( "Database login failed!" );
