@@ -9,7 +9,7 @@
 <h3>EDIT SPEND</h3>
 <input type="hidden" id="idspend" value="<?php echo $_REQUEST['id'];?>"/>
 <table class="addcriteriatable" style="text-align: center;">
-	<input type="hidden" id="default_number_line_spend" value ="<?php echo default_number_line_spend;?>"/>
+	<input type="hidden" id="default_number_line_spend" value ="<?php echo $_SESSION['default_number_line_spend'];?>"/>
 	<thead>
 	<tr>
 	<th>Amount</th>

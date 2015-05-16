@@ -41,12 +41,15 @@ class ConfigService {
 	}
 	function loadConfigParam(){
 		session_start();
-		$params = array('import_number_row', 
+		$params = array(
+		'import_number_row', 
 		'default_password', 
 		'default_row_product_return', 
 		'export_number_row', 
 		'is_sale_for_all', 
-		'sale_all_taux');
+		'default_number_line_spend', 
+		'sale_all_taux'
+		);
 		$qry = "select * from configuration";
 		$result = mysql_query ( $qry, $this->connection );
 		while ( $rows = mysql_fetch_array ( $result ) ) {
