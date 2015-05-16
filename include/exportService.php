@@ -230,9 +230,9 @@ and t4.code = t1.product_code and t1.re_date >=' " . $this->commonService->getDa
 		and t1.product_code = t3.code
 		and t4.id = t2.customer_id
 		and t5.id = t2.shop_id
-		and datediff(now(),t2.date) < 1 order by date desc";
+		and datediff(now(),t2.date) < ".default_nbr_days_load_export." order by date desc";
 		$result = mysql_query ( $qry, $this->connection );
-		
+//		echo $qry;
 		$this->commonService->generateJSDatatableComplexExport ( $result, exportproductdatatable, 12, 'desc', $this->getExportListArrayTotal() );
 		$this->commonService->generateJqueryDatatableExport ( $result, exportproductdatatable, $this->getExportListArrayColumn() );		
 	}

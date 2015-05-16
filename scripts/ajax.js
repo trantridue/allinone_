@@ -248,10 +248,15 @@ function buildSearchImportCriteria() {
 			+ import_facture_code + sale + sex_value_search + sale_to
 			+ import_quantity_to + import_price_to + export_quantity_to
 			+ export_price_to + remain_quantity_to + product_code_to + limit_search;
-	return processUrlString(criteriaString);
+	return processUrlStringEncode(criteriaString);
 }
 function listProduct() {
 	var url = "modules/import/listproduct.php?" + buildSearchImportCriteria();
+//	alert(url);
+	$('#mainListArea').load(url);
+}
+function listProductReload() {
+	var url = "modules/import/listproduct.php?loadall=false&isdefault=false";
 	$('#mainListArea').load(url);
 }
 function show_product_season_id(url) {
@@ -350,8 +355,12 @@ function deleteproduct(product_import_id) {
 		$.ajax( {
 			url : delete_product_import_id,
 			success : function(data) {
-				var actionType = "delete";
-				productimportpostaction(data, actionType);
+			if (data == 'success') {
+				operationSuccess();
+				listProductReload();
+			} else {
+				operationError();
+			}
 			}
 		});
 	} else {
@@ -376,7 +385,7 @@ function buildSearchProviderCriteria() {
 	criteriaString = criteriaString + provider_name + provider_tel
 			+ provider_address + provider_description + total_from + total_to
 			+ paid_from + paid_to + remain_from + remain_to;
-	return processUrlString(criteriaString);
+	return processUrlStringEncode(criteriaString);
 }
 /* CUSTOMER MODULE */
 function listCustomer() {
@@ -1487,7 +1496,6 @@ function reloadParams(){
 	$.ajax( {
 		url : urls,
 		success : function(data) {
-			alert(data);
 			operationSuccess();
 		}
 	});

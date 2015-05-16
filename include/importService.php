@@ -139,6 +139,7 @@ class ImportService {
 			$qry = $qry . "  and t3.date >=' " . $this->commonService->getDateBeforeSomeDays (default_nbr_days_load_import) . "' ";
 		}
 		$qry = $qry . "  order by t2.code desc";
+//		echo $qry;
 		if ($_REQUEST ['limit_search'] != '') {
 			$qry = $qry . "  limit " . $_REQUEST ['limit_search'];
 		}
@@ -551,8 +552,15 @@ class ImportService {
 		return $parameterArray;
 	}
 	function deleteProductImport($id) {
+		mysql_query ( "BEGIN" );
 		$qry = "delete from product_import where id = " . $id;
-		echo mysql_query ( $qry, $this->connection );
+		if(mysql_query ( $qry, $this->connection ) != null){
+			mysql_query ( "COMMIT" );
+			echo 'success';
+		}else {
+			mysql_query ( "ROLLBACK" );
+			echo 'error';
+		}
 	}
 	function getProductParameters() {
 		$parameterArray = array (
