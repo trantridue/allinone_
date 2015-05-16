@@ -11,9 +11,13 @@ require_once ("./include/spendService.php");
 require_once ("./include/inoutService.php");
 require_once ("./include/fundService.php");
 require_once ("./include/exportService.php");
+require_once ("./include/configService.php");
 
-$fgmembersite = new FGMembersite ( hostname, username, password, database, tablename );
 $commonService = new CommonService ();
+$configService = new ConfigService ( hostname, username, password, database,$commonService );
+
+$fgmembersite = new FGMembersite ( hostname, username, password, database, tablename,$configService );
+$exportService = new ExportService ( hostname, username, password, database,$commonService );
 $importService = new ImportService ( hostname, username, password, database,$commonService );
 $userService = new UserService ( hostname, username, password, database,$commonService );
 $providerService = new ProviderService ( hostname, username, password, database,$commonService );
@@ -22,7 +26,7 @@ $newsService = new NewsService ( hostname, username, password, database,$commonS
 $spendService = new SpendService ( hostname, username, password, database,$commonService );
 $inoutService = new InoutService ( hostname, username, password, database,$commonService );
 $fundService = new FundService ( hostname, username, password, database,$commonService );
-$exportService = new ExportService ( hostname, username, password, database,$commonService );
+
 
 // Provide your site name here
 $fgmembersite->SetWebsiteName ( 'user11.com' );
