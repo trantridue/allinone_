@@ -223,11 +223,12 @@ and t4.code = t1.product_code and t1.re_date >=' " . $this->commonService->getDa
 		}
 	}
 	function listExportDefault() {
-		$qry = "SELECT t1.id,t1.product_code,t1.quantity,t1.export_price,t1.re_qty,t3.name as product_name,
+		$qry = "SELECT t1.id,t1.product_code,t1.quantity,t1.export_price,t1.re_qty,t3.name as product_name,t6.name as username,
 		t1.export_facture_code, t2.date,date_format(t2.date,'%H:%m:%s') as time,t4.name as customer,t4.tel as customer_tel,t5.name as shop
-		 FROM `export_facture_product` t1, export_facture t2, product t3, customer t4, shop t5
+		 FROM `export_facture_product` t1, export_facture t2, product t3, customer t4, shop t5, user t6
 		where t1.export_facture_code = t2.code
 		and t1.product_code = t3.code
+		and t2.user_id = t6.id
 		and t4.id = t2.customer_id
 		and t5.id = t2.shop_id
 		and datediff(now(),t2.date) < ".default_nbr_days_load_export." order by date desc";
@@ -237,11 +238,12 @@ and t4.code = t1.product_code and t1.re_date >=' " . $this->commonService->getDa
 		$this->commonService->generateJqueryDatatableExport ( $result, exportproductdatatable, $this->getExportListArrayColumn() );		
 	}
 	function listExport($params) {
-		$qry = "SELECT t1.id,t1.product_code,t1.quantity,t1.export_price,t1.re_qty,t3.name as product_name,
+		$qry = "SELECT t1.id,t1.product_code,t1.quantity,t1.export_price,t1.re_qty,t3.name as product_name,t6.name as username,
 		t1.export_facture_code, t2.date,subStr(t2.date,12,8) as time,t4.name as customer,t4.tel as customer_tel,t5.name as shop
-		 FROM `export_facture_product` t1, export_facture t2, product t3, customer t4, shop t5
+		 FROM `export_facture_product` t1, export_facture t2, product t3, customer t4, shop t5, user t6
 		where t1.export_facture_code = t2.code
 		and t1.product_code = t3.code
+		and t2.user_id = t6.id
 		and t4.id = t2.customer_id
 		and t5.id = t2.shop_id ";
 		if($params['search_date_from'] != ''){
@@ -283,7 +285,7 @@ and t4.code = t1.product_code and t1.re_date >=' " . $this->commonService->getDa
 				"export_price*re_qty" => "complex",
 				"export_facture_code" => "MÃ_HÓA_ĐƠN&nbsp;&nbsp;",
 				"shop" => "Shop&nbsp;&nbsp;",
-				"date" => "Time,time"
+				"date,username" => "Time,time"
 		);
 	}
 	function getSearchParameters(){
