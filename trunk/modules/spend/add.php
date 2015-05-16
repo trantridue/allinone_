@@ -1,7 +1,8 @@
+<?php session_start();?>
 <form id="addSpendFormId">
 <h3>ADD SPEND</h3>
 <table class="addcriteriatable" style="text-align: center;">
-	<input type="hidden" id="default_number_line_spend" value ="<?php echo default_number_line_spend;?>"/>
+	<input type="hidden" id="default_number_line_spend" value ="<?php echo $_SESSION['default_number_line_spend'];?>"/>
 	<thead>
 	<tr>
 	<th>Fund</th>
@@ -14,7 +15,7 @@
 	<th>Description</th>
 	</tr>
 	</thead>
-	<?php for ($i=1;$i<=default_number_line_spend;$i++) {?>
+	<?php for ($i=1;$i<=$_SESSION['default_number_line_spend'];$i++) {?>
 		<tr>
 		<td ><?php
 		$commonService->printDropDownListFromTable ( 'fund', 'add_fund_'.$i);

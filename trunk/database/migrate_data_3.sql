@@ -198,4 +198,5 @@ insert into `configuration`(`name`,`value`) values
 ('default_row_product_return','5'),
 ('default_password','123456'),
 ('is_sale_for_all','1'),
+('default_number_line_spend','7'),
 ('sale_all_taux','10');
