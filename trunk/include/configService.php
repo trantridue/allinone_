@@ -47,6 +47,7 @@ class ConfigService {
 		'default_row_product_return', 
 		'export_number_row', 
 		'is_sale_for_all', 
+		'listExportDefault_nbr_day_limit', 
 		'default_number_line_spend', 
 		'sale_all_taux'
 		);
