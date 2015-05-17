@@ -9,5 +9,12 @@
 
 <input type="button" value="SEARCH" class="menu_btn_sub"
 	onclick="searchExportFull('true');">
-<input type="reset" value="RESET" class="menu_btn_sub"
-	onclick="$('#search_date_from').val('');">
+<input type="reset" value="RESET" 
+	onclick="$('#search_date_from').val(getDateResetSearch());">
+
+<script>
+function getDateResetSearch() {
+	datereset = new Date();
+	return (datereset.getYear()+1900) + "-" + datereset.getMonth() + "-" + datereset.getDate();
+}
+</script>
