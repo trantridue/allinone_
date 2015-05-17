@@ -1456,10 +1456,15 @@ function updateListProductAndTotalReturn(){
 function resetHiddenFundId(){
 	$("#id_add_fund").val('');
 }
-function searchExport(issearch) {
-	var url = "modules/export/exportList.php" + getExportSearchCriteria(issearch);
-//	alert(url);
-	$('#exportList').load(url);
+function searchExportFull(issearch) {
+	searchExport(issearch,'exportList','exportList');
+	if($('#exportReturn').css('display') != "none") {
+		searchExport(issearch,'exportReturn','exportReturn');
+	}
+}
+function searchExport(issearch,divid,filename) {
+	var url = "modules/export/" + filename + ".php" + getExportSearchCriteria(issearch);
+	$('#'+divid).load(url);
 }
 function getExportSearchCriteria(issearch){
 	

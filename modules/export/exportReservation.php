@@ -10,4 +10,4 @@ if ($isdefault == "false") {
 	$exportService = new ExportService ( hostname, username, password, database, $commonService );
 }
 ?>
-<?php $exportService->listReservation();?>
+<?php $exportService->listReservationDefault();?>
