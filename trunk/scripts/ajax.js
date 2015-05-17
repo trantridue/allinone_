@@ -205,6 +205,12 @@ $(function() {
 		minLength : 1
 	});
 });
+$(function() {
+	$(".search_customer_name").autocomplete( {
+		source : "autocomplete/customername.php",
+		minLength : 1
+	});
+});
 function buildSearchImportCriteria() {
 	var criteriaString = "isdefault=false&isadvancedsearch="
 			+ $('#isadvancedsearch').val();
@@ -1505,3 +1511,6 @@ function reloadParams(){
 		}
 	});
 }
+$(document).ready(function() {
+    $(".search_customer_name").focus(function() { $(this).select(); } );
+});	

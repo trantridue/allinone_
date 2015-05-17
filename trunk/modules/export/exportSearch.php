@@ -2,7 +2,7 @@
 <table class="searchcriteriatable">
 <tr>
 <td align="right">Tên Khách : </td>
-<td><input type="text" id="search_customer_name" maxlength="12" size="12"></td>
+<td><input type="text" id="search_customer_name" maxlength="12" size="12" class="search_customer_name"></td>
 <td align="right">Mã Hàng : </td>
 <td><input type="text" id="search_product_code" maxlength="12" size="12" class="productcode"></td>
 <td align="right">Giá bán : </td>

@@ -273,12 +273,17 @@ and t4.code = t1.product_code and datediff(now(),t1.re_date) <= ".$_SESSION['nbr
 		and t2.user_id = t6.id
 		and t4.id = t2.customer_id
 		and t5.id = t2.shop_id ";
+		
 		if($params['search_date_from'] != ''){
 			$qry = $qry." and t2.date >= '".$params['search_date_from']."'";
 		}
 		if($params['search_date_to'] != ''){
 			$qry = $qry." and t2.date <= '".$params['search_date_to']."'";
 		}
+		if($params['search_customer_name'] != ''){
+			$qry = $qry." and t4.name like '%".$params['search_customer_name']."%'";
+		}
+//		echo $qry;
 		if($_REQUEST['isAdminField'] != '1') {
 			echo "<div style='text-align:center;background-color:pink;padding-bottom:5px;font-weight:bold;font-style:italic;'>".
 			"(Bạn chỉ xem được các sản phầm đã bán từ tối đa ".default_nbr_days_load_export." ngày gần đây!)</div>";
