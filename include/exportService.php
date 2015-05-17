@@ -223,6 +223,7 @@ and t4.code = t1.product_code and t1.re_date >=' " . $this->commonService->getDa
 		}
 	}
 	function listExportDefault() {
+		session_start();
 		$qry = "SELECT t1.id,t1.product_code,t1.quantity,t1.export_price,t1.re_qty,t3.name as product_name,t6.name as username,
 		t1.export_facture_code, t2.date,date_format(t2.date,'%H:%m:%s') as time,t4.name as customer,t4.tel as customer_tel,t5.name as shop
 		 FROM `export_facture_product` t1, export_facture t2, product t3, customer t4, shop t5, user t6
@@ -231,7 +232,7 @@ and t4.code = t1.product_code and t1.re_date >=' " . $this->commonService->getDa
 		and t2.user_id = t6.id
 		and t4.id = t2.customer_id
 		and t5.id = t2.shop_id
-		and datediff(now(),t2.date) < ".default_nbr_days_load_export." order by date desc";
+		and datediff(now(),t2.date) < ".$_SESSION['listExportDefault_nbr_day_limit']." order by date desc";
 		$result = mysql_query ( $qry, $this->connection );
 //		echo $qry;
 		$this->commonService->generateJSDatatableComplexExport ( $result, exportproductdatatable, 12, 'desc', $this->getExportListArrayTotal() );

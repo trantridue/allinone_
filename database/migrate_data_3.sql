@@ -199,4 +199,5 @@ insert into `configuration`(`name`,`value`) values
 ('default_password','123456'),
 ('is_sale_for_all','1'),
 ('default_number_line_spend','7'),
+('listExportDefault_nbr_day_limit','1'),
 ('sale_all_taux','10');

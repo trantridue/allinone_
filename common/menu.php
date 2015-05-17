@@ -4,10 +4,10 @@ $module = isset ( $_REQUEST ['module'] ) ? $_REQUEST ['module'] : defaultmodule;
 
 <?php
 $arr = array (
+		"export" => "EXPORT",
 		"user" => "USER",
 		"import" => "IMPORT",
 		"inout" => "IN-OUT",
-		"export" => "EXPORT",
 		"spend" => "SPEND",
 		"config" => "CONFIG",
 		"news" => "NEWS",
