@@ -49,6 +49,7 @@ class ConfigService {
 		'is_sale_for_all', 
 		'listExportDefault_nbr_day_limit', 
 		'default_number_line_spend', 
+		'nbr_day_default_export_returned', 
 		'sale_all_taux'
 		);
 		$qry = "select * from configuration";

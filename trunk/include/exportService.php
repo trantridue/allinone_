@@ -99,7 +99,7 @@ class ExportService {
 		}
 	}
 	
-	function listDebt() {
+	function listDebtDefault() {
 		$qry = "select *,(t.total-t.paid) as debt from (SELECT
 				       t1.id,
 				       t1.tel,
@@ -134,14 +134,40 @@ class ExportService {
 				
 		);
 	}
-	function listReturn() {
+	function listReturnDefault() {
+		session_start();
 		$qry = "SELECT t1.re_date as date,if(datediff(now(),t1.re_date)=0,'Hôm nay',t1.re_date) as istoday ,
 		t3.name,t3.tel,t1.product_code,t4.name as product,t1.quantity,t1.export_price,t2.code,t1.re_qty,t1.re_date
 FROM `export_facture_product` t1,export_facture t2,customer t3,product t4
 where t1.re_qty > 0
 and t1.export_facture_code = t2.code
 and t3.id = t2.customer_id
-and t4.code = t1.product_code and t1.re_date >=' " . $this->commonService->getDateBeforeSomeDays (default_nbr_days_load_import) . "' order by t1.re_date desc";
+and t4.code = t1.product_code and datediff(now(),t1.re_date) <= ".$_SESSION['nbr_day_default_export_returned']." order by t1.re_date desc";
+		$result = mysql_query ( $qry, $this->connection );
+		$array_total = array (
+				3 => "Total return",
+				5 => "Quantity"
+		);
+		$this->commonService->generateJSDatatableComplex ( $result, customerreturndatatable, 8, 'desc', $array_total );
+		$this->commonService->generateJqueryDatatable ( $result, customerreturndatatable, $this->buildArrayReturnParameter() );
+	}
+	function listReturn($params) {
+		$qry = "SELECT t1.re_date as date,if(datediff(now(),t1.re_date)=0,'Hôm nay',t1.re_date) as istoday ,
+		t3.name,t3.tel,t1.product_code,t4.name as product,t1.quantity,t1.export_price,t2.code,t1.re_qty,t1.re_date
+		FROM `export_facture_product` t1,export_facture t2,customer t3,product t4
+		where t1.re_qty > 0
+		and t1.export_facture_code = t2.code
+		and t3.id = t2.customer_id
+		and t4.code = t1.product_code ";
+		
+		if($params['search_date_from'] != ''){
+			$qry = $qry." and t1.re_date >= '".$params['search_date_from']."'";
+		}
+		if($params['search_date_to'] != ''){
+			$qry = $qry." and t1.re_date <= '".$params['search_date_to']."'";
+		}
+		
+		$qry = $qry . "order by t1.re_date desc";
 		$result = mysql_query ( $qry, $this->connection );
 		$array_total = array (
 				3 => "Total return",
@@ -163,7 +189,7 @@ and t4.code = t1.product_code and t1.re_date >=' " . $this->commonService->getDa
 				"date" => "Ngày trả,istoday"
 		);
 	}
-	function listReservation() {
+	function listReservationDefault() {
 		$qry = "SELECT t1.*,t1.status as reservation_status,t2.name,t2.tel FROM `customer_reservation_histo` t1 
 		left join customer t2 on (t2.id = t1.customer_id) order by status asc";
 		$result = mysql_query ( $qry, $this->connection );
@@ -185,7 +211,7 @@ and t4.code = t1.product_code and t1.re_date >=' " . $this->commonService->getDa
 				
 		);
 	}
-	function listOrder() {
+	function listOrderDefault() {
 		$qry = "SELECT t1.*,t2.name as product_name,datediff(now(),t1.date) as diff,t1.status as order_status from customer_order t1 left join product t2 on (t1.product_code = t2.code) order by diff desc ,t1.status";
 		$result = mysql_query ( $qry, $this->connection );
 		$array_total = array (
