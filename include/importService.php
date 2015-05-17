@@ -286,6 +286,15 @@ class ImportService {
 		}
 		return $jsonArray;
 	}
+	function getJsonCustomerName($term) {
+		$qry = "select * from customer where name like '%" . $term . "%' and tel not like '%aaaaaaa%' limit 10";
+		$result = mysql_query ( $qry, $this->connection );
+		$jsonArray = array ();
+		while ( $rows = mysql_fetch_array ( $result ) ) {
+			$jsonArray [] = $rows ['name'];
+		}
+		return $jsonArray;
+	}
 	function getJsonProductCodeOnly($term) {
 		$qry = "select * from product where code like '%" . $term . "%' limit 10 ";
 		$result = mysql_query ( $qry, $this->connection );

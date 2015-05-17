@@ -9,3 +9,5 @@
 
 <input type="button" value="SEARCH" class="menu_btn_sub"
 	onclick="searchExportFull('true');">
+<input type="reset" value="RESET" class="menu_btn_sub"
+	onclick="$('#search_date_from').val('');">
