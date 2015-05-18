@@ -93,9 +93,9 @@ UPDATE `category` set description = name;
 
 #customer
 truncate customer;
-insert into customer (id,name,tel,description,date) select id,
+insert into customer (id,name,tel,description,date,created_date) select id,
 CONVERT(CONVERT(CONVERT(name USING latin1) USING binary) USING utf8),tel,
-CONVERT(CONVERT(CONVERT(description USING latin1) USING binary) USING utf8),date
+CONVERT(CONVERT(CONVERT(description USING latin1) USING binary) USING utf8),date,date
 -- from `zabuzach_store`.`customers` where tel is not null and tel not like '%aaaaa%';
 from `zabuzach_store`.`customers`;
 #Prepadata product
@@ -199,6 +199,6 @@ insert into `configuration`(`name`,`value`) values
 ('default_password','123456'),
 ('is_sale_for_all','1'),
 ('default_number_line_spend','7'),
-('listExportDefault_nbr_day_limit','1'),
+('listExportDefault_nbr_day_limit','2'),
 ('nbr_day_default_export_returned','2'),
 ('sale_all_taux','10');

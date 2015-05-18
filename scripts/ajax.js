@@ -47,7 +47,7 @@ function listUser() {
 }
 
 function deleteuser(userid) {
-	if(confirm('Are you sure to delete?')) {
+	if (confirm('Are you sure to delete?')) {
 		var deleteuser = 'modules/user/deleteuser.php?userid=' + userid;
 		$.ajax( {
 			url : deleteuser,
@@ -253,12 +253,13 @@ function buildSearchImportCriteria() {
 			+ export_price + remain_quantity + datefrom + dateto
 			+ import_facture_code + sale + sex_value_search + sale_to
 			+ import_quantity_to + import_price_to + export_quantity_to
-			+ export_price_to + remain_quantity_to + product_code_to + limit_search;
+			+ export_price_to + remain_quantity_to + product_code_to
+			+ limit_search;
 	return processUrlStringEncode(criteriaString);
 }
 function listProduct() {
 	var url = "modules/import/listproduct.php?" + buildSearchImportCriteria();
-//	alert(url);
+	// alert(url);
 	$('#mainListArea').load(url);
 }
 function listProductReload() {
@@ -294,7 +295,7 @@ function updateSaleListProduct() {
 	$.ajax( {
 		url : updatesaleproduct,
 		success : function(data) {
-		$('#listArea').html(data);
+			$('#listArea').html(data);
 			var actionType = "sale";
 			$('#limit_search').val(defaultItemAfterAjax);
 			updatesalepostaction(data, actionType);
@@ -342,7 +343,7 @@ function editprovider(str) {
 	$('#paidArea').hide();
 }
 function deleteprovider(providerid) {
-	if(confirm('Are you sure to delete?')) {
+	if (confirm('Are you sure to delete?')) {
 		var deleteprovider = 'modules/provider/deleteprovider.php?providerid=' + providerid;
 		$.ajax( {
 			url : deleteprovider,
@@ -356,17 +357,17 @@ function deleteprovider(providerid) {
 	}
 }
 function deleteproduct(product_import_id) {
-	if(confirm('Are you sure to delete?')) {
+	if (confirm('Are you sure to delete?')) {
 		var delete_product_import_id = 'modules/import/deleteproductimport.php?productimportid=' + product_import_id;
 		$.ajax( {
 			url : delete_product_import_id,
 			success : function(data) {
-			if (data == 'success') {
-				operationSuccess();
-				listProductReload();
-			} else {
-				operationError();
-			}
+				if (data == 'success') {
+					operationSuccess();
+					listProductReload();
+				} else {
+					operationError();
+				}
 			}
 		});
 	} else {
@@ -407,7 +408,7 @@ function editcustomer(str) {
 	$('#inputArea').load(url);
 }
 function deletecustomer(customerid) {
-	if(confirm('Are you sure to delete?')) {
+	if (confirm('Are you sure to delete?')) {
 		var deletecustomer = 'modules/customer/deletecustomer.php?customerid=' + customerid;
 		$.ajax( {
 			url : deletecustomer,
@@ -416,17 +417,17 @@ function deletecustomer(customerid) {
 				customerpostaction(data, actionType);
 			}
 		});
-	}else {
+	} else {
 		return false;
 	}
 }
 function updateProduct() {
 	var updateproduct = 'modules/import/updateproductimport.php?' + buildProductImportCriteria();
-//	alert(buildProductImportCriteria());
+	// alert(buildProductImportCriteria());
 	$.ajax( {
 		url : updateproduct,
 		success : function(data) {
-//		alert(data);
+			// alert(data);
 		var actionType = "update";
 		$('#limit_search').val(defaultItemAfterAjax);
 		updateproductpostaction(data, actionType);
@@ -469,8 +470,8 @@ function buildProductImportCriteria() {
 			+ edit_product_code + edit_product_name + id_edit_category
 			+ id_edit_season + id_edit_sex + id_edit_brand
 			+ edit_product_description + edit_export_price + edit_sale
-			+ edit_link + edit_id + edit_quantity + edit_deviation + edit_deadline
-			+ edit_import_price;
+			+ edit_link + edit_id + edit_quantity + edit_deviation
+			+ edit_deadline + edit_import_price;
 
 	return processUrlString(criteriaString);
 }
@@ -504,7 +505,7 @@ function buildSearchNewsCriteria(isdefault) {
 	return processUrlString(criteriaString);
 }
 function deletenews(newsid) {
-	if(confirm('Are you sure to delete?')) {
+	if (confirm('Are you sure to delete?')) {
 		var deletenews = 'modules/news/deletenews.php?newsid=' + newsid;
 		$.ajax( {
 			url : deletenews,
@@ -563,7 +564,7 @@ function paidMoneyProvider() {
 	});
 }
 function deletepaidhisto(idpad, amount) {
-	if(confirm('Are you sure to delete?')) {
+	if (confirm('Are you sure to delete?')) {
 		var provider_id = $('#paid_provider_id').val();
 		var oldremain = parseInt($('#paid_remain_update').html());
 		var paid = parseInt($('#paid_paid_update').html());
@@ -573,8 +574,10 @@ function deletepaidhisto(idpad, amount) {
 			url : urls,
 			success : function(data) {
 				if (data == 'true') {
-					$('#rightpaid').load(
-							"modules/provider/paid_right.php?id=" + provider_id);
+					$('#rightpaid')
+							.load(
+									"modules/provider/paid_right.php?id="
+											+ provider_id);
 					listProvider();
 					$('#paid_remain_update').html(oldremain + amount);
 					$('#paid_remaining').val(oldremain + amount);
@@ -611,11 +614,11 @@ function getPaidProviderInformation() {
 			+ paid_provider_id + paid_provider_name;
 	return processUrlString(str);
 }
-function paidAllByFund(fundName){
+function paidAllByFund(fundName) {
 	$('#paid_amount_1').val(0);
 	$('#paid_amount_2').val(0);
 	$('#paid_amount_3').val(0);
-	$('#'+ fundName).val(parseInt($('#paid_remain_update').html()));
+	$('#' + fundName).val(parseInt($('#paid_remain_update').html()));
 	calculateProviderPaid();
 }
 
@@ -626,89 +629,94 @@ function addSpends() {
 	$.ajax( {
 		url : urls,
 		success : function(data) {
-//			alert(data);
-			if (data == 'success') {
-				operationSuccess();
-				listSpend('false');
-				$('#addSpendFormId')[0].reset();
-			} else {
-				operationError();
-			}
+			// alert(data);
+		if (data == 'success') {
+			operationSuccess();
+			listSpend('false');
+			$('#addSpendFormId')[0].reset();
+		} else {
+			operationError();
 		}
+	}
 	});
 }
 function getAddSpendInformation(nbrLine) {
-	
+
 	var params = "?nbrLine=" + nbrLine;
-	for (var i = 1; i <= nbrLine; i++) {
-		params = params + "&add_amount_" + i + "=" + $('#add_amount_' + i).val();
+	for ( var i = 1; i <= nbrLine; i++) {
+		params = params + "&add_amount_" + i + "="
+				+ $('#add_amount_' + i).val();
 		params = params + "&add_date_" + i + "=" + $('#add_date_' + i).val();
-		params = params + "&id_add_fund_" + i + "=" + $('#id_add_fund_' + i).val();
-		params = params + "&id_add_user_" + i + "=" + $('#id_add_user_' + i).val();
-		params = params + "&id_add_category_" + i + "=" + $('#id_add_category_' + i).val();
-		params = params + "&id_add_for_" + i + "=" + $('#id_add_for_' + i).val();
-		params = params + "&id_add_type_" + i + "=" + $('#id_add_type_' + i).val();
-		params = params + "&add_description_" + i + "=" + $('#add_description_' + i).val();
+		params = params + "&id_add_fund_" + i + "="
+				+ $('#id_add_fund_' + i).val();
+		params = params + "&id_add_user_" + i + "="
+				+ $('#id_add_user_' + i).val();
+		params = params + "&id_add_category_" + i + "="
+				+ $('#id_add_category_' + i).val();
+		params = params + "&id_add_for_" + i + "="
+				+ $('#id_add_for_' + i).val();
+		params = params + "&id_add_type_" + i + "="
+				+ $('#id_add_type_' + i).val();
+		params = params + "&add_description_" + i + "="
+				+ $('#add_description_' + i).val();
 	}
 	return processUrlString(params);
 }
 function getUpdateInoutInformation() {
-	
-	var params = "?idinout=" + $('#idinout').val();; 
+
+	var params = "?idinout=" + $('#idinout').val();
+	;
 	params = params + "&add_amount=" + $('#add_amount').val();
 	params = params + "&add_date=" + $('#add_date').val();
 	params = params + "&id_add_user=" + $('#id_add_user').val();
 	params = params + "&id_add_shop=" + $('#id_add_shop').val();
 	params = params + "&id_add_type=" + $('#id_add_type').val();
 	params = params + "&add_description=" + $('#add_description').val();
-	
+
 	return processUrlString(params);
 }
 function getUpdateSpendInformation() {
-	
-	var params = "?idspend=" + $('#idspend').val();; 
-		params = params + "&add_amount=" + $('#add_amount').val();
-		params = params + "&add_date=" + $('#add_date').val();
-		params = params + "&id_add_user=" + $('#id_add_user').val();
-		params = params + "&id_add_category=" + $('#id_add_category').val();
-		params = params + "&id_add_for=" + $('#id_add_for').val();
-		params = params + "&id_add_type=" + $('#id_add_type').val();
-		params = params + "&add_description=" + $('#add_description').val();
-		
+
+	var params = "?idspend=" + $('#idspend').val();
+	;
+	params = params + "&add_amount=" + $('#add_amount').val();
+	params = params + "&add_date=" + $('#add_date').val();
+	params = params + "&id_add_user=" + $('#id_add_user').val();
+	params = params + "&id_add_category=" + $('#id_add_category').val();
+	params = params + "&id_add_for=" + $('#id_add_for').val();
+	params = params + "&id_add_type=" + $('#id_add_type').val();
+	params = params + "&add_description=" + $('#add_description').val();
+
 	return processUrlString(params);
 }
 function listSpend(issearch) {
 	var url = "modules/spend/list.php" + getSpendSearchCriteria(issearch);
 	$('#listArea').load(url);
 }
-function getSpendSearchCriteria(issearch){
-	
+function getSpendSearchCriteria(issearch) {
+
 	var str = "?issearch=" + issearch + "&isdefault=false";
-	var search_amount_from = "&search_amount_from=" + $('#search_amount_from').val();
+	var search_amount_from = "&search_amount_from="
+			+ $('#search_amount_from').val();
 	var search_amount_to = "&search_amount_to=" + $('#search_amount_to').val();
 	var search_date_from = "&search_date_from=" + $('#search_date_from').val();
 	var search_date_to = "&search_date_to=" + $('#search_date_to').val();
-	var search_description = "&search_description=" + $('#search_description').val();
+	var search_description = "&search_description="
+			+ $('#search_description').val();
 
 	var id_search_user = "&id_search_user=" + $('#id_search_user').val();
-	var id_search_category = "&id_search_category=" + $('#id_search_category').val();
+	var id_search_category = "&id_search_category="
+			+ $('#id_search_category').val();
 	var id_search_for = "&id_search_for=" + $('#id_search_for').val();
 	var id_search_type = "&id_search_type=" + $('#id_search_type').val();
-	
-	str = str + search_amount_from 
-			+ search_amount_to 
-			+ search_date_from 
-			+ search_date_to 
-			+ search_description 
-			+ id_search_user 
-			+ id_search_category 
-			+ id_search_for 
-			+ id_search_type 
-	;
+
+	str = str + search_amount_from + search_amount_to + search_date_from
+			+ search_date_to + search_description + id_search_user
+			+ id_search_category + id_search_for + id_search_type;
 	return processUrlString(str);
 }
 function deletespend(id) {
-	if(confirm('Are you sure to delete?')) {
+	if (confirm('Are you sure to delete?')) {
 		var urls = 'modules/spend/deletespend.php?id=' + id;
 		$.ajax( {
 			url : urls,
@@ -724,18 +732,18 @@ function deletespend(id) {
 	}
 }
 function deletemoney_inout(id) {
-	if(confirm('Are you sure to delete?')) {
+	if (confirm('Are you sure to delete?')) {
 		var urls = 'modules/inout/deleteinout.php?id=' + id;
 		$.ajax( {
 			url : urls,
 			success : function(data) {
-			if (data == 'success') {
-				operationSuccess();
-				listInOut('false');
-			} else {
-				operationError();
+				if (data == 'success') {
+					operationSuccess();
+					listInOut('false');
+				} else {
+					operationError();
+				}
 			}
-		}
 		});
 	} else {
 		return false;
@@ -767,9 +775,9 @@ function editmoney_inout(str) {
 	$('#serverMessage').hide();
 	$('#editArea').load(url);
 }
-function updateSpend(){
+function updateSpend() {
 	var urls = 'modules/spend/updatespend.php' + getUpdateSpendInformation();
-//	alert(urls);
+	// alert(urls);
 	$.ajax( {
 		url : urls,
 		success : function(data) {
@@ -782,13 +790,13 @@ function updateSpend(){
 		}
 	});
 }
-function updateInout(){
+function updateInout() {
 	var urls = 'modules/inout/updateinout.php' + getUpdateInoutInformation();
-//	alert(urls);
+	// alert(urls);
 	$.ajax( {
 		url : urls,
 		success : function(data) {
-//			alert(data);
+			// alert(data);
 		if (data == 'success') {
 			operationSuccess();
 			listInOut('true');
@@ -798,20 +806,20 @@ function updateInout(){
 	}
 	});
 }
-function updateInout(){
+function updateInout() {
 	var urls = 'modules/inout/updateinout.php' + getUpdateInoutInformation();
-//	alert(urls);
+	// alert(urls);
 	$.ajax( {
 		url : urls,
 		success : function(data) {
-//			alert(data);
-			if (data == 'success') {
-				operationSuccess();
-				listInOut('true');
-			} else {
-				operationError();
-			}
+			// alert(data);
+		if (data == 'success') {
+			operationSuccess();
+			listInOut('true');
+		} else {
+			operationError();
 		}
+	}
 	});
 }
 function operationSuccess() {
@@ -819,10 +827,10 @@ function operationSuccess() {
 	$('#serverMessage').html('Operation success!');
 	$('#serverMessage').addClass('successMessage');
 	$('#serverMessage').removeClass('errorMessage');
-//	setTimeout(function() {
-//	    $('#serverMessage').fadeOut('fast');
-//	}, 10000);
-	//$('#serverMessage').hide();
+	// setTimeout(function() {
+	// $('#serverMessage').fadeOut('fast');
+	// }, 10000);
+	// $('#serverMessage').hide();
 }
 function operationError() {
 	$('#serverMessage').show();
@@ -832,9 +840,9 @@ function operationError() {
 }
 /* MONEY INOUT */
 function addInOut() {
-	if(validateAddMoneyInout()) {
+	if (validateAddMoneyInout()) {
 		saveInOut();
-	} 
+	}
 }
 function saveInOut() {
 	var urls = 'modules/inout/addinout.php' + getAddInoutInformation();
@@ -857,33 +865,36 @@ function getAddInoutInformation() {
 	params = params + "?add_amount" + "=" + $('#add_amount').val();
 	params = params + "&add_date" + "=" + $('#add_date').val();
 	params = params + "&id_add_user" + "=" + $('#id_add_user').val();
-	params = params + "&id_add_inout_type" + "=" + $('#id_add_inout_type').val();
+	params = params + "&id_add_inout_type" + "="
+			+ $('#id_add_inout_type').val();
 	params = params + "&id_add_shop" + "=" + $('#id_add_shop').val();
 	params = params + "&add_description" + "=" + $('#add_description').val();
-return processUrlString(params);
+	return processUrlString(params);
 }
-function validateAddMoneyInout(){
+function validateAddMoneyInout() {
 	var flag = true;
-	if($('#add_amount').val()=='' || $('#add_amount').val()=='0') {
+	if ($('#add_amount').val() == '' || $('#add_amount').val() == '0') {
 		$('#add_amount').addClass('errorField');
 		flag = false;
 	} else {
 		$('#add_amount').removeClass('errorField');
 	}
-	if($('#id_add_inout_type').val()=='' || $('#id_add_inout_type').val()== null) {
+	if ($('#id_add_inout_type').val() == ''
+			|| $('#id_add_inout_type').val() == null) {
 		$('#id_add_inout_type').addClass('errorField');
 		flag = false;
 	} else {
 		$('#id_add_inout_type').removeClass('errorField');
 	}
-	
-	if($('#id_add_user').val()=='' || $('#id_add_user').val()== null) {
+
+	if ($('#id_add_user').val() == '' || $('#id_add_user').val() == null) {
 		$('#id_add_user').addClass('errorField');
 		flag = false;
 	} else {
 		$('#id_add_user').removeClass('errorField');
 	}
-	if($('#add_description').val()=='' || $('#add_description').val()== null) {
+	if ($('#add_description').val() == ''
+			|| $('#add_description').val() == null) {
 		$('#add_description').addClass('errorField');
 		flag = false;
 	} else {
@@ -896,47 +907,43 @@ function listInOut(issearch) {
 	$('#listArea').load(url);
 }
 
-function getInoutSearchCriteria(issearch){
-	
+function getInoutSearchCriteria(issearch) {
+
 	var str = "?issearch=" + issearch + "&isdefault=false";
-	var search_amount_from = "&search_amount_from=" + $('#search_amount_from').val();
+	var search_amount_from = "&search_amount_from="
+			+ $('#search_amount_from').val();
 	var search_amount_to = "&search_amount_to=" + $('#search_amount_to').val();
 	var search_date_from = "&search_date_from=" + $('#search_date_from').val();
 	var search_date_to = "&search_date_to=" + $('#search_date_to').val();
-	var search_description = "&search_description=" + $('#search_description').val();
+	var search_description = "&search_description="
+			+ $('#search_description').val();
 
 	var id_search_user = "&id_search_user=" + $('#id_search_user').val();
 	var id_search_shop = "&id_search_shop=" + $('#id_search_shop').val();
 	var id_search_type = "&id_search_type=" + $('#id_search_type').val();
-	
-	str = str + search_amount_from 
-			+ search_amount_to 
-			+ search_date_from 
-			+ search_date_to 
-			+ search_description 
-			+ id_search_user 
-			+ id_search_shop 
-			+ id_search_type 
-	;
+
+	str = str + search_amount_from + search_amount_to + search_date_from
+			+ search_date_to + search_description + id_search_user
+			+ id_search_shop + id_search_type;
 	return processUrlString(str);
 }
-function exchangeFund(){
-	if(validateExchangeFund()) {
+function exchangeFund() {
+	if (validateExchangeFund()) {
 		saveExchange();
 	}
 }
-function addFund(){
-	if(validateAddFund()) {
+function addFund() {
+	if (validateAddFund()) {
 		saveAddFund();
 	}
 }
 function saveAddFund() {
 	var urls = 'modules/fund/saveAdd.php' + getFundAddInformation();
-//	alert(urls);
+	// alert(urls);
 	$.ajax( {
 		url : urls,
 		success : function(data) {
-		alert(data);
+			alert(data);
 			if (data == 'success') {
 				operationSuccess();
 				reloadFundList();
@@ -964,108 +971,120 @@ function saveExchange() {
 }
 function saveOrderProduct() {
 	var urls = 'modules/export/saveOrder.php' + getOrderInformation();
-//	alert(validateOrderForm());
-	if(validateOrderForm()) {
+	// alert(validateOrderForm());
+	if (validateOrderForm()) {
 		$.ajax( {
 			url : urls,
 			success : function(data) {
-	//			alert(data);
-				if (data == 'success') {
-					operationSuccess();
-					$('#order_product_code').val('');
-					$('#order_size').val('');
-					$('#order_qty').val(1);
-					$('#order_color').val('');
-					$('#order_description').val('');
-					$('#order_product_code').removeClass("errorField");
-					$('#order_size').removeClass("errorField");
-					$('#order_color').removeClass("errorField");
-					$('#order_description').removeClass("errorField");
-					$('#customer_tel').removeClass("errorField");
-					$('#customer_name').removeClass("errorField");
-					reloadCustomerOrder();
-				} else {
-					operationError();
-				}
+				// alert(data);
+			if (data == 'success') {
+				operationSuccess();
+				$('#order_product_code').val('');
+				$('#order_size').val('');
+				$('#order_qty').val(1);
+				$('#order_color').val('');
+				$('#order_description').val('');
+				$('#order_product_code').removeClass("errorField");
+				$('#order_size').removeClass("errorField");
+				$('#order_color').removeClass("errorField");
+				$('#order_description').removeClass("errorField");
+				$('#customer_tel').removeClass("errorField");
+				$('#customer_name').removeClass("errorField");
+				reloadCustomerOrder();
+			} else {
+				operationError();
 			}
+		}
 		});
 	}
 }
 function validateOrderForm() {
-	return 	validateBlankField('order_product_code') &&	validateBlankField('order_size') &&	validateBlankField('order_color') && validateBlankField('order_description') &&	validateBlankField('customer_tel') &&	validateBlankField('customer_name');
+	return validateBlankField('order_product_code')
+			&& validateBlankField('order_size')
+			&& validateBlankField('order_color')
+			&& validateBlankField('order_description')
+			&& validateBlankField('customer_tel')
+			&& validateBlankField('customer_name');
 }
-function validateAddFund(){
+function validateAddFund() {
 	var flag = true;
-//	if($('#id_add_fund').val()=='' || $('#id_add_fund').val()==null) {
-//		$('#id_add_fund').addClass('errorField');
-//		flag = false;
-//	} else {
-//		$('#id_add_fund').removeClass('errorField');
-//	}
-	if($('#id_add_user').val()=='' || $('#id_add_user').val()== null) {
+	// if($('#id_add_fund').val()=='' || $('#id_add_fund').val()==null) {
+	// $('#id_add_fund').addClass('errorField');
+	// flag = false;
+	// } else {
+	// $('#id_add_fund').removeClass('errorField');
+	// }
+	if ($('#id_add_user').val() == '' || $('#id_add_user').val() == null) {
 		$('#id_add_user').addClass('errorField');
 		flag = false;
 	} else {
 		$('#id_add_user').removeClass('errorField');
 	}
-	
-	if($('#add_amount').val()=='' || $('#add_amount').val()== '0') {
+
+	if ($('#add_amount').val() == '' || $('#add_amount').val() == '0') {
 		$('#add_amount').addClass('errorField');
 		flag = false;
 	} else {
 		$('#add_amount').removeClass('errorField');
 	}
-	if($('#add_ratio').val()=='' || $('#add_ratio').val()== '0') {
+	if ($('#add_ratio').val() == '' || $('#add_ratio').val() == '0') {
 		$('#add_ratio').addClass('errorField');
 		flag = false;
 	} else {
 		$('#add_ratio').removeClass('errorField');
 	}
-	if($('#add_description').val()=='' || $('#add_description').val()== null) {
+	if ($('#add_description').val() == ''
+			|| $('#add_description').val() == null) {
 		$('#add_description').addClass('errorField');
 		flag = false;
 	} else {
 		$('#add_description').removeClass('errorField');
 	}
-	
+
 	return flag;
 }
-function validateExchangeFund(){
+function validateExchangeFund() {
 	var flag = true;
-	if($('#id_exchange_fund_source').val()=='' || $('#id_exchange_fund_source').val()==null) {
+	if ($('#id_exchange_fund_source').val() == ''
+			|| $('#id_exchange_fund_source').val() == null) {
 		$('#id_exchange_fund_source').addClass('errorField');
 		flag = false;
 	} else {
 		$('#id_exchange_fund_source').removeClass('errorField');
 	}
-	if($('#id_exchange_fund_destination').val()=='' || $('#id_exchange_fund_destination').val()== null) {
+	if ($('#id_exchange_fund_destination').val() == ''
+			|| $('#id_exchange_fund_destination').val() == null) {
 		$('#id_exchange_fund_destination').addClass('errorField');
 		flag = false;
 	} else {
 		$('#id_exchange_fund_destination').removeClass('errorField');
 	}
-	
-	if($('#exchange_source_amount').val()=='' || $('#exchange_source_amount').val()== '0') {
+
+	if ($('#exchange_source_amount').val() == ''
+			|| $('#exchange_source_amount').val() == '0') {
 		$('#exchange_source_amount').addClass('errorField');
 		flag = false;
 	} else {
 		$('#exchange_source_amount').removeClass('errorField');
 	}
-	
-	if($('#exchange_destination_amount').val()=='' || $('#exchange_destination_amount').val()== '0') {
+
+	if ($('#exchange_destination_amount').val() == ''
+			|| $('#exchange_destination_amount').val() == '0') {
 		$('#exchange_destination_amount').addClass('errorField');
 		flag = false;
 	} else {
 		$('#exchange_destination_amount').removeClass('errorField');
 	}
-	
-	if($('#exchange_description').val()=='' || $('#exchange_description').val()== null) {
+
+	if ($('#exchange_description').val() == ''
+			|| $('#exchange_description').val() == null) {
 		$('#exchange_description').addClass('errorField');
 		flag = false;
 	} else {
 		$('#exchange_description').removeClass('errorField');
 	}
-	if($('#id_exchange_fund_source').val()==$('#id_exchange_fund_destination').val()) {
+	if ($('#id_exchange_fund_source').val() == $(
+			'#id_exchange_fund_destination').val()) {
 		$('#id_exchange_fund_source').addClass('errorField');
 		$('#id_exchange_fund_destination').addClass('errorField');
 		flag = false;
@@ -1088,25 +1107,34 @@ function getFundAddInformation() {
 }
 function getFundExchangeInformation() {
 	var params = '';
-	params = params + "?id_exchange_fund_source" + "=" + $('#id_exchange_fund_source').val();
-	params = params + "&id_exchange_fund_destination" + "=" + $('#id_exchange_fund_destination').val();
+	params = params + "?id_exchange_fund_source" + "="
+			+ $('#id_exchange_fund_source').val();
+	params = params + "&id_exchange_fund_destination" + "="
+			+ $('#id_exchange_fund_destination').val();
 	params = params + "&exchange_date" + "=" + $('#exchange_date').val();
-	params = params + "&exchange_destination_ratio" + "=" + $('#exchange_destination_ratio').val();
-	params = params + "&exchange_source_ratio" + "=" + $('#exchange_source_ratio').val();
-	params = params + "&exchange_source_amount" + "=" + $('#exchange_source_amount').val();
-	params = params + "&exchange_destination_amount" + "=" + $('#exchange_destination_amount').val();
-	params = params + "&exchange_description" + "=" + $('#exchange_description').val();
+	params = params + "&exchange_destination_ratio" + "="
+			+ $('#exchange_destination_ratio').val();
+	params = params + "&exchange_source_ratio" + "="
+			+ $('#exchange_source_ratio').val();
+	params = params + "&exchange_source_amount" + "="
+			+ $('#exchange_source_amount').val();
+	params = params + "&exchange_destination_amount" + "="
+			+ $('#exchange_destination_amount').val();
+	params = params + "&exchange_description" + "="
+			+ $('#exchange_description').val();
 	return processUrlString(params);
 }
 function getOrderInformation() {
 	var params = '';
 	params = params + "?customer_tel" + "=" + $('#customer_tel').val();
 	params = params + "&customer_name" + "=" + $('#customer_name').val();
-	params = params + "&order_product_code" + "=" + $('#order_product_code').val();
+	params = params + "&order_product_code" + "="
+			+ $('#order_product_code').val();
 	params = params + "&order_qty" + "=" + $('#order_qty').val();
 	params = params + "&order_size" + "=" + $('#order_size').val();
 	params = params + "&order_color" + "=" + $('#order_color').val();
-	params = params + "&order_description" + "=" + $('#order_description').val();
+	params = params + "&order_description" + "="
+			+ $('#order_description').val();
 	return processUrlStringEncode(params);
 }
 function updateExchangeFundSourceAmount() {
@@ -1114,77 +1142,76 @@ function updateExchangeFundSourceAmount() {
 	var destAmount = 0;
 	var sourceRatio = 1;
 	var destRatio = 1;
-	
-	if($('#exchange_destination_amount').val()!='') {
+
+	if ($('#exchange_destination_amount').val() != '') {
 		destAmount = parseInt($('#exchange_destination_amount').val());
 	}
-	if($('#exchange_source_ratio').val()!='') {
+	if ($('#exchange_source_ratio').val() != '') {
 		sourceRatio = parseInt($('#exchange_source_ratio').val());
 	}
-	if($('#exchange_destination_ratio').val()!='') {
+	if ($('#exchange_destination_ratio').val() != '') {
 		destRatio = parseInt($('#exchange_destination_ratio').val());
 	}
-	$('#exchange_source_amount').val(destAmount*destRatio/sourceRatio);	
+	$('#exchange_source_amount').val(destAmount * destRatio / sourceRatio);
 }
 function updateExchangeFundDestAmount() {
 	var sourceAmount = 0;
 	var destAmount = 0;
 	var sourceRatio = 1;
 	var destRatio = 1;
-	
-	if($('#exchange_source_amount').val()!='') {
+
+	if ($('#exchange_source_amount').val() != '') {
 		sourceAmount = parseInt($('#exchange_source_amount').val());
 	}
-	if($('#exchange_source_ratio').val()!='') {
+	if ($('#exchange_source_ratio').val() != '') {
 		sourceRatio = parseInt($('#exchange_source_ratio').val());
 	}
-	if($('#exchange_destination_ratio').val()!='') {
+	if ($('#exchange_destination_ratio').val() != '') {
 		destRatio = parseInt($('#exchange_destination_ratio').val());
 	}
-	$('#exchange_destination_amount').val(sourceAmount*sourceRatio/destRatio);	
+	$('#exchange_destination_amount').val(
+			sourceAmount * sourceRatio / destRatio);
 }
 function listHistoFund(issearch) {
 	var url = "modules/fund/list.php" + getFundSearchCriteria(issearch);
-//	alert(url);
+	// alert(url);
 	$('#histoFund').load(url);
 }
-function getFundSearchCriteria(issearch){
-	
+function getFundSearchCriteria(issearch) {
+
 	var str = "?issearch=" + issearch + "&isdefault=false";
-	var search_amount_from = "&search_amount_from=" + $('#search_amount_from').val();
+	var search_amount_from = "&search_amount_from="
+			+ $('#search_amount_from').val();
 	var search_amount_to = "&search_amount_to=" + $('#search_amount_to').val();
 	var search_date_from = "&search_date_from=" + $('#search_date_from').val();
 	var search_date_to = "&search_date_to=" + $('#search_date_to').val();
-	var search_description = "&search_description=" + $('#search_description').val();
+	var search_description = "&search_description="
+			+ $('#search_description').val();
 
 	var id_search_user = "&id_search_user=" + $('#id_search_user').val();
 	var id_search_fund = "&id_search_fund=" + $('#id_search_fund').val();
-//	var id_search_type = "&id_search_type=" + $('#id_search_type').val();
-	
-	str = str + search_amount_from 
-			+ search_amount_to 
-			+ search_date_from 
-			+ search_date_to 
-			+ search_description 
-			+ id_search_user 
-			+ id_search_fund 
-//			+ id_search_type 
+	// var id_search_type = "&id_search_type=" + $('#id_search_type').val();
+
+	str = str + search_amount_from + search_amount_to + search_date_from
+			+ search_date_to + search_description + id_search_user
+			+ id_search_fund
+	// + id_search_type
 	;
 	return processUrlString(str);
 }
 function deletefund_change_histo(id) {
-	if(confirm('Are you sure to delete?')) {
+	if (confirm('Are you sure to delete?')) {
 		var urls = 'modules/fund/deletefundhisto.php?id=' + id;
 		$.ajax( {
 			url : urls,
 			success : function(data) {
-			if (data == 'success') {
-				operationSuccess();
-				reloadFundList();
-			} else {
-				operationError();
+				if (data == 'success') {
+					operationSuccess();
+					reloadFundList();
+				} else {
+					operationError();
+				}
 			}
-		}
 		});
 	} else {
 		return false;
@@ -1194,7 +1221,7 @@ function reloadFundList() {
 	$('#listFund').load('modules/fund/listFund.php?isdefault=false');
 	listHistoFund('true');
 }
-function updateFund(){
+function updateFund() {
 	var urls = 'modules/fund/updatefundhisto.php' + getUpdateFundInformation();
 	$.ajax( {
 		url : urls,
@@ -1222,10 +1249,35 @@ function getUpdateFundInformation() {
 	return processUrlString(params);
 }
 /* EXPORT */
-function saveExport(){
-//	$('#customer_debt').html('1000');
+function saveExport() {
+	// alert('ass');
+	var urls = 'modules/export/saveExport.php' + getExportProductParameter();
+	alert(urls);
+	$.ajax( {
+		url : urls,
+		success : function(data) {
+			if (data == 'success') {
+				operationSuccess();
+				$('#leftExportFormId')[0].reset();
+			} else {
+				operationError();
+			}
+		}
+	});
 }
-function calculateExportForm(){
+function getExportProductParameter() {
+	var str = '';
+	var customer_tel = $('#customer_tel').val();
+	var export_date = $('#export_date').val();
+	var customer_name = $('#customer_name').val();
+
+	str = str + "?customer_tel=" + customer_tel;
+	str = str + "&export_date=" + export_date;
+	str = str + "&customer_name=" + customer_name;
+
+	return processUrlStringEncode(str);
+}
+function calculateExportForm() {
 	var nbrow = parseInt($('#export_number_row').val());
 	updateCheckBoxIfIsboss();
 	validateQuantity(nbrow);
@@ -1235,16 +1287,17 @@ function calculateExportForm(){
 	calculateTotalFactureFinal();
 	calculateGiveCustomer();
 }
-function updateCheckBoxIfIsboss(){
+function updateCheckBoxIfIsboss() {
 	var isBoss = $('#isBoss').is(":checked");
-	if(isBoss) {
-		$('#useBonus').prop('checked',false);
-		$('#byCard').prop('checked',false);
+	if (isBoss) {
+		$('#useBonus').prop('checked', false);
+		$('#byCard').prop('checked', false);
 	}
 }
 
 function calculateGiveCustomer() {
-	$('#give_customer').val($('#customer_give').val()-$('#final_total').html());
+	$('#give_customer').val(
+			$('#customer_give').val() - $('#final_total').html());
 }
 function dbclickCustomerGive() {
 	$('#customer_give').val(parseInt($('#final_total').html()));
@@ -1252,67 +1305,73 @@ function dbclickCustomerGive() {
 }
 function calculateTotalFactureFinal() {
 	var usedBonus = $('#useBonus').is(":checked");
-	if(usedBonus) {
+	if (usedBonus) {
 		$('#final_total').html(
-				parseInt($('#customer_reserver_more').val()) + 
-				parseInt($('#total_facture').html()) + 
-				parseInt($('#customer_debt').html()) - 
-				parseInt($('#customer_returned').html()) -
-				parseInt($('#customer_bonus').html()) -
-				parseInt($('#customer_reserved').html()) 
-				);
+				parseInt($('#customer_reserver_more').val())
+						+ parseInt($('#total_facture').html())
+						+ parseInt($('#customer_debt').html())
+						- parseInt($('#customer_returned').html())
+						- parseInt($('#customer_bonus').html())
+						- parseInt($('#customer_reserved').html()));
 	} else {
 		$('#final_total').html(
-				parseInt($('#customer_reserver_more').val()) + 
-				parseInt($('#total_facture').html()) + 
-				parseInt($('#customer_debt').html()) - 
-				parseInt($('#customer_returned').html()) -
-				parseInt($('#customer_reserved').html()) 
-				);
+				parseInt($('#customer_reserver_more').val())
+						+ parseInt($('#total_facture').html())
+						+ parseInt($('#customer_debt').html())
+						- parseInt($('#customer_returned').html())
+						- parseInt($('#customer_reserved').html()));
 	}
-	
+
 }
 
 function validateQuantity(nbrow) {
-	for(var i=1;i<=nbrow;i++) {
-		if($('#quantity_'+i).val()==0) {
-			$('#quantity_'+i).addClass('errorField');
-			$('#quantity_'+i).val(1);
+	for ( var i = 1; i <= nbrow; i++) {
+		if ($('#quantity_' + i).val() == 0) {
+			$('#quantity_' + i).addClass('errorField');
+			$('#quantity_' + i).val(1);
 		} else {
-			$('#quantity_'+i).removeClass('errorField');
+			$('#quantity_' + i).removeClass('errorField');
 		}
 	}
 }
 function calculateTotalQuality(nbrow) {
 	var total = 0;
-	for(var i=1;i<=nbrow;i++) {
-		if($('#productcode_'+i).val()!= '') {
-			total = total + parseInt($('#quantity_'+i).val());
+	for ( var i = 1; i <= nbrow; i++) {
+		if ($('#productcode_' + i).val() != '') {
+			total = total + parseInt($('#quantity_' + i).val());
 		}
 	}
 	$('#total_quantity').html(total);
 }
 function calculateTotalFactureOrigin(nbrow) {
 	var total = 0;
-	for(var i=1;i<=nbrow;i++) {
-		if($('#productcode_'+i).val()!= '') {
-			total = total + parseInt($('#quantity_'+i).val()) * parseInt($('#exportpostedprice_'+i).html());
+	for ( var i = 1; i <= nbrow; i++) {
+		if ($('#productcode_' + i).val() != '') {
+			total = total + parseInt($('#quantity_' + i).val())
+					* parseInt($('#exportpostedprice_' + i).html());
 		}
 	}
 	$('#total_origine').html(total);
 }
 function calculateTotalFactureSaled(nbrow) {
 	var total = 0;
-	for(var i=1;i<=nbrow;i++) {
-		if($('#productcode_'+i).val()!= '') {
-			total = total + parseInt($('#quantity_'+i).val()) * parseInt($('#exportprice_'+i).val());
+	for ( var i = 1; i <= nbrow; i++) {
+		if ($('#productcode_' + i).val() != '') {
+			total = total + parseInt($('#quantity_' + i).val())
+					* parseInt($('#exportprice_' + i).val());
 		}
 	}
 	$('#total_after_saled').html(total);
 	$('#total_facture').html(total);
 	$('#sale_different').html(parseInt($('#total_origine').html()) - total);
-	$('#sale_percentage').html(Math.round((1-(total/parseInt($('#total_origine').html())))*100));
-	$('#sale_percentage').prop('title',((1-(total/parseInt($('#total_origine').html())))*100).toFixed(2));
+	$('#sale_percentage')
+			.html(
+					Math.round((1 - (total / parseInt($('#total_origine')
+							.html()))) * 100));
+	$('#sale_percentage').prop(
+			'title',
+			((1 - (total / parseInt($('#total_origine').html()))) * 100)
+					.toFixed(2));
 }
 $(function() {
 	$(".productcode").autocomplete( {
@@ -1339,31 +1398,36 @@ $(function() {
 	});
 });
 function cancelExportLine(line) {
-	$('#productcode_'+line).val('');
-	$('#productname_'+line).html('');
-	$('#exportpostedprice_'+line).html('');
-	$('#quantity_'+line).val(1);
-	$('#exportprice_'+line).val('');
+	$('#productcode_' + line).val('');
+	$('#productname_' + line).html('');
+	$('#exportpostedprice_' + line).html('');
+	$('#quantity_' + line).val(1);
+	$('#exportprice_' + line).val('');
 	calculateExportForm();
 }
-$(document).ready(function() {
-	var ac_config_export_customer_tel = {
-		source : "autocomplete/completed_export_customer_tel.php",
-		select : function(event, ui) {
-			$("#customer_tel").val(ui.item.tel);
-			$("#customer_id").val(ui.item.id);
-			$("#customer_name").val(ui.item.name);
-			$("#customer_debt").html(ui.item.debt);
-			$("#customer_reserved").html(ui.item.reserved);
-			$("#customer_bonus_td").prop('title',"<ul><li>Tổng : "+ui.item.totalbuy+"</li><br><li>Điểm Đã Dùng : " + ui.item.bonus_used + "</li></ul>");
-			$("#customer_bonus").html(ui.item.bonus);
-			$("#isBoss").prop('checked',ui.item.isboss);
-			calculateExportForm();
-		},
-		minLength : 1
-	};
-	$("#customer_tel").autocomplete(ac_config_export_customer_tel);
-});
+$(document).ready(
+		function() {
+			var ac_config_export_customer_tel = {
+				source : "autocomplete/completed_export_customer_tel.php",
+				select : function(event, ui) {
+					$("#customer_tel").val(ui.item.tel);
+					$("#customer_id").val(ui.item.id);
+					$("#customer_name").val(ui.item.name);
+					$("#customer_debt").html(ui.item.debt);
+					$("#customer_reserved").html(ui.item.reserved);
+					$("#customer_bonus_td").prop(
+							'title',
+							"<ul><li>Tổng : " + ui.item.totalbuy
+									+ "</li><br><li>Điểm Đã Dùng : "
+									+ ui.item.bonus_used + "</li></ul>");
+					$("#customer_bonus").html(ui.item.bonus);
+					$("#isBoss").prop('checked', ui.item.isboss);
+					calculateExportForm();
+				},
+				minLength : 1
+			};
+			$("#customer_tel").autocomplete(ac_config_export_customer_tel);
+		});
 $(document).ready(function() {
 	var ac_config_fund = {
 		source : "autocomplete/completed_fund.php",
@@ -1375,35 +1439,38 @@ $(document).ready(function() {
 	};
 	$("#fund_id_txt").autocomplete(ac_config_fund);
 });
-function updateCusIdWhenChangeTel(){
+function updateCusIdWhenChangeTel() {
 	$("#customer_name").val('');
 	$("#customer_id").val('');
 	$("#customer_debt").html('0');
 	$("#customer_reserved").html('0');
-//	$("#customer_returned").html('0');
+	// $("#customer_returned").html('0');
 	$("#customer_bonus").html('0');
-	$("#isBoss").prop('checked',false);
-	
+	$("#isBoss").prop('checked', false);
+
 	calculateExportForm();
 }
-function updatePriceProduct(){
-	if($('#salefacture').val()<0) {
+function updatePriceProduct() {
+	if ($('#salefacture').val() < 0) {
 		$('#salefacture').val('0');
-	} else if($('#salefacture').val()>100) {
+	} else if ($('#salefacture').val() > 100) {
 		$('#salefacture').val('100');
 	}
 	for ( var i = 1; i <= 10; i++) {
-		if($('#productcode_'+i).val() != '')
-		$('#exportprice_'+i).val(Math.ceil(parseInt($('#exportpostedprice_'+i).html())*(100-$('#salefacture').val())/100));
+		if ($('#productcode_' + i).val() != '')
+			$('#exportprice_' + i).val(
+					Math.ceil(parseInt($('#exportpostedprice_' + i).html())
+							* (100 - $('#salefacture').val()) / 100));
 	}
 	calculateExportForm();
 }
 function reloadCustomerOrder() {
-	$('#exportOrderList').load('modules/export/exportOrderList.php?isdefault=false');
+	$('#exportOrderList').load(
+			'modules/export/exportOrderList.php?isdefault=false');
 }
 function show_customer_order_id(str) {
 	var urls = 'modules/export/updatecustomerorder.php?' + str;
-//	alert(urls);
+	// alert(urls);
 	$.ajax( {
 		url : urls,
 		success : function(data) {
@@ -1417,92 +1484,94 @@ function show_customer_order_id(str) {
 	});
 }
 function changeStatusFor(i) {
-	
-	var hidenVal = $('#id_add_for_'+i).val();
-	if(hidenVal==1) {
-		$('#id_add_for_'+i).val(2);
-		$('#spend_for_btn_'+i).val('CỬA HÀNG');
-		$('#spend_for_btn_'+i).addClass('shopStyle');
+
+	var hidenVal = $('#id_add_for_' + i).val();
+	if (hidenVal == 1) {
+		$('#id_add_for_' + i).val(2);
+		$('#spend_for_btn_' + i).val('CỬA HÀNG');
+		$('#spend_for_btn_' + i).addClass('shopStyle');
 	} else {
-		$('#id_add_for_'+i).val(1);
-		$('#spend_for_btn_'+i).val(' GIA  ĐÌNH ');
-		$('#spend_for_btn_'+i).removeClass('shopStyle');
+		$('#id_add_for_' + i).val(1);
+		$('#spend_for_btn_' + i).val(' GIA  ĐÌNH ');
+		$('#spend_for_btn_' + i).removeClass('shopStyle');
 	}
 }
 function changeReturnQty(line) {
 	var quantity_return = "quantity_return_" + line;
 	var quantity = "quantity_" + line;
-	
-	if($('#'+quantity_return).val()<=0) $('#'+quantity_return).val(1);
-	if($('#'+quantity_return).val()> $('#'+quantity).val()) $('#'+quantity_return).val($('#'+quantity).val());
+
+	if ($('#' + quantity_return).val() <= 0)
+		$('#' + quantity_return).val(1);
+	if ($('#' + quantity_return).val() > $('#' + quantity).val())
+		$('#' + quantity_return).val($('#' + quantity).val());
 	updateListProductAndTotalReturn();
 }
 function checkTheReturnCheckBox() {
-//	alert('checkTheReturnCheckBox()');
+	// alert('checkTheReturnCheckBox()');
 	updateListProductAndTotalReturn();
 }
-function updateListProductAndTotalReturn(){
+function updateListProductAndTotalReturn() {
 	var nbrLine = $('#numberlineexport').val();
 	var totalReturn = 0;
-	var lstReturn='';
-	for(var i=1; i<=nbrLine; i++) {
-		var isCheckedReturn = $('#checkbox_return_'+i).is(":checked");
-		if(isCheckedReturn){
-			var qty_return = parseInt($('#quantity_return_'+i).val());
-			var export_price = parseInt($('#export_price_'+i).val());
-			var export_facture_product_id = $('#export_facture_product_id_'+i).val();
+	var lstReturn = '';
+	for ( var i = 1; i <= nbrLine; i++) {
+		var isCheckedReturn = $('#checkbox_return_' + i).is(":checked");
+		if (isCheckedReturn) {
+			var qty_return = parseInt($('#quantity_return_' + i).val());
+			var export_price = parseInt($('#export_price_' + i).val());
+			var export_facture_product_id = $('#export_facture_product_id_' + i)
+					.val();
 			totalReturn = totalReturn + qty_return * export_price;
-			lstReturn = lstReturn + export_facture_product_id + ":" + qty_return + ";";
+			lstReturn = lstReturn + export_facture_product_id + ":"
+					+ qty_return + ";";
 		}
 	}
 	$('#customer_returned').html(totalReturn);
 	$('#listProductReturn').val(lstReturn);
 	calculateExportForm();
 }
-function resetHiddenFundId(){
+function resetHiddenFundId() {
 	$("#id_add_fund").val('');
 }
 function searchExportFull(issearch) {
-	searchExport(issearch,'exportList','exportList');
-	if($('#exportReturn').css('display') != "none") {
-		searchExport(issearch,'exportReturn','exportReturn');
+	searchExport(issearch, 'exportList', 'exportList');
+	if ($('#exportReturn').css('display') != "none") {
+		searchExport(issearch, 'exportReturn', 'exportReturn');
 	}
 }
-function searchExport(issearch,divid,filename) {
-	var url = "modules/export/" + filename + ".php" + getExportSearchCriteria(issearch);
-	$('#'+divid).load(url);
+function searchExport(issearch, divid, filename) {
+	var url = "modules/export/" + filename + ".php"
+			+ getExportSearchCriteria(issearch);
+	$('#' + divid).load(url);
 }
-function getExportSearchCriteria(issearch){
-	
+function getExportSearchCriteria(issearch) {
+
 	var str = "?issearch=" + issearch + "&isdefault=false";
 	var isAdminField = "&isAdminField=" + $('#isAdminField').val();
-	var search_customer_name = "&search_customer_name=" + $('#search_customer_name').val();
-	var search_product_code = "&search_product_code=" + $('#search_product_code').val();
-	var search_price_from = "&search_price_from=" + $('#search_price_from').val();
+	var search_customer_name = "&search_customer_name="
+			+ $('#search_customer_name').val();
+	var search_product_code = "&search_product_code="
+			+ $('#search_product_code').val();
+	var search_price_from = "&search_price_from="
+			+ $('#search_price_from').val();
 	var search_price_to = "&search_price_to=" + $('#search_price_to').val();
-	var search_customer_tel = "&search_customer_tel=" + $('#search_customer_tel').val();
+	var search_customer_tel = "&search_customer_tel="
+			+ $('#search_customer_tel').val();
 
-	var search_product_name = "&search_product_name=" + $('#search_product_name').val();
+	var search_product_name = "&search_product_name="
+			+ $('#search_product_name').val();
 	var search_date_from = "&search_date_from=" + $('#search_date_from').val();
 	var search_date_to = "&search_date_to=" + $('#search_date_to').val();
 	var id_search_shop = "&id_search_shop=" + $('#id_search_shop').val();
 	var id_search_user = "&id_search_user=" + $('#id_search_user').val();
-	
-	str = str + search_customer_name 
-			+ search_product_code 
-			+ search_price_from 
-			+ search_price_to 
-			+ search_customer_tel 
-			+ search_product_name 
-			+ search_date_from 
-			+ search_date_to 
-			+ id_search_shop 
-			+ id_search_user 
-			+ isAdminField 
-	;
+
+	str = str + search_customer_name + search_product_code + search_price_from
+			+ search_price_to + search_customer_tel + search_product_name
+			+ search_date_from + search_date_to + id_search_shop
+			+ id_search_user + isAdminField;
 	return processUrlStringEncode(str);
 }
-function reloadParams(){
+function reloadParams() {
 	var urls = 'modules/config/reloadparams.php';
 	$.ajax( {
 		url : urls,
@@ -1512,5 +1581,7 @@ function reloadParams(){
 	});
 }
 $(document).ready(function() {
-    $(".search_customer_name").focus(function() { $(this).select(); } );
-});	
+	$(".search_customer_name").focus(function() {
+		$(this).select();
+	});
+});

@@ -1,4 +1,4 @@
-<form>
+<form id="leftExportFormId">
 <div id="exportLeft">
 	<div id="exportCustomerInformation"><?php include 'customerInfor.php';?></div>
 	<div id="exportCustomerOrder" style="display: none;"><?php include 'customerOrder.php';?></div>
