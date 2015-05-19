@@ -1538,6 +1538,9 @@ function searchExportFull(issearch) {
 	if ($('#exportReturn').css('display') != "none") {
 		searchExport(issearch, 'exportReturn', 'exportReturn');
 	}
+	if ($('#exportOrderList').css('display') != "none") {
+		searchExport(issearch, 'exportOrderList', 'exportOrderList');
+	}
 }
 function searchExport(issearch, divid, filename) {
 	var url = "modules/export/" + filename + ".php"

@@ -229,6 +229,38 @@ and t4.code = t1.product_code and datediff(now(),t1.re_date) <= ".$_SESSION['nbr
 		$this->commonService->generateJSDatatableComplex ( $result, customerorderdatatable, 6, 'asc', $array_total );
 		$this->commonService->generateJqueryDatatable ( $result, customerorderdatatable, $array_column1 );
 	}
+	function listOrder($params) {
+		$qry = "SELECT t1.*, 
+       			t2.NAME AS product_name, Datediff(Now(), t1.date) AS diff, t1.status AS order_status 
+				FROM   customer_order t1 LEFT JOIN product t2 ON ( t1.product_code = t2.code )";
+		
+		if($params['search_date_from'] != ''){
+			$qry = $qry." where t1.date >= '".$params['search_date_from']."'";
+		} 
+		if($params['search_date_to'] != '' && $params['search_date_from'] != ''){
+			$qry = $qry." and t1.date <= '".$params['search_date_to']."'";
+		} else if($params['search_date_to'] != '') {
+			$qry = $qry." where t1.date <= '".$params['search_date_to']."'";
+		}
+		
+		$qry = $qry . " ORDER  BY diff DESC, t1.status";
+		echo $qry;
+		$result = mysql_query ( $qry, $this->connection );
+		$array_total = array (
+				2 => "Quantity"
+		);
+		$array_column1 = array (
+			"id,customer_name,customer_tel,date,status,description" => "Name,customer_name", 
+		    "product_code" => "Pro. Name,product_name",
+			"quantity" => "SL", 
+			"size" => "Size",
+			"color" => "Màu", 
+			"diff,date" => "Days,diff",
+			"order_status" => "Status"
+		);
+		$this->commonService->generateJSDatatableComplex ( $result, customerorderdatatable, 6, 'asc', $array_total );
+		$this->commonService->generateJqueryDatatable ( $result, customerorderdatatable, $array_column1 );
+	}
 	
 	function updateOrderStatus($id,$status){
 		if($status=='Y') {
