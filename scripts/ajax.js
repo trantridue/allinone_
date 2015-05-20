@@ -1270,10 +1270,42 @@ function getExportProductParameter() {
 	var customer_tel = $('#customer_tel').val();
 	var export_date = $('#export_date').val();
 	var customer_name = $('#customer_name').val();
-
+	var id_export_shop = $('#id_export_shop').val();
+	var customer_description = $('#customer_description').val();
+	
+	var isBoss = $('#isBoss').is(":checked");
+	var useBonus = $('#useBonus').is(":checked");
+	var byCard = $('#byCard').is(":checked");
+	var customer_debt = $('#customer_debt').html();
+	var customer_reserved = $('#customer_reserved').html();
+	var customer_returned = $('#customer_returned').html();
+	var total_facture = $('#total_facture').html();
+	var customer_bonus = $('#customer_bonus').html();
+	var final_total = $('#final_total').html();
+	var customer_reserver_more = $('#customer_reserver_more').val();
+	var customer_give = $('#customer_give').val();
+	var give_customer = $('#give_customer').val();
+	var id_search_shop = $('#id_search_shop').val();
+	var id_search_user = $('#id_search_user').val();
+	
 	str = str + "?customer_tel=" + customer_tel;
 	str = str + "&export_date=" + export_date;
 	str = str + "&customer_name=" + customer_name;
+	str = str + "&id_export_shop=" + id_export_shop;
+	str = str + "&customer_description=" + customer_description;
+	str = str + "&isBoss=" + isBoss;
+	str = str + "&useBonus=" + useBonus;
+	str = str + "&byCard=" + byCard;
+	str = str + "&customer_debt=" + customer_debt;
+	str = str + "&customer_reserved=" + customer_reserved;
+	str = str + "&customer_returned=" + customer_returned;
+	str = str + "&total_facture=" + total_facture;
+	str = str + "&customer_bonus=" + customer_bonus;
+	str = str + "&final_total=" + final_total;
+	str = str + "&customer_give=" + customer_give;
+	str = str + "&give_customer=" + give_customer;
+	str = str + "&id_search_shop=" + id_search_shop;
+	str = str + "&id_search_user=" + id_search_user;
 
 	return processUrlStringEncode(str);
 }
