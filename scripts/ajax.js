@@ -1535,11 +1535,15 @@ function resetHiddenFundId() {
 }
 function searchExportFull(issearch) {
 	searchExport(issearch, 'exportList', 'exportList');
+	
 	if ($('#exportReturn').css('display') != "none") {
 		searchExport(issearch, 'exportReturn', 'exportReturn');
 	}
 	if ($('#exportOrderList').css('display') != "none") {
 		searchExport(issearch, 'exportOrderList', 'exportOrderList');
+	}
+	if ($('#exportDebt').css('display') != "none") {
+		searchExport(issearch, 'exportDebt', 'exportDebt');	
 	}
 }
 function searchExport(issearch, divid, filename) {

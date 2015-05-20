@@ -122,6 +122,39 @@ class ExportService {
 		$this->commonService->generateJSDatatableComplex ( $result, customerdebtdatatable, 6, 'desc', $array_total );
 		$this->commonService->generateJqueryDatatable ( $result, customerdebtdatatable, $this->buildArrayDebtParameter() );
 	}
+	function listDebt($params) {
+		$qry = "select *,(t.total-t.paid) as debt from (SELECT
+				       t1.id,
+				       t1.tel,
+				       t1.name,
+				       (select max(t4.date) from export_facture t4 where t4.customer_id = t1.id) as date,
+				       sum((t3.quantity-t3.re_qty)*t3.export_price) as total,
+				       (select sum(amount) from customer_paid t4 where t4.customer_id = t1.id) AS paid
+				FROM   customer t1,
+				       export_facture t2,
+				       export_facture_product t3
+				WHERE  t1.id = t2.customer_id
+				       AND t2.code = t3.export_facture_code
+				       and t1.tel not like '%aaaaaaa%' group by t1.id) t where (t.total-t.paid) > 0 ";
+		
+		if($params['search_date_from'] != ''){
+			$qry = $qry." and date >= '".$params['search_date_from']."'";
+		}
+		if($params['search_date_to'] != ''){
+			$qry = $qry." and date <= '".$params['search_date_to']."'";
+		}
+		
+		$qry = $qry . "order by date desc";
+//		echo $qry;
+		$result = mysql_query ( $qry, $this->connection );
+		$array_total = array (
+				3 => "Total",
+				4 => "Paid",
+				5 => "Debt"
+		);
+		$this->commonService->generateJSDatatableComplex ( $result, customerdebtdatatable, 6, 'desc', $array_total );
+		$this->commonService->generateJqueryDatatable ( $result, customerdebtdatatable, $this->buildArrayDebtParameter() );
+	}
 	function buildArrayDebtParameter() {
 		return array (
 				"counter_colum" => "No",
@@ -168,6 +201,7 @@ and t4.code = t1.product_code and datediff(now(),t1.re_date) <= ".$_SESSION['nbr
 		}
 		
 		$qry = $qry . "order by t1.re_date desc";
+//		echo $qry;
 		$result = mysql_query ( $qry, $this->connection );
 		$array_total = array (
 				3 => "Total return",
@@ -244,7 +278,7 @@ and t4.code = t1.product_code and datediff(now(),t1.re_date) <= ".$_SESSION['nbr
 		}
 		
 		$qry = $qry . " ORDER  BY diff DESC, t1.status";
-		echo $qry;
+//		echo $qry;
 		$result = mysql_query ( $qry, $this->connection );
 		$array_total = array (
 				2 => "Quantity"
@@ -306,6 +340,12 @@ and t4.code = t1.product_code and datediff(now(),t1.re_date) <= ".$_SESSION['nbr
 		and t4.id = t2.customer_id
 		and t5.id = t2.shop_id ";
 		
+		if($params['search_price_from'] != ''){
+			$qry = $qry." and t1.export_price >= '".$params['search_price_from']."'";
+		}
+		if($params['search_price_to'] != ''){
+			$qry = $qry." and t1.export_price <= '".$params['search_price_to']."'";
+		}
 		if($params['search_date_from'] != ''){
 			$qry = $qry." and t2.date >= '".$params['search_date_from']."'";
 		}
@@ -314,6 +354,21 @@ and t4.code = t1.product_code and datediff(now(),t1.re_date) <= ".$_SESSION['nbr
 		}
 		if($params['search_customer_name'] != ''){
 			$qry = $qry." and t4.name like '%".$params['search_customer_name']."%'";
+		}
+		if($params['search_customer_tel'] != ''){
+			$qry = $qry." and t4.tel like '%".$params['search_customer_tel']."%'";
+		}
+		if($params['search_product_code'] != ''){
+			$qry = $qry." and t3.code like '%".$params['search_product_code']."%'";
+		}
+		if($params['search_product_name'] != ''){
+			$qry = $qry." and t3.name like '%".$params['search_product_name']."%'";
+		}
+		if($params['id_search_shop'] != ''){
+			$qry = $qry." and t5.id = '".$params['id_search_shop']."'";
+		}
+		if($params['id_search_user'] != ''){
+			$qry = $qry." and t6.id = '".$params['id_search_user']."'";
 		}
 //		echo $qry;
 		if($_REQUEST['isAdminField'] != '1') {
