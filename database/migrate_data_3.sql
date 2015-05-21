@@ -201,4 +201,5 @@ insert into `configuration`(`name`,`value`) values
 ('default_number_line_spend','7'),
 ('listExportDefault_nbr_day_limit','2'),
 ('nbr_day_default_export_returned','2'),
+('default_nbr_days_load_export','10'),
 ('sale_all_taux','10');
