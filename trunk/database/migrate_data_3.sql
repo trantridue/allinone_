@@ -6,6 +6,7 @@ truncate configuration;
 truncate customer_reservation_histo;
 truncate customer_paid;
 truncate export_facture_product;
+truncate export_facture_trace;
 truncate export_facture;
 truncate table spend;
 truncate table money_inout;
@@ -190,7 +191,15 @@ update  `customer` set isboss = 1 where tel in ('0979355285','0936496833','09668
 update customer_paid t1
 set t1.amount = (t1.amount - (SELECT t2.amount FROM `zabuzach_store`.`customer_debt` t2 where t2.status = 'P' and t2.customers_id = t1.customer_id))
 where t1.customer_id in (SELECT customers_id FROM `zabuzach_store`.`customer_debt` where status = 'P');
-
+#export_trace
+truncate export_facture_trace;
+insert into export_facture_trace (id,export_facture_code,total,debt,reserved,`order`,customer_give,give_customer,bonus_used,return_amount,
+shop_id,amount,customer_id)
+select t1.id,t1.export_facture_code,t1.total_facture,t1.old_debt,t1.ordered,t1.neworder,t1.customer_paid,t1.shop_repaid,
+t1.coupon,t1.returned,
+(select shops_id  FROM `zabuzach_store`.`export_facture` where code = t1.export_facture_code),
+(t1.final_total+t1.coupon),
+(select customers_id  FROM `zabuzach_store`.`export_facture` where code = t1.export_facture_code) from `zabuzach_store`.`export_trace` t1;
 #
 insert into `configuration`(`name`,`value`) values
 ('import_number_row','15'),

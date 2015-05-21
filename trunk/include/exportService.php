@@ -106,14 +106,15 @@ class ExportService {
 				       t1.name,
 				       (select max(t4.date) from export_facture t4 where t4.customer_id = t1.id) as date,
 				       sum((t3.quantity-t3.re_qty)*t3.export_price) as total,
-				       (select sum(amount) from customer_paid t4 where t4.customer_id = t1.id) AS paid
+				       (select sum(amount) from export_facture_trace t4 where t4.customer_id = t1.id) AS paid
 				FROM   customer t1,
 				       export_facture t2,
 				       export_facture_product t3
 				WHERE  t1.id = t2.customer_id
 				       AND t2.code = t3.export_facture_code
-				       and t1.tel not like '%aaaaaaa%' group by t1.id) t where (t.total-t.paid) > 0 order by date desc";
+				       and t1.tel not like '%aaaaaaa%' group by t1.id) t where (t.total-t.paid) > 0 order by date desc limit 100";
 		$result = mysql_query ( $qry, $this->connection );
+		echo $qry;
 		$array_total = array (
 				3 => "Total",
 				4 => "Paid",
@@ -129,7 +130,7 @@ class ExportService {
 				       t1.name,
 				       (select max(t4.date) from export_facture t4 where t4.customer_id = t1.id) as date,
 				       sum((t3.quantity-t3.re_qty)*t3.export_price) as total,
-				       (select sum(amount) from customer_paid t4 where t4.customer_id = t1.id) AS paid
+				       (select sum(amount) from export_facture_trace t4 where t4.customer_id = t1.id) AS paid
 				FROM   customer t1,
 				       export_facture t2,
 				       export_facture_product t3
