@@ -373,8 +373,8 @@ and t4.code = t1.product_code and datediff(now(),t1.re_date) <= ".$_SESSION['nbr
 //		echo $qry;
 		if($_REQUEST['isAdminField'] != '1') {
 			echo "<div style='text-align:center;background-color:pink;padding-bottom:5px;font-weight:bold;font-style:italic;'>".
-			"(Bạn chỉ xem được các sản phầm đã bán từ tối đa ".default_nbr_days_load_export." ngày gần đây!)</div>";
-			$qry = $qry." and datediff(now(),t2.date) < ". default_nbr_days_load_export;
+			"(Bạn chỉ xem được các sản phầm đã bán từ tối đa ".$params['default_nbr_days_load_export']." ngày gần đây!)</div>";
+			$qry = $qry." and datediff(now(),t2.date) < ". $params['default_nbr_days_load_export'];
 		}
 		$qry = $qry . "  order by date desc";
 		$result = mysql_query ( $qry, $this->connection );
@@ -419,6 +419,7 @@ and t4.code = t1.product_code and datediff(now(),t1.re_date) <= ".$_SESSION['nbr
 			'search_date_from' 			=> $_REQUEST['search_date_from'],
 			'search_date_to' 			=> $_REQUEST['search_date_to'],
 			'id_search_shop' 			=> $_REQUEST['id_search_shop'],
+			'default_nbr_days_load_export' 			=> $_REQUEST['default_nbr_days_load_export'],
 			'id_search_user' 			=> $_REQUEST['id_search_user']
 		);
 	}

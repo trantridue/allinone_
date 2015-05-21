@@ -1,4 +1,6 @@
 <form id="exportSearchCriteria">
+<?php session_start();?>
+<input type="hidden" id="default_nbr_days_load_export" value="<?php echo $_SESSION['default_nbr_days_load_export'];?>">
 <table class="searchcriteriatable">
 <tr>
 <td align="right">Tên Khách : </td>

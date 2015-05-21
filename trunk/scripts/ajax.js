@@ -1594,6 +1594,7 @@ function getExportSearchCriteria(issearch) {
 	var search_price_from = "&search_price_from="
 			+ $('#search_price_from').val();
 	var search_price_to = "&search_price_to=" + $('#search_price_to').val();
+	var default_nbr_days_load_export = "&default_nbr_days_load_export=" + $('#default_nbr_days_load_export').val();
 	var search_customer_tel = "&search_customer_tel="
 			+ $('#search_customer_tel').val();
 
@@ -1607,6 +1608,7 @@ function getExportSearchCriteria(issearch) {
 	str = str + search_customer_name + search_product_code + search_price_from
 			+ search_price_to + search_customer_tel + search_product_name
 			+ search_date_from + search_date_to + id_search_shop
+			+ default_nbr_days_load_export
 			+ id_search_user + isAdminField;
 	return processUrlStringEncode(str);
 }
