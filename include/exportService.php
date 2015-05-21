@@ -114,7 +114,7 @@ class ExportService {
 				       AND t2.code = t3.export_facture_code
 				       and t1.tel not like '%aaaaaaa%' group by t1.id) t where (t.total-t.paid) > 0 order by date desc limit 100";
 		$result = mysql_query ( $qry, $this->connection );
-		echo $qry;
+//		echo $qry;
 		$array_total = array (
 				3 => "Total",
 				4 => "Paid",

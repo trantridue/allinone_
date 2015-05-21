@@ -201,6 +201,30 @@ t1.coupon,t1.returned,
 (t1.total_facture-t1.returned+t1.coupon),
 (select customers_id  FROM `zabuzach_store`.`export_facture` where code = t1.export_facture_code) from `zabuzach_store`.`export_trace` t1;
 #
+/* update export_facture_trace t1 set t1.amount = (t1.amount + ifnull((select debt from (SELECT code,
+       ( t.total - t.paid ) AS debt
+FROM   (SELECT t1.id,
+               t1.tel,
+               t1.NAME,
+               (SELECT Max(t4.date)
+                FROM   export_facture t4
+                WHERE  t4.customer_id = t1.id)                    AS date,
+                (SELECT Max(t4.code)
+                FROM   export_facture t4
+                WHERE  t4.customer_id = t1.id)                    AS code,
+               Sum(( t3.quantity - t3.re_qty ) * t3.export_price) AS total,
+               (SELECT Sum(amount)
+                FROM   export_facture_trace t4
+                WHERE  t4.customer_id = t1.id)                    AS paid
+        FROM   customer t1,
+               export_facture t2,
+               export_facture_product t3
+        WHERE  t1.id = t2.customer_id
+               AND t2.code = t3.export_facture_code 
+               AND t1.tel NOT LIKE '%aaaaaaa%'
+        GROUP  BY t1.id) t
+WHERE  ( t.total - t.paid ) > 0) t2 where t2.code = t1.export_facture_code),0));
+*/
 insert into `configuration`(`name`,`value`) values
 ('import_number_row','15'),
 ('export_number_row','9'),
