@@ -1250,15 +1250,15 @@ function getUpdateFundInformation() {
 }
 /* EXPORT */
 function saveExport() {
-	// alert('ass');
 	var urls = 'modules/export/saveExport.php' + getExportProductParameter();
 	alert(urls);
 	$.ajax( {
 		url : urls,
 		success : function(data) {
+		alert(data);
 			if (data == 'success') {
 				operationSuccess();
-				$('#leftExportFormId')[0].reset();
+				location.reload();
 			} else {
 				operationError();
 			}
@@ -1267,10 +1267,12 @@ function saveExport() {
 }
 function getExportProductParameter() {
 	var str = '';
+	var export_number_row = parseInt($('#export_number_row').val());
 	var customer_tel = $('#customer_tel').val();
 	var export_date = $('#export_date').val();
 	var customer_name = $('#customer_name').val();
 	var id_export_shop = $('#id_export_shop').val();
+	var export_date = $('#export_date').val();
 	var customer_description = $('#customer_description').val();
 	
 	var isBoss = $('#isBoss').is(":checked");
@@ -1285,7 +1287,6 @@ function getExportProductParameter() {
 	var customer_reserver_more = $('#customer_reserver_more').val();
 	var customer_give = $('#customer_give').val();
 	var give_customer = $('#give_customer').val();
-	var id_search_shop = $('#id_search_shop').val();
 	var id_search_user = $('#id_search_user').val();
 	
 	str = str + "?customer_tel=" + customer_tel;
@@ -1304,9 +1305,24 @@ function getExportProductParameter() {
 	str = str + "&final_total=" + final_total;
 	str = str + "&customer_give=" + customer_give;
 	str = str + "&give_customer=" + give_customer;
-	str = str + "&id_search_shop=" + id_search_shop;
+	str = str + "&export_date=" + export_date;
 	str = str + "&id_search_user=" + id_search_user;
-
+	str = str + "&export_number_row=" + export_number_row;
+	
+	for(var i =1;i<=export_number_row;i++) {
+		var code_field = 'productcode_' + i;
+		var qty_field = 'quantity_' + i;
+		var price_field = 'exportprice_' + i;
+		var code_val = $('#'+code_field).val();
+		var qty_val = $('#'+qty_field).val();
+		var price_val = $('#'+price_field).val();
+		if(code_val !='') {
+			str = str + "&"+code_field+"=" + code_val;
+			str = str + "&"+qty_field+"=" + qty_val;
+			str = str + "&"+price_field+"=" + price_val;
+		}
+	}
+	
 	return processUrlStringEncode(str);
 }
 function calculateExportForm() {

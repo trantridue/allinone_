@@ -69,13 +69,51 @@ class ExportService {
 	
 		$paramsArray['customer_tel'] 		= $_REQUEST['customer_tel'];
 		$paramsArray['customer_name'] 			= $_REQUEST['customer_name'];
+		$paramsArray['export_date'] 			= $_REQUEST['export_date'];
+		$paramsArray['id_export_shop'] 	= $_REQUEST['id_export_shop'];
+		$paramsArray['customer_description'] 	= $_REQUEST['customer_description'];
+		$paramsArray['isBoss'] 	= $_REQUEST['isBoss'];
+		$paramsArray['useBonus'] 			= $_REQUEST['useBonus'];
+		$paramsArray['byCard'] 			= $_REQUEST['byCard'];
+	
+		return $paramsArray;
+	}
+	function getExportParameters() {
+		$paramsArray = array();
+	
+		$paramsArray['customer_tel'] 		= $_REQUEST['customer_tel'];
+		$paramsArray['customer_name'] 			= $_REQUEST['customer_name'];
 		$paramsArray['order_product_code'] 			= $_REQUEST['order_product_code'];
 		$paramsArray['order_size'] 	= $_REQUEST['order_size'];
 		$paramsArray['order_qty'] 	= $_REQUEST['order_qty'];
 		$paramsArray['order_color'] 	= $_REQUEST['order_color'];
 		$paramsArray['order_description'] 			= $_REQUEST['order_description'];
-	
-		return $paramsArray;
+		$paramsArray['customer_debt'] 		= $_REQUEST['customer_debt'];
+		$paramsArray['customer_reserved'] 		= $_REQUEST['customer_reserved'];
+		$paramsArray['customer_returned'] 		= $_REQUEST['customer_returned'];
+		$paramsArray['total_facture'] 		= $_REQUEST['total_facture'];
+		$paramsArray['customer_bonus'] 		= $_REQUEST['customer_bonus'];
+		$paramsArray['final_total'] 		= $_REQUEST['final_total'];
+		$paramsArray['customer_reserver_more'] 		= $_REQUEST['customer_reserver_more'];
+		$paramsArray['customer_give'] 		= $_REQUEST['customer_give'];
+		$paramsArray['give_customer'] 		= $_REQUEST['give_customer'];
+		$paramsArray['id_search_user'] 		= $_REQUEST['id_search_user'];
+		$paramsArray['export_number_row'] 		= $_REQUEST['export_number_row'];
+		for($i =1;$i<=$_REQUEST['export_number_row'];$i++) {
+			$code_field = 'productcode_' . $i;
+			$qty_field = 'quantity_' . $i;
+			$price_field = 'exportprice_' . $i;
+			$code_val = $_REQUEST[$code_field];
+			$qty_val = $_REQUEST[$qty_val];
+			$price_val = $_REQUEST[$price_val];
+			if($code_val !='') {
+				$paramsArray[$code_field] = $code_val;
+				$paramsArray[$qty_field] = $qty_val;
+				$paramsArray[$price_field] = $price_val;
+			}
+		}
+//		echo sizeof($paramsArray);
+	return $paramsArray;
 	}
 	function saveOrder($paramsArray){
 		session_start ();
@@ -89,6 +127,53 @@ class ExportService {
 				.date('Y-m-d H:i:s')."','"
 				.$paramsArray['order_description']."',"
 				.$paramsArray['order_qty'].")";
+// 		echo $qry;
+		if(mysql_query ( $qry, $this->connection ) != null){
+			mysql_query ( "COMMIT" );
+			echo 'success';
+		}else {
+			mysql_query ( "ROLLBACK" );
+			echo 'error';
+		}
+	}
+	function getNextFactureCodeBydate($maxFactureCode) {
+		$str1 = substr ( $maxFactureCode, 0, 8 );
+		$str2 = substr ( $maxFactureCode, 9, 3 );
+		return $str1 . "_" . displayTowDigit ( $str2 + 1 );
+	}
+	function getExportFactureCodeByDate($date) {
+		$query = "select max(code) as maxexportfacturecode from export_facture where DATE_FORMAT(date,'%Y-%m-%d')='".$date."' limit 1";
+		$result = mysql_query ( $query ) or die ( mysql_error () );
+		$rows = mysql_fetch_array ( $result );
+		if ($rows ['maxexportfacturecode']){
+			return $this->getNextFactureCodeBydate ( $rows ['maxexportfacturecode'] );		
+		}
+		else
+			return $this->commonService->getCurrentDateYYYYMMDD () . "_001";
+	}
+	function getExportFactureCode() {
+		$query = "select max(code) as maxexportfacturecode from export_facture limit 1";
+		$result = mysql_query ( $query ) or die ( mysql_error () );
+		$rows = mysql_fetch_array ( $result );
+		if ($rows ['maxexportfacturecode']){
+			return $this->commonService->getNextFactureCode ( $rows ['maxexportfacturecode'] );
+		}
+		else
+			return $this->commonService->getCurrentDateYYYYMMDD () . "_001";
+	}
+	function saveExport($paramsArray){
+		session_start ();
+		mysql_query ( "BEGIN" );
+		echo $this->getExportFactureCode();
+//		$qry = "insert into customer_order (customer_tel,customer_name,product_code,color,size,date,description,quantity) values ('"
+//				.$paramsArray['customer_tel']."','"
+//				.$paramsArray['customer_name']."','"
+//				.$paramsArray['order_product_code']."','"
+//				.$paramsArray['order_color']."','"
+//				.$paramsArray['order_size']."','"
+//				.date('Y-m-d H:i:s')."','"
+//				.$paramsArray['order_description']."',"
+//				.$paramsArray['order_qty'].")";
 // 		echo $qry;
 		if(mysql_query ( $qry, $this->connection ) != null){
 			mysql_query ( "COMMIT" );
