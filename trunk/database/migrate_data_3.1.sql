@@ -1,10 +1,10 @@
 ﻿#prepare table shop
 use allinone;
 
-truncate customer_bonus_used;
+#truncate customer_bonus_used;
 truncate configuration;
 truncate customer_reservation_histo;
-truncate customer_paid;
+#truncate customer_paid;
 truncate export_facture_product;
 truncate export_facture_trace;
 truncate export_facture;
@@ -167,30 +167,31 @@ insert into export_facture(code,customer_id,shop_id,`date`,description,user_id) 
 insert into export_facture_product(id,product_code,quantity,export_price,export_facture_code,re_qty,re_date,re_description)
 select id,products_code,quantity,price,export_facture_code,qty_return,return_date,CONVERT(CONVERT(CONVERT(description USING latin1) USING binary) USING utf8) from `zabuzach_store`.`export`;
 
-truncate table customer_paid;
+#truncate table customer_paid;
 truncate table customer_reservation_histo;
 
-insert into  `customer_paid`(customer_id,amount,`date`,description,shop_id)
+/*insert into  `customer_paid`(customer_id,amount,`date`,description,shop_id)
 select t1.id as customer_id,sum(t3.price*(t3.quantity-t3.qty_return)) as amount,t2.date,CONVERT(CONVERT(CONVERT(t2.description USING latin1) USING binary) USING utf8),t2.shops_id
 from zabuzach_store.customers t1,zabuzach_store.export_facture t2, zabuzach_store.export t3
 where t1.id = t2.customers_id
 and t2.code = t3.export_facture_code group by t1.id;
-
+*/
 insert into customer_reservation_histo(id,customer_id,description,amount,status,date,complete_date)
 select id,customers_id,description,amount,status,date,date_complete FROM zabuzach_store.customer_order;
 
 update customer_reservation_histo set status = 'Y' where status ='C';
 update customer_reservation_histo set status = 'N' where status ='P';
 
-
+/*
 insert into `customer_bonus_used` (id,customer_id,amount,date)
 select id,customer_id,total_sale,date FROM `zabuzach_store`.`customer_sale_histo`;
-
+*/
 update  `customer` set isboss = 1 where tel in ('0979355285','0936496833','0966807709');
 
-update customer_paid t1
+/*update customer_paid t1
 set t1.amount = (t1.amount - (SELECT t2.amount FROM `zabuzach_store`.`customer_debt` t2 where t2.status = 'P' and t2.customers_id = t1.customer_id))
 where t1.customer_id in (SELECT customers_id FROM `zabuzach_store`.`customer_debt` where status = 'P');
+*/
 #export_trace
 truncate export_facture_trace;
 insert into export_facture_trace (id,export_facture_code,total,debt,reserved,`order`,customer_give,give_customer,bonus_used,return_amount,
