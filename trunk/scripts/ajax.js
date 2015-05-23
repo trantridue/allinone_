@@ -399,11 +399,9 @@ function editcustomer(str) {
 }
 function deletecustomer(customerid) {
 		var deletecustomer = 'modules/customer/deletecustomer.php?customerid=' + customerid;
-		alert(customerid);
 		$.ajax( {
 			url : deletecustomer,
 			success : function(data) {
-//			alert(data);
 			var actionType = "delete";
 			customerpostaction(data, actionType);
 			}
@@ -1244,7 +1242,8 @@ function saveExport() {
 	$.ajax( {
 		url : urls,
 		success : function(data) {
-		alert(data);
+//		alert(data);
+		$("#exportRight").html(data);
 			if (data == 'success') {
 				operationSuccess();
 				location.reload();
@@ -1566,8 +1565,8 @@ function updateListProductAndTotalReturn() {
 			var export_facture_product_id = $('#export_facture_product_id_' + i)
 					.val();
 			totalReturn = totalReturn + qty_return * export_price;
-			lstReturnId = lstReturnId + export_facture_product_id + "-";
-			lstReturnQty = lstReturnQty + qty_return + "-";
+			lstReturnId = lstReturnId + export_facture_product_id + ";";
+			lstReturnQty = lstReturnQty + qty_return + ";";
 		}
 	}
 	$('#customer_returned').html(totalReturn);
