@@ -169,7 +169,7 @@ class InoutService {
 				"description" => "Description",
 				"date" => "Date",
 				"id,description,date,shop_id,user_id,amount,type" => "Edit",
-				"id" => "Delete",
+				"id,deletemoney_inout" => "Delete",
 				"user" => "User",
 				"shop" => "Shop"
 		);

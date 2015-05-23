@@ -192,7 +192,7 @@ class FundService {
 				"ratio" => "Ratio",
 				"username" => "User",
 				"id,fund_id,user_id,amount,description,date,ratio" => "Edit",
-				"id" => "Delete"
+				"id,deletefund_change_histo" => "Delete"
 		);
 	}
 	function getInputParameters() {

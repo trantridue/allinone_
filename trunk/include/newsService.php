@@ -85,7 +85,7 @@ class NewsService {
 					"shop" => "Shop",
 					"displaydate" => "Date",
 					"id,description,date,shop,username,shop_id,user_id" => "Edit",
-					"id" => "Delete"
+					"id,deletenews" => "Delete"
 			);
 		} else {
 			return array (

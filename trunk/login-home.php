@@ -37,6 +37,8 @@ $_SESSION ['expire1'] = $_SESSION ['start1'] + timeout;
 <script src="scripts/jquery-ui.js"></script>
 <script src="scripts/ajax.js"></script>
 <script src="scripts/calculator.js"></script>
+<script src="scripts/jquery.confirm.js"></script>
+<link rel="stylesheet" type="text/css" href="style/jquery.confirm.css" />
 </head>
 <body>
 <div id='main_page_wrap'>

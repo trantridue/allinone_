@@ -84,3 +84,27 @@ function toggleImportSearchCriteria(){
 //	alert($('#isadvancedsearch').val());
 }
 
+$(document).ready(function(){
+	$('.deleteIcon').click(function(){
+		var elem = $(this).closest('.item');
+		var elemtxt = $(this).find('input[type=hidden],textarea,select').filter(':hidden:first').val();
+		$.confirm({
+			'title'		: 'Delete Confirmation',
+			'message'	: 'You are about to delete this item. <br />It cannot be restored at a later time! Continue?',
+			'buttons'	: {
+				'Yes'	: {
+					'class'	: 'blue',
+					'action': function(){
+						eval(elemtxt);
+					}
+				},
+				'No'	: {
+					'class'	: 'gray',
+					'action': function(){}	
+				}
+			}
+		});
+		
+	});
+	
+});

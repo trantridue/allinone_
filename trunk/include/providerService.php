@@ -82,7 +82,7 @@ class ProviderService {
 				// "description" => "Description",
 				"date" => "Modify date",
 				"id,name,tel,address,description" => "Edit",
-				"id" => "Delete" 
+				"id,deleteprovider" => "Delete" 
 		);
 		$array_total = array (
 				1 => "Tổng nợ",
@@ -163,7 +163,7 @@ class ProviderService {
 		$qry = "select t1.*,date_format(t1.date,'%Y/%m/%d_%H:%i:%s') as date1 from provider_paid t1 where t1.provider_id = " . $provider_id;
 		$result = mysql_query ( $qry, $this->connection );
 		$array_column = array (
-				"id,amount" => "Delete",
+				"id,deletepaidhisto,amount" => "Delete",
 				"amount" => "amount",
 				"date1" => "Date",
 				"description" => "Description" 

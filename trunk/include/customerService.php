@@ -41,7 +41,10 @@ class CustomerService {
 	function listCustomer($name) {
 		$qry = "SELECT *, id as iden FROM customer where name like '%" . $name . "%' order by id desc limit 100";
 		$result = mysql_query ( $qry, $this->connection );
-		$array_column = array ("iden" => "Identication","name" => "Name", "tel" => "Tel",  "description" => "Description","date" => "Modify date", "id,name,tel,description" => "Edit", "id" => "Delete" );
+		$array_column = array ("iden" => "Identication","name" => "Name", 
+		"tel" => "Tel",  "description" => "Description",
+		"date" => "Modify date", "id,name,tel,description" => "Edit", 
+		"id,deletecustomer" => "Delete" );
 		$this->commonService->generateJSDatatableSimple ( customerdatatable, 0, 'desc' );
 		$this->commonService->generateJqueryDatatable ( $result, customerdatatable, $array_column );
 	}
