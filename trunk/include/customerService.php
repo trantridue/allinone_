@@ -68,7 +68,7 @@ class CustomerService {
 	}
 	function getJsonCustomerTel($term) {
 		session_start();
-		$qry = "select ta.*,(ta.totalbuy - ta.paid + ta.reserved) as debt,floor((ta.totalbuy-ta.bonus_used)/".$_SESSION['bonus_ratio'].") as bonus from (SELECT t1.isboss,t1.tel,t1.name,t1.id
+		$qry = "select ta.*,(ta.totalbuy - ta.paid) as debt,floor((ta.totalbuy-ta.bonus_used)/".$_SESSION['bonus_ratio'].") as bonus from (SELECT t1.isboss,t1.tel,t1.name,t1.id
 			,ifnull((select sum((quantity-re_qty)*export_price) from export_facture_product where export_facture_code in (select code from export_facture where customer_id=t1.id)),0) totalbuy
 			,ifnull((select sum(amount) from export_facture_trace where customer_id = t1.id),0) as paid
 			,ifnull((select sum(amount) from customer_reservation_histo where customer_id = t1.id and status='N'),0) as reserved
