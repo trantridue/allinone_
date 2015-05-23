@@ -79,6 +79,7 @@ class ExportService {
 		$paramsArray = array();
 	
 		$paramsArray['customer_tel'] 		= $_REQUEST['customer_tel'];
+		$paramsArray['customer_id'] 		= $_REQUEST['customer_id'];
 		$paramsArray['customer_name'] 			= $_REQUEST['customer_name'];
 		$paramsArray['export_date'] 			= $_REQUEST['export_date'];
 		$paramsArray['id_export_shop'] 	= $_REQUEST['id_export_shop'];
@@ -139,7 +140,7 @@ class ExportService {
 	function getNextFactureCodeBydate($maxFactureCode) {
 		$str1 = substr ( $maxFactureCode, 0, 8 );
 		$str2 = substr ( $maxFactureCode, 9, 3 );
-		return $str1 . "_" . displayTowDigit ( $str2 + 1 );
+		return $str1 . "_" . $this->commonService->displayTowDigit ( $str2 + 1 );
 	}
 	function getExportFactureCodeByDate($date) {
 		$query = "select max(code) as maxexportfacturecode from export_facture where DATE_FORMAT(date,'%Y-%m-%d')='".$date."' limit 1";
@@ -164,27 +165,66 @@ class ExportService {
 	function saveExport($paramsArray){
 		session_start ();
 		mysql_query ( "BEGIN" );
-		echo $this->getExportFactureCode();
-		echo $paramsArray['listProductReturnId'];
-//		$qry = "insert into customer_order (customer_tel,customer_name,product_code,color,size,date,description,quantity) values ('"
-//				.$paramsArray['customer_tel']."','"
-//				.$paramsArray['customer_name']."','"
-//				.$paramsArray['order_product_code']."','"
-//				.$paramsArray['order_color']."','"
-//				.$paramsArray['order_size']."','"
-//				.date('Y-m-d H:i:s')."','"
-//				.$paramsArray['order_description']."',"
-//				.$paramsArray['order_qty'].")";
-// 		echo $qry;
-		if(mysql_query ( $qry, $this->connection ) != null){
-			mysql_query ( "COMMIT" );
-			echo 'success';
-		}else {
+		$flag = true;
+		// 1. Get export facture code
+		$export_facture_code = $this->getExportFactureCode();
+		// 2. get current date time
+		$datetime = $this->commonService->getFullDateTime ();
+		if ($paramsArray['export_date'] != '') {
+			$export_facture_code = $this->getExportFactureCodeByDate($paramsArray['export_date']);
+			$datetime = $paramsArray['export_date'].' '.date('H:i:s');
+		}
+		//3. Get shop id
+		$shopid = $_SESSION ['id_of_shop'];
+		if ($paramsArray['id_export_shop'] != '') {
+			$shopid = $paramsArray['id_export_shop'];
+		}
+		//4. Get employee id
+		$userid = $_SESSION ['id_of_user'];
+		if ($paramsArray['id_search_user'] != '') {
+			$userid = $paramsArray['id_search_user'];
+		}
+		//5. Get customer ID
+		$customer_id = $this->getCustomerId($paramsArray,$datetime);
+		
+//		echo $datetime."-"
+//		.$export_facture_cod."-"
+//		.$shopid."-"
+//		.$customer_id."-"
+//		.$userid."-";
+		
+		//6. Insert export_facture
+		$qryExport_facture = "insert into export_facture(code,customer_id,shop_id,description,date,user_id) values ('".$export_facture_code
+		."',".$customer_id.",".$shopid.",'".$paramsArray['customer_description']."','".$datetime."',".$userid.")";
+		
+		$flag = $flag && (mysql_query ( $qryExport_facture, $this->connection ) != null);
+		
+		if ($flag == false) {
 			mysql_query ( "ROLLBACK" );
-			echo 'error';
+			echo "error";
+		} else {
+			mysql_query ( "COMMIT" );
+			echo "success";
 		}
 	}
-	
+	function getCustomerId($paramsArray,$datetime){
+		$cus_id = '';
+		if($paramsArray['customer_id'] != null) {
+			return $paramsArray['customer_id'];
+		} else { 
+			$qry = "insert into customer(name,tel,date,created_date) values ('" . $paramsArray['customer_name'] 
+			. "','".$paramsArray['customer_tel']."','"
+			.$datetime."','".$datetime."')";
+			
+			if(mysql_query ( $qry, $this->connection ) != null){
+				$cus_id = mysql_insert_id ();
+				mysql_query ( "COMMIT" );
+			} else {
+				mysql_query ( "ROLLBACK" );
+			}
+			return $cus_id;
+		}
+	}
 	function listDebtDefault() {
 		$qry = "select *,(t.total-t.paid) as debt from (SELECT
 				       t1.id,

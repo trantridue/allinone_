@@ -415,6 +415,7 @@ function displayCodeProduct($code) {
 		return strval ( $code );
 	}
 }
+
 function getNextFactureCode($maxFactureCode) {
 	$str1 = substr ( $maxFactureCode, 0, 8 );
 	$str2 = substr ( $maxFactureCode, 9, 3 );

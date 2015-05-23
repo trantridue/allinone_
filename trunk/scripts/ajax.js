@@ -1251,7 +1251,7 @@ function getUpdateFundInformation() {
 /* EXPORT */
 function saveExport() {
 	var urls = 'modules/export/saveExport.php' + getExportProductParameter();
-	alert(urls);
+//	alert(urls);
 	$.ajax( {
 		url : urls,
 		success : function(data) {
@@ -1269,6 +1269,7 @@ function getExportProductParameter() {
 	var str = '';
 	var export_number_row = parseInt($('#export_number_row').val());
 	var customer_tel = $('#customer_tel').val();
+	var customer_id = $('#customer_id').val();
 	var export_date = $('#export_date').val();
 	var customer_name = $('#customer_name').val();
 	var id_export_shop = $('#id_export_shop').val();
@@ -1292,6 +1293,7 @@ function getExportProductParameter() {
 	var listProductReturnQty = $('#listProductReturnQty').val();
 	
 	str = str + "?customer_tel=" + customer_tel;
+	str = str + "&customer_id=" + customer_id;
 	str = str + "&export_date=" + export_date;
 	str = str + "&customer_name=" + customer_name;
 	str = str + "&id_export_shop=" + id_export_shop;
