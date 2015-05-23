@@ -383,7 +383,7 @@ function generateJqueryDatatableExport($result, $datatable_id, $array_column) {
 				}else if ($value == 'qtyre'){
 					echo "<td><input type='number' style='width:30px;height:13px;display:none;margin-top:1px;' value='"
 					.$rows ['quantity']."' id='quantity_return_".$counter_colum."' onclick='changeReturnQty(".$counter_colum.")'  onkeyup='changeReturnQty(".$counter_colum.")'>
-					<input type='hidden' value='".$rows ['quantity']."' id='quantity_".$counter_colum."'>
+					<input type='hidden' value='".$rows ['quantity']."' id='quantity_re_".$counter_colum."'>
 					<input type='hidden' value='".$rows ['export_price']."' id='export_price_".$counter_colum."'>
 					<input type='hidden' value='".$rows ['id']."' id='export_facture_product_id_".$counter_colum."'></td>";
 				} else {
