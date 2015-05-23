@@ -208,7 +208,10 @@ class ExportService {
 		}
 	}
 	function getCustomerId($paramsArray,$datetime){
-		$cus_id = '';
+		$cus_id = 1288;
+		if($paramsArray['customer_tel'] == '') {
+			return $cus_id;
+		}
 		if($paramsArray['customer_id'] != null) {
 			return $paramsArray['customer_id'];
 		} else { 
