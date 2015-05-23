@@ -105,15 +105,14 @@ class ExportService {
 			$qty_field = 'quantity_' . $i;
 			$price_field = 'exportprice_' . $i;
 			$code_val = $_REQUEST[$code_field];
-			$qty_val = $_REQUEST[$qty_val];
-			$price_val = $_REQUEST[$price_val];
+			$qty_val = $_REQUEST[$qty_field];
+			$price_val = $_REQUEST[$price_field];
 			if($code_val !='') {
 				$paramsArray[$code_field] = $code_val;
 				$paramsArray[$qty_field] = $qty_val;
 				$paramsArray[$price_field] = $price_val;
 			}
 		}
-//		echo sizeof($paramsArray);
 	return $paramsArray;
 	}
 	function saveOrder($paramsArray){
@@ -191,22 +190,22 @@ class ExportService {
 			$paramsArray['customer_bonus'] = 0;
 		}
 		if($paramsArray['give_customer'] <=0 ){
-			$paramsArray['customer_paid_amount'] = $paramsArray['customer_give'];
+			$paramsArray['customer_paid_amount'] = $paramsArray['customer_give'] + $paramsArray['customer_bonus'];
 		} else {
-			$paramsArray['customer_paid_amount'] = ($paramsArray['customer_give']-$paramsArray['give_customer']);
+			$paramsArray['customer_paid_amount'] = $paramsArray['customer_give']-$paramsArray['give_customer'] + $paramsArray['customer_bonus'];
 		}
-		echo $paramsArray['customer_paid_amount'];
+//		echo $paramsArray['customer_paid_amount'];
 		//6. Insert export_facture
 		$qryExport_facture = "insert into export_facture(code,customer_id,shop_id,description,date,user_id) values ('".$export_facture_code
 		."',".$customer_id.",".$shopid.",'".$paramsArray['customer_description']."','".$datetime."',".$userid.")";
 		
-		// qry export facture trace
+		//7. Qry export facture trace
 		$qryExport_facture_trace = "insert into export_facture_trace(
 		export_facture_code,
 		total,
 		debt,
 		reserved,
-		order,
+		`order`,
 		customer_give,
 		give_customer,
 		bonus_used,
@@ -229,15 +228,53 @@ class ExportService {
 		,'".$customer_id."'
 		,'".$_SESSION['bonus_ratio']."')";
 		
+		//8. Export_facture_product
+		$qryExport_facture_product = "insert into export_facture_product (product_code,quantity,export_price,export_facture_code) values ";
+		$nbrRowExportReal = 0;
+		for($i =1;$i<=$paramsArray['export_number_row'];$i++) {
+			if($paramsArray['productcode_'.$i] != ''){
+				$nbrRowExportReal++;
+				$qryExport_facture_product = $qryExport_facture_product
+				. "('".$paramsArray['productcode_'.$i]."'
+				,".$paramsArray['quantity_'.$i]."
+				,".$paramsArray['exportprice_'.$i]."
+				,'".$export_facture_code."'),";
+			}
+		}
+		//9. Process return
+		//echo $paramsArray['listProductReturnId'];
+		$nbrLineReturn = 0;
+		$reIdList = array();
+		$reQtyList = array();
+		if($paramsArray['listProductReturnId'] != '') {
+			$reIdList = explode ( ';', substr ( $paramsArray['listProductReturnId'], 0, - 1 ) );
+			$reQtyList = explode ( ';', substr ( $paramsArray['listProductReturnQty'], 0, - 1 ) );
+			$nbrLineReturn = sizeof($reIdList);
+		}
+		
+		// insert db
+		$qryExport_facture_product = substr($qryExport_facture_product, 0, -1);
 		$flag = $flag && (mysql_query ( $qryExport_facture, $this->connection ) != null);
 		$flag = $flag && (mysql_query ( $qryExport_facture_trace, $this->connection ) != null);
+		if($nbrRowExportReal>0){
+			$flag = $flag && (mysql_query ( $qryExport_facture_product, $this->connection ) != null);
+		}
+		if($nbrLineReturn >0) {
+			for ($i=0;$i<$nbrLineReturn;$i++) {
+				$qryRe = "update export_facture_product set re_qty = ".$reQtyList[$i].",re_date='".$datetime."',re_description='".$paramsArray['customer_description']."' where id=".$reIdList[$i];
+				$flag = $flag && (mysql_query ( $qryRe, $this->connection ) != null);
+			}
+		}
 		
+		$this->commitOrRollback($flag);
+		echo "success";
+	}
+	function commitOrRollback($flag){
 		if ($flag == false) {
 			mysql_query ( "ROLLBACK" );
 			echo "error";
 		} else {
 			mysql_query ( "COMMIT" );
-			echo "success";
 		}
 	}
 	function getCustomerId($paramsArray,$datetime){
@@ -565,7 +602,7 @@ and t4.code = t1.product_code and datediff(now(),t1.re_date) <= ".$_SESSION['nbr
 				"export_price" => "PRI&nbsp;&nbsp;&nbsp;&nbsp;",
 				"export_price*quantity" => "complex",
 				"export_price*re_qty" => "complex",
-				"export_facture_code" => "MÃ_HÓA_ĐƠN&nbsp;&nbsp;",
+				"export_facture_code" => "MÃ_HÓA_ĐƠN",
 				"shop" => "Shop&nbsp;&nbsp;",
 				"date,username" => "Time,time",
 				"id,deleteExportFacture,export_facture_code" => "Delete"
