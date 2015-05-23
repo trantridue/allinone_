@@ -57,7 +57,7 @@ class UserService {
 				"shopname" => "Shop",
 				"description" => "Description",
 				"status" => "Status",
-				"id" => "Delete",
+				"id,deleteuser" => "Delete",
 				"password" => "hidden_field",
 				"shop_id*id" => "complex" 
 		);

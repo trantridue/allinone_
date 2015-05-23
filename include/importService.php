@@ -158,7 +158,20 @@ class ImportService {
 		return array (3 => "Số lượng", 8 => "Tổng nhập", 9 => "Tổng NY" );
 	}
 	function getArrayColumnImport() {
-		return array ("product_code,description" => "Mã hàng,product_code,image", "deviation,provider_id,descript,date,provider_name,brand_name,category_name,season_name,id,product_code,quantity,import_facture_code,import_price,name,category_id,season_id,sex_id,export_price,description,brand_id,sale,link,deadline" => "Edit", "name,description,descript" => "Tên Hàng,name", "quantity" => "Số lượng", "import_price" => "Giá nhập", "export_price" => "Giá bán", "sale" => "Sale", "import_facture_code,date" => "Mã Hóa Đơn,import_facture_code", "quantity*import_price" => "complex", "quantity*export_price" => "complex", "deviation" => "Lệch", "provider_id,provider_name,name" => "Cung Cấp,provider_name", "category_name" => "Loại", "sex_id" => "Giới tính", "brand_name" => "Hiệu", "season_id,season_name" => "Mùa,season_name", "id" => "Delete", "quantity*export_price" => "complex" );
+		return array ("product_code,description" => "Mã hàng,product_code,image"
+		, "deviation,provider_id,descript,date,provider_name,brand_name,category_name,season_name,id,product_code,quantity,import_facture_code,import_price,name,category_id,season_id,sex_id,export_price,description,brand_id,sale,link,deadline" => "Edit"
+		, "name,description,descript" => "Tên Hàng,name"
+		, "quantity" => "Số lượng"
+		, "import_price" => "Giá nhập"
+		, "export_price" => "Giá bán"
+		, "sale" => "Sale"
+		, "import_facture_code,date" => "Mã Hóa Đơn,import_facture_code"
+		, "quantity*import_price" => "complex"
+		, "quantity*export_price" => "complex"
+		, "deviation" => "Lệch"
+		, "provider_id,provider_name,name" => "Cung Cấp,provider_name"
+		, "category_name" => "Loại", "sex_id" => "Giới tính"
+		, "brand_name" => "Hiệu", "season_id,season_name" => "Mùa,season_name", "id,deleteproduct" => "Delete", "quantity*export_price" => "complex" );
 	}
 	
 	function currentMaxProductCode($i) {

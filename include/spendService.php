@@ -160,7 +160,7 @@ class SpendService {
 				"description" => "Description",
 				"date" => "Date",
 				"id,description,date,spend_category_id,user_id,spend_for_id,spend_type_id,amount" => "Edit",
-				"id" => "Delete",
+				"id,deletespend" => "Delete",
 				"category" => "Category",
 				"user" => "User",
 				"fors" => "For",

@@ -192,15 +192,20 @@ echo "</script> ";
 					echo "<td><a onclick='edit".$datatable_id."(\"".$str."\");' href='javascript:void(0);'><div class='editIcon'></div></a></td>";
 				} else if ($key == 'Delete') {
 					$fields = explode ( ",", $value );
-					$str = "";
-					for($i = 0; $i < sizeof ( $fields ); $i ++) {
-						if($i==sizeof ( $fields )-1){
-							$str = $str . $rows [$fields [$i]];
-						}else {
-							$str = $str . $rows [$fields [$i]] . ",";
-						}
+					if(sizeof ( $fields )==2){
+						$str = $fields[1]."(".$rows [$fields [0]].")";
+					} else if (sizeof ( $fields )==3){
+						$str = $fields[1]."(".$rows [$fields [0]].",".$rows [$fields [2]].")";
 					}
-					echo "<td><a onclick='delete" . $datatable_id . "(" . $str . ");' href='javascript:void(0);'><div class='deleteIcon'></div></a></td>";
+						
+//					for($i = 0; $i < sizeof ( $fields ); $i ++) {
+//						if($i==sizeof ( $fields )-1){
+//							$str = $str . $rows [$fields [$i]];
+//						}else {
+//							$str = $str . $rows [$fields [$i]] . ",";
+//						}
+//					}
+					echo "<td><div class='deleteIcon'><input type='hidden' value ='".$str."'></div></td>";
 				} else if ($value == 'status') {
 					if($rows [$value]=='y' || $rows [$value]=='Y'){
 						echo "<td style='color:green;font-weight:bold'> Active </td>";
@@ -263,6 +268,34 @@ echo "</script> ";
 		} else {
 			echo "<span align='center'>No data has been found!</span>";
 		}
+		//to apply the delete dialog box
+		$this->generateDeleteJs();
+	}
+	function generateDeleteJs(){
+		echo "<script> $(document).ready(function(){
+	$('.deleteIcon').click(function(){
+		var elem = $(this).closest('.item');
+		var elemtxt = $(this).find('input[type=hidden],textarea,select').filter(':hidden:first').val();
+		$.confirm({
+			'title'		: 'Delete Confirmation',
+			'message'	: 'You are about to delete this item. <br />It cannot be restored at a later time! Continue?',
+			'buttons'	: {
+				'Yes'	: {
+					'class'	: 'blue',
+					'action': function(){
+						eval(elemtxt);
+					}
+				},
+				'No'	: {
+					'class'	: 'gray',
+					'action': function(){}	
+				}
+			}
+		});
+		
+	});
+	
+});</script>";
 	}
 function generateJqueryDatatableExport($result, $datatable_id, $array_column) {
 		$counter_colum = 0;

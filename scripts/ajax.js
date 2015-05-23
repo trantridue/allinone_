@@ -47,8 +47,8 @@ function listUser() {
 }
 
 function deleteuser(userid) {
-	if (confirm('Are you sure to delete?')) {
 		var deleteuser = 'modules/user/deleteuser.php?userid=' + userid;
+		alert(userid);
 		$.ajax( {
 			url : deleteuser,
 			success : function(data) {
@@ -56,9 +56,6 @@ function deleteuser(userid) {
 				userpostaction(data, actionType);
 			}
 		});
-	} else {
-		return false;
-	}
 }
 function edituser(str) {
 	var inputUrl = processUrlString(str);
@@ -343,21 +340,16 @@ function editprovider(str) {
 	$('#paidArea').hide();
 }
 function deleteprovider(providerid) {
-	if (confirm('Are you sure to delete?')) {
-		var deleteprovider = 'modules/provider/deleteprovider.php?providerid=' + providerid;
-		$.ajax( {
-			url : deleteprovider,
-			success : function(data) {
-				var actionType = "delete";
-				providerpostaction(data, actionType);
-			}
-		});
-	} else {
-		return false;
-	}
+	var deleteprovider = 'modules/provider/deleteprovider.php?providerid=' + providerid;
+	$.ajax( {
+		url : deleteprovider,
+		success : function(data) {
+			var actionType = "delete";
+			providerpostaction(data, actionType);
+		}
+	});
 }
 function deleteproduct(product_import_id) {
-	if (confirm('Are you sure to delete?')) {
 		var delete_product_import_id = 'modules/import/deleteproductimport.php?productimportid=' + product_import_id;
 		$.ajax( {
 			url : delete_product_import_id,
@@ -370,9 +362,7 @@ function deleteproduct(product_import_id) {
 				}
 			}
 		});
-	} else {
-		return false;
-	}
+	
 }
 function buildSearchProviderCriteria() {
 	var criteriaString = "isdefault=false";
@@ -408,18 +398,16 @@ function editcustomer(str) {
 	$('#inputArea').load(url);
 }
 function deletecustomer(customerid) {
-	if (confirm('Are you sure to delete?')) {
 		var deletecustomer = 'modules/customer/deletecustomer.php?customerid=' + customerid;
+		alert(customerid);
 		$.ajax( {
 			url : deletecustomer,
 			success : function(data) {
-				var actionType = "delete";
-				customerpostaction(data, actionType);
+//			alert(data);
+			var actionType = "delete";
+			customerpostaction(data, actionType);
 			}
 		});
-	} else {
-		return false;
-	}
 }
 function updateProduct() {
 	var updateproduct = 'modules/import/updateproductimport.php?' + buildProductImportCriteria();
@@ -505,20 +493,16 @@ function buildSearchNewsCriteria(isdefault) {
 	return processUrlString(criteriaString);
 }
 function deletenews(newsid) {
-	if (confirm('Are you sure to delete?')) {
-		var deletenews = 'modules/news/deletenews.php?newsid=' + newsid;
-		$.ajax( {
-			url : deletenews,
-			success : function(data) {
-				if (data != null)
-					listNews('false');
-				else
-					alert('error deleting news!');
-			}
-		});
-	} else {
-		return false;
-	}
+	var deletenews = 'modules/news/deletenews.php?newsid=' + newsid;
+	$.ajax( {
+		url : deletenews,
+		success : function(data) {
+			if (data != null)
+				listNews('false');
+			else
+				alert('error deleting news!');
+		}
+	});
 }
 function editnews(str) {
 	var inputUrl = processUrlString(str);
@@ -716,38 +700,32 @@ function getSpendSearchCriteria(issearch) {
 	return processUrlString(str);
 }
 function deletespend(id) {
-	if (confirm('Are you sure to delete?')) {
-		var urls = 'modules/spend/deletespend.php?id=' + id;
-		$.ajax( {
-			url : urls,
-			success : function(data) {
-				if (data == 'success') {
-					operationSuccess();
-					listSpend('false');
-				} else {
-					operationError();
-				}
+	var urls = 'modules/spend/deletespend.php?id=' + id;
+	$.ajax( {
+		url : urls,
+		success : function(data) {
+			if (data == 'success') {
+				operationSuccess();
+				listSpend('false');
+			} else {
+				operationError();
 			}
-		});
-	}
+		}
+	});
 }
 function deletemoney_inout(id) {
-	if (confirm('Are you sure to delete?')) {
-		var urls = 'modules/inout/deleteinout.php?id=' + id;
-		$.ajax( {
-			url : urls,
-			success : function(data) {
-				if (data == 'success') {
-					operationSuccess();
-					listInOut('false');
-				} else {
-					operationError();
-				}
+	var urls = 'modules/inout/deleteinout.php?id=' + id;
+	$.ajax( {
+		url : urls,
+		success : function(data) {
+			if (data == 'success') {
+				operationSuccess();
+				listInOut('false');
+			} else {
+				operationError();
 			}
-		});
-	} else {
-		return false;
-	}
+		}
+	});
 }
 
 function editspend(str) {
@@ -1200,7 +1178,6 @@ function getFundSearchCriteria(issearch) {
 	return processUrlString(str);
 }
 function deletefund_change_histo(id) {
-	if (confirm('Are you sure to delete?')) {
 		var urls = 'modules/fund/deletefundhisto.php?id=' + id;
 		$.ajax( {
 			url : urls,
@@ -1213,9 +1190,6 @@ function deletefund_change_histo(id) {
 				}
 			}
 		});
-	} else {
-		return false;
-	}
 }
 function reloadFundList() {
 	$('#listFund').load('modules/fund/listFund.php?isdefault=false');
