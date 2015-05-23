@@ -51,6 +51,7 @@ class ConfigService {
 		'default_number_line_spend', 
 		'nbr_day_default_export_returned', 
 		'default_nbr_days_load_export', 
+		'bonus_ratio', 
 		'sale_all_taux'
 		);
 		$qry = "select * from configuration";

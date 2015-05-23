@@ -194,10 +194,10 @@ where t1.customer_id in (SELECT customers_id FROM `zabuzach_store`.`customer_deb
 */
 #export_trace
 truncate export_facture_trace;
-insert into export_facture_trace (id,export_facture_code,total,debt,reserved,`order`,customer_give,give_customer,bonus_used,return_amount,
+insert into export_facture_trace (id,export_facture_code,total,debt,reserved,`order`,customer_give,give_customer,bonus_used,bonus_ratio,return_amount,
 shop_id,amount,customer_id)
 select t1.id,t1.export_facture_code,t1.total_facture,t1.old_debt,t1.ordered,t1.neworder,t1.customer_paid,t1.shop_repaid,
-t1.coupon,t1.returned,
+t1.coupon,100,t1.returned,
 (select shops_id  FROM `zabuzach_store`.`export_facture` where code = t1.export_facture_code),
 (t1.total_facture-t1.returned+t1.coupon),
 (select customers_id  FROM `zabuzach_store`.`export_facture` where code = t1.export_facture_code) from `zabuzach_store`.`export_trace` t1;
@@ -236,4 +236,5 @@ insert into `configuration`(`name`,`value`) values
 ('listExportDefault_nbr_day_limit','2'),
 ('nbr_day_default_export_returned','2'),
 ('default_nbr_days_load_export','10'),
+('bonus_ratio','100'),
 ('sale_all_taux','10');
