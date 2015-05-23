@@ -300,11 +300,13 @@ function generateJqueryDatatableExport($result, $datatable_id, $array_column) {
 		echo "<tr>";
 		
 		foreach ( $array_column as $value => $key ) {
-			if ($key == 'hidden_field' || $key == 'complex') {
+			if ($key == 'hidden_field' || $key == 'complex') { 
 				echo "<th style='display: none;'>" . $key . "</th>";
 			} else if(sizeof(explode ( ",", $key ))>1){
 				$fieldskey = explode ( ",", $key );
 				echo "<th>" . $fieldskey[0] . "</th>";
+			} else if($key == 'Delete') {
+				echo "<th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>";
 			} else {
 				echo "<th>" . $key . "</th>";
 			}
