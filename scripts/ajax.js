@@ -1288,6 +1288,8 @@ function getExportProductParameter() {
 	var customer_give = $('#customer_give').val();
 	var give_customer = $('#give_customer').val();
 	var id_search_user = $('#id_search_user').val();
+	var listProductReturnId = $('#listProductReturnId').val();
+	var listProductReturnQty = $('#listProductReturnQty').val();
 	
 	str = str + "?customer_tel=" + customer_tel;
 	str = str + "&export_date=" + export_date;
@@ -1308,6 +1310,8 @@ function getExportProductParameter() {
 	str = str + "&export_date=" + export_date;
 	str = str + "&id_search_user=" + id_search_user;
 	str = str + "&export_number_row=" + export_number_row;
+	str = str + "&listProductReturnQty=" + listProductReturnQty;
+	str = str + "&listProductReturnId=" + listProductReturnId;
 	
 	for(var i =1;i<=export_number_row;i++) {
 		var code_field = 'productcode_' + i;
@@ -1546,8 +1550,7 @@ function changeStatusFor(i) {
 }
 function changeReturnQty(line) {
 	var quantity_return = "quantity_return_" + line;
-	var quantity = "quantity_" + line;
-
+	var quantity = "quantity_re_" + line;
 	if ($('#' + quantity_return).val() <= 0)
 		$('#' + quantity_return).val(1);
 	if ($('#' + quantity_return).val() > $('#' + quantity).val())
@@ -1561,7 +1564,8 @@ function checkTheReturnCheckBox() {
 function updateListProductAndTotalReturn() {
 	var nbrLine = $('#numberlineexport').val();
 	var totalReturn = 0;
-	var lstReturn = '';
+	var lstReturnId = '';
+	var lstReturnQty = '';
 	for ( var i = 1; i <= nbrLine; i++) {
 		var isCheckedReturn = $('#checkbox_return_' + i).is(":checked");
 		if (isCheckedReturn) {
@@ -1570,12 +1574,13 @@ function updateListProductAndTotalReturn() {
 			var export_facture_product_id = $('#export_facture_product_id_' + i)
 					.val();
 			totalReturn = totalReturn + qty_return * export_price;
-			lstReturn = lstReturn + export_facture_product_id + ":"
-					+ qty_return + ";";
+			lstReturnId = lstReturnId + export_facture_product_id + "-";
+			lstReturnQty = lstReturnQty + qty_return + "-";
 		}
 	}
 	$('#customer_returned').html(totalReturn);
-	$('#listProductReturn').val(lstReturn);
+	$('#listProductReturnId').val(lstReturnId);
+	$('#listProductReturnQty').val(lstReturnQty);
 	calculateExportForm();
 }
 function resetHiddenFundId() {

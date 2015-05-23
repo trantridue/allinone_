@@ -66,6 +66,17 @@ class ExportService {
 	}
 	function getOrderParameters() {
 		$paramsArray = array();
+		$paramsArray['customer_tel'] 		= $_REQUEST['customer_tel'];
+		$paramsArray['customer_name'] 			= $_REQUEST['customer_name'];
+		$paramsArray['order_product_code'] 			= $_REQUEST['order_product_code'];
+		$paramsArray['order_size'] 	= $_REQUEST['order_size'];
+		$paramsArray['order_qty'] 	= $_REQUEST['order_qty'];
+		$paramsArray['order_color'] 	= $_REQUEST['order_color'];
+		$paramsArray['order_description'] 			= $_REQUEST['order_description'];
+		return $paramsArray;
+	}
+	function getExportParameters() {
+		$paramsArray = array();
 	
 		$paramsArray['customer_tel'] 		= $_REQUEST['customer_tel'];
 		$paramsArray['customer_name'] 			= $_REQUEST['customer_name'];
@@ -75,19 +86,6 @@ class ExportService {
 		$paramsArray['isBoss'] 	= $_REQUEST['isBoss'];
 		$paramsArray['useBonus'] 			= $_REQUEST['useBonus'];
 		$paramsArray['byCard'] 			= $_REQUEST['byCard'];
-	
-		return $paramsArray;
-	}
-	function getExportParameters() {
-		$paramsArray = array();
-	
-		$paramsArray['customer_tel'] 		= $_REQUEST['customer_tel'];
-		$paramsArray['customer_name'] 			= $_REQUEST['customer_name'];
-		$paramsArray['order_product_code'] 			= $_REQUEST['order_product_code'];
-		$paramsArray['order_size'] 	= $_REQUEST['order_size'];
-		$paramsArray['order_qty'] 	= $_REQUEST['order_qty'];
-		$paramsArray['order_color'] 	= $_REQUEST['order_color'];
-		$paramsArray['order_description'] 			= $_REQUEST['order_description'];
 		$paramsArray['customer_debt'] 		= $_REQUEST['customer_debt'];
 		$paramsArray['customer_reserved'] 		= $_REQUEST['customer_reserved'];
 		$paramsArray['customer_returned'] 		= $_REQUEST['customer_returned'];
@@ -99,6 +97,8 @@ class ExportService {
 		$paramsArray['give_customer'] 		= $_REQUEST['give_customer'];
 		$paramsArray['id_search_user'] 		= $_REQUEST['id_search_user'];
 		$paramsArray['export_number_row'] 		= $_REQUEST['export_number_row'];
+		$paramsArray['listProductReturnQty'] 		= $_REQUEST['listProductReturnQty'];
+		$paramsArray['listProductReturnId'] 		= $_REQUEST['listProductReturnId'];
 		for($i =1;$i<=$_REQUEST['export_number_row'];$i++) {
 			$code_field = 'productcode_' . $i;
 			$qty_field = 'quantity_' . $i;
@@ -165,6 +165,7 @@ class ExportService {
 		session_start ();
 		mysql_query ( "BEGIN" );
 		echo $this->getExportFactureCode();
+		echo $paramsArray['listProductReturnId'];
 //		$qry = "insert into customer_order (customer_tel,customer_name,product_code,color,size,date,description,quantity) values ('"
 //				.$paramsArray['customer_tel']."','"
 //				.$paramsArray['customer_name']."','"
