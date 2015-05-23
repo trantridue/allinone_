@@ -1296,6 +1296,7 @@ function getExportProductParameter() {
 	str = str + "&total_facture=" + total_facture;
 	str = str + "&customer_bonus=" + customer_bonus;
 	str = str + "&final_total=" + final_total;
+	str = str + "&customer_reserver_more=" + customer_reserver_more;
 	str = str + "&customer_give=" + customer_give;
 	str = str + "&give_customer=" + give_customer;
 	str = str + "&export_date=" + export_date;

@@ -226,6 +226,8 @@ FROM   (SELECT t1.id,
         GROUP  BY t1.id) t
 WHERE  ( t.total - t.paid ) > 0) t2 where t2.code = t1.export_facture_code),0));
 */
+update `export_facture_trace` set amount = (customer_give-give_customer) where give_customer >0;
+update `export_facture_trace` set amount = customer_give where give_customer <=0;
 insert into `configuration`(`name`,`value`) values
 ('import_number_row','15'),
 ('export_number_row','9'),
