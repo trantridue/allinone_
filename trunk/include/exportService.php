@@ -251,6 +251,12 @@ class ExportService {
 			$reQtyList = explode ( ';', substr ( $paramsArray['listProductReturnQty'], 0, - 1 ) );
 			$nbrLineReturn = sizeof($reIdList);
 		}
+		//10. old reserved
+		$updateOldReservation = "update customer_reservation_histo set status ='Y',complete_date ='".$datetime."',
+		complete_facture='".$export_facture_code."' where customer_id =".$customer_id;
+		// 11. Reserved new 
+		 $addNewReservation = "insert into customer_reservation_histo(customer_id,description,amount,status,date,reserved_facture) 
+		 values (".$customer_id.",'".$paramsArray['customer_description']."',".$paramsArray['customer_reserver_more'].",'N', '".$datetime."','".$export_facture_code."')";
 		
 		// insert db
 		$qryExport_facture_product = substr($qryExport_facture_product, 0, -1);
@@ -258,6 +264,12 @@ class ExportService {
 		$flag = $flag && (mysql_query ( $qryExport_facture_trace, $this->connection ) != null);
 		if($nbrRowExportReal>0){
 			$flag = $flag && (mysql_query ( $qryExport_facture_product, $this->connection ) != null);
+		}
+		if($paramsArray['customer_reserved'] > 0) {
+			$flag = $flag && (mysql_query ( $updateOldReservation, $this->connection ) != null);
+		}
+		if($paramsArray['customer_reserver_more'] > 0) {
+			$flag = $flag && (mysql_query ( $addNewReservation, $this->connection ) != null);
 		}
 		if($nbrLineReturn >0) {
 			for ($i=0;$i<$nbrLineReturn;$i++) {

@@ -202,7 +202,7 @@ t1.coupon,100,t1.returned,
 (t1.total_facture-t1.returned+t1.coupon),
 (select customers_id  FROM `zabuzach_store`.`export_facture` where code = t1.export_facture_code) from `zabuzach_store`.`export_trace` t1;
 #
-/* update export_facture_trace t1 set t1.amount = (t1.amount + ifnull((select debt from (SELECT code,
+update export_facture_trace t1 set t1.amount = (t1.amount + ifnull((select debt from (SELECT code,
        ( t.total - t.paid ) AS debt
 FROM   (SELECT t1.id,
                t1.tel,
@@ -225,9 +225,9 @@ FROM   (SELECT t1.id,
                AND t1.tel NOT LIKE '%aaaaaaa%'
         GROUP  BY t1.id) t
 WHERE  ( t.total - t.paid ) > 0) t2 where t2.code = t1.export_facture_code),0));
-*/
-update `export_facture_trace` set amount = (customer_give-give_customer) where give_customer >0;
-update `export_facture_trace` set amount = customer_give where give_customer <=0;
+update export_facture_trace set amount = 0 where id = 12073;
+#update `export_facture_trace` set amount = (amount+customer_give-give_customer+bonus_used) where give_customer >0;
+#update `export_facture_trace` set amount = (amount+customer_give+bonus_used) where give_customer <=0;
 insert into `configuration`(`name`,`value`) values
 ('import_number_row','15'),
 ('export_number_row','9'),
