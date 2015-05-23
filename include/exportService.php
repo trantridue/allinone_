@@ -534,7 +534,8 @@ and t4.code = t1.product_code and datediff(now(),t1.re_date) <= ".$_SESSION['nbr
 				"export_price*re_qty" => "complex",
 				"export_facture_code" => "MÃ_HÓA_ĐƠN&nbsp;&nbsp;",
 				"shop" => "Shop&nbsp;&nbsp;",
-				"date,username" => "Time,time"
+				"date,username" => "Time,time",
+				"id,deleteExportFacture,export_facture_code" => "Delete"
 		);
 	}
 	function getSearchParameters(){

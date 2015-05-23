@@ -197,14 +197,6 @@ echo "</script> ";
 					} else if (sizeof ( $fields )==3){
 						$str = $fields[1]."(".$rows [$fields [0]].",".$rows [$fields [2]].")";
 					}
-						
-//					for($i = 0; $i < sizeof ( $fields ); $i ++) {
-//						if($i==sizeof ( $fields )-1){
-//							$str = $str . $rows [$fields [$i]];
-//						}else {
-//							$str = $str . $rows [$fields [$i]] . ",";
-//						}
-//					}
 					echo "<td><div class='deleteIcon'><input type='hidden' value ='".$str."'></div></td>";
 				} else if ($value == 'status') {
 					if($rows [$value]=='y' || $rows [$value]=='Y'){
@@ -348,17 +340,14 @@ function generateJqueryDatatableExport($result, $datatable_id, $array_column) {
 						}
 					}
 					echo "<td><a onclick='edit".$datatable_id."(\"".$str."\");' href='javascript:void(0);'><div class='editIcon'></div></a></td>";
-				} else if ($key == 'Delete') {
+				}  else if ($key == 'Delete') {
 					$fields = explode ( ",", $value );
-					$str = "";
-					for($i = 0; $i < sizeof ( $fields ); $i ++) {
-						if($i==sizeof ( $fields )-1){
-							$str = $str . $rows [$fields [$i]];
-						}else {
-							$str = $str . $rows [$fields [$i]] . ",";
-						}
+					if(sizeof ( $fields )==2){
+						$str = $fields[1]."(".$rows [$fields [0]].")";
+					} else if (sizeof ( $fields )==3){
+						$str = $fields[1]."(".$rows [$fields [0]].",\"".$rows [$fields [2]]."\")";
 					}
-					echo "<td><a onclick='delete" . $datatable_id . "(" . $str . ");' href='javascript:void(0);'><div class='deleteIcon'></div></a></td>";
+					echo "<td><div class='deleteIcon'><input type='hidden' value ='".$str."'></div></td>";
 				} else if ($value == 'status') {
 					if($rows [$value]=='y' || $rows [$value]=='Y'){
 						echo "<td style='color:green;font-weight:bold'> Active </td>";
@@ -432,6 +421,7 @@ function generateJqueryDatatableExport($result, $datatable_id, $array_column) {
 			echo "<span align='center'>No data has been found!</span>";
 		}
 		echo "<input type='hidden' value='".$counter_colum."' id='numberlineexport'/>";
+		$this->generateDeleteJs();
 	}
 	function RedirectToURL($url) {
 		header ( "Location: $url" );

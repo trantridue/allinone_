@@ -1178,18 +1178,33 @@ function getFundSearchCriteria(issearch) {
 	return processUrlString(str);
 }
 function deletefund_change_histo(id) {
-		var urls = 'modules/fund/deletefundhisto.php?id=' + id;
-		$.ajax( {
-			url : urls,
-			success : function(data) {
-				if (data == 'success') {
-					operationSuccess();
-					reloadFundList();
-				} else {
-					operationError();
-				}
-			}
-		});
+	var urls = 'modules/fund/deletefundhisto.php?id=' + id;
+	$.ajax( {
+		url : urls,
+		success : function(data) {
+		if (data == 'success') {
+			operationSuccess();
+			reloadFundList();
+		} else {
+			operationError();
+		}
+	}
+	});
+}
+function deleteExportFacture(id,facture_code) {
+	searchExportFull('true');
+//		var urls = 'modules/export/deleteExportFacture.php?facture_code=' + facture_code;
+//		$.ajax( {
+//			url : urls,
+//			success : function(data) {
+//				if (data == 'success') {
+//					operationSuccess();
+//					searchExportFull('true');
+//				} else {
+//					operationError();
+//				}
+//			}
+//		});
 }
 function reloadFundList() {
 	$('#listFund').load('modules/fund/listFund.php?isdefault=false');
