@@ -186,18 +186,51 @@ class ExportService {
 		}
 		//5. Get customer ID
 		$customer_id = $this->getCustomerId($paramsArray,$datetime);
-		
-//		echo $datetime."-"
-//		.$export_facture_cod."-"
-//		.$shopid."-"
-//		.$customer_id."-"
-//		.$userid."-";
-		
+
+		if($paramsArray['useBonus']=='false'){
+			$paramsArray['customer_bonus'] = 0;
+		}
+		if($paramsArray['give_customer'] <=0 ){
+			$paramsArray['customer_paid_amount'] = $paramsArray['customer_give'];
+		} else {
+			$paramsArray['customer_paid_amount'] = ($paramsArray['customer_give']-$paramsArray['give_customer']);
+		}
+		echo $paramsArray['customer_paid_amount'];
 		//6. Insert export_facture
 		$qryExport_facture = "insert into export_facture(code,customer_id,shop_id,description,date,user_id) values ('".$export_facture_code
 		."',".$customer_id.",".$shopid.",'".$paramsArray['customer_description']."','".$datetime."',".$userid.")";
 		
+		// qry export facture trace
+		$qryExport_facture_trace = "insert into export_facture_trace(
+		export_facture_code,
+		total,
+		debt,
+		reserved,
+		order,
+		customer_give,
+		give_customer,
+		bonus_used,
+		return_amount,
+		shop_id,
+		amount,
+		customer_id,
+		bonus_ratio
+		) values ('".$export_facture_code."'
+		,'".$paramsArray['total_facture']."'
+		,'".$paramsArray['customer_debt']."'
+		,'".$paramsArray['customer_reserved']."'
+		,'".$paramsArray['customer_reserver_more']."'
+		,'".$paramsArray['customer_give']."'
+		,'".$paramsArray['give_customer']."'
+		,'".$paramsArray['customer_bonus']."'
+		,'".$paramsArray['customer_returned']."'
+		,'".$shopid."'
+		,'".$paramsArray['customer_paid_amount']."'
+		,'".$customer_id."'
+		,'".$_SESSION['bonus_ratio']."')";
+		
 		$flag = $flag && (mysql_query ( $qryExport_facture, $this->connection ) != null);
+		$flag = $flag && (mysql_query ( $qryExport_facture_trace, $this->connection ) != null);
 		
 		if ($flag == false) {
 			mysql_query ( "ROLLBACK" );
