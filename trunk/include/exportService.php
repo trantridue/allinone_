@@ -272,17 +272,7 @@ class ExportService {
 		$qryFund="" ;
 		$qryInout="";
 		$qrySpend="";
-		 // 12. byCard
-		 if($paramsArray['byCard']=='true'){
-		 	$qryFund="insert into  fund_change_histo(fund_id,amount,date,description,ratio,user_id) values (8,"..",'".."','".."',1,"..")" ;
-		 	$qryInout="";
-		 }
-		
-		 //13. isBoss
-		if($paramsArray['isBoss']=='true'){
-		 	$qrySpend="" ;
-		 	$qryInout="";
-		 }
+		 
 		 
 		// insert db******************************************************/
 		$qryExport_facture_product = substr($qryExport_facture_product, 0, -1);
@@ -311,7 +301,24 @@ class ExportService {
 				$flag = $flag && (mysql_query ( $qryRe, $this->connection ) != null);
 			}
 		}
+		// 12. byCard
+		 if($paramsArray['byCard']=='true'){
+		 	$qryFund="insert into  fund_change_histo(fund_id,amount,date,description,ratio,user_id) values (8,"
+		 	.($paramsArray['customer_paid_amount']+$paramsArray['customer_reserve_more'])
+		 	.",'".$datetime."',concat('Hóa đơn số ".$export_facture_code."',' ".$paramsArray['customer_name']." thanh toán thẻ ','".$paramsArray['customer_description']."'),1,".$userid.")" ;
+		 	$flag = $flag && (mysql_query ( $qryFund, $this->connection ) != null);
+		 	//echo $qryFund;
+		 	$qryInout="insert into money_inout(shop_id,user_id,date,amount,description) values ("
+		 	.$shopid.",".$userid.",'".$datetime."',".(0-$paramsArray['customer_paid_amount']-$paramsArray['customer_reserve_more'])."
+		 	,concat('Hóa đơn số ".$export_facture_code."',' ".$paramsArray['customer_name']." thanh toán thẻ ','".$paramsArray['customer_description']."'))";
+		 	$flag = $flag && (mysql_query ( $qryInout, $this->connection ) != null);
+		 }
 		
+		 //13. isBoss
+		if($paramsArray['isBoss']=='true'){
+		 	$qrySpend="" ;
+		 	$qryInout="";
+		 }
 		$this->commitOrRollback($flag);
 		echo "success";
 	}
