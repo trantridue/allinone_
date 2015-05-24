@@ -93,7 +93,7 @@ class ExportService {
 		$paramsArray['total_facture'] 		= $_REQUEST['total_facture'];
 		$paramsArray['customer_bonus'] 		= $_REQUEST['customer_bonus'];
 		$paramsArray['final_total'] 		= $_REQUEST['final_total'];
-		$paramsArray['customer_reserver_more'] 		= $_REQUEST['customer_reserver_more'];
+		$paramsArray['customer_reserve_more'] 		= $_REQUEST['customer_reserve_more'];
 		$paramsArray['customer_give'] 		= $_REQUEST['customer_give'];
 		$paramsArray['give_customer'] 		= $_REQUEST['give_customer'];
 		$paramsArray['id_search_user'] 		= $_REQUEST['id_search_user'];
@@ -192,21 +192,21 @@ class ExportService {
 		if($paramsArray['give_customer'] <=0 ){
 			$paramsArray['customer_paid_amount'] =    $paramsArray['customer_give']  
 													+ $paramsArray['customer_bonus']
-													- $paramsArray['customer_reserver_more']
+													- $paramsArray['customer_reserve_more']
 													+ $paramsArray['customer_reserved'];
 		} else {
 			$paramsArray['customer_paid_amount'] =    $paramsArray['customer_give']  
 													- $paramsArray['give_customer'] 
-													- $paramsArray['customer_reserver_more']
+													- $paramsArray['customer_reserve_more']
 													+ $paramsArray['customer_bonus']
 													+ $paramsArray['customer_reserved'];
 		}
-		echo "|customer_give:".$paramsArray['customer_give']
+		/*echo "|customer_give:".$paramsArray['customer_give']
 			."|give_customer:".$paramsArray['give_customer']
-			."|customer_reserver_more:".$paramsArray['customer_reserver_more']."|"
+			."|customer_reserve_more:".$paramsArray['customer_reserve_more']."|"
 			."|customer_bonus:".$paramsArray['customer_bonus']."|"
 			."|customer_reserved:".$paramsArray['customer_reserved']."|"
-			."|customer_paid_amount:".$paramsArray['customer_paid_amount']."|";
+			."|customer_paid_amount:".$paramsArray['customer_paid_amount']."|";*/
 		//6. Insert export_facture
 		$qryExport_facture = "insert into export_facture(code,customer_id,shop_id,description,date,user_id) values ('".$export_facture_code
 		."',".$customer_id.",".$shopid.",'".$paramsArray['customer_description']."','".$datetime."',".$userid.")";
@@ -230,7 +230,7 @@ class ExportService {
 		,'".$paramsArray['total_facture']."'
 		,'".$paramsArray['customer_debt']."'
 		,'".$paramsArray['customer_reserved']."'
-		,'".$paramsArray['customer_reserver_more']."'
+		,'".$paramsArray['customer_reserve_more']."'
 		,'".$paramsArray['customer_give']."'
 		,'".$paramsArray['give_customer']."'
 		,'".$paramsArray['customer_bonus']."'
@@ -268,30 +268,44 @@ class ExportService {
 		complete_facture='".$export_facture_code."' where customer_id =".$customer_id;
 		// 11. Reserved new 
 		 $addNewReservation = "insert into customer_reservation_histo(customer_id,description,amount,status,date,reserved_facture) 
-		 values (".$customer_id.",'".$paramsArray['customer_description']."',".$paramsArray['customer_reserver_more'].",'N', '".$datetime."','".$export_facture_code."')";
+		 values (".$customer_id.",'".$paramsArray['customer_description']."',".$paramsArray['customer_reserve_more'].",'N', '".$datetime."','".$export_facture_code."')";
+		$qryFund="" ;
+		$qryInout="";
+		$qrySpend="";
+		 // 12. byCard
+		 if($paramsArray['byCard']=='true'){
+		 	$qryFund="insert into  fund_change_histo(fund_id,amount,date,description,ratio,user_id) values (8,"..",'".."','".."',1,"..")" ;
+		 	$qryInout="";
+		 }
 		
-		// insert db
+		 //13. isBoss
+		if($paramsArray['isBoss']=='true'){
+		 	$qrySpend="" ;
+		 	$qryInout="";
+		 }
+		 
+		// insert db******************************************************/
 		$qryExport_facture_product = substr($qryExport_facture_product, 0, -1);
-		echo "1".$flag;
+//		echo "1".$flag;
 		$flag = $flag && (mysql_query ( $qryExport_facture, $this->connection ) != null);
-		echo "2".$flag;
+//		echo "2".$flag;
 		$flag = $flag && (mysql_query ( $qryExport_facture_trace, $this->connection ) != null);
-		echo "3".$flag;
+//		echo "3".$flag;
 		if($nbrRowExportReal>0){
 			$flag = $flag && (mysql_query ( $qryExport_facture_product, $this->connection ) != null);
-			echo "4".$flag;
+//			echo "4".$flag;
 		}
 		if($paramsArray['customer_reserved'] > 0) {
 			$flag = $flag && (mysql_query ( $updateOldReservation, $this->connection ) != null);
-			echo "5".$flag;
+//			echo "5".$flag;
 		}
-		if($paramsArray['customer_reserver_more'] > 0) {
-			echo "-".$addNewReservation."-";
+		if($paramsArray['customer_reserve_more'] > 0) {
+//			echo "-".$addNewReservation."-";
 			$flag = $flag && (mysql_query ( $addNewReservation, $this->connection ) != null);
-			echo "6".$flag;
+//			echo "6".$flag;
 		}
 		if($nbrLineReturn >0) {
-			echo "7".$flag;
+//			echo "7".$flag;
 			for ($i=0;$i<$nbrLineReturn;$i++) {
 				$qryRe = "update export_facture_product set re_qty = ".$reQtyList[$i].",re_date='".$datetime."',re_description='".$paramsArray['customer_description']."' where id=".$reIdList[$i];
 				$flag = $flag && (mysql_query ( $qryRe, $this->connection ) != null);
