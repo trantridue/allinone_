@@ -190,9 +190,18 @@ class ExportService {
 			$paramsArray['customer_bonus'] = 0;
 		}
 		if($paramsArray['give_customer'] <=0 ){
-			$paramsArray['customer_paid_amount'] = $paramsArray['customer_give']  - $paramsArray['customer_reserver_more'] - $paramsArray['customer_reserved'];
+			$paramsArray['customer_paid_amount'] =    $paramsArray['customer_give']  
+													- $paramsArray['customer_reserver_more'] 
+													- $paramsArray['customer_debt'] 
+													+ $paramsArray['bonus_used'];
+													+ $paramsArray['customer_reserved'];
 		} else {
-			$paramsArray['customer_paid_amount'] = $paramsArray['customer_give']-$paramsArray['give_customer'] - $paramsArray['customer_reserver_more'] - $paramsArray['customer_reserved'];
+			$paramsArray['customer_paid_amount'] =    $paramsArray['customer_give']  
+													- $paramsArray['give_customer'] 
+													- $paramsArray['customer_reserver_more'] 
+													- $paramsArray['customer_debt'] 
+													+ $paramsArray['bonus_used'];
+													+ $paramsArray['customer_reserved'];
 		}
 //		echo $paramsArray['customer_paid_amount'];
 		//6. Insert export_facture
