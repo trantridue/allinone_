@@ -1273,7 +1273,7 @@ function getExportProductParameter() {
 	var total_facture = $('#total_facture').html();
 	var customer_bonus = $('#customer_bonus').html();
 	var final_total = $('#final_total').html();
-	var customer_reserver_more = $('#customer_reserver_more').val();
+	var customer_reserve_more = $('#customer_reserve_more').val();
 	var customer_give = $('#customer_give').val();
 	var give_customer = $('#give_customer').val();
 	var id_search_user = $('#id_search_user').val();
@@ -1295,7 +1295,7 @@ function getExportProductParameter() {
 	str = str + "&total_facture=" + total_facture;
 	str = str + "&customer_bonus=" + customer_bonus;
 	str = str + "&final_total=" + final_total;
-	str = str + "&customer_reserver_more=" + customer_reserver_more;
+	str = str + "&customer_reserve_more=" + customer_reserve_more;
 	str = str + "&customer_give=" + customer_give;
 	str = str + "&give_customer=" + give_customer;
 	str = str + "&export_date=" + export_date;
@@ -1350,7 +1350,7 @@ function calculateTotalFactureFinal() {
 	var usedBonus = $('#useBonus').is(":checked");
 	if (usedBonus) {
 		$('#final_total').html(
-				parseInt($('#customer_reserver_more').val())
+				parseInt($('#customer_reserve_more').val())
 						+ parseInt($('#total_facture').html())
 						+ parseInt($('#customer_debt').html())
 						- parseInt($('#customer_returned').html())
@@ -1358,7 +1358,7 @@ function calculateTotalFactureFinal() {
 						- parseInt($('#customer_reserved').html()));
 	} else {
 		$('#final_total').html(
-				parseInt($('#customer_reserver_more').val())
+				parseInt($('#customer_reserve_more').val())
 						+ parseInt($('#total_facture').html())
 						+ parseInt($('#customer_debt').html())
 						- parseInt($('#customer_returned').html())
