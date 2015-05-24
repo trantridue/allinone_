@@ -76,12 +76,12 @@
 	height:33px
 }
 
-#confirmBox .blue{				background-position:left top;text-shadow:1px 1px 0 #5889a2;}
+#confirmBox .blue{				background-position:left top;text-shadow:1px 1px 0 #5889a2;width:50px;}
 #confirmBox .blue span{			background-position:-195px 0;}
 #confirmBox .blue:hover{		background-position:left bottom;}
 #confirmBox .blue:hover span{	background-position:-195px bottom;}
 
-#confirmBox .gray{				background-position:-200px top;text-shadow:1px 1px 0 #707070;}
+#confirmBox .gray{				background-position:-200px top;text-shadow:1px 1px 0 #707070;width:50px;}
 #confirmBox .gray span{			background-position:-395px 0;}
 #confirmBox .gray:hover{		background-position:-200px bottom;}
 #confirmBox .gray:hover span{	background-position:-395px bottom;}
