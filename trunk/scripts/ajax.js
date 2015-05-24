@@ -1243,7 +1243,7 @@ function saveExport() {
 		url : urls,
 		success : function(data) {
 //		alert(data);
-		$("#exportRight").html(data);
+		$("#exportSearch").html(data);
 			if (data == 'success') {
 				operationSuccess();
 				location.reload();

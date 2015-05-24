@@ -269,16 +269,16 @@ echo "</script> ";
 		var elem = $(this).closest('.item');
 		var elemtxt = $(this).find('input[type=hidden],textarea,select').filter(':hidden:first').val();
 		$.confirm({
-			'title'		: 'Delete Confirmation',
-			'message'	: 'You are about to delete this item. <br />It cannot be restored at a later time! Continue?',
+			'title'		: 'Hãy xác nhận',
+			'message'	: 'Bạn có muốn xóa không?',
 			'buttons'	: {
-				'Yes'	: {
+				'Có'	: {
 					'class'	: 'blue',
 					'action': function(){
 						eval(elemtxt);
 					}
 				},
-				'No'	: {
+				'Không'	: {
 					'class'	: 'gray',
 					'action': function(){}	
 				}
