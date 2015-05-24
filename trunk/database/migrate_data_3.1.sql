@@ -224,7 +224,7 @@ FROM   (SELECT t1.id,
                AND t2.code = t3.export_facture_code 
                AND t1.tel NOT LIKE '%aaaaaaa%'
         GROUP  BY t1.id) t
-WHERE  ( t.total - t.paid ) > 0) t2 where t2.code = t1.export_facture_code),0));
+WHERE  ( t.total - t.paid ) <> 0) t2 where t2.code = t1.export_facture_code),0));
 update export_facture_trace set amount = 0 where id = 12073;
 #update `export_facture_trace` set amount = (amount+customer_give-give_customer+bonus_used) where give_customer >0;
 #update `export_facture_trace` set amount = (amount+customer_give+bonus_used) where give_customer <=0;
