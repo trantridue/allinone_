@@ -1322,19 +1322,32 @@ function getExportProductParameter() {
 }
 function calculateExportForm() {
 	var nbrow = parseInt($('#export_number_row').val());
-	updateCheckBoxIfIsboss();
+//	updateCheckBoxIfIsboss();
 	validateQuantity(nbrow);
 	calculateTotalQuality(nbrow);
 	calculateTotalFactureOrigin(nbrow);
 	calculateTotalFactureSaled(nbrow);
 	calculateTotalFactureFinal();
 	calculateGiveCustomer();
+	updateCheckBoxIfIsboss();
 }
 function updateCheckBoxIfIsboss() {
 	var isBoss = $('#isBoss').is(":checked");
 	if (isBoss) {
 		$('#useBonus').prop('checked', false);
 		$('#byCard').prop('checked', false);
+		$('#customer_give').val(parseInt($('#final_total').html()));
+		$('#isBoss').hide();
+		$('#customer_reserve_more').hide();
+		$('#customer_give').hide();
+		$('#customer_reserve_more_label').show();
+		$('#customer_give_label').show();
+		$('#customer_reserve_more_label').html($('#customer_reserve_more').val());
+		$('#customer_give_label').html($('#customer_give').val());
+		$('#give_customer').val(0);
+		$("#noteForEmployee").show();
+		$("#isBossLabel").css('background-color','yellow');
+		$("#isBossLabel").html($('#customer_name').val()+' Lấy');
 	}
 }
 
@@ -1348,14 +1361,24 @@ function dbclickCustomerGive() {
 }
 function calculateTotalFactureFinal() {
 	var usedBonus = $('#useBonus').is(":checked");
+	var isBoss = $('#isBoss').is(":checked");
 	if (usedBonus) {
-		$('#final_total').html(
-				parseInt($('#customer_reserve_more').val())
-						+ parseInt($('#total_facture').html())
-						+ parseInt($('#customer_debt').html())
-						- parseInt($('#customer_returned').html())
-						- parseInt($('#customer_bonus').html())
-						- parseInt($('#customer_reserved').html()));
+		if(isBoss){
+			$('#final_total').html(
+					parseInt($('#customer_reserve_more').val())
+							+ parseInt($('#total_facture').html())
+							+ parseInt($('#customer_debt').html())
+							- parseInt($('#customer_returned').html())
+							- parseInt($('#customer_reserved').html()));
+		} else {
+			$('#final_total').html(
+					parseInt($('#customer_reserve_more').val())
+							+ parseInt($('#total_facture').html())
+							+ parseInt($('#customer_debt').html())
+							- parseInt($('#customer_returned').html())
+							- parseInt($('#customer_bonus').html())
+							- parseInt($('#customer_reserved').html()));
+		}
 	} else {
 		$('#final_total').html(
 				parseInt($('#customer_reserve_more').val())
@@ -1364,7 +1387,7 @@ function calculateTotalFactureFinal() {
 						- parseInt($('#customer_returned').html())
 						- parseInt($('#customer_reserved').html()));
 	}
-
+	
 }
 
 function validateQuantity(nbrow) {
