@@ -316,8 +316,16 @@ class ExportService {
 		
 		 //13. isBoss
 		if($paramsArray['isBoss']=='true'){
-		 	$qrySpend="" ;
-		 	$qryInout="";
+		 	$qrySpend="insert into spend(spend_category_id,amount,user_id,description,date,spend_for_id,spend_type_id) values (1
+		 	,'".($paramsArray['customer_paid_amount']+$paramsArray['customer_reserve_more'])."'
+		 	,'".$userid."',concat('Hóa đơn số ".$export_facture_code."',' ".$paramsArray['customer_name']." lấy ( ','".$paramsArray['customer_description'].")')"."
+		 	,'".$datetime."','1','1')" ;
+//		 	echo $qrySpend;
+		 	$flag = $flag && (mysql_query ( $qrySpend, $this->connection ) != null);
+		 	$qryInout="insert into money_inout(shop_id,user_id,date,amount,description) values ("
+		 	.$shopid.",".$userid.",'".$datetime."',".(0-$paramsArray['customer_paid_amount']-$paramsArray['customer_reserve_more'])."
+		 	,concat('Hóa đơn số ".$export_facture_code."',' ".$paramsArray['customer_name']." lấy ( ','".$paramsArray['customer_description'].")'))";
+		 	$flag = $flag && (mysql_query ( $qryInout, $this->connection ) != null);
 		 }
 		$this->commitOrRollback($flag);
 		echo "success";
