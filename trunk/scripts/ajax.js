@@ -975,12 +975,12 @@ function saveOrderProduct() {
 	}
 }
 function validateOrderForm() {
-	return validateBlankField('order_product_code')
+	return validateBlankField('customer_name')
 			&& validateBlankField('order_size')
 			&& validateBlankField('order_color')
 			&& validateBlankField('order_description')
 			&& validateBlankField('customer_tel')
-			&& validateBlankField('customer_name');
+			&& validateBlankField('order_product_code');
 }
 function validateAddFund() {
 	var flag = true;
@@ -1237,6 +1237,7 @@ function getUpdateFundInformation() {
 }
 /* EXPORT */
 function saveExport() {
+	if(validateExportForm()) {
 	var urls = 'modules/export/saveExport.php' + getExportProductParameter();
 //	alert(urls);
 	$.ajax( {
@@ -1252,6 +1253,88 @@ function saveExport() {
 			}
 		}
 	});
+	} else {
+//		alert('do nothing');
+	}
+}
+function validateExportForm() {
+	var flag = true;
+	
+	var export_number_row = parseInt($('#export_number_row').val());
+	var customer_tel = $('#customer_tel').val();
+	var customer_id = $('#customer_id').val();
+	var export_date = $('#export_date').val();
+	var customer_name = $('#customer_name').val();
+	var id_export_shop = $('#id_export_shop').val();
+	var export_date = $('#export_date').val();
+	var customer_description = $('#customer_description').val();
+	
+	var isBoss = $('#isBoss').is(":checked");
+	var useBonus = $('#useBonus').is(":checked");
+	var byCard = $('#byCard').is(":checked");
+	var customer_debt = $('#customer_debt').html();
+	var customer_reserved = $('#customer_reserved').html();
+	var customer_returned = $('#customer_returned').html();
+	var total_facture = $('#total_facture').html();
+	var customer_bonus = $('#customer_bonus').html();
+	var final_total = $('#final_total').html();
+	var customer_reserve_more = $('#customer_reserve_more').val();
+	var customer_give = $('#customer_give').val();
+	var give_customer = $('#give_customer').val();
+	var id_search_user = $('#id_search_user').val();
+	var listProductReturnId = $('#listProductReturnId').val();
+	var listProductReturnQty = $('#listProductReturnQty').val();
+	//Validate tel & name
+	if(customer_tel !='' && customer_name==''){
+		return showNote('Tên khách phải nhập nếu đã nhập số điện thoại');
+	}
+	//Validate cannot give negative amount
+	if(customer_give < 0){
+		return showNote('Khách không thể đưa số tiền âm!');
+	}
+	//Validate byCard not debt 
+	if(byCard && (give_customer < 0)){
+		return showNote('Thanh toán thẻ thì không nợ!');
+	}
+	//Validate  debt 
+	if(give_customer < 0){
+		if(!confirm('Cho khách nợ nhé?')){
+			return false;
+		} else {
+			if(customer_tel == '') {
+				return showNote('Khách nợ phải nhập số điện thoại');
+			}
+		}
+	}
+	//Validate tel and use bonus 
+	if(customer_tel =='' && useBonus){
+		return showNote('Khách dùng điểm thưởng phải nhập số điện thoại');
+	}
+ 	//Validate list product
+	for(var i =1;i<=export_number_row;i++) {
+		var code_field = 'productcode_' + i;
+		var qty_field = 'quantity_' + i;
+		var price_field = 'exportprice_' + i;
+		var code_val = $('#'+code_field).val();
+		var qty_val = $('#'+qty_field).val();
+		var price_val = $('#'+price_field).val();
+		if(!((code_val !='' && price_val !='') || (code_val =='' && price_val =='')))  {
+			return showNote('Nhập sai tại dòng số ' + i);
+		} 
+	}
+	
+	if(isBoss){
+		
+	}
+	
+	return flag;
+}
+function showNote(msg) {
+	$('#noteForEmployee').show();
+	$('#noteForEmployee').css('background-color','red');
+	$('#noteForEmployee').css('color','yellow');
+	$('#noteForEmployee').html(msg);
+	return false;
 }
 function getExportProductParameter() {
 	var str = '';
@@ -1346,8 +1429,11 @@ function updateCheckBoxIfIsboss() {
 		$('#customer_give_label').html($('#customer_give').val());
 		$('#give_customer').val(0);
 		$("#noteForEmployee").show();
+		$("#noteForEmployee").html('Không phải nhập gì, chỉ cần lưu vào máy!');
 		$("#isBossLabel").css('background-color','yellow');
 		$("#isBossLabel").html($('#customer_name').val()+' Lấy');
+	} else {
+		$("#noteForEmployee").hide();
 	}
 }
 

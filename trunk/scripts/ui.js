@@ -92,17 +92,17 @@ $(document).ready(function(){
 			'title'		: 'Hãy xác nhận',
 			'message'	: 'Bạn có muốn xóa không?',
 			'buttons'	: {
-				'Có'	: {
-					'class'	: 'blue',
-					'action': function(){
-						eval(elemtxt);
-					}
-				},
-				'Không'	: {
-					'class'	: 'gray',
-					'action': function(){}	
-				}
-			}
+			'Có'	: {
+			'class'	: 'blue',
+			'action': function(){
+			eval(elemtxt);
+		}
+		},
+		'Không'	: {
+			'class'	: 'gray',
+			'action': function(){}	
+		}
+		}
 		});
 		
 	});

@@ -13,6 +13,15 @@ function validateBlankField(fieldid) {
 		return true;
 	}
 }
+function validateBlankLabel(fieldid) {
+	if ($("#" + fieldid).html() == "" || $("#" + fieldid).html() == null) {
+		$("#" + fieldid).addClass("errorField");
+		return false;
+	} else {
+		$("#" + fieldid).removeClass("errorField");
+		return true;
+	}
+}
 function displayMessageServer(data, errorMessage, successMessage, module) {
 	if (data && data != '') {
 		$('#listArea').load("modules/" + module + "/list.php?isdefault=false&loadall=true");
