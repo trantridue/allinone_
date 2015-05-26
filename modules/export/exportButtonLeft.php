@@ -7,5 +7,5 @@
 <label for="useBonus"  title="Check nếu khách muốn dùng điểm thưởng">Dùng điểm</label>
 <input type="checkbox"  id="byCard" value="value"  onclick="calculateExportForm();">
 <label for="byCard"  title="Check nếu khách thanh toán bằng thẻ">Thanh toán thẻ</label>
-<input type="button" value="LƯU" class="menu_btn_sub" style="background-color: violet;"
+<input type="button" value="LƯU" class="menu_btn_sub" style="background-color: violet;" id="saveExportBtn"
 	onclick="saveExport();">
