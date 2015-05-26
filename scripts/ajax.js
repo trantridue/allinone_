@@ -975,11 +975,10 @@ function saveOrderProduct() {
 	}
 }
 function validateOrderForm() {
-	return validateBlankField('customer_name')
+	return validateBlankField('customer_tel')&& validateBlankField('customer_name') 
 			&& validateBlankField('order_size')
 			&& validateBlankField('order_color')
 			&& validateBlankField('order_description')
-			&& validateBlankField('customer_tel')
 			&& validateBlankField('order_product_code');
 }
 function validateAddFund() {
