@@ -127,7 +127,6 @@ class ExportService {
 				.date('Y-m-d H:i:s')."','"
 				.$paramsArray['order_description']."',"
 				.$paramsArray['order_qty'].")";
-// 		echo $qry;
 		if(mysql_query ( $qry, $this->connection ) != null){
 			mysql_query ( "COMMIT" );
 			echo 'success';
@@ -135,6 +134,31 @@ class ExportService {
 			mysql_query ( "ROLLBACK" );
 			echo 'error';
 		}
+	}
+	function deleteExportFacture($export_facture_code){
+//		session_start ();
+		mysql_query ( "BEGIN" );
+		$flag = true;
+		$qrySpend = "delete from spend where description like '%".$export_facture_code."%'";
+		$qryInout = "delete from money_inout where description like '%".$export_facture_code."%'";
+		$qryFund = "delete from fund_change_histo where description like '%".$export_facture_code."%'";
+		$qryExportFactureProduct = "delete from export_facture_product where export_facture_code = '".$export_facture_code."'";
+		$qryExportFactureTrace = "delete from export_facture_trace where export_facture_code = '".$export_facture_code."'";
+		$qryExportFacture = "delete from export_facture where code = '".$export_facture_code."'";
+		$qryExportReserve1 = "delete from customer_reservation_histo where reserved_facture = '".$export_facture_code."'";
+		$qryExportReserve2 = "update customer_reservation_histo set status = 'N', complete_facture='',complete_date=null where complete_facture = '".$export_facture_code."'";
+		
+		$flag = $flag && (mysql_query ( $qrySpend, $this->connection ) != null);
+		$flag = $flag && (mysql_query ( $qryInout, $this->connection ) != null);
+		$flag = $flag && (mysql_query ( $qryFund, $this->connection ) != null);
+		$flag = $flag && (mysql_query ( $qryExportFactureProduct, $this->connection ) != null);
+		$flag = $flag && (mysql_query ( $qryExportFactureTrace, $this->connection ) != null);
+		$flag = $flag && (mysql_query ( $qryExportFacture, $this->connection ) != null);
+		$flag = $flag && (mysql_query ( $qryExportReserve1, $this->connection ) != null);
+		$flag = $flag && (mysql_query ( $qryExportReserve2, $this->connection ) != null);
+		
+		$this->commitOrRollback($flag);
+		echo "success";
 	}
 	function getNextFactureCodeBydate($maxFactureCode) {
 		$str1 = substr ( $maxFactureCode, 0, 8 );
@@ -304,7 +328,7 @@ class ExportService {
 		 
 		 //13. isBoss
 		if($paramsArray['isBoss']=='true'){
-		 	$qrySpend="insert into spend(spend_category_id,amount,user_id,description,date,spend_for_id,spend_type_id) values (1
+		 	$qrySpend="insert into spend(spend_category_id,amount,user_id,description,date,spend_for_id,spend_type_id) values (8
 		 	,'".($paramsArray['customer_paid_amount']+$paramsArray['customer_reserve_more'])."'
 		 	,'".$userid."',concat('Hóa đơn số ".$export_facture_code."',' ".$paramsArray['customer_name']." lấy ( ','".$paramsArray['customer_description'].")')"."
 		 	,'".$datetime."','1','1')" ;
@@ -642,22 +666,40 @@ and t4.code = t1.product_code and datediff(now(),t1.re_date) <= ".$_SESSION['nbr
 		);
 	}
 	function getExportListArrayColumn() {
-		return array (
-				"checkbox" => "RE",
-				"qtyre" => "&nbsp;&nbsp;",
-				"product_code" => "Mã",
-				"product_name" => "Tên hàng",
-				"customer,customer_tel" => "Khách,customer",
-				"quantity" => "SL&nbsp;&nbsp;",
-				"re_qty" => "RQ&nbsp;&nbsp;",
-				"export_price" => "PRI&nbsp;&nbsp;&nbsp;&nbsp;",
-				"export_price*quantity" => "complex",
-				"export_price*re_qty" => "complex",
-				"export_facture_code" => "MÃ_HÓA_ĐƠN",
-				"shop" => "Shop&nbsp;&nbsp;",
-				"date,username" => "Time,time",
-				"id,deleteExportFacture,export_facture_code" => "Delete"
-		);
+		if($this->commonService->isAdmin()){
+			return array (
+					"checkbox" => "RE",
+					"qtyre" => "&nbsp;&nbsp;",
+					"product_code" => "Mã",
+					"product_name" => "Tên hàng",
+					"customer,customer_tel" => "Khách,customer",
+					"quantity" => "SL&nbsp;&nbsp;",
+					"re_qty" => "RQ&nbsp;&nbsp;",
+					"export_price" => "PRI&nbsp;&nbsp;&nbsp;&nbsp;",
+					"export_price*quantity" => "complex",
+					"export_price*re_qty" => "complex",
+					"export_facture_code" => "MÃ_HÓA_ĐƠN",
+					"shop" => "Shop&nbsp;&nbsp;",
+					"date,username" => "Time,time",
+					"id,deleteExportFacture,export_facture_code" => "Delete"
+			);
+		} else {
+			return array (
+					"checkbox" => "RE",
+					"qtyre" => "&nbsp;&nbsp;",
+					"product_code" => "Mã",
+					"product_name" => "Tên hàng",
+					"customer,customer_tel" => "Khách,customer",
+					"quantity" => "SL&nbsp;&nbsp;",
+					"re_qty" => "RQ&nbsp;&nbsp;",
+					"export_price" => "PRI&nbsp;&nbsp;&nbsp;&nbsp;",
+					"export_price*quantity" => "complex",
+					"export_price*re_qty" => "complex",
+					"export_facture_code" => "MÃ_HÓA_ĐƠN",
+					"shop" => "Shop&nbsp;&nbsp;",
+					"date,username" => "Time,time"
+			);
+		}
 	}
 	function getSearchParameters(){
 			return array (

@@ -1194,19 +1194,19 @@ function deletefund_change_histo(id) {
 	});
 }
 function deleteExportFacture(id,facture_code) {
-	searchExportFull('true');
-//		var urls = 'modules/export/deleteExportFacture.php?facture_code=' + facture_code;
-//		$.ajax( {
-//			url : urls,
-//			success : function(data) {
-//				if (data == 'success') {
-//					operationSuccess();
-//					searchExportFull('true');
-//				} else {
-//					operationError();
-//				}
-//			}
-//		});
+		var urls = 'modules/export/deleteExportFacture.php?export_facture_code=' + facture_code;
+		$.ajax( {
+			url : urls,
+			success : function(data) {
+//			$("#exportSearch").html(data);
+				if (data == 'success') {
+					operationSuccess();
+					location.reload();
+				} else {
+					operationError();
+				}
+			}
+		});
 }
 function reloadFundList() {
 	$('#listFund').load('modules/fund/listFund.php?isdefault=false');

@@ -145,6 +145,7 @@ truncate spend_category;
 truncate spend_type;
 
 insert into spend_category(id,name) SELECT id,CONVERT(CONVERT(CONVERT(name USING latin1) USING binary) USING utf8) FROM `zabuzach_store`.`ref_spend_domain`;
+insert into spend_category(id,name) values (8,'Lấy quần áo');
 insert into spend_for(id,name) SELECT id,CONVERT(CONVERT(CONVERT(name USING latin1) USING binary) USING utf8) FROM `zabuzach_store`.`ref_spend_for`;
 insert into spend_type(id,name) SELECT id,CONVERT(CONVERT(CONVERT(name USING latin1) USING binary) USING utf8) FROM `zabuzach_store`.`ref_spend_type`;
 insert into spend(id,spend_category_id,amount,user_id,description,date,spend_for_id,spend_type_id)
@@ -239,4 +240,5 @@ insert into `configuration`(`name`,`value`) values
 ('nbr_day_default_export_returned','2'),
 ('default_nbr_days_load_export','10'),
 ('bonus_ratio','100'),
+('init_money','500'),
 ('sale_all_taux','10');
