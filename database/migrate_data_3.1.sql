@@ -241,4 +241,5 @@ insert into `configuration`(`name`,`value`) values
 ('default_nbr_days_load_export','10'),
 ('bonus_ratio','100'),
 ('init_money','500'),
+('timeout','7200'),
 ('sale_all_taux','10');

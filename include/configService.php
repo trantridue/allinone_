@@ -53,6 +53,7 @@ class ConfigService {
 		'default_nbr_days_load_export', 
 		'bonus_ratio', 
 		'init_money', 
+		'timeout', 
 		'sale_all_taux'
 		);
 		$qry = "select * from configuration";
