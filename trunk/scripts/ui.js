@@ -108,3 +108,34 @@ $(document).ready(function(){
 	});
 	
 });
+$(document).ready(function(){
+	$('#saveExportBtn').click(function(){
+		var give_customer = parseInt($('#give_customer').val());
+		var customer_tel = $('#customer_tel').val();
+		if(give_customer < 0 ){
+			$.confirm({
+				'title'		: 'Hãy xác nhận',
+				'message'	: 'Bạn có muốn cho khách nợ không?',
+				'buttons'	: {
+				'Có'	: {
+				'class'	: 'blue',
+				'action': function(){
+				if(customer_tel == '') {
+					return showNote('Khách nợ phải nhập số điện thoại');
+				} else {
+					saveExport();
+				}
+			}
+			},
+			'Không'	: {
+				'class'	: 'gray',
+				'action': function(){}	
+			}
+			}
+			});
+		} else {
+			saveExport();
+		}
+	});
+//	}
+});

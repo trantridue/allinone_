@@ -981,6 +981,11 @@ function validateOrderForm() {
 			&& validateBlankField('order_description')
 			&& validateBlankField('order_product_code');
 }
+function isFactureInforBlank(){
+	return ($('#customer_reserve_more').val()=='' || $('#customer_reserve_more').val()=='0') &&
+	($('#customer_give').val()=='' || $('#customer_give').val()=='0') &&
+	($('#give_customer').val()=='' || $('#give_customer').val()=='0');
+}
 function validateAddFund() {
 	var flag = true;
 	// if($('#id_add_fund').val()=='' || $('#id_add_fund').val()==null) {
@@ -1283,6 +1288,10 @@ function validateExportForm() {
 	var id_search_user = $('#id_search_user').val();
 	var listProductReturnId = $('#listProductReturnId').val();
 	var listProductReturnQty = $('#listProductReturnQty').val();
+	//Validate  date export 
+	if(export_date > getCurrentDate_YYYYmmdd()){
+		return showNote('Không nhập ngày trong tương lai!');
+	}
 	//Validate tel & name
 	if(customer_tel !='' && customer_name==''){
 		return showNote('Tên khách phải nhập nếu đã nhập số điện thoại');
@@ -1295,19 +1304,14 @@ function validateExportForm() {
 	if(byCard && (give_customer < 0)){
 		return showNote('Thanh toán thẻ thì không nợ!');
 	}
-	//Validate  debt 
-	if(give_customer < 0){
-		if(!confirm('Cho khách nợ nhé?')){
-			return false;
-		} else {
-			if(customer_tel == '') {
-				return showNote('Khách nợ phải nhập số điện thoại');
-			}
-		}
-	}
+	
 	//Validate tel and use bonus 
 	if(customer_tel =='' && useBonus){
 		return showNote('Khách dùng điểm thưởng phải nhập số điện thoại');
+	}
+	// validate facture infor blank
+	if(isFactureInforBlank()){
+		return showNote('Không nhập được hóa đơn trống!');
 	}
  	//Validate list product
 	for(var i =1;i<=export_number_row;i++) {
@@ -1322,11 +1326,19 @@ function validateExportForm() {
 		} 
 	}
 	
-	if(isBoss){
-		
-	}
-	
 	return flag;
+}
+function getCurrentDate_YYYYmmdd(){
+	var today = new Date();
+	var thismonthtoday = today.getMonth()+1;
+	if(thismonthtoday<10) thismonthtoday = '0' + thismonthtoday;
+	var thisdatetoday = today.getDate();
+	if(thisdatetoday<10) thisdatetoday = '0' + thisdatetoday;
+	var strDate = 'Y-m-d'
+	  .replace('Y', today.getFullYear())
+	  .replace('m', thismonthtoday)
+	  .replace('d', thisdatetoday);
+	return strDate;
 }
 function showNote(msg) {
 	$('#noteForEmployee').show();
@@ -1433,6 +1445,10 @@ function updateCheckBoxIfIsboss() {
 		$("#isBossLabel").html($('#customer_name').val()+' Lấy');
 	} else {
 		$("#noteForEmployee").hide();
+		$('#customer_reserve_more').show();
+		$('#customer_give').show();
+		$('#customer_reserve_more_label').hide();
+		$('#customer_give_label').hide();
 	}
 }
 

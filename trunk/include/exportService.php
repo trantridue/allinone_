@@ -201,12 +201,7 @@ class ExportService {
 													+ $paramsArray['customer_bonus']
 													+ $paramsArray['customer_reserved'];
 		}
-		/*echo "|customer_give:".$paramsArray['customer_give']
-			."|give_customer:".$paramsArray['give_customer']
-			."|customer_reserve_more:".$paramsArray['customer_reserve_more']."|"
-			."|customer_bonus:".$paramsArray['customer_bonus']."|"
-			."|customer_reserved:".$paramsArray['customer_reserved']."|"
-			."|customer_paid_amount:".$paramsArray['customer_paid_amount']."|";*/
+		
 		//6. Insert export_facture
 		$qryExport_facture = "insert into export_facture(code,customer_id,shop_id,description,date,user_id) values ('".$export_facture_code
 		."',".$customer_id.",".$shopid.",'".$paramsArray['customer_description']."','".$datetime."',".$userid.")";
@@ -263,6 +258,7 @@ class ExportService {
 			$reQtyList = explode ( ';', substr ( $paramsArray['listProductReturnQty'], 0, - 1 ) );
 			$nbrLineReturn = sizeof($reIdList);
 		}
+		
 		//10. old reserved
 		$updateOldReservation = "update customer_reservation_histo set status ='Y',complete_date ='".$datetime."',
 		complete_facture='".$export_facture_code."' where customer_id =".$customer_id;
@@ -272,30 +268,22 @@ class ExportService {
 		$qryFund="" ;
 		$qryInout="";
 		$qrySpend="";
-		 
+		
 		 
 		// insert db******************************************************/
 		$qryExport_facture_product = substr($qryExport_facture_product, 0, -1);
-//		echo "1".$flag;
 		$flag = $flag && (mysql_query ( $qryExport_facture, $this->connection ) != null);
-//		echo "2".$flag;
 		$flag = $flag && (mysql_query ( $qryExport_facture_trace, $this->connection ) != null);
-//		echo "3".$flag;
 		if($nbrRowExportReal>0){
 			$flag = $flag && (mysql_query ( $qryExport_facture_product, $this->connection ) != null);
-//			echo "4".$flag;
 		}
 		if($paramsArray['customer_reserved'] > 0) {
 			$flag = $flag && (mysql_query ( $updateOldReservation, $this->connection ) != null);
-//			echo "5".$flag;
 		}
 		if($paramsArray['customer_reserve_more'] > 0) {
-//			echo "-".$addNewReservation."-";
 			$flag = $flag && (mysql_query ( $addNewReservation, $this->connection ) != null);
-//			echo "6".$flag;
 		}
 		if($nbrLineReturn >0) {
-//			echo "7".$flag;
 			for ($i=0;$i<$nbrLineReturn;$i++) {
 				$qryRe = "update export_facture_product set re_qty = ".$reQtyList[$i].",re_date='".$datetime."',re_description='".$paramsArray['customer_description']."' where id=".$reIdList[$i];
 				$flag = $flag && (mysql_query ( $qryRe, $this->connection ) != null);
@@ -313,7 +301,7 @@ class ExportService {
 		 	,concat('Hóa đơn số ".$export_facture_code."',' ".$paramsArray['customer_name']." thanh toán thẻ ','".$paramsArray['customer_description']."'))";
 		 	$flag = $flag && (mysql_query ( $qryInout, $this->connection ) != null);
 		 }
-		
+		 
 		 //13. isBoss
 		if($paramsArray['isBoss']=='true'){
 		 	$qrySpend="insert into spend(spend_category_id,amount,user_id,description,date,spend_for_id,spend_type_id) values (1
@@ -327,11 +315,13 @@ class ExportService {
 		 	,concat('Hóa đơn số ".$export_facture_code."',' ".$paramsArray['customer_name']." lấy ( ','".$paramsArray['customer_description'].")'))";
 		 	$flag = $flag && (mysql_query ( $qryInout, $this->connection ) != null);
 		 }
+		 
 		$this->commitOrRollback($flag);
 		echo "success";
 	}
 	function commitOrRollback($flag){
 		if ($flag == false) {
+			echo mysql_error($this->connection);
 			mysql_query ( "ROLLBACK" );
 			echo "error";
 		} else {
