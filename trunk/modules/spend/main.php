@@ -1,3 +1,5 @@
+<?php 
+if($commonService->isAdmin()) {?>
 <div id="searchArea" style="display: none;">
 <?php
 include 'search.php';
@@ -18,3 +20,7 @@ include 'search.php';
 <?php
 include 'list.php'?>
 </div>
+
+<?php } else {
+	include 'common/errorpage.php';
+}?>

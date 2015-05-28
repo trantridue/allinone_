@@ -1,3 +1,5 @@
+<?php 
+if($commonService->isAdmin()) {?>
 <div id="inputArea">
 <?php
 $submodule = isset ( $_REQUEST ['submenu'] ) ? $_REQUEST ['submenu'] : defaultsubmodule;
@@ -8,3 +10,6 @@ include $submodule . '.php';
 <div id="listArea">
 <?php include 'list.php'?>
 </div>
+<?php } else {
+	include 'common/errorpage.php';
+}?>
