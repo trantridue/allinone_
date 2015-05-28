@@ -521,13 +521,15 @@ and t4.code = t1.product_code and datediff(now(),t1.re_date) <= ".$_SESSION['nbr
 		);
 	}
 	function listOrderDefault() {
-		$qry = "SELECT t1.*,t2.name as product_name,datediff(now(),t1.date) as diff,t1.status as order_status from customer_order t1 left join product t2 on (t1.product_code = t2.code) order by diff desc ,t1.status";
+		$qry = "SELECT t1.*,REPLACE(t1.description,'\'','') as new_description,t2.name as product_name,datediff(now(),t1.date) as diff,
+		t1.status as order_status 
+		from customer_order t1 left join product t2 on (t1.product_code = t2.code) order by diff desc ,t1.status";
 		$result = mysql_query ( $qry, $this->connection );
 		$array_total = array (
 				2 => "Quantity"
 		);
 		$array_column1 = array (
-			"id,customer_name,customer_tel,date,status,description" => "Name,customer_name", 
+			"id,customer_name,customer_tel,date,status,new_description" => "Name,customer_name", 
 		    "product_code" => "Pro. Name,product_name",
 			"quantity" => "SL", 
 			"size" => "Size",
