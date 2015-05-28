@@ -599,7 +599,7 @@ and t4.code = t1.product_code and datediff(now(),t1.re_date) <= ".$_SESSION['nbr
 		and t2.user_id = t6.id
 		and t4.id = t2.customer_id
 		and t5.id = t2.shop_id
-		and datediff(now(),t2.date) < ".$_SESSION['listExportDefault_nbr_day_limit']." order by date desc";
+		and datediff(now(),t2.date) <= ".$_SESSION['listExportDefault_nbr_day_limit']." order by date desc";
 		$result = mysql_query ( $qry, $this->connection );
 //		echo $qry;
 		$this->commonService->generateJSDatatableComplexExport ( $result, exportproductdatatable, 12, 'desc', $this->getExportListArrayTotal() );
