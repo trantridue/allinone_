@@ -431,3 +431,14 @@ div#table_list_customer_return_wrapper table.dataTable thead th, table.dataTable
   padding-right: 1px !important;
 }
 /* Confirm box*/
+/* Customer */
+#customerAddForm{
+	width: 30%;
+	background-color: bisque;
+	float: left;
+}
+#customerSearchForm{
+	width: 69%;
+	background-color: green;
+	float: right;
+}

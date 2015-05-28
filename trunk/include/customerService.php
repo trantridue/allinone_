@@ -38,15 +38,42 @@ class CustomerService {
 	function HandleDBError($err) {
 		$this->HandleError ( $err . "\r\n mysqlerror:" . mysql_error () );
 	}
-	function listCustomer($name) {
-		$qry = "SELECT *, id as iden FROM customer where name like '%" . $name . "%' order by id desc limit 100";
+	function listCustomerDefault() {
+		$qry = "SELECT *, id as iden FROM customer order by id desc limit 100";
 		$result = mysql_query ( $qry, $this->connection );
+		
+		$this->commonService->generateJSDatatableSimple ( customerdatatable, 0, 'desc' );
+		$this->commonService->generateJqueryDatatable ( $result, customerdatatable, $this->getArrayColumn() );
+	}
+	function listCustomer($params) {
+		$qry = "SELECT *, id as iden, if(isBoss=1,true,false) as status FROM customer where 1 ";
+		$flag = true;
+		if($params['search_customer_name']!=''){
+			$flag = false;
+			$qry = $qry . " and name like '%".$params['search_customer_name']."%'";
+		}
+		if($params['search_customer_tel']!=''){
+			$flag = false;
+			$qry = $qry . " and tel like '%".$params['search_customer_tel']."%'";
+		}
+		$qry = $qry. " order by id desc";
+		if($flag) 
+		$qry = $qry. " limit 10";
+//		echo $qry;
+		$result = mysql_query ( $qry, $this->connection );
+		
+		$this->commonService->generateJSDatatableSimple ( customerdatatable, 0, 'desc' );
+		$this->commonService->generateJqueryDatatable ( $result, customerdatatable, $this->getArrayColumn() );
+	}
+	function getArrayColumn() {
 		$array_column = array ("iden" => "Identication","name" => "Name", 
 		"tel" => "Tel",  "description" => "Description",
-		"date" => "Modify date", "id,name,tel,description" => "Edit", 
+		"created_date" => "Create date",
+		"date" => "Modify date", 
+		"status" => "Is Boss", 
+		"id,name,tel,description" => "Edit", 
 		"id,deletecustomer" => "Delete" );
-		$this->commonService->generateJSDatatableSimple ( customerdatatable, 0, 'desc' );
-		$this->commonService->generateJqueryDatatable ( $result, customerdatatable, $array_column );
+		return $array_column;
 	}
 	function deleteCustomer($customerid) {
 		$qry = "delete from customer where id = " . $customerid;
@@ -102,6 +129,12 @@ class CustomerService {
 			$jsonArray [] = $element;
 		}
 		return $jsonArray;
+	}
+function getSearchParameters(){
+			return array (
+			'search_customer_name' 		=> $_REQUEST['search_customer_name'],
+			'search_customer_tel' 		=> $_REQUEST['search_customer_tel']
+		);
 	}
 }
 ?>

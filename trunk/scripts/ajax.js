@@ -385,12 +385,22 @@ function buildSearchProviderCriteria() {
 	return processUrlStringEncode(criteriaString);
 }
 /* CUSTOMER MODULE */
-function listCustomer() {
+function listCustomer(issearch) {
 	var isdefault = "false";
-	var name = $('#customer_name').val();
-	var url = "modules/customer/list.php" + "?isdefault=" + isdefault
-			+ "&name=" + encodeURIComponent(name);
+	var url = "modules/customer/list.php" + getCustomerSearchCriteria(issearch);
+//	alert(url);
 	$('#listArea').load(url);
+}
+function getCustomerSearchCriteria(issearch) {
+
+	var str = "?issearch=" + issearch + "&isdefault=false";
+	var search_customer_name = "&search_customer_name=" + $('#search_customer_name').val();
+	var search_customer_tel = "&search_customer_tel=" + $('#search_customer_tel').val();
+
+	str = str + search_customer_name;
+	str = str + search_customer_tel;
+	
+	return processUrlStringEncode(str);
 }
 function editcustomer(str) {
 	var inputUrl = processUrlString(str);
