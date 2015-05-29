@@ -356,14 +356,14 @@ class ExportService {
 		$cus_id = 1288;
 		if($paramsArray['customer_tel'] == '') {
 			return $cus_id;
-		}
-		if($paramsArray['customer_id'] != null) {
+		} else if($paramsArray['customer_id'] != null) {
+			$qry = "update customer set date = '".$datetime."' where id = ".$paramsArray['customer_id'];
+			mysql_query ( $qry, $this->connection );
 			return $paramsArray['customer_id'];
 		} else { 
 			$qry = "insert into customer(name,tel,date,created_date) values ('" . $paramsArray['customer_name'] 
 			. "','".$paramsArray['customer_tel']."','"
 			.$datetime."','".$datetime."')";
-			
 			if(mysql_query ( $qry, $this->connection ) != null){
 				$cus_id = mysql_insert_id ();
 				mysql_query ( "COMMIT" );
