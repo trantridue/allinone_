@@ -78,7 +78,7 @@ class CustomerService {
 		}
 		$qry = $qry. " order by id desc";
 		if($flag) 
-		$qry = $qry. " limit 10";
+		$qry = $qry. " limit 1000";
 //		echo $qry;
 		$result = mysql_query ( $qry, $this->connection );
 		
@@ -99,19 +99,41 @@ class CustomerService {
 		$qry = "delete from customer where id = " . $customerid;
 		echo mysql_query ( $qry, $this->connection );
 	}
-	function updateCustomer($customer_id, $customer_name, $customer_tel, $customer_description) {
-		$actionType = 'update';
-		$qry = "update customer set name='" . $customer_name . "', tel = '" . $customer_tel . "', description = '" . $customer_description . "'
-				,date=now()  where id = " . $customer_id;
-		$result = mysql_query ( $qry, $this->connection );
-		echo "<script>customerpostaction('" . $result . "','" . $actionType . "');</script>";
+	function saveOrUpdateCustomer($params){
+		if($params['editid']==''){
+			$this->addCustomer($params);			
+		} else {
+			$this->updateCustomer($params);
+		}
 	}
-	function addCustomer ( $customer_name, $customer_tel, $customer_description){
-		$actionType = 'insert';
-		$qry = "insert into customer(name,tel,description,date) values ('" . $customer_name . "',
-				'" . $customer_tel . "','" . $customer_description . "',now())";
-		$result = mysql_query ( $qry, $this->connection );
-		echo "<script>customerpostaction('" . $result . "','" . $actionType . "');</script>";
+	function addCustomer ( $params){
+		mysql_query ( "BEGIN" );
+		$qry = "insert into customer(name,tel,description,date,isboss,created_date) values ('" . $params['customer_name'] . "',
+				'" . $params['customer_tel'] . "','" . $params['customer_description'] . "',now(),".$params['customer_status_hidden'].",now())";
+
+		if(mysql_query ( $qry, $this->connection ) != null){
+			mysql_query ( "COMMIT" );
+			echo 'success';
+		}else {
+			echo mysql_error($this->connection);
+			mysql_query ( "ROLLBACK" );
+			echo 'error';
+		}
+	}
+	function updateCustomer($params) {
+		mysql_query ( "BEGIN" );
+		$qry = "update customer set name='" . $params['customer_name'] . "', tel = '" . $params['customer_tel'] . "'
+		, description = '" . $params['customer_description'] . "'
+				,date=now(),isboss=".$params['customer_status_hidden']."  where id = " . $params['editid'];
+
+		if(mysql_query ( $qry, $this->connection ) != null){
+			mysql_query ( "COMMIT" );
+			echo 'success';
+		}else {
+			echo mysql_error($this->connection);
+			mysql_query ( "ROLLBACK" );
+			echo 'error';
+		}
 	}
 	function getJsonCustomerTel($term) {
 		session_start();
@@ -159,6 +181,15 @@ function getSearchParameters(){
 			'update_date_to' 			=> $_REQUEST['update_date_to'],
 			'update_date_from' 			=> $_REQUEST['update_date_from'],
 			'search_description' 		=> $_REQUEST['search_description']
+		);
+	}
+function getCustomerParameters(){
+			return array (
+			'editid' 		=> $_REQUEST['editid'],
+			'customer_name' 		=> $_REQUEST['customer_name'],
+			'customer_tel' 			=> $_REQUEST['customer_tel'],
+			'customer_description' 			=> $_REQUEST['customer_description'],
+			'customer_status_hidden' 			=> $_REQUEST['customer_status_hidden']
 		);
 	}
 }

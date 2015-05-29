@@ -403,7 +403,6 @@ function buildSearchProviderCriteria() {
 function listCustomer(issearch) {
 	var isdefault = "false";
 	var url = "modules/customer/list.php" + getCustomerSearchCriteria(issearch);
-//	alert(url);
 	$('#listArea').load(url);
 }
 function getCustomerSearchCriteria(issearch) {
@@ -951,20 +950,36 @@ function addFund() {
 }
 function saveAddFund() {
 	var urls = 'modules/fund/saveAdd.php' + getFundAddInformation();
-	// alert(urls);
 	$.ajax( {
 		url : urls,
 		success : function(data) {
-			alert(data);
-			if (data == 'success') {
-				operationSuccess();
-				reloadFundList();
-				$('#fundAddFormId')[0].reset();
-			} else {
-				operationError();
-			}
+		alert(data);
+		if (data == 'success') {
+			operationSuccess();
+			reloadFundList();
+			$('#fundAddFormId')[0].reset();
+		} else {
+			operationError();
 		}
+	}
 	});
+}
+function addOrUpdateCustomer() {
+	var urls = 'modules/customer/addcustomer.php' + getCustomerInformation();
+	if(validateEditCustomerForm()){
+		$.ajax( {
+			url : urls,
+			success : function(data) {
+				if (data == 'success') {
+					operationSuccess();
+					listCustomer('true');
+					$('#customerAddForm')[0].reset();
+				} else {
+					operationError();
+				}
+			}
+		});
+	}
 }
 function saveExchange() {
 	var urls = 'modules/fund/saveExchange.php' + getFundExchangeInformation();
@@ -1119,7 +1134,16 @@ function getFundAddInformation() {
 	params = params + "&add_amount" + "=" + $('#add_amount').val();
 	params = params + "&add_ratio" + "=" + $('#add_ratio').val();
 	params = params + "&add_description" + "=" + $('#add_description').val();
-	return processUrlString(params);
+	return processUrlStringEncode(params);
+}
+function getCustomerInformation() {
+	var params = '';
+	params = params + "?editid" + "=" + $('#editid').val();
+	params = params + "&customer_name" + "=" + $('#customer_name').val();
+	params = params + "&customer_tel" + "=" + $('#customer_tel').val();
+	params = params + "&customer_description" + "=" + $('#customer_description').val();
+	params = params + "&customer_status_hidden" + "=" + $('#customer_status_hidden').val();
+	return processUrlStringEncode(params);
 }
 function getFundExchangeInformation() {
 	var params = '';
@@ -1138,7 +1162,7 @@ function getFundExchangeInformation() {
 			+ $('#exchange_destination_amount').val();
 	params = params + "&exchange_description" + "="
 			+ $('#exchange_description').val();
-	return processUrlString(params);
+	return processUrlStringEncode(params);
 }
 function getOrderInformation() {
 	var params = '';
