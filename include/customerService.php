@@ -56,6 +56,22 @@ class CustomerService {
 			$flag = false;
 			$qry = $qry . " and tel like '%".$params['search_customer_tel']."%'";
 		}
+		if($params['create_date_from']!=''){
+			$flag = false;
+			$qry = $qry . " and created_date >= '".$params['create_date_from']."'";
+		}
+		if($params['create_date_to']!=''){
+			$flag = false;
+			$qry = $qry . " and created_date <= '".$params['create_date_to']."'";
+		}
+		if($params['update_date_from']!=''){
+			$flag = false;
+			$qry = $qry . " and date >= '".$params['update_date_from']."'";
+		}
+		if($params['update_date_to']!=''){
+			$flag = false;
+			$qry = $qry . " and date <= '".$params['update_date_to']."'";
+		}
 		$qry = $qry. " order by id desc";
 		if($flag) 
 		$qry = $qry. " limit 10";
@@ -133,7 +149,12 @@ class CustomerService {
 function getSearchParameters(){
 			return array (
 			'search_customer_name' 		=> $_REQUEST['search_customer_name'],
-			'search_customer_tel' 		=> $_REQUEST['search_customer_tel']
+			'search_customer_tel' 		=> $_REQUEST['search_customer_tel'],
+			'create_date_from' 			=> $_REQUEST['create_date_from'],
+			'create_date_to' 			=> $_REQUEST['create_date_to'],
+			'update_date_to' 			=> $_REQUEST['update_date_to'],
+			'update_date_from' 			=> $_REQUEST['update_date_from'],
+			'search_description' 		=> $_REQUEST['search_description']
 		);
 	}
 }

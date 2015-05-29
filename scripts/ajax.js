@@ -396,9 +396,22 @@ function getCustomerSearchCriteria(issearch) {
 	var str = "?issearch=" + issearch + "&isdefault=false";
 	var search_customer_name = "&search_customer_name=" + $('#search_customer_name').val();
 	var search_customer_tel = "&search_customer_tel=" + $('#search_customer_tel').val();
-
+	
+	var create_date_from = "&create_date_from=" + $('#create_date_from').val();
+	var create_date_to = "&create_date_to=" + $('#create_date_to').val();
+	var update_date_from = "&update_date_from=" + $('#update_date_from').val();
+	var update_date_to = "&update_date_to=" + $('#update_date_to').val();
+	
+	var search_description = "&search_description=" + $(search_description).val();
+	
 	str = str + search_customer_name;
 	str = str + search_customer_tel;
+	str = str + create_date_from;
+	str = str + create_date_to;
+	str = str + update_date_from;
+	str = str + update_date_to;
+	str = str + search_description;
+	
 	
 	return processUrlStringEncode(str);
 }
