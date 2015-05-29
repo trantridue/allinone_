@@ -446,11 +446,11 @@ class ExportService {
 		session_start();
 		$qry = "SELECT t1.re_date as date,if(datediff(now(),t1.re_date)=0,'Hôm nay',t1.re_date) as istoday ,
 		t3.name,t3.tel,t1.product_code,t4.name as product,t1.quantity,t1.export_price,t2.code,t1.re_qty,t1.re_date
-FROM `export_facture_product` t1,export_facture t2,customer t3,product t4
-where t1.re_qty > 0
-and t1.export_facture_code = t2.code
-and t3.id = t2.customer_id
-and t4.code = t1.product_code and datediff(now(),t1.re_date) <= ".$_SESSION['nbr_day_default_export_returned']." order by t1.re_date desc";
+		FROM `export_facture_product` t1,export_facture t2,customer t3,product t4
+		where t1.re_qty > 0
+		and t1.export_facture_code = t2.code
+		and t3.id = t2.customer_id
+		and t4.code = t1.product_code and datediff(now(),t1.re_date) <= ".$_SESSION['nbr_day_default_export_returned']." order by t1.re_date desc";
 		$result = mysql_query ( $qry, $this->connection );
 		$array_total = array (
 				3 => "Total return",
@@ -528,20 +528,11 @@ and t4.code = t1.product_code and datediff(now(),t1.re_date) <= ".$_SESSION['nbr
 		$array_total = array (
 				2 => "Quantity"
 		);
-		$array_column1 = array (
-			"id,customer_name,customer_tel,date,status,new_description" => "Name,customer_name", 
-		    "product_code" => "Pro. Name,product_name",
-			"quantity" => "SL", 
-			"size" => "Size",
-			"color" => "Màu", 
-			"diff,date" => "Days,diff",
-			"order_status" => "Status"
-		);
 		$this->commonService->generateJSDatatableComplex ( $result, customerorderdatatable, 6, 'asc', $array_total );
-		$this->commonService->generateJqueryDatatable ( $result, customerorderdatatable, $array_column1 );
+		$this->commonService->generateJqueryDatatable ( $result, customerorderdatatable, $this->getArrayColummOrder() );
 	}
 	function listOrder($params) {
-		$qry = "SELECT t1.*, 
+		$qry = "SELECT t1.*,REPLACE(t1.description,'\'','') as new_description,
        			t2.NAME AS product_name, Datediff(Now(), t1.date) AS diff, t1.status AS order_status 
 				FROM   customer_order t1 LEFT JOIN product t2 ON ( t1.product_code = t2.code )";
 		
@@ -560,8 +551,13 @@ and t4.code = t1.product_code and datediff(now(),t1.re_date) <= ".$_SESSION['nbr
 		$array_total = array (
 				2 => "Quantity"
 		);
+		
+		$this->commonService->generateJSDatatableComplex ( $result, customerorderdatatable, 6, 'asc', $array_total );
+		$this->commonService->generateJqueryDatatable ( $result, customerorderdatatable, $this->getArrayColummOrder() );
+	}
+	function getArrayColummOrder(){
 		$array_column1 = array (
-			"id,customer_name,customer_tel,date,status,description" => "Name,customer_name", 
+			"id,customer_name,customer_tel,date,status,new_description" => "Name,customer_name", 
 		    "product_code" => "Pro. Name,product_name",
 			"quantity" => "SL", 
 			"size" => "Size",
@@ -569,10 +565,8 @@ and t4.code = t1.product_code and datediff(now(),t1.re_date) <= ".$_SESSION['nbr
 			"diff,date" => "Days,diff",
 			"order_status" => "Status"
 		);
-		$this->commonService->generateJSDatatableComplex ( $result, customerorderdatatable, 6, 'asc', $array_total );
-		$this->commonService->generateJqueryDatatable ( $result, customerorderdatatable, $array_column1 );
+		return $array_column1;
 	}
-	
 	function updateOrderStatus($id,$status){
 		if($status=='Y') {
 			$status = 'N';

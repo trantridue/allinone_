@@ -170,16 +170,16 @@ input[type='reset'] {
 	background-image: url("../images/toggle.png");
 	background-position: -5px -2px;
 	background-repeat: no-repeat;
-	height: 33px;
-	width: 84px;
+	height: 23px;
+	width: 69px;
 }
 
 .status_off {
 	background-image: url("../images/toggle.png");
 	background-position: -5px -49px;
 	background-repeat: no-repeat;
-	height: 33px;
-	width: 84px;
+	height: 23px;
+	width: 69px;
 }
 
 .errorField {
