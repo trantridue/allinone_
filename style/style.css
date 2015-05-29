@@ -186,7 +186,7 @@ input[type='reset'] {
 	background-repeat: no-repeat;
 	height: 33px;
 	width: 100px;
-	float:right;
+	float:left;
 }
 
 .isboss_off {
@@ -194,7 +194,7 @@ input[type='reset'] {
 	background-repeat: no-repeat;
 	height: 33px;
 	width: 100px;
-	float:right;
+	float:left;
 }
 
 .errorField {

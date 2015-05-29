@@ -1,7 +1,9 @@
-<?php
-$customer_name = $_REQUEST ['customer_name'];
-$customer_tel = $_REQUEST ['customer_tel'];
-$customer_description = $_REQUEST ['customer_description'];
-
-$customerService->addCustomer ( $customer_name, $customer_tel, $customer_description);
+<?php 
+	require_once ("../../include/constant.php");
+	require_once ("../../include/customerService.php");
+	require_once ("../../include/commonService.php");
+	$commonService = new CommonService ();
+	$customerService = new CustomerService ( hostname, username, password, database, $commonService );
+	$params = $customerService->getCustomerParameters();
+	$customerService->saveOrUpdateCustomer($params);
 ?>
