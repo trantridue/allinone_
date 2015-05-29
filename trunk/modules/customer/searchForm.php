@@ -1,5 +1,6 @@
 <h4>SEARCH CUSTOMER FORM</h4>
 <hr>
+<form>
 <table width="100%" class="edittable">
 	<tr>
 		<td align="right"><label for="search_customer_name">Customer name :</label></td>
@@ -30,3 +31,4 @@
 		<td></td>
 	</tr>
 </table>
+</form>

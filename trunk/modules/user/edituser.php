@@ -35,7 +35,7 @@ $userService = new UserService ( hostname, username, password, database, $common
 			<td><input type="password" name="retype_user_password" id="retype_user_password"/><input type="submit"
 				value="UPDATE USER"></td>
 			<td style="text-align: right;">Status : </td>
-			<td>
+			<td style="height: 33px;">
 			<?php if($_REQUEST['status']=='y') { ?>
 				<div id="user_status" name="user_status" class="status_on" onclick="changeStatusUser();"></div>
 			<?php } else { ?>

@@ -72,6 +72,10 @@ class CustomerService {
 			$flag = false;
 			$qry = $qry . " and date <= '".$params['update_date_to']."'";
 		}
+		if($params['search_description']!=''){
+			$flag = false;
+			$qry = $qry . " and description like '%".$params['search_description']."%'";
+		}
 		$qry = $qry. " order by id desc";
 		if($flag) 
 		$qry = $qry. " limit 10";
@@ -87,7 +91,7 @@ class CustomerService {
 		"created_date" => "Create date",
 		"date" => "Modify date", 
 		"isboss" => "Is Boss", 
-		"id,name,tel,description" => "Edit", 
+		"id,name,tel,description,isboss" => "Edit", 
 		"id,deletecustomer" => "Delete" );
 		return $array_column;
 	}

@@ -77,6 +77,21 @@ function changeStatusUser() {
 	$("#user_status").removeClass(oldClass);
 	$("#user_status_hidden").val(status_value);
 }
+function changeStatusCustomer() {
+	var oldClass = $("#customer_status").attr("class");
+	var newClass = "";
+	var status_value = '';
+	if (oldClass == 'status_on') {
+		newClass = 'status_off';
+		status_value = '0';
+	} else {
+		status_value = '1';
+		newClass = 'status_on';
+	}
+	$("#customer_status").addClass(newClass);
+	$("#customer_status").removeClass(oldClass);
+	$("#customer_status_hidden").val(status_value);
+}
 /* IMPORT MODULE */
 function changeSex(i) {
 	var oldClass = $("#sex_" + i).attr("class");
@@ -402,7 +417,7 @@ function getCustomerSearchCriteria(issearch) {
 	var update_date_from = "&update_date_from=" + $('#update_date_from').val();
 	var update_date_to = "&update_date_to=" + $('#update_date_to').val();
 	
-	var search_description = "&search_description=" + $(search_description).val();
+	var search_description = "&search_description=" + $('#search_description').val();
 	
 	str = str + search_customer_name;
 	str = str + search_customer_tel;
@@ -411,14 +426,12 @@ function getCustomerSearchCriteria(issearch) {
 	str = str + update_date_from;
 	str = str + update_date_to;
 	str = str + search_description;
-	
-	
 	return processUrlStringEncode(str);
 }
 function editcustomer(str) {
 	var inputUrl = processUrlString(str);
-	var url = 'modules/customer/editcustomer.php?' + inputUrl;
-	$('#inputArea').load(url);
+	var url = 'modules/customer/addForm.php?' + inputUrl;
+	$('#customerAddForm').load(url);
 }
 function deletecustomer(customerid) {
 		var deletecustomer = 'modules/customer/deletecustomer.php?customerid=' + customerid;
