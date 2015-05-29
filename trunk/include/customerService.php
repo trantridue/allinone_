@@ -46,7 +46,7 @@ class CustomerService {
 		$this->commonService->generateJqueryDatatable ( $result, customerdatatable, $this->getArrayColumn() );
 	}
 	function listCustomer($params) {
-		$qry = "SELECT *, id as iden, if(isBoss=1,true,false) as status FROM customer where 1 ";
+		$qry = "SELECT *, id as iden FROM customer where 1 ";
 		$flag = true;
 		if($params['search_customer_name']!=''){
 			$flag = false;
@@ -70,7 +70,7 @@ class CustomerService {
 		"tel" => "Tel",  "description" => "Description",
 		"created_date" => "Create date",
 		"date" => "Modify date", 
-		"status" => "Is Boss", 
+		"isboss" => "Is Boss", 
 		"id,name,tel,description" => "Edit", 
 		"id,deletecustomer" => "Delete" );
 		return $array_column;
