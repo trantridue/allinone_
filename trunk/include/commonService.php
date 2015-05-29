@@ -534,7 +534,6 @@ function printDropDownListFromTable($table,$fieldname) {
 	echo "</select>";
 }
 function isAdmin() {
-	session_start();
 	return $_SESSION ['is_admin_user'];
 }
 function displayByAdmin() {
