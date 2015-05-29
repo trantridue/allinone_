@@ -81,12 +81,12 @@ function changeStatusCustomer() {
 	var oldClass = $("#customer_status").attr("class");
 	var newClass = "";
 	var status_value = '';
-	if (oldClass == 'status_on') {
-		newClass = 'status_off';
+	if (oldClass == 'isboss_on') {
+		newClass = 'isboss_off';
 		status_value = '0';
 	} else {
 		status_value = '1';
-		newClass = 'status_on';
+		newClass = 'isboss_on';
 	}
 	$("#customer_status").addClass(newClass);
 	$("#customer_status").removeClass(oldClass);

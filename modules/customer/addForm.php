@@ -25,13 +25,12 @@
 			<td>
 			<input type="button" class="menu_btn_sub"
 				value="SAVE" onclick="addOrUpdateCustomer();">
-				<?php if($_REQUEST['isboss']==1) {?>
-			<div style="float:right;padding:0 15px 10px 0;" title="ON : IS BOSS</br>OFF: NOT BOSS" onclick="changeStatusCustomer();" class="status_on" name="customer_status" id="customer_status"></div>
-			<input id="customer_status_hidden" value="1" type="hidden">
-			<?php } else {?>
-			<div style="float:right;padding:0 15px 10px 0;" title="ON : IS BOSS</br>OFF: NOT BOSS" onclick="changeStatusCustomer();" class="status_off" name="customer_status" id="customer_status"></div>
-			<input id="customer_status_hidden" value="0" type="hidden">
+				<?php if($_REQUEST['isboss']=='1') { ?>
+				<div id="customer_status" class="isboss_on" onclick="changeStatusCustomer();"></div>
+			<?php } else { ?>
+				<div id="customer_status" class="isboss_off" onclick="changeStatusCustomer();"></div>
 			<?php }?>
+			<input type="hidden" id="customer_status_hidden"  value="<?php echo $_REQUEST['isboss'];?>">
 			</td>
 		</tr>
 	</table>
