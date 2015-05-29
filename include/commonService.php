@@ -204,6 +204,12 @@ echo "</script> ";
 					} else {
 						echo "<td style='color:red;font-weight:bold'> Desactive </td>";
 					}
+				} else if ($value == 'isboss') {
+					if($rows [$value]==1){
+						echo "<td style='color:green;font-weight:bold'> BOSS </td>";
+					} else {
+						echo "<td style='color:red;font-weight:bold'> NOT BOSS </td>";
+					}
 				} else if ($value == 'order_status' || $value == 'reservation_status') {
 					if($rows [$value]=='Y'){
 						echo "<td style='background-color:green;font-weight:bold'> Xử lý xong </td>";
