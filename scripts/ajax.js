@@ -1740,6 +1740,8 @@ function searchExportFull(issearch) {
 function searchExport(issearch, divid, filename) {
 	var url = "modules/export/" + filename + ".php"
 			+ getExportSearchCriteria(issearch);
+//	alert(url);
+//	alert(divid);
 	$('#' + divid).load(url);
 }
 function getExportSearchCriteria(issearch) {
