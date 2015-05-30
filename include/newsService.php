@@ -76,7 +76,7 @@ class NewsService {
 		$this->commonService->generateJqueryDatatable ( $result, newsdatatable, $this->buildArrayParameter() );
 	}
 	function buildArrayParameter() {
-		
+		session_start();
 		if($this->commonService->isAdmin()){
 			return array (
 					"identification" => "ID",

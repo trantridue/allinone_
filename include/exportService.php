@@ -41,14 +41,24 @@ class ExportService {
 	}
 	function getJsonProductCode($term) {
 		session_start();
-		
 		$isSaleAll = $_SESSION ['is_sale_for_all'];
 		$saleAllTaux = $_SESSION ['sale_all_taux'];
-		if($isSaleAll) {
-			$qry = "select t1.*,t1.export_price * (100-".$saleAllTaux.")/100 as price from product t1		
+		if($isSaleAll == '1') {
+			$qry = "select t1.*,t1.export_price * (100-".$saleAllTaux.")/100 as price,
+			(select ifnull(sum(quantity),0) from product_import where product_code = t1.code) as init_import,
+(select ifnull(sum(quantity),0) from product_return where product_code = t1.code) as return_provider,
+(select ifnull(sum(quantity),0) from export_facture_product where product_code = t1.code) as export_qty,
+(select ifnull(sum(re_qty),0) from export_facture_product where product_code = t1.code) as cus_return,
+(select ifnull(sum(quantity),0) from product_deviation where product_code = t1.code) as deviation 
+			from product t1		
 		where t1.code like '%" . $term . "%' limit 10";
 		} else {
-			$qry = "select t1.*,t1.export_price * (100-t1.sale)/100 as price from product t1		
+			$qry = "select t1.*,t1.export_price * (100-t1.sale)/100 as price,
+			(select ifnull(sum(quantity),0) from product_import where product_code = t1.code) as init_import,
+(select ifnull(sum(quantity),0) from product_return where product_code = t1.code) as return_provider,
+(select ifnull(sum(quantity),0) from export_facture_product where product_code = t1.code) as export_qty,
+(select ifnull(sum(re_qty),0) from export_facture_product where product_code = t1.code) as cus_return,
+(select ifnull(sum(quantity),0) from product_deviation where product_code = t1.code) as deviation from product t1		
 		where t1.code like '%" . $term . "%' limit 10";
 		}
 		
@@ -57,8 +67,23 @@ class ExportService {
 		$jsonArray = array ();
 	
 		while ( $rows = mysql_fetch_array ( $result ) ) {
-			$labelvalue = "Code : " . $rows ['code'] . ", name :" . $rows ['name'];
-			$element = array (code => $rows ['code'], name => $rows ['name'], price => $rows ['price'],posted_price => $rows ['export_price'], value => $rows ['code'], label => $labelvalue );
+			$labelvalue = "Code : " . $rows ['code'] 
+			. ",Name :" . $rows ['name']
+			.", Tồn kho :".($rows['init_import']-$rows['return_provider']-$rows['export_qty']+$rows['cus_return']+$rows['deviation'])
+			;
+			$element = array (
+			code => $rows ['code'], 
+			name => $rows ['name'], 
+			price => $rows ['price'],
+			posted_price => $rows ['export_price'], 
+			detail => "<span style='color:red;'>".$rows ['name']."</span><hr>"."So luong ban dau: ".$rows['init_import']
+			."<br> Trả nhà cung cấp : ".$rows['return_provider']
+			."<br> Số lượng bán : ".$rows['export_qty']
+			."<br> Khách trả hàng : ".$rows['cus_return']
+			."<br> Sai số : ".$rows['deviation']
+			."<br> Tồn kho :".($rows['init_import']-$rows['return_provider']-$rows['export_qty']+$rows['cus_return']+$rows['deviation']), 
+			value => $rows ['code'], 
+			label => $labelvalue );
 				
 			$jsonArray [] = $element;
 		}
