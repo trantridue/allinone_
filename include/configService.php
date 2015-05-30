@@ -67,5 +67,28 @@ class ConfigService {
 			}
 		}
 	}
+	function listParameters(){
+		$qry = "select * from configuration";
+		$result = mysql_query ( $qry, $this->connection );
+		$listParams = "";
+		echo "<table>";
+		while ( $rows = mysql_fetch_array ( $result ) ) {
+			$listParams = $listParams.$rows['name'].";";
+			echo "<tr>";
+			echo "<td>".$rows['label']."</td><td><input type='number' id='".$rows['name']."' value='".$rows['value']."' /></td>";
+			echo "</tr>";
+		}
+		echo "</table>";
+		return $listParams;
+	}
+	function getListParameters(){
+		$qry = "select * from configuration";
+		$result = mysql_query ( $qry, $this->connection );
+		$listParams = "";
+		while ( $rows = mysql_fetch_array ( $result ) ) {
+			$listParams = $listParams.$rows['name'].";";
+		}
+		return substr($listParams,0,-1);
+	}
 }
 ?>

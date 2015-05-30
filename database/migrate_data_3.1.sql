@@ -229,19 +229,19 @@ WHERE  ( t.total - t.paid ) <> 0) t2 where t2.code = t1.export_facture_code),0))
 update export_facture_trace set amount = 0 where id = 12073;
 #update `export_facture_trace` set amount = (amount+customer_give-give_customer+bonus_used) where give_customer >0;
 #update `export_facture_trace` set amount = (amount+customer_give+bonus_used) where give_customer <=0;
-insert into `configuration`(`name`,`value`) values
-('import_number_row','15'),
-('export_number_row','9'),
-('default_row_product_return','5'),
-('default_password','123456'),
-('is_sale_for_all','1'),
-('default_number_line_spend','7'),
-('listExportDefault_nbr_day_limit','1'),
-('nbr_day_default_export_returned','1'),
-('default_nbr_days_load_export','10'),
-('bonus_ratio','100'),
-('init_money','500'),
-('timeout','7200'),
-('limit_default_customer_after_search','500'),
-('limit_default_customer_before_search','100'),
-('sale_all_taux','10');
+insert into `configuration`(`name`,`value`,`label`) values
+('import_number_row','15','NBR ROW IMPORT'),
+('export_number_row','9','NBR ROW EXPORT'),
+('default_row_product_return','5','NBR ROW IMPORT RETURN'),
+('default_password','123456','DEFAULT PASSWORD'),
+('is_sale_for_all','1','SALE ON/OFF'),
+('default_number_line_spend','7','NBR ROW SPEND'),
+('listExportDefault_nbr_day_limit','1','NBR DAY EXPORT'),
+('nbr_day_default_export_returned','1','NBR DAY EXPORT RETURN'),
+('default_nbr_days_load_export','10','NBR DAY EXPORT DEFAULT'),
+('bonus_ratio','100','BONUS RATIO'),
+('init_money','500','AMOUNT INIT'),
+('timeout','7200','SYSTEM TIMEOUT'),
+('limit_default_customer_after_search','500','NBR ROW CUS AFTER'),
+('limit_default_customer_before_search','100','NBR ROW CUS BEFORE'),
+('sale_all_taux','10','SALE TAUX');
