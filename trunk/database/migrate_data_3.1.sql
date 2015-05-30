@@ -242,4 +242,6 @@ insert into `configuration`(`name`,`value`) values
 ('bonus_ratio','100'),
 ('init_money','500'),
 ('timeout','7200'),
+('limit_default_customer_after_search','500'),
+('limit_default_customer_before_search','100'),
 ('sale_all_taux','10');
