@@ -103,6 +103,14 @@ class CustomerService {
 			$flag = false;
 			$qry = $qry . " and t.date <= '".$params['update_date_to']."'";
 		}
+		if($params['total_amount_from']!=''){
+			$flag = false;
+			$qry = $qry . " and t.total >= '".$params['total_amount_from']."'";
+		}
+		if($params['total_amount_to']!=''){
+			$flag = false;
+			$qry = $qry . " and t.total <= '".$params['total_amount_to']."'";
+		}
 		if($params['search_description']!=''){
 			$flag = false;
 			$qry = $qry . " and t.description like '%".$params['search_description']."%'";
@@ -120,7 +128,7 @@ class CustomerService {
 		$array_column = array ("id,description" => "ID,id","name" => "Name", 
 		"tel" => "Tel",  "description" => "Description",
 		"created_date" => "Create date",
-		"date" => "Modify date", 
+		"date" => "Recent date", 
 		"isboss" => "Is Boss", 
 		"total" => "Total",
 		"paid" => "Paid",
@@ -214,6 +222,8 @@ function getSearchParameters(){
 			'create_date_to' 			=> $_REQUEST['create_date_to'],
 			'update_date_to' 			=> $_REQUEST['update_date_to'],
 			'update_date_from' 			=> $_REQUEST['update_date_from'],
+			'total_amount_from' 		=> $_REQUEST['total_amount_from'],
+			'total_amount_to' 			=> $_REQUEST['total_amount_to'],
 			'search_description' 		=> $_REQUEST['search_description']
 		);
 	}

@@ -18,8 +18,13 @@
 	</tr>
 	<tr>
 		<td align="right"><label for="search_description">Description :</label></td>
-		<td colspan="3">
-			<textarea rows="3" cols="50" id="search_description"></textarea>
+		<td>
+			<textarea rows="3" cols="30" id="search_description"></textarea>
+		</td>
+		<td align="right"><label for="total_amount_from">Total amount :</label></td>
+		<td>
+			<input id="total_amount_from" type="number" style="width:80px;"/>
+			<input id="total_amount_to" type="number" style="width:80px;"/>
 		</td>
 	</tr>
 	<tr>

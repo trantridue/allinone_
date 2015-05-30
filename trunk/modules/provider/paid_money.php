@@ -58,12 +58,11 @@ echo $_REQUEST ['name'];
 		<td><?php
 		$commonService->printDropDownListFromTableSelected ( 'fund', 'paid_fund_1', default_id_source_1 );
 		?></td>
-		<td><input type="text" id="paid_amount_1"
+		<td><input type="text" id="paid_amount_1" onclick="this.select();"
 			onkeypress="validateFloat(event);" size="6" maxlength="8" value="0"
 			onkeyup="calculateProviderPaid();" 
 			ondblclick="paidAllByFund('paid_amount_1');"/></td>
-		<td><input type="text" id="paid_remaining"
-			onkeypress="validateNon(event);"
+		<td><input type="number" id="paid_remaining" style="width: 100px;" onclick="this.select();" onkeyup="calculatePaid();" 	
 			value="<?php
 			echo $_REQUEST ['remain'];
 			?>" /></td>
@@ -75,7 +74,7 @@ echo $_REQUEST ['name'];
 		<td><?php
 		$commonService->printDropDownListFromTableSelected ( 'fund', 'paid_fund_2', default_id_source_2 );
 		?></td>
-		<td><input type="text" id="paid_amount_2"
+		<td><input type="text" id="paid_amount_2" onclick="this.select();"
 			onkeypress="validateFloat(event);" size="6" maxlength="8" value="0"
 			onkeyup="calculateProviderPaid();" 
 			ondblclick="paidAllByFund('paid_amount_2');"/></td>
@@ -88,7 +87,7 @@ echo $_REQUEST ['name'];
 		<td><?php
 		$commonService->printDropDownListFromTableSelected ( 'fund', 'paid_fund_3', default_id_source_3 );
 		?></td>
-		<td><input type="text" id="paid_amount_3"
+		<td><input type="text" id="paid_amount_3" onclick="this.select();"
 			onkeypress="validateFloat(event);" size="6" maxlength="8" value="0"
 			onkeyup="calculateProviderPaid();" 
 			ondblclick="paidAllByFund('paid_amount_3');"/></td>
