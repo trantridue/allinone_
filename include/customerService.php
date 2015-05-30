@@ -39,46 +39,77 @@ class CustomerService {
 		$this->HandleError ( $err . "\r\n mysqlerror:" . mysql_error () );
 	}
 	function listCustomerDefault() {
-		$qry = "SELECT *, id as iden FROM customer order by id desc limit 100";
+		$qry = "select *,(t.total-t.paid) as debt from (SELECT
+				       t1.id,
+				       t1.tel,
+				       t1.name,
+                t1.description,
+                t1.created_date,
+                t1.isboss,
+				       (select max(t4.date) from export_facture t4 where t4.customer_id = t1.id) as date,
+				       sum((t3.quantity-t3.re_qty)*t3.export_price) as total,
+				       (select sum(amount) from export_facture_trace t4 where t4.customer_id = t1.id) AS paid
+				FROM   customer t1,
+				       export_facture t2,
+				       export_facture_product t3
+				WHERE  t1.id = t2.customer_id
+				       AND t2.code = t3.export_facture_code
+				       and t1.tel not like '%aaaaaaa%' group by t1.id) t order by id desc limit ".$_SESSION['limit_default_customer_before_search'];
 		$result = mysql_query ( $qry, $this->connection );
 		
 		$this->commonService->generateJSDatatableSimple ( customerdatatable, 0, 'desc' );
 		$this->commonService->generateJqueryDatatable ( $result, customerdatatable, $this->getArrayColumn() );
 	}
 	function listCustomer($params) {
-		$qry = "SELECT *, id as iden FROM customer where 1 ";
+		session_start();
+		$qry = "select *,(t.total-t.paid) as debt from (SELECT
+				       t1.id,
+				       t1.tel,
+				       t1.name,
+                t1.description,
+                t1.created_date,
+                t1.isboss,
+				       (select max(t4.date) from export_facture t4 where t4.customer_id = t1.id) as date,
+				       sum((t3.quantity-t3.re_qty)*t3.export_price) as total,
+				       (select sum(amount) from export_facture_trace t4 where t4.customer_id = t1.id) AS paid
+				FROM   customer t1,
+				       export_facture t2,
+				       export_facture_product t3
+				WHERE  t1.id = t2.customer_id
+				       AND t2.code = t3.export_facture_code
+				       and t1.tel not like '%aaaaaaa%' group by t1.id) t where 1";
 		$flag = true;
 		if($params['search_customer_name']!=''){
 			$flag = false;
-			$qry = $qry . " and name like '%".$params['search_customer_name']."%'";
+			$qry = $qry . " and t.name like '%".$params['search_customer_name']."%'";
 		}
 		if($params['search_customer_tel']!=''){
 			$flag = false;
-			$qry = $qry . " and tel like '%".$params['search_customer_tel']."%'";
+			$qry = $qry . " and t.tel like '%".$params['search_customer_tel']."%'";
 		}
 		if($params['create_date_from']!=''){
 			$flag = false;
-			$qry = $qry . " and created_date >= '".$params['create_date_from']."'";
+			$qry = $qry . " and t.created_date >= '".$params['create_date_from']."'";
 		}
 		if($params['create_date_to']!=''){
 			$flag = false;
-			$qry = $qry . " and created_date <= '".$params['create_date_to']."'";
+			$qry = $qry . " and t.created_date <= '".$params['create_date_to']."'";
 		}
 		if($params['update_date_from']!=''){
 			$flag = false;
-			$qry = $qry . " and date >= '".$params['update_date_from']."'";
+			$qry = $qry . " and t.date >= '".$params['update_date_from']."'";
 		}
 		if($params['update_date_to']!=''){
 			$flag = false;
-			$qry = $qry . " and date <= '".$params['update_date_to']."'";
+			$qry = $qry . " and t.date <= '".$params['update_date_to']."'";
 		}
 		if($params['search_description']!=''){
 			$flag = false;
-			$qry = $qry . " and description like '%".$params['search_description']."%'";
+			$qry = $qry . " and t.description like '%".$params['search_description']."%'";
 		}
-		$qry = $qry. " order by id desc";
+		$qry = $qry. " order by t.id desc";
 		if($flag) 
-		$qry = $qry. " limit 1000";
+		$qry = $qry. " limit ".$_SESSION['limit_default_customer_after_search'];
 //		echo $qry;
 		$result = mysql_query ( $qry, $this->connection );
 		
@@ -86,11 +117,14 @@ class CustomerService {
 		$this->commonService->generateJqueryDatatable ( $result, customerdatatable, $this->getArrayColumn() );
 	}
 	function getArrayColumn() {
-		$array_column = array ("iden" => "Identication","name" => "Name", 
+		$array_column = array ("id,description" => "ID,id","name" => "Name", 
 		"tel" => "Tel",  "description" => "Description",
 		"created_date" => "Create date",
 		"date" => "Modify date", 
 		"isboss" => "Is Boss", 
+		"total" => "Total",
+		"paid" => "Paid",
+		"debt" => "Debt",
 		"id,name,tel,description,isboss" => "Edit", 
 		"id,deletecustomer" => "Delete" );
 		return $array_column;

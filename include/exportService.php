@@ -357,7 +357,8 @@ class ExportService {
 		if($paramsArray['customer_tel'] == '') {
 			return $cus_id;
 		} else if($paramsArray['customer_id'] != null) {
-			$qry = "update customer set date = '".$datetime."' where id = ".$paramsArray['customer_id'];
+			$qry = "update customer set date = '".$datetime."', name='".$paramsArray['customer_name']."',
+			description='".$paramsArray['customer_description']."' where id = ".$paramsArray['customer_id'];
 			mysql_query ( $qry, $this->connection );
 			return $paramsArray['customer_id'];
 		} else { 

@@ -54,6 +54,8 @@ class ConfigService {
 		'bonus_ratio', 
 		'init_money', 
 		'timeout', 
+		'limit_default_customer_after_search', 
+		'limit_default_customer_before_search', 
 		'sale_all_taux'
 		);
 		$qry = "select * from configuration";
