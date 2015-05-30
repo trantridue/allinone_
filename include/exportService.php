@@ -76,12 +76,13 @@ class ExportService {
 			name => $rows ['name'], 
 			price => $rows ['price'],
 			posted_price => $rows ['export_price'], 
-			detail => "<span style='color:red;'>".$rows ['name']."</span><hr>"."So luong ban dau: ".$rows['init_import']
-			."<br> Trả nhà cung cấp : ".$rows['return_provider']
-			."<br> Số lượng bán : ".$rows['export_qty']
-			."<br> Khách trả hàng : ".$rows['cus_return']
-			."<br> Sai số : ".$rows['deviation']
-			."<br> Tồn kho :".($rows['init_import']-$rows['return_provider']-$rows['export_qty']+$rows['cus_return']+$rows['deviation']), 
+			detail => "<div style='background-color:pink; width:300px;'><span style='color:red;'>".$rows ['name']."</span><hr>"
+			."<ul><li>  Tổng nhập : ".$rows['init_import']
+			."</li><li> Trả CC    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: ".$rows['return_provider']
+			."</li><li> Đã bán    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: ".$rows['export_qty']
+			."</li><li> Khách Trả &nbsp;: ".$rows['cus_return']
+			."</li><li> Sai số  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  : ".$rows['deviation']
+			."</li></ul><hr>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Tồn kho &nbsp;&nbsp;  :".($rows['init_import']-$rows['return_provider']-$rows['export_qty']+$rows['cus_return']+$rows['deviation'])."</div>", 
 			value => $rows ['code'], 
 			label => $labelvalue );
 				

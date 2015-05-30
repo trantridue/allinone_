@@ -21,3 +21,8 @@ function calculateProviderPaid() {
 	remain = parseInt($('#paid_remain_update').html()) - $("#paid_amount_1").val() - $("#paid_amount_2").val() - $("#paid_amount_3").val();
 	$("#paid_remaining").val(remain.toFixed(0).replace(/\d(?=(\d{3})+\.)/g, '$&,'));
 }
+function calculatePaid() {
+	var paid = 0;
+	paid = parseInt($('#paid_remain_update').html()) - $("#paid_remaining").val() - $("#paid_amount_2").val() - $("#paid_amount_3").val();
+	$("#paid_amount_1").val(paid.toFixed(0).replace(/\d(?=(\d{3})+\.)/g, '$&,'));
+}

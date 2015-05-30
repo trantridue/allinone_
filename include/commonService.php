@@ -200,9 +200,9 @@ echo "</script> ";
 					echo "<td><div class='deleteIcon'><input type='hidden' value ='".$str."'></div></td>";
 				} else if ($value == 'status') {
 					if($rows [$value]=='y' || $rows [$value]=='Y'){
-						echo "<td style='color:green;font-weight:bold'> Active </td>";
+						echo "<td style='background-color:#FFE4C4;font-weight:bold;'> Active </td>";
 					} else {
-						echo "<td style='color:red;font-weight:bold'> Desactive </td>";
+						echo "<td style='background-color:rgb(0, 69, 167);font-weight:bold'> Desactive </td>";
 					}
 				} else if ($value == 'isboss') {
 					if($rows [$value]==1){

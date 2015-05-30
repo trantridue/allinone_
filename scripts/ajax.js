@@ -417,6 +417,8 @@ function getCustomerSearchCriteria(issearch) {
 	var update_date_to = "&update_date_to=" + $('#update_date_to').val();
 	
 	var search_description = "&search_description=" + $('#search_description').val();
+	var total_amount_from = "&total_amount_from=" + $('#total_amount_from').val();
+	var total_amount_to = "&total_amount_to=" + $('#total_amount_to').val();
 	
 	str = str + search_customer_name;
 	str = str + search_customer_tel;
@@ -425,6 +427,9 @@ function getCustomerSearchCriteria(issearch) {
 	str = str + update_date_from;
 	str = str + update_date_to;
 	str = str + search_description;
+	str = str + total_amount_from;
+	str = str + total_amount_to;
+	
 	return processUrlStringEncode(str);
 }
 function editcustomer(str) {
@@ -581,34 +586,30 @@ function paidMoneyProvider() {
 	});
 }
 function deletepaidhisto(idpad, amount) {
-	if (confirm('Are you sure to delete?')) {
-		var provider_id = $('#paid_provider_id').val();
-		var oldremain = parseInt($('#paid_remain_update').html());
-		var paid = parseInt($('#paid_paid_update').html());
-		var urls = 'modules/provider/paiddelete.php?idpad=' + idpad
-				+ "&idprovider=" + provider_id;
-		$.ajax( {
-			url : urls,
-			success : function(data) {
-				if (data == 'true') {
-					$('#rightpaid')
-							.load(
-									"modules/provider/paid_right.php?id="
-											+ provider_id);
-					listProvider();
-					$('#paid_remain_update').html(oldremain + amount);
-					$('#paid_remaining').val(oldremain + amount);
-					$('#paid_paid_update').html(paid - amount);
-					$('#paid_amount_1').val(0);
-					$('#paid_amount_2').val(0);
-					$('#paid_amount_3').val(0);
-				} else
-					alert('error delete payment!');
-			}
-		});
-	} else {
-		return false;
-	}
+	var provider_id = $('#paid_provider_id').val();
+	var oldremain = parseInt($('#paid_remain_update').html());
+	var paid = parseInt($('#paid_paid_update').html());
+	var urls = 'modules/provider/paiddelete.php?idpad=' + idpad
+			+ "&idprovider=" + provider_id;
+	$.ajax( {
+		url : urls,
+		success : function(data) {
+			if (data == 'true') {
+				$('#rightpaid')
+						.load(
+								"modules/provider/paid_right.php?id="
+										+ provider_id);
+				listProvider();
+				$('#paid_remain_update').html(oldremain + amount);
+				$('#paid_remaining').val(oldremain + amount);
+				$('#paid_paid_update').html(paid - amount);
+				$('#paid_amount_1').val(0);
+				$('#paid_amount_2').val(0);
+				$('#paid_amount_3').val(0);
+			} else
+				alert('error delete payment!');
+		}
+	});
 }
 function getPaidProviderInformation() {
 	var str = "";
