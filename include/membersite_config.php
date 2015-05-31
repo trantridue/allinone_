@@ -1,17 +1,17 @@
 <?PHP
 require_once ("constant.php");
-require_once ("./include/fg_membersite.php");
-require_once ("./include/commonService.php");
-require_once ("./include/importService.php");
-require_once ("./include/userService.php");
-require_once ("./include/providerService.php");
-require_once ("./include/customerService.php");
-require_once ("./include/newsService.php");
-require_once ("./include/spendService.php");
-require_once ("./include/inoutService.php");
-require_once ("./include/fundService.php");
-require_once ("./include/exportService.php");
-require_once ("./include/configService.php");
+require_once ("fg_membersite.php");
+require_once ("commonService.php");
+require_once ("importService.php");
+require_once ("userService.php");
+require_once ("providerService.php");
+require_once ("customerService.php");
+require_once ("newsService.php");
+require_once ("spendService.php");
+require_once ("inoutService.php");
+require_once ("fundService.php");
+require_once ("exportService.php");
+require_once ("configService.php");
 
 $commonService = new CommonService ();
 $configService = new ConfigService ( hostname, username, password, database,$commonService );
