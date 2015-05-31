@@ -121,7 +121,7 @@ class CustomerService {
 	}
 	function generateCsvFile($result){
 		session_start();
-		$contactFileNameReturn = "contact_".date ( 'Y-m-d_H-i-s' ).".csv";
+		$contactFileNameReturn = "csv/contact_".date ( 'Y-m-d_H-i-s' ).".csv";
 		$contactFileName = "../../".$contactFileNameReturn;
 
 		$counter =0;
