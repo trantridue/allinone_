@@ -17,8 +17,8 @@
 			class="datefield" id="update_date_to"></td>
 	</tr>
 	<tr>
-		<td align="right"><label for="search_description">Description :</label></td>
-		<td>
+		<td align="right" rowspan="2"><label for="search_description">Description :</label></td>
+		<td rowspan="2">
 			<textarea rows="3" cols="30" id="search_description"></textarea>
 		</td>
 		<td align="right"><label for="total_amount_from">Total amount :</label></td>
@@ -28,11 +28,20 @@
 		</td>
 	</tr>
 	<tr>
+		<td align="right"><label for="efficiency_from">Efficiency :</label></td>
+		<td>
+			<input id="efficiency_from" type="number" style="width:80px;"/>
+			<input id="efficiency_to" type="number" style="width:80px;"/>
+		</td>
+	</tr>
+	<tr>
 		<td></td>
 		<td colspan="2" align="center"><input type="reset" value="RESET"
 			class="menu_btn_sub" /> <input type="button" name="search_btn"
 			class="menu_btn_sub" value="SEARCH"
-			onclick="javascript:listCustomer('true');"></td>
+			onclick="javascript:listCustomer('true');"><input type="button" 
+			class="menu_btn_sub" value="EXPORT CSV"
+			onclick="exportCustomerCsv();"></td>
 		<td></td>
 	</tr>
 </table>

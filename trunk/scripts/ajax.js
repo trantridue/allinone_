@@ -405,6 +405,15 @@ function listCustomer(issearch) {
 	var url = "modules/customer/list.php" + getCustomerSearchCriteria(issearch);
 	$('#listArea').load(url);
 }
+function exportCustomerCsv() {
+	var urls = "modules/customer/exportCSV.php" + getCustomerSearchCriteria('true');
+	$.ajax( {
+		url : urls,
+		success : function(data) {
+			location.href=data;
+		}
+	});
+}
 function getCustomerSearchCriteria(issearch) {
 
 	var str = "?issearch=" + issearch + "&isdefault=false";
@@ -419,6 +428,8 @@ function getCustomerSearchCriteria(issearch) {
 	var search_description = "&search_description=" + $('#search_description').val();
 	var total_amount_from = "&total_amount_from=" + $('#total_amount_from').val();
 	var total_amount_to = "&total_amount_to=" + $('#total_amount_to').val();
+	var efficiency_from = "&efficiency_from=" + $('#efficiency_from').val();
+	var efficiency_to = "&efficiency_to=" + $('#efficiency_to').val();
 	
 	str = str + search_customer_name;
 	str = str + search_customer_tel;
@@ -429,6 +440,8 @@ function getCustomerSearchCriteria(issearch) {
 	str = str + search_description;
 	str = str + total_amount_from;
 	str = str + total_amount_to;
+	str = str + efficiency_from;
+	str = str + efficiency_to;
 	
 	return processUrlStringEncode(str);
 }
