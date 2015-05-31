@@ -49,7 +49,8 @@ class CustomerService {
 				       (select max(t4.date) from export_facture t4 where t4.customer_id = t1.id) as date,
 				       sum((t3.quantity-t3.re_qty)*t3.export_price) as total,
 				       sum(t3.export_price*t3.re_qty) as return_amount,
-				       (select sum(amount) from export_facture_trace t4 where t4.customer_id = t1.id) AS paid
+				       (select sum(amount) from export_facture_trace t4 where t4.customer_id = t1.id) AS paid,
+				       (select sum(bonus_used*bonus_ratio) from export_facture_trace t4 where t4.customer_id = t1.id) AS bonus_used
 				FROM   customer t1,
 				       export_facture t2,
 				       export_facture_product t3
@@ -161,7 +162,8 @@ class CustomerService {
 				       (select max(t4.date) from export_facture t4 where t4.customer_id = t1.id) as date,
 				       sum((t3.quantity-t3.re_qty)*t3.export_price) as total,
 				       sum(t3.export_price*t3.re_qty) as return_amount,
-				       (select sum(amount) from export_facture_trace t4 where t4.customer_id = t1.id) AS paid
+				       (select sum(amount) from export_facture_trace t4 where t4.customer_id = t1.id) AS paid,
+				       (select sum(bonus_used*bonus_ratio) from export_facture_trace t4 where t4.customer_id = t1.id) AS bonus_used
 				FROM   customer t1,
 				       export_facture t2,
 				       export_facture_product t3
@@ -229,14 +231,14 @@ class CustomerService {
 	function getArrayColumn() {
 		$array_column = array ("id,description" => "ID,id","name" => "Name", 
 		"tel" => "Tel",  "description" => "Description",
-		"created_date" => "Create date",
-		"date" => "Recent date", 
+		"created_date" => "Recent date,date", 
 		"isboss" => "Is Boss", 
 		"total" => "Total",
 		"paid" => "Paid",
 		"return_amount" => "re_A",
 		"efficient" => "EFF",
 		"debt" => "Debt",
+		"bonus_used" => "Bonus",
 		"id,name,tel,description,isboss" => "Edit", 
 		"id,deletecustomer" => "Delete" );
 		return $array_column;
