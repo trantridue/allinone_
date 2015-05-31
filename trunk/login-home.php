@@ -1,5 +1,5 @@
 <?PHP
-require_once ("./include/membersite_config.php");
+require_once ("include/membersite_config.php");
 
 $now = time ();
 if (! $fgmembersite->CheckLogin () || ($now > $_SESSION ['expire1'])) {
