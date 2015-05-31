@@ -1663,6 +1663,10 @@ $(document).ready(
 									+ ui.item.bonus_used + "</li></ul>");
 					$("#customer_bonus").html(ui.item.bonus);
 					$("#isBoss").prop('checked', ui.item.isboss);
+					if(ui.item.debt !=0) {
+						$("#saveExportBtn").val('Lưu (Khách Có Nợ)');
+						$("#saveExportBtn").css('background-color','rgb(55, 223, 114)');
+					}
 					calculateExportForm();
 				},
 				minLength : 1
@@ -1683,11 +1687,14 @@ $(document).ready(function() {
 function updateCusIdWhenChangeTel() {
 	$("#customer_name").val('');
 	$("#customer_id").val('');
+	$("#customer_give").val('0');
 	$("#customer_debt").html('0');
 	$("#customer_reserved").html('0');
 	// $("#customer_returned").html('0');
 	$("#customer_bonus").html('0');
 	$("#isBoss").prop('checked', false);
+	$("#saveExportBtn").val('LƯU');
+	$("#saveExportBtn").css('background-color','violet');
 
 	calculateExportForm();
 }
