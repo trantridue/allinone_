@@ -69,18 +69,24 @@ class ConfigService {
 		}
 	}
 	function listParameters(){
+		$nbr_column = 4;
+		$counter = 0;
 		$qry = "select * from configuration";
 		$result = mysql_query ( $qry, $this->connection );
-		$listParams = "";
-		echo "<table>";
+		echo "<table width='100%'>";
 		while ( $rows = mysql_fetch_array ( $result ) ) {
-			$listParams = $listParams.$rows['name'].";";
-			echo "<tr>";
-			echo "<td>".$rows['label']."</td><td><input type='number' id='".$rows['name']."' value='".$rows['value']."' /></td>";
-			echo "</tr>";
+			if(($counter % $nbr_column) == 0 ){
+				echo "<tr>";
+			}
+			echo "<td title='".$rows['name']."' style='font-weight:bold' align='right'>".$rows['label']."</td>";
+			echo "<td><input type='number' style='width:50px;' id='".$rows['name']."' value='".$rows['value']."' /></td>";
+			
+			if((($counter-$nbr_column+1) % $nbr_column) == 0 ){
+				echo "</tr>";
+			}
+			$counter++;
 		}
 		echo "</table>";
-		return $listParams;
 	}
 	function getListParameters(){
 		$qry = "select * from configuration";
