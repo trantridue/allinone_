@@ -1287,7 +1287,6 @@ function deletereturnprovider(id,product_code) {
 		$.ajax( {
 			url : urls,
 			success : function(data) {
-//			$("#exportSearch").html(data);
 				if (data == 'success') {
 					operationSuccess();
 					listReturnProduct();
