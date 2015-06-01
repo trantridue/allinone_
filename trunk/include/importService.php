@@ -498,21 +498,58 @@ class ImportService {
 		echo $qry_facture;
 //		 		echo $qry_insert_deviation;
 	}
-	function listProductReturnDefault() {
-		$qry = "select t1.*,t1.id as idre,t2.*,t3.*,t4.*,t1.description as description_r, t1.date as datereturn,t3.name as provider_name,t2.name as product_name,
-				(select import_price from product_import where product_code = t1.product_code and id = (select max(id) from product_import where product_code = t1.product_code )) as import_price from 
-				product_return t1, product t2, provider t3, category t4, brand t5,season t6 
-				where t1.product_code = t2.code and t1.provider_id = t3.id and t2.category_id = t4.id and t2.brand_id = t5.id and t2.season_id = t6.id";
+	//TODO: donot use for this moment 20150602
+	/*function listProductReturnDefault() {
+		$qry = "SELECT t1.*, 
+		       date_format(t1.date,'%Y-%m-%d') as date, 
+		       t3.NAME   AS provider_name, 
+		       t2.NAME   AS product_name,
+		       t3.tel, 
+		       (SELECT import_price 
+		        FROM   product_import 
+		        WHERE  product_code = t1.product_code 
+		               AND id = (SELECT Max(id) 
+		                         FROM   product_import 
+		                         WHERE  product_code = t1.product_code)) AS import_price 
+		FROM   product_return t1, 
+		       product t2, 
+		       provider t3, 
+		       category t4, 
+		       brand t5, 
+		       season t6 
+		WHERE  t1.product_code = t2.code 
+		       AND t1.provider_id = t3.id 
+		       AND t2.category_id = t4.id 
+		       AND t2.brand_id = t5.id 
+		       AND t2.season_id = t6.id ";
 		$result = mysql_query ( $qry, $this->connection );
 		
 		$this->commonService->generateJSDatatableComplex ( $result, 'productreturn', 7, 'desc', $this->getArrayTotalReturn () );
 		$this->commonService->generateJqueryDatatable ( $result, 'productreturn', $this->getArrayColumnReturn () );
-	}
+	}*/
 	function listProductReturn($parameterArray) {
-		$qry = "select t1.*,t2.*,t3.*,t4.*,t1.description as description_r,t1.date as datereturn,t3.name as provider_name,t2.name as product_name,
-				(select import_price from product_import where product_code = t1.product_code and id = (select max(id) from product_import where product_code = t1.product_code )) as import_price 
-				from product_return t1, product t2, provider t3, category t4, brand t5, season t6
-				where t1.product_code = t2.code and t1.provider_id = t3.id and t2.category_id = t4.id and t2.brand_id = t5.id and t2.season_id = t6.id ";
+		$qry = "SELECT t1.*, 
+		       date_format(t1.date,'%Y-%m-%d') as date, 
+		       t3.NAME   AS provider_name, 
+		       t2.NAME   AS product_name,
+		       t3.tel, 
+		       (SELECT import_price 
+		        FROM   product_import 
+		        WHERE  product_code = t1.product_code 
+		               AND id = (SELECT Max(id) 
+		                         FROM   product_import 
+		                         WHERE  product_code = t1.product_code)) AS import_price 
+		FROM   product_return t1, 
+		       product t2, 
+		       provider t3, 
+		       category t4, 
+		       brand t5, 
+		       season t6 
+		WHERE  t1.product_code = t2.code 
+		       AND t1.provider_id = t3.id 
+		       AND t2.category_id = t4.id 
+		       AND t2.brand_id = t5.id 
+		       AND t2.season_id = t6.id ";
 		
 		if ($parameterArray ['product_name'] != '')
 			$qry = $qry . " and t2.name like '%" . $parameterArray ['product_name'] . "%'";
@@ -558,26 +595,26 @@ class ImportService {
 			if ($parameterArray ['sale'] != '')
 				$qry = $qry . " and t2.sale = " . $parameterArray ['sale'];
 		}
-		//		 		echo $qry;
 		$result = mysql_query ( $qry, $this->connection );
 		
 		$this->commonService->generateJSDatatableComplex ( $result, 'productreturn', 7, 'desc', $this->getArrayTotalReturn () );
 		$this->commonService->generateJqueryDatatable ( $result, 'productreturn', $this->getArrayColumnReturn () );
 	}
 	function getArrayTotalReturn() {
-		return array (2 => "Số lượng", 5 => "Tổng tiền trả" );
+		return array (2 => "Số lượng", 5 => "Amount" );
 	}
 	function getArrayColumnReturn() {
-		return array ("product_code" => "Mã hàng", 
+		return array (
+		"product_code" => "Mã hàng", 
 		"product_name" => "Tên hàng", 
 		"quantity" => "Số lượng", 
 		"import_price" => "Giá nhập", 
 		"export_price" => "Giá NY", 
 		"quantity*import_price" => "complex", 
-		"description_r" => "Ghi chú", 
-		"datereturn" => "Ngày trả", 
+		"description" => "Ghi chú", 
+		"date" => "Ngày trả", 
 		"provider_name" => "Cung cấp", 
-		"idre,deletereturnprovider" => "Delete", 
+		"id,deletereturnprovider,product_code" => "Delete", 
 		"tel" => "Phone" );
 	}
 	function getInputSearchParameters() {
