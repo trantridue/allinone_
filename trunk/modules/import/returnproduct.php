@@ -86,8 +86,9 @@ function returnProduct(){
 <?php echo tab4;?> <strong> TOTAL: </strong>
 <input type="text" id="total_return" value="0" style="opacity:100%;" size="8" onkeypress="validateNon(event);"/>
 </div>
+<div id="returnproducttable">
 <hr>
-<table width="100%" id="returnproducttable">
+<table width="100%" >
 <tr>
 <th>Mã hàng</th>
 <th>SLTrả</th>
@@ -138,6 +139,7 @@ $(document).ready(function(){
 </tr>
 <?php }?>
 </table>
+</div>
 </form>
 
 <div id="listReturnProductArea"><?php include 'listproductreturn.php';?></div>

@@ -533,6 +533,7 @@ class ImportService {
 		       t3.NAME   AS provider_name, 
 		       t2.NAME   AS product_name,
 		       t3.tel, 
+		       t2.export_price,
 		       (SELECT import_price 
 		        FROM   product_import 
 		        WHERE  product_code = t1.product_code 
@@ -601,16 +602,16 @@ class ImportService {
 		$this->commonService->generateJqueryDatatable ( $result, 'productreturn', $this->getArrayColumnReturn () );
 	}
 	function getArrayTotalReturn() {
-		return array (2 => "Số lượng", 5 => "Amount" );
+		return array (2 => "Số lượng", 3 => "Amount" );
 	}
 	function getArrayColumnReturn() {
 		return array (
 		"product_code" => "Mã hàng", 
 		"product_name" => "Tên hàng", 
 		"quantity" => "Số lượng", 
+		"quantity*return_price" => "complex", 
 		"import_price" => "Giá nhập", 
 		"export_price" => "Giá NY", 
-		"quantity*import_price" => "complex", 
 		"description" => "Ghi chú", 
 		"date" => "Ngày trả", 
 		"provider_name" => "Cung cấp", 
@@ -641,6 +642,29 @@ class ImportService {
 				'id_edit_provider' => $_REQUEST ['id_edit_provider'], 
 				'edit_product_code' => $_REQUEST ['edit_product_code'], 'edit_product_name' => $_REQUEST ['edit_product_name'], 'id_edit_category' => $_REQUEST ['id_edit_category'], 'id_edit_season' => $_REQUEST ['id_edit_season'], 'id_edit_sex' => $_REQUEST ['id_edit_sex'], 'id_edit_brand' => $_REQUEST ['id_edit_brand'], 'edit_product_description' => $_REQUEST ['edit_product_description'], 'edit_export_price' => $_REQUEST ['edit_export_price'], 'edit_sale' => $_REQUEST ['edit_sale'], 'edit_link' => $_REQUEST ['edit_link'], 'edit_id' => $_REQUEST ['edit_id'], 'edit_quantity' => $_REQUEST ['edit_quantity'], 'edit_deviation' => $_REQUEST ['edit_deviation'], 'edit_import_price' => $_REQUEST ['edit_import_price'] );
 		return $parameterArray;
+	}
+	function deleteReturnProduct($id,$product_code) {
+		mysql_query ( "BEGIN" );
+		$flag = true;
+		$qryReturn = "delete from product_return where id = ".$id;
+		$qryDeviation = "delete from product_deviation where product_code ='".$product_code."'";
+
+		$flag = $flag && (mysql_query ( $qryReturn, $this->connection ) != null);
+		//TODO: to be delete when finish migration data
+		$flag = $flag && (mysql_query ( $qryDeviation, $this->connection ) != null);
+		
+		
+		$this->commitOrRollback($flag);
+		echo "success";
+	}
+		function commitOrRollback($flag){
+		if ($flag == false) {
+			echo mysql_error($this->connection);
+			mysql_query ( "ROLLBACK" );
+			echo "error";
+		} else {
+			mysql_query ( "COMMIT" );
+		}
 	}
 	// END BUSINESS IMPORT PROJECT
 }
