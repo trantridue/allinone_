@@ -42,29 +42,89 @@ class ImportService {
 	function listProductDefault() {
 		$dateBeforeSomeDays = $this->commonService->getDateBeforeSomeDays (default_nbr_days_load_import);
 		
-		$qry = "SELECT t4.name as provider_name, t5.name as brand_name,t6.name as category_name, t7.name as season_name,ifnull((select sum(quantity)
-				 from product_deviation where product_code = t2.code group by product_code),0) as deviation
-				 ,t1.*,t2.*,t3.code as facture_code,t3.date,t3.description as descript, t3.provider_id,date_format(t3.deadline,'%Y-%m-%d') as deadline
-				  FROM product_import t1,product t2,import_facture t3,provider t4, brand t5, category t6, season t7 where t1.product_code = t2.code 
-				and t1.import_facture_code = t3.code and t4.id = t3.provider_id and t5.id = t2.brand_id and t6.id = t2.category_id and t7.id = t2.season_id 
+		$qry = "SELECT t4.NAME                              AS provider_name, 
+				       t5.NAME                              AS brand_name, 
+				       t6.NAME                              AS category_name, 
+				       t7.NAME                              AS season_name, 
+				       t1.*, 
+				       t2.*, 
+				       t3.code                              AS facture_code, 
+				       date_format(t3.date,'%Y-%m-%d') as date_im, 
+				       t3.description                       AS descript, 
+				       t3.provider_id, 
+				       Date_format(t3.deadline, '%Y-%m-%d') AS deadline, 
+				       (SELECT Ifnull(Sum(quantity), 0)
+				        FROM   product_import
+				        WHERE  product_code = t2.code) AS init_import,
+				       (SELECT Ifnull(Sum(quantity), 0)
+				        FROM   product_return 
+				        WHERE  product_code = t2.code) AS return_provider,
+				       (SELECT Ifnull(Sum(quantity), 0)
+				        FROM   export_facture_product
+				        WHERE  product_code = t2.code) AS export_qty,
+				       (SELECT Ifnull(Sum(re_qty), 0)
+				        FROM   export_facture_product
+				        WHERE  product_code = t2.code) AS cus_return,
+				       (SELECT Ifnull(Sum(quantity), 0)
+				        FROM   product_deviation
+				        WHERE  product_code = t2.code) AS deviation
+				FROM   product_import t1, 
+				       product t2, 
+				       import_facture t3, 
+				       provider t4, 
+				       brand t5, 
+				       category t6, 
+				       season t7 
+				WHERE  t1.product_code = t2.code 
+				       AND t1.import_facture_code = t3.code 
+				       AND t4.id = t3.provider_id 
+				       AND t5.id = t2.brand_id 
+				       AND t6.id = t2.category_id 
+				       AND t7.id = t2.season_id 
 				and t3.date >= '" . $dateBeforeSomeDays . "' order by t2.code desc";
 		$this->processImportQuery ( $qry );
 	}
 	
 	function listProduct($parameterArray) {
-		$qry = "SELECT t4.name as provider_name, t5.name as brand_name,t6.name as category_name, t7.name as season_name,(select sum(quantity)
-				 from product_deviation where product_code = t2.code group by product_code) as deviation
-				 ,t1.*,t2.*,t3.code as facture_code,t3.date,t3.description as descript, t3.provider_id,date_format(t3.deadline,'%Y-%m-%d') as deadline FROM 
-				 product_import t1,
-				 product t2,
-				 import_facture t3,
-				 provider t4, 
-				 brand t5, 
-				 category t6, 
-				 season t7 
-				 where t1.product_code = t2.code 
-				 and t1.import_facture_code = t3.code and t4.id = t3.provider_id 
-				 and t5.id = t2.brand_id and t6.id = t2.category_id and t7.id = t2.season_id ";
+		$qry = "SELECT t4.NAME                              AS provider_name, 
+				       t5.NAME                              AS brand_name, 
+				       t6.NAME                              AS category_name, 
+				       t7.NAME                              AS season_name, 
+				       t1.*, 
+				       t2.*, 
+				       t3.code                              AS facture_code, 
+				       date_format(t3.date,'%Y-%m-%d') as date_im, 
+				       t3.description                       AS descript, 
+				       t3.provider_id, 
+				       Date_format(t3.deadline, '%Y-%m-%d') AS deadline, 
+				       (SELECT Ifnull(Sum(quantity), 0)
+				        FROM   product_import
+				        WHERE  product_code = t2.code) AS init_import,
+				       (SELECT Ifnull(Sum(quantity), 0)
+				        FROM   product_return 
+				        WHERE  product_code = t2.code) AS return_provider,
+				       (SELECT Ifnull(Sum(quantity), 0)
+				        FROM   export_facture_product
+				        WHERE  product_code = t2.code) AS export_qty,
+				       (SELECT Ifnull(Sum(re_qty), 0)
+				        FROM   export_facture_product
+				        WHERE  product_code = t2.code) AS cus_return,
+				       (SELECT Ifnull(Sum(quantity), 0)
+				        FROM   product_deviation
+				        WHERE  product_code = t2.code) AS deviation
+				FROM   product_import t1, 
+				       product t2, 
+				       import_facture t3, 
+				       provider t4, 
+				       brand t5, 
+				       category t6, 
+				       season t7 
+				WHERE  t1.product_code = t2.code 
+				       AND t1.import_facture_code = t3.code 
+				       AND t4.id = t3.provider_id 
+				       AND t5.id = t2.brand_id 
+				       AND t6.id = t2.category_id 
+				       AND t7.id = t2.season_id  ";
 		
 		if ($parameterArray ['product_name'] != '')
 			$qry = $qry . " and t2.name like '%" . $parameterArray ['product_name'] . "%'";
@@ -150,25 +210,30 @@ class ImportService {
 	function processImportQuery($qry) {
 		$result = mysql_query ( $qry, $this->connection );
 		$resulttmp = mysql_query ( $qry, $this->connection );
-		$this->commonService->generateJSDatatableComplex ( $result, 'product', 7, 'desc', $this->getArrayTotalImport () );
+		$this->commonService->generateJSDatatableComplex ( $result, 'product', 13, 'desc', $this->getArrayTotalImport () );
 		$this->commonService->generateJqueryDatatable ( $result, 'product', $this->getArrayColumnImport () );
 		$this->commonService->generateJqueryToolTipScript ( $resulttmp, 'product', $this->getArrayColumnImport () );
 	}
 	function getArrayTotalImport() {
-		return array (3 => "Số lượng", 8 => "Tổng nhập", 9 => "Tổng NY" );
+		return array (1 => "Số lượng", 2 => "Tổng nhập", 3 => "Tổng NY" );
 	}
 	function getArrayColumnImport() {
-		return array ("product_code,description" => "Mã hàng,product_code,image"
+		return array (
+		"product_code,description" => "Code,product_code,image"
+		,"quantity" => "Qty"
+		,"return_provider" => "re"
+		,"export_qty" => "ex"
+		,"cus_return" => "cus_re"
+		, "deviation" => "Devi"
+		, "quantity*import_price" => "complex"
+		, "quantity*export_price" => "complex"
 		, "deviation,provider_id,descript,date,provider_name,brand_name,category_name,season_name,id,product_code,quantity,import_facture_code,import_price,name,category_id,season_id,sex_id,export_price,description,brand_id,sale,link,deadline" => "Edit"
 		, "name,description,descript" => "Tên Hàng,name"
-		, "quantity" => "Số lượng"
 		, "import_price" => "Giá nhập"
 		, "export_price" => "Giá bán"
 		, "sale" => "Sale"
+		, "date_im" => "Date"
 		, "import_facture_code,date" => "Mã Hóa Đơn,import_facture_code"
-		, "quantity*import_price" => "complex"
-		, "quantity*export_price" => "complex"
-		, "deviation" => "Lệch"
 		, "provider_id,provider_name,name" => "Cung Cấp,provider_name"
 		, "category_name" => "Loại", "sex_id" => "Giới tính"
 		, "brand_name" => "Hiệu", "season_id,season_name" => "Mùa,season_name",
