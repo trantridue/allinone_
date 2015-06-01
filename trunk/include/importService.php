@@ -171,7 +171,8 @@ class ImportService {
 		, "deviation" => "Lệch"
 		, "provider_id,provider_name,name" => "Cung Cấp,provider_name"
 		, "category_name" => "Loại", "sex_id" => "Giới tính"
-		, "brand_name" => "Hiệu", "season_id,season_name" => "Mùa,season_name", "id,deleteproduct" => "Delete", "quantity*export_price" => "complex" );
+		, "brand_name" => "Hiệu", "season_id,season_name" => "Mùa,season_name",
+		 "id,deleteproduct" => "Delete", "quantity*export_price" => "complex" );
 	}
 	
 	function currentMaxProductCode($i) {
@@ -498,7 +499,7 @@ class ImportService {
 //		 		echo $qry_insert_deviation;
 	}
 	function listProductReturnDefault() {
-		$qry = "select t1.*,t2.*,t3.*,t4.*,t1.description as description_r, t1.date as datereturn,t3.name as provider_name,t2.name as product_name,
+		$qry = "select t1.*,t1.id as idre,t2.*,t3.*,t4.*,t1.description as description_r, t1.date as datereturn,t3.name as provider_name,t2.name as product_name,
 				(select import_price from product_import where product_code = t1.product_code and id = (select max(id) from product_import where product_code = t1.product_code )) as import_price from 
 				product_return t1, product t2, provider t3, category t4, brand t5,season t6 
 				where t1.product_code = t2.code and t1.provider_id = t3.id and t2.category_id = t4.id and t2.brand_id = t5.id and t2.season_id = t6.id";
@@ -567,7 +568,17 @@ class ImportService {
 		return array (2 => "Số lượng", 5 => "Tổng tiền trả" );
 	}
 	function getArrayColumnReturn() {
-		return array ("product_code" => "Mã hàng", "product_name" => "Tên hàng", "quantity" => "Số lượng", "import_price" => "Giá nhập", "export_price" => "Giá NY", "quantity*import_price" => "complex", "description_r" => "Ghi chú", "datereturn" => "Ngày trả", "provider_name" => "Cung cấp", "tel" => "Phone" );
+		return array ("product_code" => "Mã hàng", 
+		"product_name" => "Tên hàng", 
+		"quantity" => "Số lượng", 
+		"import_price" => "Giá nhập", 
+		"export_price" => "Giá NY", 
+		"quantity*import_price" => "complex", 
+		"description_r" => "Ghi chú", 
+		"datereturn" => "Ngày trả", 
+		"provider_name" => "Cung cấp", 
+		"idre,deletereturnprovider" => "Delete", 
+		"tel" => "Phone" );
 	}
 	function getInputSearchParameters() {
 		$parameterArray = array ('product_code' => $_REQUEST ['product_code'], 'product_code_to' => $_REQUEST ['product_code_to'], 'product_name' => $_REQUEST ['product_name'], 'category_name' => $_REQUEST ['category_name'], 'provider_name' => $_REQUEST ['provider_name'], 'brand_name' => $_REQUEST ['brand_name'], 'season_id' => $_REQUEST ['season_id'], 'sale' => $_REQUEST ['sale'], 'sale_to' => $_REQUEST ['sale_to'], 'import_quantity' => $_REQUEST ['import_quantity'], 'import_quantity_to' => $_REQUEST ['import_quantity_to'], 'import_price' => $_REQUEST ['import_price'], 'import_price_to' => $_REQUEST ['import_price_to'], 'export_quantity' => $_REQUEST ['export_quantity'], 'export_quantity_to' => $_REQUEST ['export_quantity_to'], 'export_price' => $_REQUEST ['export_price'], 'export_price_to' => $_REQUEST ['export_price_to'], 'remain_quantity' => $_REQUEST ['remain_quantity'], 'remain_quantity_to' => $_REQUEST ['remain_quantity_to'], 'import_facture_code' => $_REQUEST ['import_facture_code'], 'sex_value_search' => $_REQUEST ['sex_value_search'], 'description' => $_REQUEST ['description'], 'datefrom' => $_REQUEST ['datefrom'], 'dateto' => $_REQUEST ['dateto'], 'limit_search' => $_REQUEST ['limit_search'], 'isadvancedsearch' => $_REQUEST ['isadvancedsearch'] );
