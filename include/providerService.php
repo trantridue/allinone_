@@ -39,14 +39,32 @@ class ProviderService {
 		$this->HandleError ( $err . "\r\n mysqlerror:" . mysql_error () );
 	}
 	function listProvider($parameterArray) {
-		$qry = "select t2.id,t2.name,t2.tel,t2.address,t2.description, date_format(t2.date,'%Y/%m/%d') as date,ifnull(t2.total,0) as total,
-				ifnull(t2.paid,0) as paid,(ifnull(t2.total,0)-ifnull(t2.paid,0)) as remain from (SELECT t1.*,
-		(SELECT round(sum(import_price*quantity) )
-		FROM product_import where import_facture_code in
-		(select code from import_facture where provider_id = t1.id)) as total, (select sum(amount) from provider_paid where provider_id=t1.id) as paid
-		 FROM provider t1  
+		$qry = "SELECT t2.id,
+       t2.name, 
+       t2.tel,
+       t2.address, 
+       t2.description,
+       Date_format(t2.date, '%Y-%m-%d')             AS date,
+       Ifnull(t2.total, 0)                          AS total,
+       Ifnull(t2.total_return, 0)                          AS total_return,
+       Ifnull(t2.paid, 0)                           AS paid,
+       ( Ifnull(t2.total, 0) - Ifnull(t2.paid, 0) - Ifnull(t2.total_return, 0)) AS remain
+FROM   (SELECT t1.*,
+               (SELECT Round(Sum(import_price * quantity)) 
+                FROM   product_import 
+                WHERE  import_facture_code IN (SELECT code 
+                                               FROM   import_facture 
+                                               WHERE  provider_id = t1.id)) AS
+               total, 
+               (SELECT Sum(amount) 
+                FROM   provider_paid 
+                WHERE  provider_id = t1.id)                                 AS
+               paid,
+               (select sum(quantity*return_price) from product_return where provider_id = t1.id) as total_return
+        FROM   provider t1  
 		 where t1.name like '%" . $parameterArray ['provider_name'] . "%') t2 
 		 where t2.tel like '%" . $parameterArray ['provider_tel'] . "%'";
+//		echo $qry;
 		if ($parameterArray ['provider_address'] != null) {
 			$qry = $qry . " and t2.address like '%" . $parameterArray ['provider_address'] . "%'";
 		}
@@ -75,8 +93,9 @@ class ProviderService {
 		$array_column = array (
 				"id,name,tel,total,paid,remain" => "Provider_name,name",
 				"total" => "Tổng",
-				"paid" => "Paid",
-				"remain" => "Remain",
+				"paid" => "Đã Trả",
+				"remain" => "Còn nợ",
+				"total_return" => "Hàng trả",
 				"tel" => "Tel",
 				"address" => "Address",
 				// "description" => "Description",
@@ -87,7 +106,8 @@ class ProviderService {
 		$array_total = array (
 				1 => "Tổng nợ",
 				2 => "Đã trả",
-				3 => "Còn nợ" 
+				3 => "Còn nợ", 
+				4 => "Trả hàng" 
 		);
 		$this->commonService->generateJSDatatableComplex ( $result, providerdatatable, 3, 'desc', $array_total );
 		$this->commonService->generateJqueryDatatable ( $result, providerdatatable, $array_column );
