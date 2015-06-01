@@ -232,7 +232,7 @@ update export_facture_trace set amount = 0 where id = 12073;
 update customer t1 set t1.date = (SELECT max(date) FROM `export_facture` where customer_id = t1.id);
 
 #migrate deviation
-drop table if exists stock_za;
+/* drop table if exists stock_za;
 create table stock_za as SELECT t1.code,t1.name,t1.sale,t1.quantity as total, t1.posted_price,(select sum(t2.quantity-t2.outstock)
  from zabuzach_store.shop_product t2 where t2.products_code = t1.code) as instock
 		from zabuzach_store.products t1 where ucase(t1.code) in (select product_code from zabuzach_store.return_provider);
@@ -248,10 +248,21 @@ create table stock_all as  select code, (init_import-return_provider-export_qty+
 			from product t1
 		where t1.code in (select product_code from zabuzach_store.return_provider)) t;
 
+
 truncate table product_deviation;
 insert into product_deviation (product_code,quantity,date,description) select t1.code, (t1.instock - t2.in_stock) as deviation,now(),'migration correct instock'
 from stock_za t1 left join stock_all t2 on (t1.code = t2.code);
 
+drop table if exists product_1;
+create table product_1 as select * from product_return group by product_code having count(*) <2;
+
+update product_return t1 set t1.quantity = (t1.quantity - (select quantity from product_deviation where product_code = t1.product_code))
+where t1.product_code in (select product_code from product_1);
+
+
+delete from product_deviation where product_code in (select product_code from product_1);
+
+*/
 insert into `configuration`(`name`,`value`,`label`) values
 ('import_number_row','15','NBR ROW IMPORT'),
 ('export_number_row','9','NBR ROW EXPORT'),
