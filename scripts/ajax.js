@@ -531,17 +531,17 @@ function addNews() {
 		}
 	});
 }
-function listNews(isdefault) {
-	var listnewsurl = 'modules/news/list.php?' + buildSearchNewsCriteria(isdefault);
+function listNews(issearch) {
+	var listnewsurl = 'modules/news/list.php' + buildSearchNewsCriteria(issearch);
 	$('#listNewsAreaId').load(listnewsurl);
 }
-function buildSearchNewsCriteria(isdefault) {
-	var criteriaString = "isdefault=" + isdefault;
-	var search_news_description = "&search_news_description="
-			+ $('#search_news_description').val();
+function buildSearchNewsCriteria(issearch) {
+	var criteriaString = "?isdefault=false";
+	var issearchString = "&issearch=" + issearch;
+	var search_news_description = "&search_news_description=" + $('#search_news_description').val();
 
-	criteriaString = criteriaString + search_news_description;
-	return processUrlString(criteriaString);
+	criteriaString = criteriaString + search_news_description + issearchString;
+	return processUrlStringEncode(criteriaString);
 }
 function deletenews(newsid) {
 	var deletenews = 'modules/news/deletenews.php?newsid=' + newsid;
