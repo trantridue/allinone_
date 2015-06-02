@@ -1272,7 +1272,7 @@ function deleteExportFacture(id,facture_code) {
 	$.ajax( {
 		url : urls,
 		success : function(data) {
-//			$("#exportSearch").html(data);
+// $("#exportSearch").html(data);
 		if (data == 'success') {
 			operationSuccess();
 			location.reload();
@@ -1331,11 +1331,11 @@ function getUpdateFundInformation() {
 function saveExport() {
 	if(validateExportForm()) {
 	var urls = 'modules/export/saveExport.php' + getExportProductParameter();
-//	alert(urls);
+// alert(urls);
 	$.ajax( {
 		url : urls,
 		success : function(data) {
-//		alert(data);
+// alert(data);
 		$("#exportSearch").html(data);
 			if (data == 'success') {
 				operationSuccess();
@@ -1346,7 +1346,7 @@ function saveExport() {
 		}
 	});
 	} else {
-//		alert('do nothing');
+// alert('do nothing');
 	}
 }
 function validateExportForm() {
@@ -1376,24 +1376,24 @@ function validateExportForm() {
 	var id_search_user = $('#id_search_user').val();
 	var listProductReturnId = $('#listProductReturnId').val();
 	var listProductReturnQty = $('#listProductReturnQty').val();
-	//Validate  date export 
+	// Validate date export
 	if(export_date > getCurrentDate_YYYYmmdd()){
 		return showNote('Không nhập ngày trong tương lai!');
 	}
-	//Validate tel & name
+	// Validate tel & name
 	if(customer_tel !='' && customer_name==''){
 		return showNote('Tên khách phải nhập nếu đã nhập số điện thoại');
 	}
-	//Validate cannot give negative amount
+	// Validate cannot give negative amount
 	if(customer_give < 0){
 		return showNote('Khách không thể đưa số tiền âm!');
 	}
-	//Validate byCard not debt 
+	// Validate byCard not debt
 	if(byCard && (give_customer < 0)){
 		return showNote('Thanh toán thẻ thì không nợ!');
 	}
 	
-	//Validate tel and use bonus 
+	// Validate tel and use bonus
 	if(customer_tel =='' && useBonus){
 		return showNote('Khách dùng điểm thưởng phải nhập số điện thoại');
 	}
@@ -1401,7 +1401,7 @@ function validateExportForm() {
 	if(isFactureInforBlank()){
 		return showNote('Không nhập được hóa đơn trống!');
 	}
- 	//Validate list product
+ 	// Validate list product
 	for(var i =1;i<=export_number_row;i++) {
 		var code_field = 'productcode_' + i;
 		var qty_field = 'quantity_' + i;
@@ -1504,7 +1504,7 @@ function getExportProductParameter() {
 }
 function calculateExportForm() {
 	var nbrow = parseInt($('#export_number_row').val());
-//	updateCheckBoxIfIsboss();
+// updateCheckBoxIfIsboss();
 	validateQuantity(nbrow);
 	calculateTotalQuality(nbrow);
 	calculateTotalFactureOrigin(nbrow);
@@ -1619,14 +1619,13 @@ function calculateTotalFactureSaled(nbrow) {
 	$('#total_after_saled').html(total);
 	$('#total_facture').html(total);
 	$('#sale_different').html(parseInt($('#total_origine').html()) - total);
-	$('#sale_percentage')
-			.html(
-					Math.round((1 - (total / parseInt($('#total_origine')
-							.html()))) * 100));
-	$('#sale_percentage').prop(
-			'title',
-			((1 - (total / parseInt($('#total_origine').html()))) * 100)
-					.toFixed(2));
+	if ($('#total_origine').html() != '0') {
+		$('#sale_percentage').html(Math.round((1 - (total / parseInt($('#total_origine').html()))) * 100));
+		$('#sale_percentage').prop('title',((1 - (total / parseInt($('#total_origine').html()))) * 100).toFixed(2));
+	} else {
+		$('#sale_percentage').html('0');
+		$('#sale_percentage').prop('title','0');
+	}
 }
 $(function() {
 	$(".productcode").autocomplete( {
@@ -1812,8 +1811,8 @@ function searchExportFull(issearch) {
 function searchExport(issearch, divid, filename) {
 	var url = "modules/export/" + filename + ".php"
 			+ getExportSearchCriteria(issearch);
-//	alert(url);
-//	alert(divid);
+// alert(url);
+// alert(divid);
 	$('#' + divid).load(url);
 }
 function getExportSearchCriteria(issearch) {
