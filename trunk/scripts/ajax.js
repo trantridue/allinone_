@@ -1858,3 +1858,23 @@ $(document).ready(function() {
 		$(this).select();
 	});
 });
+function updateconfigfield(fieldname){
+	var urls = 'modules/config/updatefield.php?fieldname=' + fieldname + "&fieldvalue=" + $('#'+fieldname).val();
+	$.ajax( {
+		url : urls,
+		success : function(data) {
+			if (data == 'success') {
+				operationSuccess();
+			} else {
+				operationError();
+			}
+//			$('#serverMessage').html(data);
+		}
+	});
+}
+
+function validateField(fieldname,min,max){
+	if(max==0 ) max = 9999;
+	if($('#'+fieldname).val() < min ) $('#'+fieldname).val(min);
+	if($('#'+fieldname).val() > max ) $('#'+fieldname).val(max);
+}
