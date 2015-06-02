@@ -3,9 +3,9 @@
 define('timeout', '3600');
 //DB configuration
 define('hostname', 'localhost');
-define('username', 'root');
-define('password', '123456');
-define('database', 'allinone');
+define('username', 'zabuzachaule');
+define('password', 'canhd0ngh0ang1');
+define('database', 'zabuzachaule');
 define('tablename', 'user');
 //String Constant
 define('tab2', '&nbsp;&nbsp;');

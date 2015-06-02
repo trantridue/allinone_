@@ -1,5 +1,5 @@
 ﻿#prepare table shop
-use allinone;
+use zabuzachaule;
 
 #truncate customer_bonus_used;
 truncate configuration;
