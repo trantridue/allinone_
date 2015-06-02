@@ -79,8 +79,18 @@ class ConfigService {
 			if(($counter % $nbr_column) == 0 ){
 				echo "<tr>";
 			}
-			echo "<td title='".$rows['name']."' style='font-weight:bold' align='right'>".$rows['label']."</td>";
-			echo "<td><input type='number' style='width:50px;' id='".$rows['name']."' value='".$rows['value']."' /></td>";
+			if($rows['name']=='is_sale_for_all') {
+			echo "<td title='1: SALE ON <br> 0: SALE OFF' style='font-weight:bold' align='right'>
+			<input type='button' value='".$rows['label']."' onclick='updateconfigfield(\"".$rows['name']."\");'></td>";
+			
+				echo "<td><input type='number' style='width:50px;' id='".$rows['name']."' value='".$rows['value']."' 
+				onclick=\"validateField('".$rows['name']."',0,1);\" 
+				keypress=\"validateField('".$rows['name']."',0,1);\"/></td>";
+			}else {
+				echo "<td title='".$rows['name']."' style='font-weight:bold' align='right'>
+			<input type='button' value='".$rows['label']."' onclick='updateconfigfield(\"".$rows['name']."\");'></td>";
+				echo "<td><input type='number' style='width:50px;' id='".$rows['name']."' value='".$rows['value']."' /></td>";
+			}
 			
 			if((($counter-$nbr_column+1) % $nbr_column) == 0 ){
 				echo "</tr>";
@@ -97,6 +107,19 @@ class ConfigService {
 			$listParams = $listParams.$rows['name'].";";
 		}
 		return substr($listParams,0,-1);
+	}
+	function updateFieldConfig($fieldname,$fieldvalue) {
+		mysql_query ( "BEGIN" );
+		$qry = "update configuration set value = ".$fieldvalue." where name = '".$fieldname."'";
+		
+		if(mysql_query ( $qry, $this->connection ) != null){
+			$this->loadConfigParam();
+			mysql_query ( "COMMIT" );
+			echo 'success';
+		}else {
+			mysql_query ( "ROLLBACK" );
+			echo 'error';
+		}
 	}
 }
 ?>
