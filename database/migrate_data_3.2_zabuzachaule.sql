@@ -133,7 +133,8 @@ SELECT id,cash_id,amount,inputdate,description,ratio,users_id FROM `zabuzach_sto
 update fund_change_histo set description = CONVERT(CONVERT(CONVERT(description USING latin1) USING binary) USING utf8) where date >= '2014-07-16';
 #product_return
 insert into product_return (product_code,quantity,date,description,provider_id,return_price)
-select t1.product_code,t1.quantity,t1.date,'migrated',t1.providers_id,
+select t1.product_code,t1.quantity,t1.date,(select CONVERT(CONVERT(CONVERT(description USING latin1) USING binary) USING utf8) 
+from zabuzach_store.products where code = t1.product_code) as description,t1.providers_id,
 (select import_price from product_import where product_code =t1.product_code limit 1)
 from zabuzach_store.return_provider t1;
 
@@ -248,10 +249,21 @@ create table stock_all as  select code, (init_import-return_provider-export_qty+
 			from product t1
 		where t1.code in (select product_code from zabuzach_store.return_provider)) t;
 
+
 truncate table product_deviation;
 insert into product_deviation (product_code,quantity,date,description) select t1.code, (t1.instock - t2.in_stock) as deviation,now(),'migration correct instock'
 from stock_za t1 left join stock_all t2 on (t1.code = t2.code);
+/* 
+drop table if exists product_1;
+create table product_1 as select * from product_return group by product_code having count(*) <2;
 
+update product_return t1 set t1.quantity = (t1.quantity - (select quantity from product_deviation where product_code = t1.product_code))
+where t1.product_code in (select product_code from product_1);
+
+
+delete from product_deviation where product_code in (select product_code from product_1);
+
+*/
 insert into `configuration`(`name`,`value`,`label`) values
 ('import_number_row','15','NBR ROW IMPORT'),
 ('export_number_row','9','NBR ROW EXPORT'),
