@@ -1,3 +1,10 @@
+<link rel="stylesheet" type="text/css" href="style/jquery.jqChart.css" />
+<link rel="stylesheet" type="text/css"
+	href="style/jquery.jqRangeSlider.css" />
+<link rel="stylesheet" type="text/css"
+	href="themes/smoothness/jquery-ui-1.8.21.css" />
+<script src="scripts/jquery.jqChart.min.js" type="text/javascript"></script>
+<script src="scripts/jquery.jqRangeSlider.min.js" type="text/javascript"></script>
 <?php 
 if($commonService->isAdmin()) {?>
 <div id="inputArea">
