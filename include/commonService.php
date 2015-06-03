@@ -570,5 +570,13 @@ function isMobile(){
 		}
 		return $str;
 	}
+	function getAmountResult($query) {
+	$result = mysql_query ( $query ) or die ( mysql_error () );
+	$rows = mysql_fetch_assoc ( $result );
+	if ($rows ['amount'])
+		return $rows ['amount'];
+	else
+		return 0;
+}
 }
 ?>

@@ -280,5 +280,5 @@ insert into `configuration`(`name`,`value`,`label`) values
 ('limit_default_customer_after_search','500','NBR ROW CUS AFTER'),
 ('limit_default_customer_before_search','100','NBR ROW CUS BEFORE'),
 ('nbr_customer_by_group_csv','250','NBR CUSTOMER BY GROUP'),
-('nbr_news_default','7','NBR NEWS DEFAULT'),
+('nbr_news_default','10','NBR NEWS DEFAULT'),
 ('sale_all_taux','10','SALE TAUX');

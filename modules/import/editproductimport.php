@@ -81,7 +81,7 @@
 <td align="right">Export Price : </td>
 <td><input value="<?php echo $export_price;?>" name="edit_export_price" id="edit_export_price" onkeypress="validateNum(event);" maxlength="4" size="4"/></td>
 <td align="right">Sale : </td>
-<td><input value="<?php echo $sale;?>" name="edit_sale" id="edit_sale" onkeypress="validateNum(event);" maxlength="2" size="4"/></td>
+<td><input value="<?php echo $sale;?>" name="edit_sale" id="edit_sale" style="width:50px;" type="number" onkeypress="validateNum(event);" maxlength="2" size="4"/></td>
 <td align="right" title="<?php echo $link;?>">Link : </td>
 <td><input value="<?php echo $link;?>" name="edit_link" id="edit_link" onclick="this.select()"/></td>
 </tr>
@@ -89,8 +89,8 @@
 <td align="right">Product Import ID : </td>
 <td><?php echo $id;?><input type="hidden" id="edit_id" value="<?php echo $id;?>"></td>
 <td align="right">Quantity : </td>
-<td><input value="<?php echo $quantity;?>" name="edit_quantity" id="edit_quantity" onkeypress="validateNum(event);" maxlength="4" size="4"/>
-<input value="0" name="edit_deviation" id="edit_deviation" maxlength="4" size="4" validateFloat(event);/></td>
+<td><input value="<?php echo $quantity;?>" style="width:50px;" type="number" name="edit_quantity" id="edit_quantity" onkeypress="validateNum(event);" maxlength="4" size="4"/>
+<input value="0" name="edit_deviation" style="width:50px;" type="number" id="edit_deviation" maxlength="4" size="4" validateFloat(event);/></td>
 <td align="right">Import Price : </td>
 <td><input value="<?php echo $import_price;?>" name="edit_import_price" id="edit_import_price" onkeypress="validateNum(event);" maxlength="4" size="4"/></td>
 <td align="right"></td>

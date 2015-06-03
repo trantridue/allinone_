@@ -64,7 +64,7 @@ include 'common/header.php'?>
 </div>
 </div>
 <div id="main_page_footer">
-<div class="wrappadding">The footer:</div>
+<div class="wrappadding"><?php include 'common/footer.php'?></div>
 </div>
 </div>
 </body>
