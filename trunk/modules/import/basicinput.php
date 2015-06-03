@@ -87,7 +87,13 @@
 			onclick="$('#returnProductInputArea').hide();$('#suplementaryListArea').hide();listProduct();">
 		<input type="button" value="ADVANCE" class="menu_btn_sub"
 			onclick="toggleImportSearchCriteria();"> <input type="reset"
-			value="RESET"></td>
+			value="RESET">
+			<input type="button" value="SALE" class="menu_btn_sub"
+	onclick="javascript:saleListProduct();">
+<input type="button" value="RETURN" class="menu_btn_sub"
+	onclick="toggleDiv('returnProductInputArea');">
+	
+			</td>
 	</tr>
 </table>
 <input autocomplete="off" type="hidden" name="limit_search"
