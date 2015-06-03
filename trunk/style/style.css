@@ -464,3 +464,18 @@ div#table_list_product_wrapper table.dataTable thead th, table.dataTable thead t
 	background-color: green;
 	float: right;
 }
+.ui-widget-content {
+	  background: #ffffff url("../images/ui-bg_flat_75_ffffff_40x100.png") 50% 50% repeat-x !important;
+}
+.ui-widget-header .ui-icon{
+	  background-image: url("../images/ui-icons_222222_256x240.png") !important;
+}
+.ui-widget-header {
+	background: #cccccc url("../images/ui-bg_highlight-soft_75_cccccc_1x100.png") 50% 50% repeat-x !important;
+}
+.ui-widget-content {
+	  background: #ffffff url("../images/ui-bg_flat_75_ffffff_40x100.png") 50% 50% repeat-x !important;
+}
+#main_page_wrap li {
+	padding:0 !important;
+}
