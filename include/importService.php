@@ -195,7 +195,7 @@ class ImportService {
 			if ($parameterArray ['export_price'] != '')
 				$qry = $qry . " and t2.export_price = " . $parameterArray ['export_price'];
 		}
-		if ($_REQUEST ['limit_search'] != '') {
+		if ($_REQUEST ['limit_search'] != '') {//TODO to be use session parameter
 			$qry = $qry . "  and t3.date >=' " . $this->commonService->getDateBeforeSomeDays (default_nbr_days_load_import) . "' ";
 		}
 		$qry = $qry . "  order by t2.code desc";
@@ -221,12 +221,12 @@ class ImportService {
 		return array (
 		"product_code,description" => "Code,product_code,image"
 		,"quantity" => "Qty"
+		, "quantity*import_price" => "complex"
+		, "quantity*export_price" => "complex"
 		,"return_provider" => "re"
 		,"export_qty" => "ex"
 		,"cus_return" => "cus_re"
 		, "deviation" => "Devi"
-		, "quantity*import_price" => "complex"
-		, "quantity*export_price" => "complex"
 		, "deviation,provider_id,descript,date,provider_name,brand_name,category_name,season_name,id,product_code,quantity,import_facture_code,import_price,name,category_id,season_id,sex_id,export_price,description,brand_id,sale,link,deadline" => "Edit"
 		, "name,description,descript" => "Tên Hàng,name"
 		, "import_price" => "Giá nhập"
