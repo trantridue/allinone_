@@ -54,7 +54,7 @@
 	background-color: #74DD89;
 	margin-top: 5px;
 	min-height: 580px;
-	padding-top: 5px;
+	/*padding-top: 5px;*/
 	overflow: auto;
 }
 

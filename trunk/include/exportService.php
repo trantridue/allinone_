@@ -614,7 +614,7 @@ class ExportService {
 	}
 	function listExportDefault() {
 		session_start();
-		$qry = "SELECT t1.id,t1.product_code,t1.quantity,t1.export_price,t1.re_qty,t3.name as product_name,t6.name as username,
+		$qry = "SELECT t1.id,t1.product_code,t1.quantity,t1.export_price,t1.re_qty,t3.name as product_name,t6.name as username,t3.export_price as price_origine,
 		t1.export_facture_code, t2.date,date_format(t2.date,'%H:%m:%s') as time,t4.name as customer,t4.tel as customer_tel,t5.name as shop
 		 FROM `export_facture_product` t1, export_facture t2, product t3, customer t4, shop t5, user t6
 		where t1.export_facture_code = t2.code
@@ -629,7 +629,7 @@ class ExportService {
 		$this->commonService->generateJqueryDatatableExport ( $result, exportproductdatatable, $this->getExportListArrayColumn() );		
 	}
 	function listExport($params) {
-		$qry = "SELECT t1.id,t1.product_code,t1.quantity,t1.export_price,t1.re_qty,t3.name as product_name,t6.name as username,
+		$qry = "SELECT t1.id,t1.product_code,t1.quantity,t1.export_price,t1.re_qty,t3.name as product_name,t6.name as username,t3.export_price as price_origine,
 		t1.export_facture_code, t2.date,subStr(t2.date,12,8) as time,t4.name as customer,t4.tel as customer_tel,t5.name as shop
 		 FROM `export_facture_product` t1, export_facture t2, product t3, customer t4, shop t5, user t6
 		where t1.export_facture_code = t2.code
@@ -698,7 +698,7 @@ class ExportService {
 					"customer,customer_tel" => "Khách,customer",
 					"quantity" => "SL&nbsp;&nbsp;",
 					"re_qty" => "RQ&nbsp;&nbsp;",
-					"export_price" => "PRI&nbsp;&nbsp;&nbsp;&nbsp;",
+					"export_price,price_origine" => "PRI&nbsp;&nbsp;&nbsp;&nbsp;,price_origine",
 					"export_price*quantity" => "complex",
 					"export_price*re_qty" => "complex",
 					"export_facture_code" => "MÃ_HÓA_ĐƠN",
@@ -724,6 +724,26 @@ class ExportService {
 			);
 		}
 	}
+	function showAllCashToday() {
+		$date = date('Y-m-d');
+		echo "CASH 1: ".$this->getCashByShop(1,$date,$date);	
+		echo tab4."CASH 2: ".$this->getCashByShop(2,$date,$date);	
+		echo tab4."CASH 3: ".$this->getCashByShop(3,$date,$date);	
+	}
+	function getCashByShop($shop_id,$start_date,$end_date) {
+		session_start();
+		$cash = 0;
+
+		$qryFacture = "select sum(if((give_customer>0),(customer_give - give_customer),customer_give)) as amount
+		from export_facture_trace where shop_id = ".$shop_id." and export_facture_code in (select code from export_facture where date_format(date,'%Y-%m-%d') between '".$start_date."' and '".$end_date."')";
+		
+		$qryInout = "select sum(amount) as amount from money_inout where shop_id = ".$shop_id." and date_format(date,'%Y-%m-%d') between '".$start_date."' and '".$end_date."'";
+		$cash = $_SESSION ['init_money'] 
+				+ $this->commonService->getAmountResult($qryFacture) 
+				+ $this->commonService->getAmountResult($qryInout);
+		return $cash;
+	}
+	
 	function getSearchParameters(){
 			return array (
 			'isAdminField' 				=> $_REQUEST['isAdminField'],
