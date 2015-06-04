@@ -581,7 +581,6 @@ function isMobile(){
 	function printChartType(){
 		echo "<select id='charttype' style='width: 145px;'
 			onchange='displaychart();'>
-			<option value=''>...Please select...</option>
 			<option value='spline'>spline</option>
 			<option value='line'>line</option>
 			<option value='area'>area</option>
