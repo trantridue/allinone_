@@ -4,13 +4,14 @@
 <td>
 <input class="datefield" id="datefrom" value="<?php	echo date ( 'Y-m-01' );?>" />
 <input class="datefield" id="dateto" value="<?php	echo date ( 'Y-m-t' );?>"/></td>
+<td><input type="button" onclick="displayChart();" value="DISPLAY" class='menu_btn_sub'/> </td>
 <td align="right">Shop : </td>
 <td><?php $commonService->printDropDownListFromTable("shop","shop");?></td>
 <td align="right">Chart Type:</td>
 <td><?php $commonService->printChartType();?></td>
 <td align="right">Chart Time:</td>
 <td><?php $commonService->printChartTime();?></td>
-<td><input type="button" onclick="displayChart();" value="DISPLAY" class='menu_btn_sub'/> </td>
+
 </tr>
 </table>
 
