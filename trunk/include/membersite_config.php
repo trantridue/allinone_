@@ -12,8 +12,10 @@ require_once ("inoutService.php");
 require_once ("fundService.php");
 require_once ("exportService.php");
 require_once ("configService.php");
+require_once ("reportService.php");
 
 $commonService = new CommonService ();
+$reportService = new ReportService ( hostname, username, password, database,$commonService );
 $configService = new ConfigService ( hostname, username, password, database,$commonService );
 
 $fgmembersite = new FGMembersite ( hostname, username, password, database, tablename,$configService );

@@ -578,5 +578,23 @@ function isMobile(){
 	else
 		return 0;
 }
+	function printChartType(){
+		echo "<select id='charttype' style='width: 145px;'
+			onchange='displaychart();'>
+			<option value=''>...Please select...</option>
+			<option value='spline'>spline</option>
+			<option value='line'>line</option>
+			<option value='area'>area</option>
+			<option value='column'>column</option>
+		</select>";
+	}
+	function printChartTime(){
+		echo "<select id='charttime' style='width: 145px;'
+			onchange='displaychartByTime();'>
+			<option value='%Y-%m-%d' selected='selected'>By days</option>
+			<option value='%Y-%m'>By month</option>
+			<option value='%Y'>By Year</option>
+		</select>";
+	}
 }
 ?>
