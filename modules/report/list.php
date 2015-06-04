@@ -1,1 +1,1 @@
-<?php echo $_REQUEST['username'];?>
+this is the list
