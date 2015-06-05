@@ -698,7 +698,7 @@ class ExportService {
 					"customer,customer_tel" => "Khách,customer",
 					"quantity" => "SL&nbsp;&nbsp;",
 					"re_qty" => "RQ&nbsp;&nbsp;",
-					"export_price,price_origine" => "PRI&nbsp;&nbsp;&nbsp;&nbsp;,price_origine",
+					"export_price,price_origine" => "PRI&nbsp;&nbsp;&nbsp;&nbsp;,export_price",
 					"export_price*quantity" => "complex",
 					"export_price*re_qty" => "complex",
 					"export_facture_code" => "MÃ_HÓA_ĐƠN",
