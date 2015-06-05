@@ -580,12 +580,12 @@ function isMobile(){
 }
 	function printChartType(){
 		echo "<select id='charttype' style='width: 145px;'
-			onchange='displaychart();'>
+			onchange='displayChart();'>
 			<option value='spline'>spline</option>
 			<option value='line'>line</option>
 			<option value='area'>area</option>
 			<option value='column'>column</option>
-		</select>";
+		</select>";	
 	}
 	function printChartTime(){
 		echo "<select id='charttime' style='width: 145px;'
