@@ -53,7 +53,7 @@ class ReportService {
 		$datefrom = isset($params['datefrom'])?$params['datefrom']:date('Y-m-01');
 		$dateto = isset($params['dateto'])?$params['dateto']:date('Y-m-t');
 		$charttype = isset($params['charttype'])?$params['charttype']:'spline';
-		$charttime = isset($params['charttime'])?$params['charttime']:'date';
+		$charttime = isset($params['charttime'])?$params['charttime']:'%Y-%m-%d';
 //		echo $charttype;
 		$str =		
 		 "$(document).ready(function () {
