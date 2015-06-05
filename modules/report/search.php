@@ -14,7 +14,7 @@
 
 </tr>
 </table>
-
+ 
 <script>
 function displaychartByTime(){
 	var charttime = $('#charttime').val();
