@@ -16,9 +16,58 @@
 </table>
 
 <script>
+function displaychartByTime(){
+	var charttime = $('#charttime').val();
+	
+	if(charttime=='%Y'){
+		$("#datefrom").val(getFirstDateOfTenYearAgo());
+		$("#dateto").val(getLastDateOfYear());
+	}
+	if(charttime=='%Y-%m'){
+		$("#datefrom").val(getFirstDateOfYear());
+		$("#dateto").val(getLastDateOfYear());
+	}
+	if(charttime=='%Y-%m-%d'){
+		$("#datefrom").val(getFirstDateOfMonth());
+		$("#dateto").val(getLastDateOfMonth());
+	}
+	displayChart();
+}
+function getFirstDateOfYear(){
+	 var d = new Date();
+	    var curr_year = d.getFullYear();
+	    return curr_year + "-" + "01-01";
+}
+function getFirstDateOfTenYearAgo(){
+	 var d = new Date();
+	    var curr_year = d.getFullYear();
+	    return eval(curr_year-10) + "-" + "01-01";
+}
+function getLastDateOfYear(){
+	 var d = new Date();
+	    var curr_year = d.getFullYear();
+	    return curr_year + "-" + "12-31";
+}
+function getFirstDateOfMonth(){
+	 var d = new Date();
+	    var curr_year = d.getFullYear();
+	    var curr_month = d.getMonth() + 1;
+	    return curr_year + "-" + getMonthFormat(curr_month)+ "-01";
+}
+function getLastDateOfMonth(){
+	var d = new Date();
+  var curr_year = d.getFullYear();
+  var curr_month = d.getMonth() + 1;
+  var varldmt = new Date(curr_year, curr_month, 0);
+  var ldmt = varldmt.getDate();
+  return curr_year + "-" + getMonthFormat(curr_month)+ "-" + ldmt;
+}
+function getMonthFormat(curr_month){	
+	return curr_month<10?"0"+curr_month:curr_month;
+	
+}
 function displayChart(){
 	var url = 'modules/report/excomeReport.php' + getSearchParamsReport();
-//	alert(url);
 	$('#excomeReport').load(url);
 }
 function getSearchParamsReport(){
