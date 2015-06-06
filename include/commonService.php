@@ -524,7 +524,7 @@ function printDropDownListFromTable($table,$fieldname) {
 	if($table=="user"){
 		$sql = $sql . " where status ='y'";
 	}
-	echo "<select name='" . $fieldname . "' id='id_" . $fieldname . "' style='width:110px;height:22px;'>";
+	echo "<select name='" . $fieldname . "' id='id_" . $fieldname . "' style='width:110px;height:22px;' onchange='displayChartNow();'>";
 	echo "<option value=''>...Please select...</option>";
 	$sql = $sql . " order by name asc";
 	$result = mysql_query ( $sql ) or die ( mysql_error () );
@@ -580,7 +580,7 @@ function isMobile(){
 }
 	function printChartType(){
 		echo "<select id='charttype' style='width: 145px;'
-			onchange='displayChart();'>
+			onchange='displayChartNow();'>
 			<option value='spline'>spline</option>
 			<option value='line'>line</option>
 			<option value='area'>area</option>

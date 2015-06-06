@@ -49,14 +49,15 @@ class ReportService {
 		);
 		return $parameterArray;
 	}
-	function generateDataExportChart ($params){
+	function generateDataExportChart ($params,$chartId,$title,$nbrShop){
 		$datefrom = isset($params['datefrom'])?$params['datefrom']:date('Y-m-01');
 		$dateto = isset($params['dateto'])?$params['dateto']:date('Y-m-t');
 		$charttype = isset($params['charttype'])?$params['charttype']:'spline';
 		$charttime = isset($params['charttime'])?$params['charttime']:'%Y-%m-%d';
+		$id_shop = $params['id_shop'];
 		$str =		
 		 "$(document).ready(function () {
-            $('#exportChart').jqChart({
+            $('#".$chartId."').jqChart({
             	background: background,      
             	border: { strokeStyle: '#6ba851' },            	
             	tooltips: { type: 'shared' },
@@ -73,7 +74,7 @@ class ReportService {
                     vLine: { strokeStyle: '#cc0a0c' }
                 },
             	legend: { title: 'Legend' },            	
-                title: { text: 'Biểu đồ doanh thu' },
+                title: { text: '".$title."' },
                 axes: [
                         {
                         	type: 'category',
@@ -82,24 +83,30 @@ class ReportService {
                         }
                       ],
                 series: [";
-          $str = $str.$this->genData($datefrom,$dateto,$charttype,$charttime)                 
+          $str = $str.$this->genData($datefrom,$dateto,$charttype,$charttime,$nbrShop,$id_shop)                 
                         ."]
             });
         });";
    echo $str;
 	}
-	function genData($datefrom,$dateto,$charttype,$charttime){
+	function genData($datefrom,$dateto,$charttype,$charttime,$nbrShop,$id_shop){
 		$returnStr = "";
-		for($i=0;$i<=3;$i++){
-			$returnStr = $returnStr.$this->generateDataByShop($datefrom,$dateto,$charttype,$charttime,$i);
+		if($id_shop !='') {
+			$returnStr = $returnStr.$this->generateDataByShop($datefrom,$dateto,$charttype,$charttime,$id_shop);
+		}else {
+			for($i=0;$i<=$nbrShop;$i++){
+				$returnStr = $returnStr.$this->generateDataByShop($datefrom,$dateto,$charttype,$charttime,$i);
+			}
 		}
 		return substr($returnStr,0,-1);
 	}
 	function generateDataByShop($datefrom,$dateto,$charttype,$charttime,$shop_id){
 		$qry = "";
 		$str = "";
+		$qry1 = "";
+		$str1 = "";
 		if($shop_id==0){
-			$str =   "{	title : 'All ',type: '".$charttype."',data: [";
+			$str =   "{	title : 'Income All ',type: '".$charttype."',data: [";
 			$qry = "SELECT Sum(( t1.quantity - t1.re_qty ) *
            			t1.export_price ) AS total,
 			       Date_format(t2.date, '".$charttime."') as date
@@ -107,10 +114,22 @@ class ReportService {
 			       export_facture t2
 			WHERE  t1.export_facture_code = t2.code
 			       AND t2.date BETWEEN '".$datefrom."' and '".$dateto."'
-			GROUP  BY Date_format(t2.date, '%Y-%m-%d')";
+			GROUP  BY Date_format(t2.date, '".$charttime."')";
+			$str1 =   "{	title : 'Interet All ',type: '".$charttype."',data: [";
+			$qry1 = "SELECT Sum(( t1.quantity - t1.re_qty ) *
+           			(t1.export_price - (SELECT Max(import_price)
+                              FROM   product_import
+                              WHERE  product_code =
+       				t1.product_code) ) ) AS total,
+			       Date_format(t2.date, '".$charttime."') as date
+			FROM   export_facture_product t1,
+			       export_facture t2
+			WHERE  t1.export_facture_code = t2.code
+			       AND t2.date BETWEEN '".$datefrom."' and '".$dateto."'
+			GROUP  BY Date_format(t2.date, '".$charttime."')";
 			
 		}else {
-			$str =   "{	title : 'Shop ".$shop_id."',type: '".$charttype."',data: [";
+			$str =   "{	title : 'Income Shop ".$shop_id."',type: '".$charttype."',data: [";
 			$qry = "SELECT Sum(( t1.quantity - t1.re_qty ) *
            			t1.export_price ) AS total,
 			       Date_format(t2.date, '".$charttime."') as date
@@ -119,15 +138,33 @@ class ReportService {
 			WHERE  t1.export_facture_code = t2.code
 			       AND t2.shop_id = ".$shop_id."
 			       AND t2.date BETWEEN '".$datefrom."' and '".$dateto."'
-			GROUP  BY Date_format(t2.date, '%Y-%m-%d')";
+			GROUP  BY Date_format(t2.date, '".$charttime."')";
+			$str1 =   "{	title : 'Interet Shop ".$shop_id."',type: '".$charttype."',data: [";
+			$qry1 = "SELECT Sum(( t1.quantity - t1.re_qty ) *
+           			(t1.export_price - (SELECT Max(import_price)
+                              FROM   product_import
+                              WHERE  product_code =
+       				t1.product_code) ) ) AS total,
+			       Date_format(t2.date, '".$charttime."') as date
+			FROM   export_facture_product t1,
+			       export_facture t2
+			WHERE  t1.export_facture_code = t2.code
+			       AND t2.shop_id = ".$shop_id."
+			       AND t2.date BETWEEN '".$datefrom."' and '".$dateto."'
+			GROUP  BY Date_format(t2.date, '".$charttime."')";
 		}
 		$result = mysql_query ( $qry, $this->connection );
+		$result1 = mysql_query ( $qry1, $this->connection );
 		
 		while ( $rows = mysql_fetch_array ( $result ) ) {
 			$str = $str."['".$rows['date']."',".$rows['total']."],";
 		}
 		$str = $str."]},";
-		return $str;
+		while ( $rows1 = mysql_fetch_array ( $result1 ) ) {
+			$str1 = $str1."['".$rows1['date']."',".$rows1['total']."],";
+		}
+		$str1 = $str1."]},";
+		return $str.$str1;
 	}
 }
 ?>

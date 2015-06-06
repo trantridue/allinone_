@@ -4,7 +4,7 @@
 <td>
 <input class="datefield" id="datefrom" value="<?php	echo date ( 'Y-m-01' );?>" />
 <input class="datefield" id="dateto" value="<?php	echo date ( 'Y-m-t' );?>"/></td>
-<td><input type="button" onclick="displayChart();" value="DISPLAY" class='menu_btn_sub'/> </td>
+<td><input type="button" onclick="displayChartNow();" value="DISPLAY" class='menu_btn_sub'/> </td>
 <td align="right">Shop : </td>
 <td><?php $commonService->printDropDownListFromTable("shop","shop");?></td>
 <td align="right">Chart Type:</td>
@@ -16,6 +16,15 @@
 </table>
 
 <script>
+var background = {
+        type: 'linearGradient',
+        x0: 0,
+        y0: 0,
+        x1: 1,
+        y1: 1,
+        colorStops: [{ offset: 0, color: '#d2e6c9' },
+                     { offset: 1, color: 'white'}]
+    };
 function displaychartByTime(){
 	var charttime = $('#charttime').val();
 	
@@ -31,7 +40,7 @@ function displaychartByTime(){
 		$("#datefrom").val(getFirstDateOfMonth());
 		$("#dateto").val(getLastDateOfMonth());
 	}
-	displayChart();
+	displayChartNow();
 }
 function getFirstDateOfYear(){
 	 var d = new Date();
@@ -66,9 +75,14 @@ function getMonthFormat(curr_month){
 	return curr_month<10?"0"+curr_month:curr_month;
 	
 }
-function displayChart(){
-	var url = 'modules/report/excomeReport.php' + getSearchParamsReport();
-	$('#excomeReport').load(url);
+function displayChartNow(){
+	displayChart('report0');
+	displayChart('report1');
+}
+function displayChart(divid){
+	var url = 'modules/report/'+divid+'Report.php' + getSearchParamsReport();
+	//alert(url);
+	$('#'+divid).load(url);
 }
 function getSearchParamsReport(){
 	var params = '?isAjax=true';
@@ -78,5 +92,10 @@ function getSearchParamsReport(){
 	params = params + "&charttype" + "=" + $('#charttype').val();
 	params = params + "&charttime" + "=" + $('#charttime').val();
 	return processUrlString(params);
+}
+function toggleDivShowBtnStatusAndRefresh(divid,thisval){
+//	displayChart(divid);
+	toggleDivShowBtnStatus(divid,thisval);
+	displayChart(divid);
 }
 </script>

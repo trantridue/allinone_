@@ -1,4 +1,4 @@
-var delaytime = 300;
+var delaytime = 10;
 // GO TO DIRECTLY AN URL
 function goToPage(link) {
 	window.location.href = "login-home.php?module=" + link;
