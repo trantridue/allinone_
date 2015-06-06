@@ -22,7 +22,7 @@
 	</tr>
 	</thead>
 		<tr>
-		<td><input type="text" autocomplete="off" size="4" id="add_amount" maxlength="8" onkeypress="validateNum(event);" value="<?php echo $_REQUEST['amount'];?>"/></td>
+		<td><input type="number" class="number80" autocomplete="off" size="4" id="add_amount" maxlength="8" onkeypress="validateNum(event);" value="<?php echo $_REQUEST['amount'];?>"/></td>
 		<td><input type="text" autocomplete="off" id="add_date" class="datefield" value="<?php echo date('Y-m-d',strtotime($_REQUEST['date']));?>"/></td>
 		<td ><?php
 		$commonService->printDropDownListFromTableSelected ( 'user', 'add_user',$_REQUEST['user_id'] );

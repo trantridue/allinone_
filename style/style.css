@@ -479,3 +479,9 @@ div#table_list_product_wrapper table.dataTable thead th, table.dataTable thead t
 #main_page_wrap li {
 	padding:0 !important;
 }
+.number50 {
+	width:50px;
+}
+.number80 {
+	width:80px;
+}
