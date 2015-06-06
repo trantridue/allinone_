@@ -54,7 +54,6 @@ class ReportService {
 		$dateto = isset($params['dateto'])?$params['dateto']:date('Y-m-t');
 		$charttype = isset($params['charttype'])?$params['charttype']:'spline';
 		$charttime = isset($params['charttime'])?$params['charttime']:'%Y-%m-%d';
-//		echo $charttype;
 		$str =		
 		 "$(document).ready(function () {
             $('#exportChart').jqChart({
@@ -101,12 +100,26 @@ class ReportService {
 		$str = "";
 		if($shop_id==0){
 			$str =   "{	title : 'All ',type: '".$charttype."',data: [";
-			$qry = "select sum(t1.total) as total, date_format(t2.date,'".$charttime."') as date from export_facture_trace t1, export_facture t2 
-		where t1.export_facture_code = t2.code and t2.date between '".$datefrom."' and '".$dateto."'  group by date_format(t2.date,'".$charttime."')";
+			$qry = "SELECT Sum(( t1.quantity - t1.re_qty ) *
+           			t1.export_price ) AS total,
+			       Date_format(t2.date, '".$charttime."') as date
+			FROM   export_facture_product t1,
+			       export_facture t2
+			WHERE  t1.export_facture_code = t2.code
+			       AND t2.date BETWEEN '".$datefrom."' and '".$dateto."'
+			GROUP  BY Date_format(t2.date, '%Y-%m-%d')";
+			
 		}else {
 			$str =   "{	title : 'Shop ".$shop_id."',type: '".$charttype."',data: [";
-			$qry = "select sum(t1.total) as total, date_format(t2.date,'".$charttime."') as date from export_facture_trace t1, export_facture t2 
-			where t1.export_facture_code = t2.code and t2.date between '".$datefrom."' and '".$dateto."' and t1.shop_id =".$shop_id." group by date_format(t2.date,'".$charttime."')";
+			$qry = "SELECT Sum(( t1.quantity - t1.re_qty ) *
+           			t1.export_price ) AS total,
+			       Date_format(t2.date, '".$charttime."') as date
+			FROM   export_facture_product t1,
+			       export_facture t2
+			WHERE  t1.export_facture_code = t2.code
+			       AND t2.shop_id = ".$shop_id."
+			       AND t2.date BETWEEN '".$datefrom."' and '".$dateto."'
+			GROUP  BY Date_format(t2.date, '%Y-%m-%d')";
 		}
 		$result = mysql_query ( $qry, $this->connection );
 		
@@ -115,7 +128,6 @@ class ReportService {
 		}
 		$str = $str."]},";
 		return $str;
-//		return "-----".$qry."|";
 	}
 }
 ?>
