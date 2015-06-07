@@ -741,7 +741,7 @@ class ExportService {
 		$cash = $_SESSION ['init_money'] 
 				+ $this->commonService->getAmountResult($qryFacture) 
 				+ $this->commonService->getAmountResult($qryInout);
-		return $cash;
+		return number_format($cash,2,'.',',');
 	}
 	
 	function getSearchParameters(){
