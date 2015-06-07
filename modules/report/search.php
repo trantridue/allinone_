@@ -76,8 +76,12 @@ function getMonthFormat(curr_month){
 	
 }
 function displayChartNow(){
-	displayChart('report0');
-	displayChart('report1');
+	if ($('#report0').css('display') == "block") {
+		displayChart('report0');
+	}
+	if ($('#report1').css('display') == "block") {
+		displayChart('report1');
+	}
 }
 function displayChart(divid){
 	var url = 'modules/report/'+divid+'Report.php' + getSearchParamsReport();

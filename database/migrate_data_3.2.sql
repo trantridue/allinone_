@@ -282,3 +282,8 @@ insert into `configuration`(`name`,`value`,`label`) values
 ('nbr_customer_by_group_csv','250','NBR CUSTOMER BY GROUP'),
 ('nbr_news_default','10','NBR NEWS DEFAULT'),
 ('sale_all_taux','10','SALE TAUX');
+/* init spend 2013*/
+INSERT INTO `spend` (`spend_category_id`, `amount`, `user_id`, `description`, `date`, `spend_for_id`, `spend_type_id`) VALUES
+(1, 0, 1, 'Chi ba thien đi chợ', '2013-04-02 00:00:00', 1, 1);
+INSERT INTO `spend` (`spend_category_id`, `amount`, `user_id`, `description`, `date`, `spend_for_id`, `spend_type_id`) VALUES
+(1, 0, 1, 'Chi ba thien đi chợ', '2013-04-02 00:00:00', 2, 1);

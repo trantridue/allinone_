@@ -485,3 +485,11 @@ div#table_list_product_wrapper table.dataTable thead th, table.dataTable thead t
 .number80 {
 	width:80px;
 }
+.reportStatDiv{
+	width: 98%;
+	min-height: 50px;
+	overflow: auto;
+	background-color: bisque;
+	margin:1%;
+	padding:5px;
+}

@@ -9,8 +9,6 @@ if ($isAjax == 'true') {
 	$params = $reportService->getReportParameters();
 }
 ?>
-<script lang="javascript" type="text/javascript">
-     <?php echo $reportService->generateDataExportChart($params,"reportChart1","Biểu đồ lãi xuất");?>
-    </script>
-
-<div id="reportChart1" style="width: 100%; height: 520px;"></div>
+<div id="reportChart1" style="width: 100%; height: 520px;">
+<?php $reportService->generateStatistic($params);?>
+</div>

@@ -14,16 +14,15 @@ if($commonService->isAdmin()) {?>
   <div id="chartArea">
   <div>
   	<input type="button" value="INCOME" class="menu_btn_sub" 
-  	style="background-color:violet;"
 	onclick="toggleDivShowBtnStatusAndRefresh('report0',this);">
-	<input type="button" value="INTERET" class="menu_btn_sub"
+	<input type="button" value="Statistic" class="menu_btn_sub" style="background-color:violet;"
 	onclick="toggleDivShowBtnStatusAndRefresh('report1',this);">
 
   </div>
-  	<div id="report0" style="display:block;">
+  	<div id="report0" style="display:none;">
 	<?php include 'report0Report.php';?>
 	</div>
-    <div id="report1"  style="display:none;">
+    <div id="report1"  style="display:block;">
 	<?php include 'report1Report.php';?>
 	</div>
   </div>

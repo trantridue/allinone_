@@ -87,7 +87,7 @@ class ReportService {
                         ."]
             });
         });";
-   echo $str;
+  	echo $str;
 	}
 	function genData($datefrom,$dateto,$charttype,$charttime,$nbrShop,$id_shop){
 		$returnStr = "";
@@ -105,6 +105,8 @@ class ReportService {
 		$str = "";
 		$qry1 = "";
 		$str1 = "";
+		$qry2 = "";
+		$str2 = "";
 		if($shop_id==0){
 			$str =   "{	title : 'Income All ',type: '".$charttype."',data: [";
 			$qry = "SELECT Sum(( t1.quantity - t1.re_qty ) *
@@ -153,8 +155,16 @@ class ReportService {
 			       AND t2.date BETWEEN '".$datefrom."' and '".$dateto."'
 			GROUP  BY Date_format(t2.date, '".$charttime."')";
 		}
+		$str2 =   "{	title : 'Chi phí ',type: '".$charttype."',data: [";
+		$qry2 = "SELECT Sum(amount) AS total,
+		       Date_format(date, '".$charttime."') as date
+		FROM   spend
+		WHERE  date BETWEEN '".$datefrom."' and '".$dateto."'
+		GROUP  BY Date_format(date, '".$charttime."')";
+			
 		$result = mysql_query ( $qry, $this->connection );
 		$result1 = mysql_query ( $qry1, $this->connection );
+		$result2 = mysql_query ( $qry2, $this->connection );
 		
 		while ( $rows = mysql_fetch_array ( $result ) ) {
 			$str = $str."['".$rows['date']."',".$rows['total']."],";
@@ -164,7 +174,39 @@ class ReportService {
 			$str1 = $str1."['".$rows1['date']."',".$rows1['total']."],";
 		}
 		$str1 = $str1."]},";
-		return $str.$str1;
+		while ( $rows2 = mysql_fetch_array ( $result2 ) ) {
+			$str2 = $str2."['".$rows2['date']."',".$rows2['total']."],";
+		}
+		$str2 = $str2."]},";
+		if($shop_id==0){
+			return $str.$str1.$str2;
+		} else {
+			return $str.$str1;	
+		}
+		
+	}
+	function generateStatistic($params){
+		$datefrom = isset($params['datefrom'])?$params['datefrom']:date('Y-m-01');
+		$dateto = isset($params['dateto'])?$params['dateto']:date('Y-m-t');
+		echo "<div>";
+		$this->generateCash();
+		$this->generateLoan();
+		echo "</div>";
+	}
+	function getAmountReport($qry){
+		$amount = 0;
+		$result = mysql_query ( $qry, $this->connection );
+		while ( $rows = mysql_fetch_array ( $result ) ) {
+			$amount = $rows['amount'];
+		}
+		return number_format($amount,2,'.',',');
+	}
+	function generateCash(){
+		$qry = "select sum(amount) as amount from fund_change_histo where fund_id = 1 ";
+		echo "<div class='reportStatDiv'>Tiền trong két : <strong>".$this->getAmountReport($qry)."</strong> </div>";
+	}
+	function generateLoan(){
+		echo "<div class='reportStatDiv'>LOAN:</div>";
 	}
 }
 ?>
