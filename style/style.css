@@ -487,9 +487,9 @@ div#table_list_product_wrapper table.dataTable thead th, table.dataTable thead t
 }
 .reportStatDiv{
 	width: 98%;
-	min-height: 50px;
+	min-height: 30px;
 	overflow: auto;
 	background-color: bisque;
-	margin:1%;
+	margin:5px;
 	padding:5px;
 }

@@ -223,6 +223,7 @@ class ReportService {
 	function generateStatistic($params){
 		$datefrom = isset($params['datefrom'])?$params['datefrom']:date('Y-m-d');
 		$dateto = isset($params['dateto'])?$params['dateto']:date('Y-m-d');
+//		echo "|".$datefrom."|";
 		echo "<div>";
 		echo "<div class='reportStatDiv'>".$this->showStaticInformation()."</div>";
 		echo "<div class='reportStatDiv'>".$this->showDynamicInformation($datefrom,$dateto)."</div>";
@@ -268,27 +269,67 @@ class ReportService {
 		Nợ tiền hàng : <strong> ".$this->getAmountReport($qry1)."</strong>";
 	}
 	function showDynamicInformation($startdate,$enddate) {
-		$str =  "<table width=100% ><tr><td align='right'>CASH All: </td><td><strong>".$this->getCashByShop('all',$startdate,$enddate).tab4."</strong></td>
+		$str =  "<table width='100%' style='font-size:10pt;'><tr><td align='right' style='background-color:pink;'>CASH All: </td>
+				<td style='background-color:pink;'><strong>".$this->getCashByShop('all',$startdate,$enddate).tab4."</strong></td>
 				 <td align='right'>CASH 1: </td><td><strong>".$this->getCashByShop(1,$startdate,$enddate).tab4."</strong>
 				 <td align='right'>CASH 2: </td><td><strong>".$this->getCashByShop(2,$startdate,$enddate).tab4."</strong>
 				 <td align='right'>CASH 3: </td><td><strong>".$this->getCashByShop(3,$startdate,$enddate).tab4."</strong>
-				 <td align='right'>ROI ALL: </td><td><strong>".$this->getRoiByShopAndDate($startdate,$enddate,'all').tab4."</strong>
+				 <td align='right' style='background-color:violet;'>ROI ALL: </td>
+				 <td style='background-color:violet;'><strong>".$this->getRoiByShopAndDate($startdate,$enddate,'all').tab4."</strong>
 				 <td align='right'>ROI 1: </td><td><strong>".$this->getRoiByShopAndDate($startdate,$enddate,1).tab4."</strong>
 				 <td align='right'>ROI 2: </td><td><strong>".$this->getRoiByShopAndDate($startdate,$enddate,2).tab4."</strong>
 				 <td align='right'>ROI 3: </td><td><strong>".$this->getRoiByShopAndDate($startdate,$enddate,3).tab4."</strong></td></tr>
 				 <tr>
-				 <td></td>
-				 <td></td>
-				 <td></td>
-				 <td></td>
-				 <td></td>
-				 <td></td>
-				 <td></td>
-				 <td></td>
+				 <td align='right' style='background-color:yellow;'>Ex ALL: </td>
+				 <td style='background-color:yellow;'><strong>".$this->getExportByShopAndDate($startdate,$enddate,'all').tab4."</strong>
+				 <td align='right'>Ex 1: </td><td><strong>".$this->getExportByShopAndDate($startdate,$enddate,1).tab4."</strong>
+				 <td align='right'>Ex 2: </td><td><strong>".$this->getExportByShopAndDate($startdate,$enddate,2).tab4."</strong>
+				 <td align='right'>Ex 3: </td><td><strong>".$this->getExportByShopAndDate($startdate,$enddate,3).tab4."</strong></td>
+				 <td align='right' style='background-color:rgb(65, 140, 240);'>Re ALL: </td>
+				 <td style='background-color:rgb(65, 140, 240);'><strong>".$this->getReturnByShopAndDate($startdate,$enddate,'all').tab4."</strong>
+				 <td align='right'>Re  1: </td><td><strong>".$this->getReturnByShopAndDate($startdate,$enddate,1).tab4."</strong>
+				 <td align='right'>Re  2: </td><td><strong>".$this->getReturnByShopAndDate($startdate,$enddate,2).tab4."</strong>
+				 <td align='right'>Re  3: </td><td><strong>".$this->getReturnByShopAndDate($startdate,$enddate,3).tab4."</strong></td>
+				
 				 </tr>
 				 </table>
 				 ";
 		return $str;
+	}
+	
+	function getExportByShopAndDate($startdate,$enddate,$shopid){
+		$qry="";
+		if($shopid =='all'){
+			$qry = "select sum((t1.quantity-t1.re_qty)*t1.export_price) AS amount
+				FROM   export_facture_product t1,
+				       export_facture t2
+				WHERE  t1.export_facture_code = t2.code
+				       AND date_format(t2.date,'%Y-%m-%d') BETWEEN '".$startdate."' and '".$enddate."'";
+			
+		} else {
+			$qry = "select sum((t1.quantity-t1.re_qty)*t1.export_price) AS amount
+				FROM   export_facture_product t1,
+				       export_facture t2
+				WHERE  t1.export_facture_code = t2.code and t2.shop_id=".$shopid."
+				       AND date_format(t2.date,'%Y-%m-%d') BETWEEN '".$startdate."' and '".$enddate."'";
+		}
+		return $this->getAmountReport2Zero($qry);
+	}
+	function getReturnByShopAndDate($startdate,$enddate,$shopid){
+		$qry="";
+		if($shopid =='all'){
+			$qry = "select sum(t1.re_qty*t1.export_price) AS amount
+				FROM   export_facture_product t1
+				WHERE  date_format(t1.re_date,'%Y-%m-%d') BETWEEN '".$startdate."' and '".$enddate."'";
+			
+		} else {
+			$qry = "select sum(t1.re_qty*t1.export_price) AS amount
+				FROM   export_facture_product t1,
+					   export_facture t2
+				WHERE  t1.export_facture_code = t2.code and t2.shop_id=".$shopid."
+				       AND date_format(t1.re_date,'%Y-%m-%d') BETWEEN '".$startdate."' and '".$enddate."'";
+		}
+		return $this->getAmountReport2Zero($qry);
 	}
 	function getRoiByShopAndDate($startdate,$enddate,$shopid){
 		$qry="";
@@ -302,7 +343,7 @@ class ReportService {
 				FROM   export_facture_product t1,
 				       export_facture t2
 				WHERE  t1.export_facture_code = t2.code
-				       AND t2.date BETWEEN '".$startdate."' and '".$enddate."'";
+				       AND date_format(t2.date,'%Y-%m-%d') BETWEEN '".$startdate."' and '".$enddate."'";
 			
 		} else {
 			$qry = "SELECT ifnull((Sum(( t1.quantity - t1.re_qty ) *
@@ -314,7 +355,7 @@ class ReportService {
 				FROM   export_facture_product t1,
 				       export_facture t2
 				WHERE  t1.export_facture_code = t2.code and t2.shop_id=".$shopid."
-				       AND t2.date BETWEEN '".$startdate."' and '".$enddate."'";
+				       AND date_format(t2.date,'%Y-%m-%d') BETWEEN '".$startdate."' and '".$enddate."'";
 		}
 		return $this->getAmountReport2Zero($qry);
 	}
