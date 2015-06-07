@@ -107,6 +107,10 @@ class ReportService {
 		$str1 = "";
 		$qry2 = "";
 		$str2 = "";
+		$qry3 = "";
+		$str3 = "";
+		$qry4 = "";
+		$str4 = "";
 		if($shop_id==0){
 			$str =   "{	title : 'Income All ',type: '".$charttype."',data: [";
 			$qry = "SELECT Sum(( t1.quantity - t1.re_qty ) *
@@ -161,36 +165,67 @@ class ReportService {
 		FROM   spend
 		WHERE  date BETWEEN '".$datefrom."' and '".$dateto."'
 		GROUP  BY Date_format(date, '".$charttime."')";
+		
+		$str3 =   "{	title : 'Chi phí Shop',type: '".$charttype."',data: [";
+		$qry3 = "SELECT Sum(amount) AS total,
+		       Date_format(date, '".$charttime."') as date
+		FROM   spend
+		WHERE  spend_for_id =2 and date BETWEEN '".$datefrom."' and '".$dateto."'
+		GROUP  BY Date_format(date, '".$charttime."')";
+		
+		$str4 =   "{	title : 'Chi phí Fami',type: '".$charttype."',data: [";
+		$qry4 = "SELECT Sum(amount) AS total,
+		       Date_format(date, '".$charttime."') as date
+		FROM   spend
+		WHERE  spend_for_id =1 and date BETWEEN '".$datefrom."' and '".$dateto."'
+		GROUP  BY Date_format(date, '".$charttime."')";
 			
 		$result = mysql_query ( $qry, $this->connection );
 		$result1 = mysql_query ( $qry1, $this->connection );
-		$result2 = mysql_query ( $qry2, $this->connection );
+		
 		
 		while ( $rows = mysql_fetch_array ( $result ) ) {
 			$str = $str."['".$rows['date']."',".$rows['total']."],";
 		}
 		$str = $str."]},";
+		//
 		while ( $rows1 = mysql_fetch_array ( $result1 ) ) {
 			$str1 = $str1."['".$rows1['date']."',".$rows1['total']."],";
 		}
 		$str1 = $str1."]},";
-		while ( $rows2 = mysql_fetch_array ( $result2 ) ) {
-			$str2 = $str2."['".$rows2['date']."',".$rows2['total']."],";
-		}
-		$str2 = $str2."]},";
+		
+		
 		if($shop_id==0){
-			return $str.$str1.$str2;
+			$result2 = mysql_query ( $qry2, $this->connection );
+			$result3 = mysql_query ( $qry3, $this->connection );
+			$result4 = mysql_query ( $qry4, $this->connection );
+			//
+			while ( $rows2 = mysql_fetch_array ( $result2 ) ) {
+				$str2 = $str2."['".$rows2['date']."',".$rows2['total']."],";
+			}
+			$str2 = $str2."]},";
+			//
+			while ( $rows3 = mysql_fetch_array ( $result3 ) ) {
+				$str3 = $str3."['".$rows3['date']."',".$rows3['total']."],";
+			}
+			$str3 = $str3."]},";
+			//
+			while ( $rows4 = mysql_fetch_array ( $result4 ) ) {
+				$str4 = $str4."['".$rows4['date']."',".$rows4['total']."],";
+			}
+			$str4 = $str4."]},";
+			return $str.$str1.$str2.$str3.$str4;
 		} else {
 			return $str.$str1;	
 		}
 		
 	}
 	function generateStatistic($params){
-		$datefrom = isset($params['datefrom'])?$params['datefrom']:date('Y-m-01');
-		$dateto = isset($params['dateto'])?$params['dateto']:date('Y-m-t');
+		$datefrom = isset($params['datefrom'])?$params['datefrom']:date('Y-m-d');
+		$dateto = isset($params['dateto'])?$params['dateto']:date('Y-m-d');
 		echo "<div>";
-		$this->generateCash();
-		$this->generateLoan();
+		$this->generateStatisticAll();
+		$this->showAllCashBydate($datefrom,$dateto);
 		echo "</div>";
 	}
 	function getAmountReport($qry){
@@ -199,14 +234,51 @@ class ReportService {
 		while ( $rows = mysql_fetch_array ( $result ) ) {
 			$amount = $rows['amount'];
 		}
-		return number_format($amount,2,'.',',');
+		return number_format($amount,0,'.',',');
 	}
-	function generateCash(){
+	function generateStatisticAll(){
 		$qry = "select sum(amount) as amount from fund_change_histo where fund_id = 1 ";
-		echo "<div class='reportStatDiv'>Tiền trong két : <strong>".$this->getAmountReport($qry)."</strong> </div>";
+		$qry1 = "SELECT
+       sum(( Ifnull(t2.total, 0) - Ifnull(t2.paid, 0) - Ifnull(t2.total_return, 0))) AS amount
+		FROM   (SELECT t1.*,
+               (SELECT Round(Sum(import_price * quantity))
+                FROM   product_import
+                WHERE  import_facture_code IN (SELECT code 
+                                               FROM   import_facture 
+                                               WHERE  provider_id = t1.id)) AS
+               total,
+               (SELECT Sum(amount) 
+                FROM   provider_paid
+                WHERE  provider_id = t1.id)                                 AS
+               paid,
+               (select sum(quantity*return_price) from product_return where provider_id = t1.id) as total_return
+        FROM   provider t1  ) t2";
+		echo "<div class='reportStatDiv'>
+		Tiền trong két : <strong>".$this->getAmountReport($qry).tab16."</strong>
+		Nợ tiền hàng : <strong> ".$this->getAmountReport($qry1)."</strong>
+		 </div>";
 	}
-	function generateLoan(){
-		echo "<div class='reportStatDiv'>LOAN:</div>";
+	function showAllCashToday() {
+		$date = date('Y-m-d');
+		showAllCashBydate($date,$date);
+	}
+	function showAllCashBydate($startdate,$enddate) {
+		echo "<div class='reportStatDiv'>CASH 1: <strong>".$this->getCashByShop(1,$startdate,$enddate);	
+		echo tab4."</strong>CASH 2: <strong>".$this->getCashByShop(2,$startdate,$enddate);	
+		echo tab4."</strong>CASH 3: <strong>".$this->getCashByShop(3,$startdate,$enddate)."</strong></div>";	
+	}
+	function getCashByShop($shop_id,$start_date,$end_date) {
+		session_start();
+		$cash = 0;
+
+		$qryFacture = "select sum(if((give_customer>0),(customer_give - give_customer),customer_give)) as amount
+		from export_facture_trace where shop_id = ".$shop_id." and export_facture_code in (select code from export_facture where date_format(date,'%Y-%m-%d') between '".$start_date."' and '".$end_date."')";
+		
+		$qryInout = "select sum(amount) as amount from money_inout where shop_id = ".$shop_id." and date_format(date,'%Y-%m-%d') between '".$start_date."' and '".$end_date."'";
+		$cash = $_SESSION ['init_money'] 
+				+ $this->commonService->getAmountResult($qryFacture) 
+				+ $this->commonService->getAmountResult($qryInout);
+		return number_format($cash,0,'.',',');
 	}
 }
 ?>
