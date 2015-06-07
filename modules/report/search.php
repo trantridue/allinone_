@@ -100,6 +100,6 @@ function getSearchParamsReport(){
 function toggleDivShowBtnStatusAndRefresh(divid,thisval){
 //	displayChart(divid);
 	toggleDivShowBtnStatus(divid,thisval);
-	displayChart(divid);
+//	displayChart(divid);
 }
 </script>

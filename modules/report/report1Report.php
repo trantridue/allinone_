@@ -9,6 +9,6 @@ if ($isAjax == 'true') {
 	$params = $reportService->getReportParameters();
 }
 ?>
-<div id="reportChart1" style="width: 100%; height: 520px;">
+<div id="reportChart1" style="width: 100%; min-height: 60px;">
 <?php $reportService->generateStatistic($params);?>
 </div>

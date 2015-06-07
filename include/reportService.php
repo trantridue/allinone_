@@ -224,8 +224,8 @@ class ReportService {
 		$datefrom = isset($params['datefrom'])?$params['datefrom']:date('Y-m-d');
 		$dateto = isset($params['dateto'])?$params['dateto']:date('Y-m-d');
 		echo "<div>";
-		$this->generateStatisticAll();
-		$this->showAllCashBydate($datefrom,$dateto);
+		echo "<div class='reportStatDiv'>".$this->showStaticInformation()."</div>";
+		echo "<div class='reportStatDiv'>".$this->showDynamicInformation($datefrom,$dateto)."</div>";
 		echo "</div>";
 	}
 	function getAmountReport($qry){
@@ -236,8 +236,19 @@ class ReportService {
 		}
 		return number_format($amount,0,'.',',');
 	}
-	function generateStatisticAll(){
+	function getAmountReport2Zero($qry){
+		$amount = 0;
+		$result = mysql_query ( $qry, $this->connection );
+		while ( $rows = mysql_fetch_array ( $result ) ) {
+			$amount = $rows['amount'];
+		}
+		return number_format($amount,2,'.',',');
+	}
+	function showStaticInformation(){
+		//tien trong ket
 		$qry = "select sum(amount) as amount from fund_change_histo where fund_id = 1 ";
+		// tong no tien hang
+		
 		$qry1 = "SELECT
        sum(( Ifnull(t2.total, 0) - Ifnull(t2.paid, 0) - Ifnull(t2.total_return, 0))) AS amount
 		FROM   (SELECT t1.*,
@@ -253,29 +264,83 @@ class ReportService {
                paid,
                (select sum(quantity*return_price) from product_return where provider_id = t1.id) as total_return
         FROM   provider t1  ) t2";
-		echo "<div class='reportStatDiv'>
-		Tiền trong két : <strong>".$this->getAmountReport($qry).tab16."</strong>
-		Nợ tiền hàng : <strong> ".$this->getAmountReport($qry1)."</strong>
-		 </div>";
+		return "Tiền trong két : <strong>".$this->getAmountReport($qry).tab16."</strong>
+		Nợ tiền hàng : <strong> ".$this->getAmountReport($qry1)."</strong>";
 	}
-	function showAllCashToday() {
-		$date = date('Y-m-d');
-		showAllCashBydate($date,$date);
+	function showDynamicInformation($startdate,$enddate) {
+		$str =  "<table width=100% ><tr><td align='right'>CASH All: </td><td><strong>".$this->getCashByShop('all',$startdate,$enddate).tab4."</strong></td>
+				 <td align='right'>CASH 1: </td><td><strong>".$this->getCashByShop(1,$startdate,$enddate).tab4."</strong>
+				 <td align='right'>CASH 2: </td><td><strong>".$this->getCashByShop(2,$startdate,$enddate).tab4."</strong>
+				 <td align='right'>CASH 3: </td><td><strong>".$this->getCashByShop(3,$startdate,$enddate).tab4."</strong>
+				 <td align='right'>ROI ALL: </td><td><strong>".$this->getRoiByShopAndDate($startdate,$enddate,'all').tab4."</strong>
+				 <td align='right'>ROI 1: </td><td><strong>".$this->getRoiByShopAndDate($startdate,$enddate,1).tab4."</strong>
+				 <td align='right'>ROI 2: </td><td><strong>".$this->getRoiByShopAndDate($startdate,$enddate,2).tab4."</strong>
+				 <td align='right'>ROI 3: </td><td><strong>".$this->getRoiByShopAndDate($startdate,$enddate,3).tab4."</strong></td></tr>
+				 <tr>
+				 <td></td>
+				 <td></td>
+				 <td></td>
+				 <td></td>
+				 <td></td>
+				 <td></td>
+				 <td></td>
+				 <td></td>
+				 </tr>
+				 </table>
+				 ";
+		return $str;
 	}
-	function showAllCashBydate($startdate,$enddate) {
-		echo "<div class='reportStatDiv'>CASH 1: <strong>".$this->getCashByShop(1,$startdate,$enddate);	
-		echo tab4."</strong>CASH 2: <strong>".$this->getCashByShop(2,$startdate,$enddate);	
-		echo tab4."</strong>CASH 3: <strong>".$this->getCashByShop(3,$startdate,$enddate)."</strong></div>";	
+	function getRoiByShopAndDate($startdate,$enddate,$shopid){
+		$qry="";
+		if($shopid =='all'){
+			$qry = "SELECT ifnull((Sum(( t1.quantity - t1.re_qty ) *
+	           			(t1.export_price - (SELECT Max(import_price)
+	                              FROM   product_import
+	                              WHERE  product_code =
+	       				t1.product_code) ) )/Sum(( t1.quantity - t1.re_qty ) *
+	           			t1.export_price )),0)*100 AS amount
+				FROM   export_facture_product t1,
+				       export_facture t2
+				WHERE  t1.export_facture_code = t2.code
+				       AND t2.date BETWEEN '".$startdate."' and '".$enddate."'";
+			
+		} else {
+			$qry = "SELECT ifnull((Sum(( t1.quantity - t1.re_qty ) *
+	           			(t1.export_price - (SELECT Max(import_price)
+	                              FROM   product_import
+	                              WHERE  product_code =
+	       				t1.product_code) ) )/Sum(( t1.quantity - t1.re_qty ) *
+	           			t1.export_price )),0)*100 AS amount
+				FROM   export_facture_product t1,
+				       export_facture t2
+				WHERE  t1.export_facture_code = t2.code and t2.shop_id=".$shopid."
+				       AND t2.date BETWEEN '".$startdate."' and '".$enddate."'";
+		}
+		return $this->getAmountReport2Zero($qry);
 	}
 	function getCashByShop($shop_id,$start_date,$end_date) {
 		session_start();
 		$cash = 0;
-
-		$qryFacture = "select sum(if((give_customer>0),(customer_give - give_customer),customer_give)) as amount
-		from export_facture_trace where shop_id = ".$shop_id." and export_facture_code in (select code from export_facture where date_format(date,'%Y-%m-%d') between '".$start_date."' and '".$end_date."')";
-		
-		$qryInout = "select sum(amount) as amount from money_inout where shop_id = ".$shop_id." and date_format(date,'%Y-%m-%d') between '".$start_date."' and '".$end_date."'";
-		$cash = $_SESSION ['init_money'] 
+		$qryFacture = "";
+		$qryInout = "";
+		$cashCaseAll = 0;
+		if($shop_id=='all') {
+			$qryFacture = "select sum(if((give_customer>0),(customer_give - give_customer),customer_give)) as amount
+			from export_facture_trace where export_facture_code in 
+			(select code from export_facture where date_format(date,'%Y-%m-%d') between '".$start_date."' and '".$end_date."')";
+			
+			$qryInout = "select sum(amount) as amount 
+			from money_inout where  date_format(date,'%Y-%m-%d') between '".$start_date."' and '".$end_date."'";
+			$cashCaseAll = $_SESSION ['init_money'] *2;
+		} else {
+			$qryFacture = "select sum(if((give_customer>0),(customer_give - give_customer),customer_give)) as amount
+			from export_facture_trace where shop_id = ".$shop_id." and export_facture_code in 
+			(select code from export_facture where date_format(date,'%Y-%m-%d') between '".$start_date."' and '".$end_date."')";
+			
+			$qryInout = "select sum(amount) as amount from money_inout where shop_id = ".$shop_id." 
+			and date_format(date,'%Y-%m-%d') between '".$start_date."' and '".$end_date."'";
+		}
+		$cash = $_SESSION ['init_money'] + $cashCaseAll
 				+ $this->commonService->getAmountResult($qryFacture) 
 				+ $this->commonService->getAmountResult($qryInout);
 		return number_format($cash,0,'.',',');
