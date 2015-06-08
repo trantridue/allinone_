@@ -19,8 +19,8 @@ if(isset($_POST["submit"])) {
 }
 // Check if file already exists
 if (file_exists($target_file_uploaded)) {
-    echo "Sorry, file already exists.";
-    $uploadOk = 0;
+    unlink($target_file_uploaded);
+    $uploadOk = 1;
 }
 // Check file size
 if ($_FILES["fileToUpload"]["size"] > $max_img_size_upload) {
