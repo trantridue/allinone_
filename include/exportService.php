@@ -614,7 +614,8 @@ class ExportService {
 	}
 	function listExportDefault() {
 		session_start();
-		$qry = "SELECT t1.id,t1.product_code,t1.quantity,t1.export_price,t1.re_qty,t3.link,t3.name as product_name,t6.name as username,t3.export_price as price_origine,
+		$isAdminField = 'default';
+		$qry = "SELECT t1.id,t1.product_code,t1.quantity,t1.export_price,t1.re_qty,t3.description,t3.link,t3.name as product_name,t6.name as username,t3.export_price as price_origine,
 		t1.export_facture_code, t2.date,date_format(t2.date,'%H:%m:%s') as time,t4.name as customer,t4.tel as customer_tel,t5.name as shop
 		 FROM `export_facture_product` t1, export_facture t2, product t3, customer t4, shop t5, user t6
 		where t1.export_facture_code = t2.code
@@ -623,16 +624,18 @@ class ExportService {
 		and t4.id = t2.customer_id
 		and t5.id = t2.shop_id
 		and datediff(now(),t2.date) <= ".$_SESSION['listExportDefault_nbr_day_limit']." order by date desc";
+//		echo $qry; 
 		$result = mysql_query ( $qry, $this->connection );
 		$resulttmp = mysql_query ( $qry, $this->connection );
 //		echo $qry;
 		$this->commonService->generateJSDatatableComplexExport ( $result, exportproductdatatable, 12, 'desc', $this->getExportListArrayTotal() );
-		$this->commonService->generateJqueryDatatableExport ( $result, exportproductdatatable, $this->getExportListArrayColumn() );		
-		$this->commonService->generateJqueryToolTipScript ( $resulttmp, exportproductdatatable, $this->getExportListArrayColumn() );		
+		$this->commonService->generateJqueryDatatableExport ( $result, exportproductdatatable, $this->getExportListArrayColumn($isAdminField) );		
+		$this->commonService->generateJqueryToolTipScript ( $resulttmp, exportproductdatatable, $this->getExportListArrayColumn($isAdminField) );		
 	}
 	function listExport($params) {
-		$qry = "SELECT t1.id,t1.product_code,t1.quantity,t1.export_price,t1.re_qty,t3.name as product_name,t6.name as username,t3.export_price as price_origine,
-		t1.export_facture_code, t2.date,subStr(t2.date,12,8) as time,t4.name as customer,t4.tel as customer_tel,t5.name as shop
+		$isAdminField= $params['isAdminField'];
+		$qry = "SELECT t1.id,t1.product_code,t1.quantity,t1.export_price,t1.re_qty,t3.description,t3.link,t3.name as product_name,t6.name as username,t3.export_price as price_origine,
+		t1.export_facture_code, t2.date,date_format(t2.date,'%H:%m:%s') as time,t4.name as customer,t4.tel as customer_tel,t5.name as shop
 		 FROM `export_facture_product` t1, export_facture t2, product t3, customer t4, shop t5, user t6
 		where t1.export_facture_code = t2.code
 		and t1.product_code = t3.code
@@ -679,9 +682,10 @@ class ExportService {
 		$qry = $qry . "  order by date desc";
 		$result = mysql_query ( $qry, $this->connection );
 		$resulttmp = mysql_query ( $qry, $this->connection );
+//		echo $qry; 
 		$this->commonService->generateJSDatatableComplexExport ( $result, exportproductdatatable, 12, 'desc', $this->getExportListArrayTotal() );
-		$this->commonService->generateJqueryDatatableExport ( $result, exportproductdatatable, $this->getExportListArrayColumn() );		
-		$this->commonService->generateJqueryToolTipScript ( $resulttmp, exportproductdatatable, $this->getExportListArrayColumn() );		
+		$this->commonService->generateJqueryDatatableExport ( $result, exportproductdatatable, $this->getExportListArrayColumn($isAdminField) );		
+		$this->commonService->generateJqueryToolTipScript ( $resulttmp, exportproductdatatable, $this->getExportListArrayColumn($isAdminField) );		
 	}
 	function getExportListArrayTotal() {
 		return  $array_total = array (
@@ -691,40 +695,75 @@ class ExportService {
 				9 => "TRE"
 		);
 	}
-	function getExportListArrayColumn() {
-		if($this->commonService->isAdmin()){
+	function getExportListArrayColumn($isAdminField) {
+		if($isAdminField == 'default') {
+			if($this->commonService->isAdmin()){
+				return array (
+						"checkbox" => "RE",
+						"qtyre" => "&nbsp;&nbsp;",
+						"product_code,description" => "Code,product_code,image",
+						"product_name" => "Tên hàng",
+						"customer,customer_tel" => "Khách,customer",
+						"quantity" => "SL&nbsp;&nbsp;",
+						"re_qty" => "RQ&nbsp;&nbsp;",
+						"export_price,price_origine" => "PRI&nbsp;&nbsp;&nbsp;&nbsp;,export_price",
+						"export_price*quantity" => "complex",
+						"export_price*re_qty" => "complex",
+						"export_facture_code" => "MÃ_HÓA_ĐƠN",
+						"shop" => "Shop&nbsp;&nbsp;",
+						"date,username" => "Time,time",
+						"id,deleteExportFacture,export_facture_code" => "Delete"
+				);
+			} else {
+				return array (
+						"checkbox" => "RE",
+						"qtyre" => "&nbsp;&nbsp;",
+						"product_code,description" => "Code,product_code,image",
+						"product_name" => "Tên hàng",
+						"customer,customer_tel" => "Khách,customer",
+						"quantity" => "SL&nbsp;&nbsp;",
+						"re_qty" => "RQ&nbsp;&nbsp;",
+						"export_price" => "PRI&nbsp;&nbsp;&nbsp;&nbsp;",
+						"export_price*quantity" => "complex",
+						"export_price*re_qty" => "complex",
+						"export_facture_code" => "MÃ_HÓA_ĐƠN",
+						"shop" => "Shop&nbsp;&nbsp;",
+						"date,username" => "Time,time"
+				);
+			}
+		} else if ($isAdminField == '1') {
 			return array (
-					"product_code,description" => "Code,product_code,image",
-					"checkbox" => "RE",
-					"qtyre" => "&nbsp;&nbsp;",
-					"product_name" => "Tên hàng",
-					"customer,customer_tel" => "Khách,customer",
-					"quantity" => "SL&nbsp;&nbsp;",
-					"re_qty" => "RQ&nbsp;&nbsp;",
-					"export_price,price_origine" => "PRI&nbsp;&nbsp;&nbsp;&nbsp;,export_price",
-					"export_price*quantity" => "complex",
-					"export_price*re_qty" => "complex",
-					"export_facture_code" => "MÃ_HÓA_ĐƠN",
-					"shop" => "Shop&nbsp;&nbsp;",
-					"date,username" => "Time,time",
-					"id,deleteExportFacture,export_facture_code" => "Delete"
-			);
+						"checkbox" => "RE",
+						"qtyre" => "&nbsp;&nbsp;",
+						"product_code,description" => "Code,product_code,image",
+						"product_name" => "Tên hàng",
+						"customer,customer_tel" => "Khách,customer",
+						"quantity" => "SL&nbsp;&nbsp;",
+						"re_qty" => "RQ&nbsp;&nbsp;",
+						"export_price,price_origine" => "PRI&nbsp;&nbsp;&nbsp;&nbsp;,export_price",
+						"export_price*quantity" => "complex",
+						"export_price*re_qty" => "complex",
+						"export_facture_code" => "MÃ_HÓA_ĐƠN",
+						"shop" => "Shop&nbsp;&nbsp;",
+						"date,username" => "Time,time",
+						"id,deleteExportFacture,export_facture_code" => "Delete"
+				);
 		} else {
 			return array (
-					"checkbox" => "RE",
-					"qtyre" => "&nbsp;&nbsp;",
-					"product_code" => "Mã",
-					"product_name" => "Tên hàng",
-					"customer,customer_tel" => "Khách,customer",
-					"quantity" => "SL&nbsp;&nbsp;",
-					"re_qty" => "RQ&nbsp;&nbsp;",
-					"export_price" => "PRI&nbsp;&nbsp;&nbsp;&nbsp;",
-					"export_price*quantity" => "complex",
-					"export_price*re_qty" => "complex",
-					"export_facture_code" => "MÃ_HÓA_ĐƠN",
-					"shop" => "Shop&nbsp;&nbsp;",
-					"date,username" => "Time,time"
-			);
+						"checkbox" => "RE",
+						"qtyre" => "&nbsp;&nbsp;",
+						"product_code,description" => "Code,product_code,image",
+						"product_name" => "Tên hàng",
+						"customer,customer_tel" => "Khách,customer",
+						"quantity" => "SL&nbsp;&nbsp;",
+						"re_qty" => "RQ&nbsp;&nbsp;",
+						"export_price" => "PRI&nbsp;&nbsp;&nbsp;&nbsp;",
+						"export_price*quantity" => "complex",
+						"export_price*re_qty" => "complex",
+						"export_facture_code" => "MÃ_HÓA_ĐƠN",
+						"shop" => "Shop&nbsp;&nbsp;",
+						"date,username" => "Time,time"
+				);
 		}
 	}
 	function showAllCashToday() {

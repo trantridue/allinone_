@@ -462,7 +462,7 @@ function deletecustomer(customerid) {
 }
 function updateProduct() {
 	var updateproduct = 'modules/import/updateproductimport.php?' + buildProductImportCriteria();
-	 alert(buildProductImportCriteria());
+//	 alert(buildProductImportCriteria());
 	$.ajax( {
 		url : updateproduct,
 		success : function(data) {
@@ -1877,4 +1877,8 @@ function validateField(fieldname,min,max){
 	if(max==0 ) max = 9999;
 	if($('#'+fieldname).val() < min ) $('#'+fieldname).val(min);
 	if($('#'+fieldname).val() > max ) $('#'+fieldname).val(max);
+}
+
+function show_export_facture_product_product_code(parameter){
+	alert(parameter);
 }
