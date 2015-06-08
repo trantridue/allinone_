@@ -245,9 +245,17 @@ class ReportService {
 		}
 		return number_format($amount,2,'.',',');
 	}
+	function getAmountReportnoFormat($qry){
+		$amount = 0;
+		$result = mysql_query ( $qry, $this->connection );
+		while ( $rows = mysql_fetch_array ( $result ) ) {
+			$amount = $rows['amount'];
+		}
+		return $amount;
+	}
 	function showStaticInformation(){
 		//tien trong ket
-		$qry = "select sum(amount) as amount from fund_change_histo where fund_id = 1 ";
+		$qry = "select sum(amount*ratio) as amount from fund_change_histo where fund_id = 1 ";
 		// tong no tien hang
 		
 		$qry1 = "SELECT
@@ -266,7 +274,8 @@ class ReportService {
                (select sum(quantity*return_price) from product_return where provider_id = t1.id) as total_return
         FROM   provider t1  ) t2";
 		return "Tiền trong két : <strong>".$this->getAmountReport($qry).tab16."</strong>
-		Nợ tiền hàng : <strong> ".$this->getAmountReport($qry1)."</strong>";
+		Nợ tiền hàng : <strong> ".$this->getAmountReport($qry1)."</strong>
+		Tổng tài sản : <strong> ".$this->getProperty()."</strong>";
 	}
 	function showDynamicInformation($startdate,$enddate) {
 		$str =  "<table width='100%' style='font-size:10pt;'><tr><td align='right' style='background-color:pink;'>CASH All: </td>
@@ -385,6 +394,57 @@ class ReportService {
 				+ $this->commonService->getAmountResult($qryFacture) 
 				+ $this->commonService->getAmountResult($qryInout);
 		return number_format($cash,0,'.',',');
+	}
+	
+	function getProperty(){
+		$total = 0;
+		//tien trong quy
+		$qry = "select sum(amount*ratio) as amount from fund_change_histo where fund_id <> 18 ";
+		
+		// tong no tien hang
+		$qry1 = "SELECT
+       sum(( Ifnull(t2.total, 0) - Ifnull(t2.paid, 0) - Ifnull(t2.total_return, 0))) AS amount
+		FROM   (SELECT t1.*,
+               (SELECT Round(Sum(import_price * quantity))
+                FROM   product_import
+                WHERE  import_facture_code IN (SELECT code 
+                                               FROM   import_facture 
+                                               WHERE  provider_id = t1.id)) AS
+               total,
+               (SELECT Sum(amount) 
+                FROM   provider_paid
+                WHERE  provider_id = t1.id)                                 AS
+               paid,
+               (select sum(quantity*return_price) from product_return where provider_id = t1.id) as total_return
+        FROM   provider t1  ) t2";
+		//kho
+		$qry2 = "select sum((select max(import_price) from product_import where product_code =t1.code)*(
+			(select ifnull(sum(quantity),0) from product_import where product_code = t1.code) -
+		(select ifnull(sum(quantity),0) from product_return where product_code = t1.code) -
+		(select ifnull(sum(quantity),0) from export_facture_product where product_code = t1.code) +
+		(select ifnull(sum(re_qty),0) from export_facture_product where product_code = t1.code) +
+		(select ifnull(sum(quantity),0) from product_deviation where product_code = t1.code))) as amount from product t1";
+		
+		//customer debt
+		$qry3 = "select sum(t.total-t.paid) as amount from (SELECT
+				       t1.id,
+				       t1.tel,
+				       t1.name,
+				       (select max(t4.date) from export_facture t4 where t4.customer_id = t1.id) as date,
+				       sum((t3.quantity-t3.re_qty)*t3.export_price) as total,
+				       (select sum(amount) from export_facture_trace t4 where t4.customer_id = t1.id) AS paid
+				FROM   customer t1,
+				       export_facture t2,
+				       export_facture_product t3
+				WHERE  t1.id = t2.customer_id
+				       AND t2.code = t3.export_facture_code
+				       and t1.tel not like '%aaaaaaa%' group by t1.id) t where (t.total-t.paid) > 0 ";
+		$total = $this->getAmountReportnoFormat($qry) 
+				+ $this->getAmountReportnoFormat($qry2) 
+				+ $this->getAmountReportnoFormat($qry3) 
+				- $this->getAmountReportnoFormat($qry1);
+		
+		return $total;
 	}
 }
 ?>
