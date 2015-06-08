@@ -119,7 +119,7 @@ class ReportService {
 			FROM   export_facture_product t1,
 			       export_facture t2
 			WHERE  t1.export_facture_code = t2.code
-			       AND t2.date BETWEEN '".$datefrom."' and '".$dateto."'
+			       AND Date_format(t2.date, '%Y-%m-%d') BETWEEN '".$datefrom."' and '".$dateto."'
 			GROUP  BY Date_format(t2.date, '".$charttime."')";
 			$str1 =   "{	title : 'Interet All ',type: '".$charttype."',data: [";
 			$qry1 = "SELECT Sum(( t1.quantity - t1.re_qty ) *
@@ -131,7 +131,7 @@ class ReportService {
 			FROM   export_facture_product t1,
 			       export_facture t2
 			WHERE  t1.export_facture_code = t2.code
-			       AND t2.date BETWEEN '".$datefrom."' and '".$dateto."'
+			       AND Date_format(t2.date, '%Y-%m-%d') BETWEEN '".$datefrom."' and '".$dateto."'
 			GROUP  BY Date_format(t2.date, '".$charttime."')";
 			
 		}else {
@@ -143,7 +143,7 @@ class ReportService {
 			       export_facture t2
 			WHERE  t1.export_facture_code = t2.code
 			       AND t2.shop_id = ".$shop_id."
-			       AND t2.date BETWEEN '".$datefrom."' and '".$dateto."'
+			       AND Date_format(t2.date, '%Y-%m-%d') BETWEEN '".$datefrom."' and '".$dateto."'
 			GROUP  BY Date_format(t2.date, '".$charttime."')";
 			$str1 =   "{	title : 'Interet Shop ".$shop_id."',type: '".$charttype."',data: [";
 			$qry1 = "SELECT Sum(( t1.quantity - t1.re_qty ) *
@@ -156,28 +156,28 @@ class ReportService {
 			       export_facture t2
 			WHERE  t1.export_facture_code = t2.code
 			       AND t2.shop_id = ".$shop_id."
-			       AND t2.date BETWEEN '".$datefrom."' and '".$dateto."'
+			       AND Date_format(t2.date, '%Y-%m-%d') BETWEEN '".$datefrom."' and '".$dateto."'
 			GROUP  BY Date_format(t2.date, '".$charttime."')";
 		}
 		$str2 =   "{	title : 'Chi phí ',type: '".$charttype."',data: [";
 		$qry2 = "SELECT Sum(amount) AS total,
 		       Date_format(date, '".$charttime."') as date
 		FROM   spend
-		WHERE  date BETWEEN '".$datefrom."' and '".$dateto."'
+		WHERE  Date_format(date, '%Y-%m-%d') BETWEEN '".$datefrom."' and '".$dateto."'
 		GROUP  BY Date_format(date, '".$charttime."')";
 		
 		$str3 =   "{	title : 'Chi phí Shop',type: '".$charttype."',data: [";
 		$qry3 = "SELECT Sum(amount) AS total,
 		       Date_format(date, '".$charttime."') as date
 		FROM   spend
-		WHERE  spend_for_id =2 and date BETWEEN '".$datefrom."' and '".$dateto."'
+		WHERE  spend_for_id =2 and Date_format(date, '%Y-%m-%d') BETWEEN '".$datefrom."' and '".$dateto."'
 		GROUP  BY Date_format(date, '".$charttime."')";
 		
 		$str4 =   "{	title : 'Chi phí Fami',type: '".$charttype."',data: [";
 		$qry4 = "SELECT Sum(amount) AS total,
 		       Date_format(date, '".$charttime."') as date
 		FROM   spend
-		WHERE  spend_for_id =1 and date BETWEEN '".$datefrom."' and '".$dateto."'
+		WHERE  spend_for_id =1 and Date_format(date, '%Y-%m-%d') BETWEEN '".$datefrom."' and '".$dateto."'
 		GROUP  BY Date_format(date, '".$charttime."')";
 			
 		$result = mysql_query ( $qry, $this->connection );
