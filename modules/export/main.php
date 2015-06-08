@@ -1,12 +1,11 @@
-<form id="leftExportFormId">
 <div id="exportLeft">
 	<div id="exportCustomerInformation"><?php include 'customerInfor.php';?></div>
 	<div id="exportCustomerOrder" style="display: none;"><?php include 'customerOrder.php';?></div>
 	<hr>
 	<div id="exportFactureInformation"><?php include 'factureInfor.php';?></div>
 	<div id="exportInputProduct"><?php include 'exportInput.php';?></div>
+	<div id="uploadId" style='display:none;'><?php include 'uploadForm.php';?></div>
 </div>
-</form>
 <div id="exportRight">
 	<div id="exportSearch"><?php include 'exportSearch.php';?></div>
 	<div id="exportButtonRight"><?php include 'exportButtonRight.php';?></div>

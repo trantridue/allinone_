@@ -1868,7 +1868,6 @@ function updateconfigfield(fieldname){
 			} else {
 				operationError();
 			}
-//			$('#serverMessage').html(data);
 		}
 	});
 }
@@ -1880,6 +1879,18 @@ function validateField(fieldname,min,max){
 }
 
 function show_export_facture_product_product_code(parameter){
-//	alert(parameter);
-	searchExport('true', 'exportList', 'exportList');
+	var urls = 'modules/export/updateLinkOnly.php?' + parameter + '&link=' + encodeURIComponent($('#customer_description').val());
+//	alert(urls);
+	$.ajax( {
+		url : urls,
+		success : function(data) {
+			if(data=='success'){
+				searchExport('true', 'exportList', 'exportList');
+				operationSuccess();
+				$('#customer_description').val('');
+			}else {
+				operationError();
+			}
+		}
+	});
 }

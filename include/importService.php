@@ -474,13 +474,15 @@ class ImportService {
 	}
 	function addProducts($totalRow, $season, $codeArray, $codeExistedArray, $nameArray, $postArray, $sexArray, $categoryIdArray, $brandIdArray, $descriptiondArray, $sale) {
 		$haveNewProduct = false;
-		$qry = "INSERT INTO `product` (`code`, `name`, `category_id`, `season_id`, `sex_id`, `export_price`, `description`, `brand_id`,`sale`) VALUES ";
+		$qry = "INSERT INTO `product` (`code`, `name`, `category_id`, `season_id`, `sex_id`, `export_price`, `description`, `brand_id`,`sale`,`link`) VALUES ";
 		for($i = 1; $i <= $totalRow; $i ++) {
 			$strLine = "";
 			if ($nameArray [$i] != "") {
 				if ($codeExistedArray [$i] == 'false') {
 					$haveNewProduct = true;
-					$strLine = "('" . $codeArray [$i] . "', '" . $nameArray [$i] . "', " . $categoryIdArray [$i] . ", " . $season . ", " . $sexArray [$i] . ", " . $postArray [$i] . ", '" . $descriptiondArray [$i] . "', " . $brandIdArray [$i] . "," . $sale . "),";
+					$strLine = "('" . $codeArray [$i] . "', '" . $nameArray [$i] . "', " . $categoryIdArray [$i] . ", " 
+					. $season . ", " . $sexArray [$i] . ", " . $postArray [$i] 
+					. ", '" . $descriptiondArray [$i] . "', " . $brandIdArray [$i] . "," . $sale . ",'img/".$codeArray [$i].".png'),";
 				}
 				$qry = $qry . $strLine;
 			}

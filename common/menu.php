@@ -32,4 +32,5 @@ foreach ( $arr as $value => $key ) {
 		echo "<input type='button' value='" . $key . "' class='menu_btn' onclick='goToPage(\"" . $value . "&submenu=search\");' /><br>";
 	}
 }
+echo "<input type='button' value='UPLOAD' class='menu_btn' onclick='toggleDivShowBtnStatus(\"uploadId\",this)'>";
 ?>

@@ -603,7 +603,6 @@ class ExportService {
 		session_start ();
 		mysql_query ( "BEGIN" );
 		$qry = "update customer_order set status = '".$status."' where id =".$id;
-// 		echo $qry;
 		if(mysql_query ( $qry, $this->connection ) != null){
 			mysql_query ( "COMMIT" );
 			echo 'success';
@@ -701,7 +700,7 @@ class ExportService {
 				return array (
 						"checkbox" => "RE",
 						"qtyre" => "&nbsp;&nbsp;",
-						"product_code,description" => "Code,product_code,image",
+						"product_code" => "Code,product_code,image",
 						"product_name" => "Tên hàng",
 						"customer,customer_tel" => "Khách,customer",
 						"quantity" => "SL&nbsp;&nbsp;",
@@ -718,7 +717,7 @@ class ExportService {
 				return array (
 						"checkbox" => "RE",
 						"qtyre" => "&nbsp;&nbsp;",
-						"product_code,description" => "Code,product_code,image",
+						"product_code" => "Code,product_code,image",
 						"product_name" => "Tên hàng",
 						"customer,customer_tel" => "Khách,customer",
 						"quantity" => "SL&nbsp;&nbsp;",
@@ -735,7 +734,7 @@ class ExportService {
 			return array (
 						"checkbox" => "RE",
 						"qtyre" => "&nbsp;&nbsp;",
-						"product_code,description" => "Code,product_code,image",
+						"product_code" => "Code,product_code,image",
 						"product_name" => "Tên hàng",
 						"customer,customer_tel" => "Khách,customer",
 						"quantity" => "SL&nbsp;&nbsp;",
@@ -752,7 +751,7 @@ class ExportService {
 			return array (
 						"checkbox" => "RE",
 						"qtyre" => "&nbsp;&nbsp;",
-						"product_code,description" => "Code,product_code,image",
+						"product_code" => "Code,product_code,image",
 						"product_name" => "Tên hàng",
 						"customer,customer_tel" => "Khách,customer",
 						"quantity" => "SL&nbsp;&nbsp;",
@@ -801,6 +800,17 @@ class ExportService {
 			'default_nbr_days_load_export' 			=> $_REQUEST['default_nbr_days_load_export'],
 			'id_search_user' 			=> $_REQUEST['id_search_user']
 		);
+	}
+	function updateProductLink($product_code,$link){
+		mysql_query ( "BEGIN" );
+		$qry = "update product set link = '".$link."' where code ='".$product_code."'";
+		if(mysql_query ( $qry, $this->connection ) != null){
+			mysql_query ( "COMMIT" );
+			echo 'success';
+		}else {
+			mysql_query ( "ROLLBACK" );
+			echo 'error';
+		}
 	}
 }
 ?>
