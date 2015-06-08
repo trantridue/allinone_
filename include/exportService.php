@@ -803,6 +803,7 @@ class ExportService {
 	}
 	function updateProductLink($product_code,$link){
 		mysql_query ( "BEGIN" );
+		if($link=='') $link = "img/".$product_code.".png";
 		$qry = "update product set link = '".$link."' where code ='".$product_code."'";
 		if(mysql_query ( $qry, $this->connection ) != null){
 			mysql_query ( "COMMIT" );
