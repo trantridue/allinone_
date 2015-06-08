@@ -42,9 +42,9 @@ if ($uploadOk == 0) {
 	$max_width = $_SESSION['max_width_upload_img'];
 	$max_height = $_SESSION['max_height_upload_img'];
 	$quality = $_SESSION['upload_img_quality'];
-    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file_uploaded."tmp")) {
-		GenerateThumbnail($target_file_uploaded."tmp",$target_file_uploaded,$max_width,$max_height,$quality);
-		unlink($target_file_uploaded."tmp"); 
+    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $_FILES["fileToUpload"]["tmp_name"]."tmp")) {
+		GenerateThumbnail($_FILES["fileToUpload"]["tmp_name"]."tmp",$target_file_uploaded,$max_width,$max_height,$quality);
+		unlink($_FILES["fileToUpload"]["tmp_name"]."tmp"); 
         echo "<script>document.location.href='../../login-home.php'</script>";
     } else {
         echo "Sorry, there was an error uploading your file.";
