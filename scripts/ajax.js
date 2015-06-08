@@ -462,7 +462,7 @@ function deletecustomer(customerid) {
 }
 function updateProduct() {
 	var updateproduct = 'modules/import/updateproductimport.php?' + buildProductImportCriteria();
-	// alert(buildProductImportCriteria());
+	 alert(buildProductImportCriteria());
 	$.ajax( {
 		url : updateproduct,
 		success : function(data) {

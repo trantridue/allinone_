@@ -23,7 +23,7 @@
 	$brand_id = $_REQUEST['brand_id']; 
 	$sale = $_REQUEST['sale']; 
 	$link = $_REQUEST['link'];
-	$date = $_REQUEST['date'];
+	$date = $_REQUEST['date_im'];
 	$descript = $_REQUEST['descript'];
 	$provider_id = $_REQUEST['provider_id'];
 	$deadline = $_REQUEST['deadline'];

@@ -227,7 +227,7 @@ class ImportService {
 		,"export_qty" => "ex"
 		,"cus_return" => "cus_re"
 		, "deviation" => "Devi"
-		, "deviation,provider_id,descript,date,provider_name,brand_name,category_name,season_name,id,product_code,quantity,import_facture_code,import_price,name,category_id,season_id,sex_id,export_price,description,brand_id,sale,link,deadline" => "Edit"
+		, "deviation,provider_id,descript,date_im,provider_name,brand_name,category_name,season_name,id,product_code,quantity,import_facture_code,import_price,name,category_id,season_id,sex_id,export_price,description,brand_id,sale,link,deadline" => "Edit"
 		, "name,description,descript" => "Tên Hàng,name"
 		, "import_price" => "Giá nhập"
 		, "export_price" => "Giá bán"
