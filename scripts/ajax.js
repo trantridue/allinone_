@@ -1880,5 +1880,6 @@ function validateField(fieldname,min,max){
 }
 
 function show_export_facture_product_product_code(parameter){
-	alert(parameter);
+//	alert(parameter);
+	searchExport('true', 'exportList', 'exportList');
 }
