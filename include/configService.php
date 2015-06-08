@@ -58,6 +58,10 @@ class ConfigService {
 		'limit_default_customer_before_search', 
 		'nbr_customer_by_group_csv', 
 		'nbr_news_default', 
+		'max_width_upload_img', 
+		'max_height_upload_img', 
+		'upload_img_quality', 
+		'max_img_size_upload', 
 		'sale_all_taux'
 		);
 		$qry = "select * from configuration";
@@ -80,13 +84,13 @@ class ConfigService {
 				echo "<tr>";
 			}
 			if($rows['name']=='is_sale_for_all') {
-				echo "<td><input type='number' style='width:50px;' id='".$rows['name']."' value='".$rows['value']."' 
+				echo "<td><input type='number' style='width:70px;' id='".$rows['name']."' value='".$rows['value']."' 
 				onclick=\"validateField('".$rows['name']."',0,1);\" 
 				keypress=\"validateField('".$rows['name']."',0,1);\"  align='right'/></td>";
 				echo "<td title='1: SALE ON <br> 0: SALE OFF' style='font-weight:bold'>
 			<input type='button' value='".$rows['label']."' onclick='updateconfigfield(\"".$rows['name']."\");'></td>";
 			}else {
-				echo "<td><input type='number' style='width:50px;' id='".$rows['name']."' value='".$rows['value']."'  align='right'/></td>";
+				echo "<td><input type='number' style='width:70px;' id='".$rows['name']."' value='".$rows['value']."'  align='right'/></td>";
 				echo "<td title='".$rows['name']."' style='font-weight:bold'>
 			<input type='button' value='".$rows['label']."' onclick='updateconfigfield(\"".$rows['name']."\");'></td>";
 			}

@@ -282,6 +282,10 @@ insert into `configuration`(`name`,`value`,`label`) values
 ('limit_default_customer_before_search','100','NBR ROW CUS BEFORE'),
 ('nbr_customer_by_group_csv','250','NBR CUSTOMER BY GROUP'),
 ('nbr_news_default','10','NBR NEWS DEFAULT'),
+('max_width_upload_img','400','max_width_upload_img'),
+('max_height_upload_img','300','max_height_upload_img'),
+('upload_img_quality','1','upload_img_quality'),
+('max_img_size_upload','2000000','max_img_size_upload'),
 ('sale_all_taux','10','SALE TAUX');
 /* init spend 2013*/
 INSERT INTO `spend` (`spend_category_id`, `amount`, `user_id`, `description`, `date`, `spend_for_id`, `spend_type_id`) VALUES
