@@ -67,7 +67,8 @@ class ImportService {
 				        WHERE  product_code = t2.code) AS cus_return,
 				       (SELECT Ifnull(Sum(quantity), 0)
 				        FROM   product_deviation
-				        WHERE  product_code = t2.code) AS deviation
+				        WHERE  product_code = t2.code) AS deviation,
+				        t3.link as linkfact
 				FROM   product_import t1, 
 				       product t2, 
 				       import_facture t3, 
@@ -111,7 +112,8 @@ class ImportService {
 				        WHERE  product_code = t2.code) AS cus_return,
 				       (SELECT Ifnull(Sum(quantity), 0)
 				        FROM   product_deviation
-				        WHERE  product_code = t2.code) AS deviation
+				        WHERE  product_code = t2.code) AS deviation,
+				        t3.link as linkfact
 				FROM   product_import t1, 
 				       product t2, 
 				       import_facture t3, 
@@ -210,7 +212,7 @@ class ImportService {
 	function processImportQuery($qry) {
 		$result = mysql_query ( $qry, $this->connection );
 		$resulttmp = mysql_query ( $qry, $this->connection );
-		$this->commonService->generateJSDatatableComplex ( $result, 'product', 13, 'desc', $this->getArrayTotalImport () );
+		$this->commonService->generateJSDatatableComplex ( $result, 'product', 14, 'desc', $this->getArrayTotalImport () );
 		$this->commonService->generateJqueryDatatable ( $result, 'product', $this->getArrayColumnImport () );
 		$this->commonService->generateJqueryToolTipScript ( $resulttmp, 'product', $this->getArrayColumnImport () );
 	}
@@ -219,7 +221,7 @@ class ImportService {
 	}
 	function getArrayColumnImport() {
 		return array (
-		"product_code,description" => "Code,product_code,image"
+		"product_code,description" => "Code,product_code,link"
 		,"quantity" => "Qty"
 		, "quantity*import_price" => "complex"
 		, "quantity*export_price" => "complex"
@@ -227,13 +229,13 @@ class ImportService {
 		,"export_qty" => "ex"
 		,"cus_return" => "cus_re"
 		, "deviation" => "Devi"
+		, "import_facture_code,date" => "Mã Hóa Đơn,import_facture_code,linkfact"
 		, "deviation,provider_id,descript,date_im,provider_name,brand_name,category_name,season_name,id,product_code,quantity,import_facture_code,import_price,name,category_id,season_id,sex_id,export_price,description,brand_id,sale,link,deadline" => "Edit"
 		, "name,description,descript" => "Tên Hàng,name"
 		, "import_price" => "Giá nhập"
 		, "export_price" => "Giá bán"
 		, "sale" => "Sale"
 		, "date_im" => "Date"
-		, "import_facture_code,date" => "Mã Hóa Đơn,import_facture_code"
 		, "provider_id,provider_name,name" => "Cung Cấp,provider_name"
 		, "category_name" => "Loại", "sex_id" => "Giới tính"
 		, "brand_name" => "Hiệu", "season_id,season_name" => "Mùa,season_name",

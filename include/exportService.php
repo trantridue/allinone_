@@ -700,7 +700,7 @@ class ExportService {
 				return array (
 						"checkbox" => "RE",
 						"qtyre" => "&nbsp;&nbsp;",
-						"product_code" => "Code,product_code,image",
+						"product_code" => "Code,product_code,link",
 						"product_name" => "Tên hàng",
 						"customer,customer_tel" => "Khách,customer",
 						"quantity" => "SL&nbsp;&nbsp;",
@@ -717,7 +717,7 @@ class ExportService {
 				return array (
 						"checkbox" => "RE",
 						"qtyre" => "&nbsp;&nbsp;",
-						"product_code" => "Code,product_code,image",
+						"product_code" => "Code,product_code,link",
 						"product_name" => "Tên hàng",
 						"customer,customer_tel" => "Khách,customer",
 						"quantity" => "SL&nbsp;&nbsp;",
@@ -734,7 +734,7 @@ class ExportService {
 			return array (
 						"checkbox" => "RE",
 						"qtyre" => "&nbsp;&nbsp;",
-						"product_code" => "Code,product_code,image",
+						"product_code" => "Code,product_code,link",
 						"product_name" => "Tên hàng",
 						"customer,customer_tel" => "Khách,customer",
 						"quantity" => "SL&nbsp;&nbsp;",
@@ -751,7 +751,7 @@ class ExportService {
 			return array (
 						"checkbox" => "RE",
 						"qtyre" => "&nbsp;&nbsp;",
-						"product_code" => "Code,product_code,image",
+						"product_code" => "Code,product_code,link",
 						"product_name" => "Tên hàng",
 						"customer,customer_tel" => "Khách,customer",
 						"quantity" => "SL&nbsp;&nbsp;",

@@ -290,8 +290,9 @@ function show_product_season_id(url) {
 function show_product_provider_id(url) {
 	$('#suplementaryListArea').html(url);
 }
-function show_product_import_facture_code(url) {
-	$('#suplementaryListArea').html(url);
+function show_product_import_facture_code(str) {
+	var imgUrl = "img/facture/"+str.substring(str.indexOf('=')+1, str.indexOf('&'))+".png";
+	window.open(imgUrl,'_blank');
 }
 function show_product_product_code(url) {
 	$('#suplementaryListArea').html(url);
