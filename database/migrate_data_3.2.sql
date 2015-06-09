@@ -292,4 +292,5 @@ INSERT INTO `spend` (`spend_category_id`, `amount`, `user_id`, `description`, `d
 (1, 0, 1, 'Chi ba thien đi chợ', '2013-04-02 00:00:00', 1, 1);
 INSERT INTO `spend` (`spend_category_id`, `amount`, `user_id`, `description`, `date`, `spend_for_id`, `spend_type_id`) VALUES
 (1, 0, 1, 'Chi ba thien đi chợ', '2013-04-02 00:00:00', 2, 1);
-update product set link = concat('img/',code,'.png');
+update product set link = concat('img/product/',code,'.png');
+update import_facture set link = concat('img/facture/',code,'.png');

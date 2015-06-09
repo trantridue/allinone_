@@ -16,7 +16,9 @@ $arr = array (
 		"report" => "REPORT",
 		"provider" => "PROVIDER",
 		"customer" => "CUSTOMER",		
-		"fund" => "FUND" 
+		"fund" => "FUND",
+		"upload" => "UPLOAD"
+		 
 );
 } else {
 	$arr = array (
@@ -32,5 +34,5 @@ foreach ( $arr as $value => $key ) {
 		echo "<input type='button' value='" . $key . "' class='menu_btn' onclick='goToPage(\"" . $value . "&submenu=search\");' /><br>";
 	}
 }
-echo "<input type='button' value='UPLOAD' class='menu_btn' onclick='toggleDivShowBtnStatus(\"uploadId\",this)'>";
+//echo "<input type='button' value='UPLOAD' class='menu_btn' onclick='toggleDivShowBtnStatus(\"uploadId\",this)'>";
 ?>

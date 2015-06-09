@@ -1,7 +1,7 @@
 <?php
 session_start();
 $max_img_size_upload = $_SESSION['max_img_size_upload'];
-$target_dir = "../../img/";
+$target_dir = "../../img/product/";
 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 $uploadOk = 1;
 $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
@@ -45,7 +45,7 @@ if ($uploadOk == 0) {
     if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $_FILES["fileToUpload"]["tmp_name"]."tmp")) {
 		GenerateThumbnail($_FILES["fileToUpload"]["tmp_name"]."tmp",$target_file_uploaded,$max_width,$max_height,$quality);
 		unlink($_FILES["fileToUpload"]["tmp_name"]."tmp"); 
-        echo "<script>document.location.href='../../login-home.php'</script>";
+        echo "<script>document.location.href='../../login-home.php?module=upload&submenu=search'</script>";
     } else {
         echo "Sorry, there was an error uploading your file.";
         echo "<a href='../../login-home.php'>Home page</a>";

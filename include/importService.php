@@ -467,8 +467,9 @@ class ImportService {
 				$insertDeadline = date ( "Y-m-d H:i:s", strtotime ( $date . "+ " . default_nbr_day_paid . " days" ) );
 			}
 		}
-		$qry = "insert into import_facture(code,date,description,provider_id,deadline) 
-		values ('" . $import_facture_code . "','" . $this->commonService->getFullDateTime () . "','" . $description . "'," . $provider_id . ",'" . $insertDeadline . "')";
+		$qry = "insert into import_facture(code,date,description,provider_id,deadline,link) 
+		values ('" . $import_facture_code . "','" . $this->commonService->getFullDateTime () . "','" 
+		. $description . "'," . $provider_id . ",'" . $insertDeadline . "',concat('img/facture/','".$import_facture_code."','.png'))";
 //		echo $qry;
 		mysql_query ( $qry, $this->connection );
 	}
@@ -482,7 +483,7 @@ class ImportService {
 					$haveNewProduct = true;
 					$strLine = "('" . $codeArray [$i] . "', '" . $nameArray [$i] . "', " . $categoryIdArray [$i] . ", " 
 					. $season . ", " . $sexArray [$i] . ", " . $postArray [$i] 
-					. ", '" . $descriptiondArray [$i] . "', " . $brandIdArray [$i] . "," . $sale . ",'img/".$codeArray [$i].".png'),";
+					. ", '" . $descriptiondArray [$i] . "', " . $brandIdArray [$i] . "," . $sale . ",'img/product/".$codeArray [$i].".png'),";
 				}
 				$qry = $qry . $strLine;
 			}
