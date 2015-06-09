@@ -24,7 +24,8 @@ $arr = array (
 	$arr = array (
 		"export" => "EXPORT",
 		"inout" => "IN-OUT",
-		"news" => "NEWS"
+		"news" => "NEWS",
+		"upload" => "UPLOAD"
 );
 }
 foreach ( $arr as $value => $key ) {

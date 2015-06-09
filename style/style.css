@@ -496,3 +496,10 @@ div#table_list_product_wrapper table.dataTable thead th, table.dataTable thead t
 #uploadId{
 	padding:5px;
 }
+.uploadFormStyle {
+	margin: 20px;
+	background-color: #0099ff;
+}
+.uploadFormStyle [type=file]{
+	background-color: #00ffaa;
+}
