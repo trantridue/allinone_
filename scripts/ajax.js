@@ -1769,7 +1769,7 @@ function show_customer_order_id(str) {
 	});
 }
 function changeStatusFor(i) {
-
+	
 	var hidenVal = $('#id_add_for_' + i).val();
 	if (hidenVal == 1) {
 		$('#id_add_for_' + i).val(2);
@@ -1779,6 +1779,23 @@ function changeStatusFor(i) {
 		$('#id_add_for_' + i).val(1);
 		$('#spend_for_btn_' + i).val(' GIA  ĐÌNH ');
 		$('#spend_for_btn_' + i).removeClass('shopStyle');
+	}
+}
+function changeStatusForInoutType() {
+	var desc="Mobile, ";
+	var hidenVal = $('#id_add_inout_type').val();
+	if (hidenVal == 1) {
+		$('#id_add_inout_type').val(2);
+		$('#id_add_inout_type_btn').val('RÚT BỚT');
+		$('#id_add_inout_type_btn').addClass('shopStyle');
+		desc = desc + $('#id_add_user :selected').text() + " rút bớt ";
+		$('#add_description').val(desc);
+	} else {
+		$('#id_add_inout_type').val(1);
+		$('#id_add_inout_type_btn').val(' THÊM VÀO ');
+		$('#id_add_inout_type_btn').removeClass('shopStyle');
+		desc = desc + $('#id_add_user :selected').text() + " thêm tiền lẻ ";
+		$('#add_description').val(desc);
 	}
 }
 function changeReturnQty(line) {

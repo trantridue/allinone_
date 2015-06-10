@@ -77,7 +77,7 @@
 	margin-left: 10px;
 	font-weight: bold;
 	/*float: left;*/
-	background-color:#EBEBEB;
+	background-color: #EBEBEB;
 	min-width: 98px;
 }
 
@@ -157,6 +157,7 @@ input[type='reset'] {
 	height: 17px;
 	width: 120px;
 }
+
 .datetimefield {
 	background-image: url("../images/time_ico.png");
 	background-position: 128px -4px;
@@ -181,12 +182,13 @@ input[type='reset'] {
 	height: 33px;
 	width: 84px;
 }
+
 .isboss_on {
 	background-image: url("../images/boss.png");
 	background-repeat: no-repeat;
 	height: 33px;
 	width: 100px;
-	float:left;
+	float: left;
 }
 
 .isboss_off {
@@ -194,7 +196,7 @@ input[type='reset'] {
 	background-repeat: no-repeat;
 	height: 33px;
 	width: 100px;
-	float:left;
+	float: left;
 }
 
 .errorField {
@@ -226,7 +228,6 @@ input[type='reset'] {
 	font-weight: bold;
 }
 
-
 textarea {
 	resize: none;
 }
@@ -240,18 +241,19 @@ textarea {
 
 .transparentText {
 	background-color: gray;
-    border: medium none;
-    color: yellow;
-    font-weight: bold;
-    height: 20px;
+	border: medium none;
+	color: yellow;
+	font-weight: bold;
+	height: 20px;
 }
 
 #listReturnProductArea {
 	background-color: pink;
 	/*text-align: center;*/
 }
-#mainListArea{
-	/*text-align: center;*/
+
+#mainListArea { /*text-align: center;*/
+	
 }
 
 /*TOOL TIP START*/
@@ -319,6 +321,7 @@ textarea {
 	width: 100%;
 	padding-top: 5px;
 }
+
 .addcriteriatable {
 	font-weight: bold;
 	background-color: #74DDC9;
@@ -327,75 +330,90 @@ textarea {
 	padding-top: 5px;
 }
 
-.dataTables_wrapper {
-	/*text-align: center;*/
+.dataTables_wrapper { /*text-align: center;*/
+	
 }
-#paidArea{
+
+#paidArea {
 	width: 100%;
 	float: left;
 	margin-top: 10px;
 	padding-bottom: 10px;
 }
-#paid_money{
+
+#paid_money {
 	padding-bottom: 10px;
 }
+
 /* PAGIGNATION */
-.dataTables_paginate{
+.dataTables_paginate {
 	float: left !important;
 }
+
 .btn_m {
-	height: 200px !important; 
+	height: 200px !important;
 	width: 200px !important;
 	background-color: green;
 	font-size: 3em;
 }
+
 /* FUND */
-#mainFund{
+#mainFund {
 	padding: 5px;
 	overflow: auto;
 }
-#topFund{
+
+#topFund {
 	width: 100%;
-	padding-bottom:1%;
+	padding-bottom: 1%;
 	overflow: auto;
 }
-#bottomFund{
+
+#bottomFund {
 	width: 100%;
 }
-#exchangeFund{
+
+#exchangeFund {
 	width: 30%;
 	background-color: bisque;
 	float: left;
 }
-#addFund{
+
+#addFund {
 	width: 69%;
 	background-color: green;
 	float: right;
 }
-#searchFund{
+
+#searchFund {
 	width: 69%;
 	background-color: yellow;
 	float: right;
 }
-#editFund{
+
+#editFund {
 	width: 69%;
 	background-color: #4EA0FF;
 	float: right;
 }
-#histoFund{
+
+#histoFund {
 	width: 69%;
 	background-color: pink;
 	float: right;
 }
+
 #listFund {
 	width: 30%;
 	background-color: gray;
 	float: left;
 }
+
 .dataTables_wrapper .dataTables_filter input {
 	width: 150px !important;
 }
-#exportLeft{
+
+#exportLeft {
 	float: left;
 	width: 40%;
 	height: 570px;
@@ -403,24 +421,29 @@ textarea {
 	background-color: pink;
 	padding: 5px;
 }
-#exportRight{
+
+#exportRight {
 	float: right;
-	padding:5px;
+	padding: 5px;
 	width: 58%;
 	height: 570px;
 	overflow: auto;
 	background-color: bisque;
 }
-#exportCustomerInformation{
+
+#exportCustomerInformation {
 	background-color: #FFFEE0;
 }
-#exportFactureInformation{
+
+#exportFactureInformation {
 	background-color: #0FFEE0;
 }
-#exportInputProduct{
+
+#exportInputProduct {
 	background-color: #1FF1FF;
 }
-.titlecss{
+
+.titlecss {
 	height: 20px;
 	text-align: center;
 	background-color: pink;
@@ -428,82 +451,116 @@ textarea {
 	text-transform: uppercase;
 	padding-top: 10px;
 }
+
 .shopStyle {
 	background-color: green;
 }
 
-div#table_list_export_facture_product_wrapper table.dataTable tbody th,div#table_list_export_facture_product_wrapper table.dataTable tbody td,div#table_list_export_facture_product_wrapper table.dataTable thead th, table.dataTable thead td {
-  padding-top: 5px !important;
-  padding-left: 1px !important;
-  padding-bottom: 5px !important;
-  padding-right: 1px !important;
+div#table_list_export_facture_product_wrapper table.dataTable tbody th,div#table_list_export_facture_product_wrapper table.dataTable tbody td,div#table_list_export_facture_product_wrapper table.dataTable thead th,table.dataTable thead td
+	{
+	padding-top: 5px !important;
+	padding-left: 1px !important;
+	padding-bottom: 5px !important;
+	padding-right: 1px !important;
 }
-div#table_list_customer_return_wrapper table.dataTable tbody th,div#table_list_customer_return_wrapper table.dataTable tbody td,
-div#table_list_customer_return_wrapper table.dataTable thead th, table.dataTable thead td {
-  padding-top: 5px !important;
-  padding-left: 1px !important;
-  padding-bottom: 5px !important;
-  padding-right: 1px !important;
+
+div#table_list_customer_return_wrapper table.dataTable tbody th,div#table_list_customer_return_wrapper table.dataTable tbody td,div#table_list_customer_return_wrapper table.dataTable thead th,table.dataTable thead td
+	{
+	padding-top: 5px !important;
+	padding-left: 1px !important;
+	padding-bottom: 5px !important;
+	padding-right: 1px !important;
 }
-div#table_list_product_wrapper table.dataTable tbody th,div#table_list_product_wrapper table.dataTable tbody td,
-div#table_list_product_wrapper table.dataTable thead th, table.dataTable thead td {
-  padding-top: 5px !important;
-  padding-left: 1px !important;
-  padding-bottom: 5px !important;
-  padding-right: 1px !important;
+
+div#table_list_product_wrapper table.dataTable tbody th,div#table_list_product_wrapper table.dataTable tbody td,div#table_list_product_wrapper table.dataTable thead th,table.dataTable thead td
+	{
+	padding-top: 5px !important;
+	padding-left: 1px !important;
+	padding-bottom: 5px !important;
+	padding-right: 1px !important;
 }
-/* Confirm box*/
-/* Customer */
-#customerAddForm{
+
+/* Confirm box*/ /* Customer */
+#customerAddForm {
 	width: 30%;
 	background-color: bisque;
 	float: left;
 }
-#customerSearchForm{
+
+#customerSearchForm {
 	width: 69%;
 	background-color: green;
 	float: right;
 }
+
 .ui-widget-content {
-	  background: #ffffff url("../images/ui-bg_flat_75_ffffff_40x100.png") 50% 50% repeat-x !important;
+	background: #ffffff url("../images/ui-bg_flat_75_ffffff_40x100.png") 50%
+		50% repeat-x !important;
 }
-.ui-widget-header .ui-icon{
-	  background-image: url("../images/ui-icons_222222_256x240.png") !important;
+
+.ui-widget-header .ui-icon {
+	background-image: url("../images/ui-icons_222222_256x240.png")
+		!important;
 }
+
 .ui-widget-header {
-	background: #cccccc url("../images/ui-bg_highlight-soft_75_cccccc_1x100.png") 50% 50% repeat-x !important;
+	background: #cccccc
+		url("../images/ui-bg_highlight-soft_75_cccccc_1x100.png") 50% 50%
+		repeat-x !important;
 }
+
 .ui-widget-content {
-	  background: #ffffff url("../images/ui-bg_flat_75_ffffff_40x100.png") 50% 50% repeat-x !important;
+	background: #ffffff url("../images/ui-bg_flat_75_ffffff_40x100.png") 50%
+		50% repeat-x !important;
 }
+
 #main_page_wrap li {
-	padding:0 !important;
+	padding: 0 !important;
 }
+
 .number50 {
-	width:50px;
+	width: 50px;
 }
+
 .number80 {
-	width:80px;
+	width: 80px;
 }
-.reportStatDiv{
+
+.reportStatDiv {
 	width: 98%;
 	min-height: 30px;
 	overflow: auto;
 	background-color: bisque;
-	margin:5px;
-	padding:5px;
+	margin: 5px;
+	padding: 5px;
 }
-#uploadId{
-	padding:5px;
+
+#uploadId {
+	padding: 5px;
 }
+
 .uploadFormStyle {
 	margin: 20px;
 	background-color: #0099ff;
 }
-.uploadFormStyle [type=file]{
+
+.uploadFormStyle [type=file] {
 	background-color: #00ffaa;
 }
-.toltipimg{
+
+.toltipimg {
 	width: auto;
-    max-height: 200px;
+	max-height: 200px;
+}
+
+.menu_btn_sub_mobile {
+	height: 60px;
+	font-weight: bold;
+	font-size: 3em;
+}
+.txt_mobile {
+	height: 40px;
+	width:120px;
+	font-weight: bold;
+	font-size: 3em;
 }
