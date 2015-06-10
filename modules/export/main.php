@@ -1,3 +1,6 @@
+<?php
+if (!$commonService->isMobile ()){ 
+?>
 <div id="exportLeft">
 	<div id="exportCustomerInformation"><?php include 'customerInfor.php';?></div>
 	<div id="exportCustomerOrder" style="display: none;"><?php include 'customerOrder.php';?></div>
@@ -6,6 +9,7 @@
 	<div id="exportInputProduct"><?php include 'exportInput.php';?></div>
 	<div id="uploadId" style='display:none;'><?php include 'uploadForm.php';?></div>
 </div>
+
 <div id="exportRight">
 	<div id="exportSearch"><?php include 'exportSearch.php';?></div>
 	<div id="exportButtonRight"><?php include 'exportButtonRight.php';?></div>
@@ -15,3 +19,12 @@
 	<div id="exportOrderList" style="display: none;"><?php include 'exportOrderList.php';?></div>
 	<div id="exportList" ><?php include 'exportList.php';?></div>
 </div>
+<?php } else {?>
+	<div id="exportSearch"><?php include 'exportSearch.php';?></div>
+	<div id="exportButtonRight"><?php include 'exportButtonRight.php';?></div>
+	<div id="exportDebt" style="display: none;"><?php include 'exportDebt.php';?></div>
+	<div id="exportReservation" style="display: none;"><?php include 'exportReservation.php';?></div>
+	<div id="exportReturn" style="display: none;"><?php include 'exportReturn.php';?></div>
+	<div id="exportOrderList" style="display: none;"><?php include 'exportOrderList.php';?></div>
+	<div id="exportList" ><?php include 'exportList.php';?></div>
+<?php } ?>

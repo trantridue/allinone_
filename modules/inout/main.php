@@ -3,7 +3,12 @@
 </div>
 <div id="editArea" style="display: none;"></div>
 <div id="addArea">
-<?php include 'add.php';?>
+<?php
+if ($commonService->isMobile ())
+include 'add_m.php';
+else
+include 'add.php';
+?>
 </div>
 <hr>
 <div id="listArea">
