@@ -130,7 +130,7 @@ echo "</script> ";
 						
 						echo "<script>";
 						echo "$(document).ready(function() {";
-						echo "$('#".$fieldskey [1].$rows [$fieldskey [1]]."').tooltip({contentAsHTML: true, content: '<img src=\"".$rows[$fieldskey[2]]."\" />' });";
+						echo "$('#".$fieldskey [1].$rows [$fieldskey [1]]."').tooltip({contentAsHTML: true, content: '<img class=\"toltipimg\" src=\"".$rows[$fieldskey[2]]."\" />' });";
 						echo "});";
 						echo "</script>";
 							

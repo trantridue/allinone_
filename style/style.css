@@ -503,3 +503,7 @@ div#table_list_product_wrapper table.dataTable thead th, table.dataTable thead t
 .uploadFormStyle [type=file]{
 	background-color: #00ffaa;
 }
+.toltipimg{
+	width: auto;
+    max-height: 300px;
+}
