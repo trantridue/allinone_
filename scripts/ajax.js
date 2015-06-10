@@ -292,12 +292,12 @@ function show_product_provider_id(url) {
 }
 function show_product_import_facture_code(str) {
 	var imgUrl = "img/facture/"+str.substring(str.indexOf('=')+1, str.indexOf('&'))+".png";
-	window.open(imgUrl,'_self');
+	window.open(imgUrl,'_blank');
 }
 function show_product_product_code(str) {
 //	$('#suplementaryListArea').html(url);
 	var imgUrl = "img/product/"+str.substring(str.indexOf('=')+1, str.indexOf('&'))+".png";
-	window.open(imgUrl,'_self');
+	window.open(imgUrl,'_blank');
 }
 function insertReturnProduct(codes, quantities, descriptions, providers) {
 	var returnproduct = 'modules/import/addreturnproduct.php?codes=' + codes
