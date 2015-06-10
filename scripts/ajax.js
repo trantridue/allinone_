@@ -716,7 +716,7 @@ function getUpdateInoutInformation() {
 	return processUrlString(params);
 }
 function getUpdateSpendInformation() {
-
+	
 	var params = "?idspend=" + $('#idspend').val();
 	;
 	params = params + "&add_amount=" + $('#add_amount').val();
@@ -726,8 +726,23 @@ function getUpdateSpendInformation() {
 	params = params + "&id_add_for=" + $('#id_add_for').val();
 	params = params + "&id_add_type=" + $('#id_add_type').val();
 	params = params + "&add_description=" + $('#add_description').val();
-
+	
 	return processUrlString(params);
+}
+function getUpdateUserInformation() {
+
+	var params = "?user_id=" + $('#user_id').val();
+	params = params + "&user_name=" + $('#user_name').val();
+	params = params + "&user_email=" + $('#user_email').val();
+	params = params + "&user_phone_number=" + $('#user_phone_number').val();
+	params = params + "&user_description=" + $('#user_description').val();
+	params = params + "&user_password=" + $('#user_password').val();
+	params = params + "&user_start_date=" + $('#user_start_date').val();
+	params = params + "&id_shop_dropdown_user=" + $('#id_shop_dropdown_user').val();
+	params = params + "&retype_user_password=" + $('#retype_user_password').val();
+	params = params + "&user_status_hidden=" + $('#user_status_hidden').val();
+
+	return processUrlStringEncode(params);
 }
 function listSpend(issearch) {
 	var url = "modules/spend/list.php" + getSpendSearchCriteria(issearch);
@@ -1898,6 +1913,21 @@ function show_export_facture_product_product_code(parameter){
 				operationSuccess();
 				$('#customer_description').val('');
 			}else {
+				operationError();
+			}
+		}
+	});
+}
+function updateUser(){
+	var urls = 'modules/user/updateuser.php' + getUpdateUserInformation();
+//	alert(urls);
+	$.ajax( {
+		url : urls,
+		success : function(data) {
+			if (data == 'success') {
+				operationSuccess();
+				$('#listArea').load('modules/user/list.php?isdefault=false');
+			} else {
 				operationError();
 			}
 		}

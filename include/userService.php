@@ -50,7 +50,7 @@ class UserService {
 		$result = mysql_query ( $qry, $this->connection );
 		$array_column = array (
 				"username" => "User Name",
-				"id,name,email,phone_number,description,shop_id,status" => "Edit",
+				"id,name,email,phone_number,description,shop_id,status,start_date,end_date" => "Edit",
 				"name" => "Name",
 				"email" => "Mail",
 				"phone_number" => "Tel",
@@ -70,21 +70,31 @@ class UserService {
 		$qry = "delete from user where id = " . $userid;
 		echo mysql_query ( $qry, $this->connection );
 	}
-	function updateUser($user_id, $user_name, $user_email, $user_phone_number, $user_description, $user_password, $shop_dropdown_user, $status_value) {
-		$actionType = 'update';
+	function updateUser($user_id, $user_name, $user_email,
+	 $user_phone_number, $user_description, $user_password, $shop_dropdown_user, $status_value,$start_date) {
+	 	session_start ();
+		mysql_query ( "BEGIN" );
 		$new_password = md5 ( $user_password );
 		$qry = "";
 		$date = date ( 'Y-m-d H:i:s' );
 		if ($user_password != null && $user_password != '') {
 			$qry = "update user set name='" . $user_name . "', email = '" . $user_email . "', phone_number = '" . $user_phone_number . "'
-				,description='" . $user_description . "',password='" . $new_password . "',shop_id=" . $shop_dropdown_user . ",status='" . $status_value . "',end_date='".$date."'  where id = " . $user_id;
+				,description='" . $user_description . "',password='" . $new_password . "',shop_id=" . $shop_dropdown_user . ",
+				status='" . $status_value . "',end_date='".$date."',start_date='".$start_date."'  where id = " . $user_id;
 		} else {
 			$qry = "update user set name='" . $user_name . "', email = '" . $user_email . "', phone_number = '" . $user_phone_number . "'
-				,description='" . $user_description . "',shop_id=" . $shop_dropdown_user . ",status='" . $status_value . "',end_date='".$date."'  where id = " . $user_id;
+				,description='" . $user_description . "',shop_id=" . $shop_dropdown_user . ",
+				status='" . $status_value . "',end_date='".$date."',start_date='".$start_date."'  where id = " . $user_id;
 		}
-		$result = mysql_query ( $qry, $this->connection );
-		$_SESSION ['id_of_shop'] = $shop_dropdown_user;
-		echo "<script>userpostaction('" . $result . "','" . $actionType . "');</script>";
+//		echo $qry;
+		 if(mysql_query ( $qry, $this->connection ) != null){
+			mysql_query ( "COMMIT" );
+			$_SESSION ['id_of_shop'] = $shop_dropdown_user;
+			echo 'success';
+		}else {
+			mysql_query ( "ROLLBACK" );
+			echo 'error';
+		}
 	}
 	function addUser($user_username, $user_name, $user_email, $user_phone_number, $user_description, $user_password, $shop_dropdown_user, $status_value) {
 		session_start();
