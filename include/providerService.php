@@ -173,8 +173,8 @@ FROM   (SELECT t1.*,
 				"code" => "Facture",
 				"total" => "Total",
 				"date1" => "Date",
-				"description" => "Description",
-				"deadline" => "Deadline" 
+				"description" => "Description"
+//				"deadline" => "Deadline" 
 		);
 		$this->commonService->generateJSDatatableSimple ( "histofacture", 0, 'desc' );
 		$this->commonService->generateJqueryDatatable ( $result, "histofacture", $array_column );
