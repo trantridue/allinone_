@@ -532,18 +532,16 @@ class ExportService {
 		$array_total = array (
 				3 => "Total"
 		);
-		$this->commonService->generateJSDatatableComplex ( $result, customerreservationdatatable, 7, 'asc', $array_total );
+		$this->commonService->generateJSDatatableComplex ( $result, customerreservationdatatable, 6, 'asc', $array_total );
 		$this->commonService->generateJqueryDatatable ( $result, customerreservationdatatable, $this->buildArrayReservationParameter() );
 	}
 	function buildArrayReservationParameter() {
 		return array (
 				"counter_colum" => "No",
-				"name" => "Khách Hàng",
-				"description,tel" => "Điện thoại,tel",
-				"amount" => "Tổng",
+				"name,tel" => "Khách Hàng,name",
+				"amount,complete_date" => "Tổng,amount",
 				"date" => "Ngày đặt",
 				"description" => "Desc",
-				"complete_date" => "Ngày mua",
 				"reservation_status" => "Trạng thái"
 				
 		);
