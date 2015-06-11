@@ -294,4 +294,4 @@ INSERT INTO `spend` (`spend_category_id`, `amount`, `user_id`, `description`, `d
 (1, 0, 1, 'Chi ba thien đi chợ', '2013-04-02 00:00:00', 2, 1);
 update product set link = concat('img/product/',code,'.png');
 update import_facture set link = concat('img/facture/',code,'.png');
-update `import_facture` set description = concat(SUBSTRING(description,0,20),' ',SUBSTRING(description,21,length(description))) where code in('20150501_001','20150421_002');
+update `import_facture` set description = concat(SUBSTRING(description,1,20),' ',SUBSTRING(description,21,length(description))) where code in('20150501_001','20150421_002');
