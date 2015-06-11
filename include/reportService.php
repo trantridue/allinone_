@@ -223,7 +223,6 @@ class ReportService {
 	function generateStatistic($params){
 		$datefrom = isset($params['datefrom'])?$params['datefrom']:date('Y-m-d');
 		$dateto = isset($params['dateto'])?$params['dateto']:date('Y-m-d');
-//		echo "|".$datefrom."|";
 		echo "<div>";
 		echo "<div class='reportStatDiv'>".$this->showStaticInformation()."</div>";
 		echo "<div class='reportStatDiv'>".$this->showDynamicInformation($datefrom,$dateto)."</div>";
@@ -444,6 +443,34 @@ class ReportService {
 				       and t1.tel not like '%aaaaaaa%' group by t1.id) t where (t.total-t.paid) > 0 ";
 		return $this->getAmountReportnoFormat($qry);
 	}
-	
+function listExportTrace($params) {
+		$datefrom = isset($params['datefrom'])?$params['datefrom']:date('Y-m-01');
+		$dateto = isset($params['dateto'])?$params['dateto']:date('Y-m-d');
+		
+		$qry = "select t1.*,t2.date,t3.name as shop,t4.name as customer,t4.tel as tel from export_facture_trace t1, export_facture t2 ,shop t3, customer t4
+		where t3.id = t1.shop_id and t4.id = t1.customer_id and t2.code = t1.export_facture_code and t2.date between '".$datefrom."' and '".$dateto."'";
+		
+		if($params['id_shop'] !='') {
+			$qry = $qry. " and t1.shop_id = ".	$params['id_shop'];
+		}
+		$result = mysql_query ( $qry, $this->connection );
+		$array_column = array (
+				"id,tel" => "id,customer",
+				"export_facture_code" => "Code",
+				"total" => "total",
+				"customer_give" => "customer give",
+				"give_customer" => "give customer",
+				"return_amount" => "return amount",
+				"amount" => "amount",
+				"debt" => "debt",
+				"reserved" => "reserved",
+				"order" => "order",
+				"bonus_used" => "bonus used",
+				"shop" => "shop",
+				"date" => "date"
+		);
+		$this->commonService->generateJSDatatableSimple ( 'export_trace', 2, 'desc' );
+		$this->commonService->generateJqueryDatatable ( $result, 'export_trace', $array_column );
+	}
 }
 ?>

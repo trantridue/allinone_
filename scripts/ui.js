@@ -71,6 +71,18 @@ function toggleDivShowBtnStatus(divID,this1) {
 	}
 	$('#serverMessage').hide(delaytime);
 }
+
+function toggleDivShowBtnStatusImediatly(divID,this1) {
+	
+	if ($('#' + divID).css('display') == "none") {
+		$('#' + divID).show(10);
+		this1.style.backgroundColor='violet';
+	} else {
+		$('#' + divID).hide(10);
+		this1.style.backgroundColor='#EBEBEB';
+	}
+	$('#serverMessage').hide(10);
+}
 // IMPORT TOGGLE FIELD
 function toggleImportSearchCriteria(){
 	toggleDiv('product_code_to');
