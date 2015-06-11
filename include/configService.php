@@ -62,6 +62,7 @@ class ConfigService {
 		'max_height_upload_img', 
 		'upload_img_quality', 
 		'max_img_size_upload', 
+		'default_nbr_days_load_import', 
 		'sale_all_taux'
 		);
 		$qry = "select * from configuration";

@@ -286,6 +286,7 @@ insert into `configuration`(`name`,`value`,`label`) values
 ('max_height_upload_img','300','max_height_upload_img'),
 ('upload_img_quality','1','upload_img_quality'),
 ('max_img_size_upload','2000000','max_img_size_upload'),
+('default_nbr_days_load_import','10','default_nbr_days_load_import'),
 ('sale_all_taux','10','SALE TAUX');
 /* init spend 2013*/
 INSERT INTO `spend` (`spend_category_id`, `amount`, `user_id`, `description`, `date`, `spend_for_id`, `spend_type_id`) VALUES

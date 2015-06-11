@@ -40,7 +40,7 @@ class ImportService {
 	}
 	//
 	function listProductDefault() {
-		$dateBeforeSomeDays = $this->commonService->getDateBeforeSomeDays (default_nbr_days_load_import);
+		$dateBeforeSomeDays = $this->commonService->getDateBeforeSomeDays ($_SESSION['default_nbr_days_load_import']);
 		
 		$qry = "SELECT t4.NAME                              AS provider_name, 
 				       t5.NAME                              AS brand_name, 
