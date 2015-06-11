@@ -180,7 +180,7 @@ where t1.id = t2.customers_id
 and t2.code = t3.export_facture_code group by t1.id;
 */
 insert into customer_reservation_histo(id,customer_id,description,amount,status,date,complete_date)
-select id,customers_id,description,amount,status,date,date_complete FROM zabuzach_store.customer_order;
+select id,customers_id,CONVERT(CONVERT(CONVERT(description USING latin1) USING binary) USING utf8),amount,status,date,date_complete FROM zabuzach_store.customer_order;
 
 update customer_reservation_histo set status = 'Y' where status ='C';
 update customer_reservation_histo set status = 'N' where status ='P';
