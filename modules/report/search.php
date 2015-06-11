@@ -4,7 +4,8 @@
 <td>
 <input class="datefield" id="datefrom" value="<?php	echo date ( 'Y-m-01' );?>" />
 <input class="datefield" id="dateto" value="<?php	echo date ( 'Y-m-t' );?>"/></td>
-<td><input type="button" onclick="displayChartNow();" value="DISPLAY" class='menu_btn_sub'/> </td>
+<td>mode<input type="checkbox" id="isSimpleChart" title="Simple Or Full"/>
+<input type="button" onclick="displayChartNow();" value="DISPLAY" class='menu_btn_sub'/> </td>
 <td align="right">Shop : </td>
 <td><?php $commonService->printDropDownListFromTable("shop","shop");?></td>
 <td align="right">Chart Type:</td>
@@ -88,11 +89,12 @@ function displayChartNow(){
 }
 function displayChart(divid){
 	var url = 'modules/report/'+divid+'Report.php' + getSearchParamsReport();
-	//alert(url);
+//	alert(url);
 	$('#'+divid).load(url);
 }
 function getSearchParamsReport(){
 	var params = '?isAjax=true';
+	params = params + "&issimplechart" + "=" + $('#isSimpleChart').is(":checked");
 	params = params + "&datefrom" + "=" + $('#datefrom').val();
 	params = params + "&dateto" + "=" + $('#dateto').val();
 	params = params + "&id_shop" + "=" + $('#id_shop').val();
