@@ -532,7 +532,7 @@ class ExportService {
 		$array_total = array (
 				3 => "Total"
 		);
-		$this->commonService->generateJSDatatableComplex ( $result, customerreservationdatatable, 6, 'asc', $array_total );
+		$this->commonService->generateJSDatatableComplex ( $result, customerreservationdatatable, 5, 'asc', $array_total );
 		$this->commonService->generateJqueryDatatable ( $result, customerreservationdatatable, $this->buildArrayReservationParameter() );
 	}
 	function buildArrayReservationParameter() {
@@ -543,7 +543,6 @@ class ExportService {
 				"date" => "Ngày đặt",
 				"description" => "Desc",
 				"reservation_status" => "Trạng thái"
-				
 		);
 	}
 	function listOrderDefault() {
