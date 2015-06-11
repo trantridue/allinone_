@@ -7,4 +7,3 @@
 <?php echo $fgmembersite->UserFullName(); ?><?php echo tab4;?>
 <?php echo 'Shop '.$_SESSION ['id_of_shop'];?><?php echo tab4;?>
 <?php echo $exportService->showAllCashToday();?><?php echo tab4;?>
-<?php echo $reportService->getExportByShopAndDate(date('Y-m-d'),date('Y-m-d'),'all');?><?php echo tab4;?>
