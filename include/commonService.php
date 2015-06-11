@@ -474,6 +474,9 @@ function getFullDateTime() {
 function getDateBeforeSomeDays($nbrDays) {
 	return date("Y-m-d", mktime(0, 0, 0, date('m'), date('d')- $nbrDays, date('Y')));
 }
+function getDateTimeBeforeSomeDaysExport() {
+	return date("Y-m-d", mktime(0, 0, 0, date('m'), date('d')- $_SESSION['default_nbr_days_load_export'], date('Y'))).date ( ' H:i:s' );
+}
 function getDateBeforeDays() {
 	return date("Y-m-d", mktime(0, 0, 0, date('m') , date('d') - 10 , date('Y')));
 }
