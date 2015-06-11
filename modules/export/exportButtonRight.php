@@ -5,7 +5,7 @@
 	onclick="toggleDivShowBtnStatus('exportReservation',this);">
 <input type="button" value="TRẢ HÀNG" class="menu_btn_sub"
 	onclick="toggleDivShowBtnStatus('exportReturn',this);">
-<input type="button" value="ĐẶT HÀNG" class="menu_btn_sub"
+<input type="button" value="HỎI HÀNG" class="menu_btn_sub"
 	onclick="toggleDivShowBtnStatus('exportOrderList',this);">
 <input type="reset" value="RESET" class="menu_btn_sub"
 	onclick="$('#search_date_from').val(getDateResetSearch());">

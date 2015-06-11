@@ -613,7 +613,8 @@ class ExportService {
 	function listExportDefault() {
 		session_start();
 		$isAdminField = 'default';
-		$qry = "SELECT t1.id,t1.product_code,t1.quantity,t1.export_price,t1.re_qty,t3.description,format((1-t1.export_price/t3.export_price)*100,2) as salepercent,
+		$qry = "SELECT t1.id,t1.product_code,t1.quantity,t1.export_price,t1.re_qty,t3.description,
+		format((1-t1.export_price/t3.export_price)*100,2) as salepercent,
 		t3.link,t3.name as product_name,t6.name as username,t3.export_price as price_origine,
 		t1.export_facture_code, t2.date,date_format(t2.date,'%H:%m:%s') as time,t4.name as customer,t4.tel as customer_tel,t5.name as shop
 		 FROM `export_facture_product` t1, export_facture t2, product t3, customer t4, shop t5, user t6
