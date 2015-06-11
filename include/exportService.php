@@ -76,7 +76,8 @@ class ExportService {
 			name => $rows ['name'], 
 			price => $rows ['price'],
 			posted_price => $rows ['export_price'], 
-			detail => "<div style='background-color:pink; width:300px;'><span style='color:red;'>".$rows ['name']."</span><hr>"
+			detail => "<div style='background-color:pink; min-width:500px;'><span style='color:red;'>".$rows ['name']."</span><hr>".
+			$rows ['description']
 			."<ul><li>  Tổng nhập : ".$rows['init_import']
 			."</li><li> Trả CC    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: ".$rows['return_provider']
 			."</li><li> Đã bán    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: ".$rows['export_qty']
