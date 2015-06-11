@@ -104,7 +104,7 @@ FROM   (SELECT t1.*,
 				"id,deleteprovider" => "Delete" 
 		);
 		$array_total = array (
-				1 => "Tổng nợ",
+				1 => "Tổng",
 				2 => "Đã trả",
 				3 => "Còn nợ", 
 				4 => "Trả hàng" 

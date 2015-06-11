@@ -4,7 +4,7 @@
 <td>
 <input class="datefield" id="datefrom" value="<?php	echo date ( 'Y-m-01' );?>" />
 <input class="datefield" id="dateto" value="<?php	echo date ( 'Y-m-t' );?>"/></td>
-<td>mode<input type="checkbox" id="isSimpleChart" title="Simple Or Full"/>
+<td><label for="isSimpleChart">Mode</label><input type="checkbox" id="isSimpleChart" title="Simple Or Full"/>
 <input type="button" onclick="displayChartNow();" value="DISPLAY" class='menu_btn_sub'/> </td>
 <td align="right">Shop : </td>
 <td><?php $commonService->printDropDownListFromTable("shop","shop");?></td>
