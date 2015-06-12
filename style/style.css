@@ -26,7 +26,7 @@
 #main_page_menu {
 	float: left;
 	width: 10%;
-	min-height: 550px;
+	min-height: 530px;
 }
 
 #main_page_content {
@@ -563,4 +563,12 @@ div#table_list_product_wrapper table.dataTable tbody th,div#table_list_product_w
 	width:120px;
 	font-weight: bold;
 	font-size: 3em;
+}
+.errorPage{
+	width: 100%;
+	min-height: 360px;
+	background-color: violet;
+	padding-top: 220px;
+	font-size: 3em;
+	text-align: center;
 }

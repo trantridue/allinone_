@@ -769,9 +769,9 @@ class ExportService {
 	}
 	function showAllCashToday() {
 		$date = date('Y-m-d');
-		echo "CASH 1: ".$this->getCashByShop(1,$date,$date);	
-		echo tab4."CASH 2: ".$this->getCashByShop(2,$date,$date);	
-		echo tab4."CASH 3: ".$this->getCashByShop(3,$date,$date);	
+		echo "CASH 1:<span style='background-color:yellow;'> ".$this->getCashByShop(1,$date,$date);	
+		echo tab4."</span>CASH 2:<span style='background-color:pink;'> ".$this->getCashByShop(2,$date,$date);	
+		echo tab4."</span>CASH 3: <span style='background-color:violet;'>".$this->getCashByShop(3,$date,$date)."</span>";	
 	}
 	function getCashByShop($shop_id,$start_date,$end_date) {
 		session_start();
