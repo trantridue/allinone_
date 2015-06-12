@@ -772,7 +772,7 @@ class ImportService {
 		$this->commitOrRollback($flag);
 		echo "success";
 	}
-		function commitOrRollback($flag){
+	function commitOrRollback($flag){
 		if ($flag == false) {
 			echo mysql_error($this->connection);
 			mysql_query ( "ROLLBACK" );

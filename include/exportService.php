@@ -784,7 +784,7 @@ class ExportService {
 		$cash = $_SESSION ['init_money'] 
 				+ $this->commonService->getAmountResult($qryFacture) 
 				+ $this->commonService->getAmountResult($qryInout);
-		return number_format($cash,2,'.',',');
+		return number_format($cash,0,'.',',');
 	}
 	
 	function getSearchParameters(){
@@ -805,7 +805,7 @@ class ExportService {
 	}
 	function updateProductLink($product_code,$link){
 		mysql_query ( "BEGIN" );
-		if($link=='') {
+		if($link=='' || $link == 'undefined') {
 			echo 'error';
 		}else {
 			$qry = "update product set link = '".$link."' where code ='".$product_code."'";

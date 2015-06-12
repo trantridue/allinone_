@@ -242,7 +242,7 @@ class ReportService {
 		while ( $rows = mysql_fetch_array ( $result ) ) {
 			$amount = $rows['amount'];
 		}
-		return number_format($amount,2,'.',',');
+		return number_format($amount,0,'.',',');
 	}
 	function getAmountReportnoFormat($qry){
 		$amount = 0;
