@@ -14,3 +14,6 @@ CA : <?php echo $reportService->getCashByShop(date('Y-m-d'),date('Y-m-d'),'all')
 <span style="background-color: rgb(116, 221, 201);">
 KET : <?php echo number_format($reportService->amountInket(),2);?><?php echo tab4;?>
 </span>
+<span style="background-color: rgb(116, 221, 201);">
+INOUT : <?php echo $reportService->getInoutByShopAndDate(date('Y-m-d'),date('Y-m-d'),'all')?><?php echo tab4;?>
+</span>

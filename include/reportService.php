@@ -292,6 +292,22 @@ class ReportService {
 		<td align='right'>Khách nợ : </td> <td><strong> ".$this->formatNumber($amountDebt)."</strong></td>
 		<td align='right'>Tổng tài sản : </td> <td><strong> ".$this->formatNumber($amountInFund-$amountImportLoan+$amountInstock+$amountDebt)."</strong></td></tr></table>";
 	}
+	function showStaticInformationFooter(){
+		$amountInket = $this->amountInket();
+		$amountImportLoan = $this->amountImportLoan();
+		$amountInFund = $this->amountInFund();
+		$amountInstock = $this->amountInstock();
+		$amountDebt = $this->amountDebt();
+
+		return "<strong>".date('Y-m-d H:i:s').tab8."
+		Tiền trong két :".$this->formatNumber($amountInket).tab8."
+		Nợ tiền hàng :  ".$this->formatNumber($amountImportLoan).tab8."
+		Tiền trong quỹ :  ".$this->formatNumber($amountInFund).tab8."
+		Kho hàng : ".$this->formatNumber($amountInstock).tab8."
+		Khách nợ :  ".$this->formatNumber($amountDebt).tab8."
+		Tổng tài sản :  ".$this->formatNumber($amountInFund-$amountImportLoan+$amountInstock+$amountDebt)
+		."</strong>";
+	}
 	function formatNumber($number){
 		return number_format($number,0,'.',',');
 	}
@@ -340,6 +356,20 @@ class ReportService {
 				       export_facture t2
 				WHERE  t1.export_facture_code = t2.code and t2.shop_id=".$shopid."
 				       AND date_format(t2.date,'%Y-%m-%d') BETWEEN '".$startdate."' and '".$enddate."'";
+		}
+		return $this->getAmountReport2Zero($qry);
+	}
+	function getInoutByShopAndDate($startdate,$enddate,$shopid){
+		$qry="";
+		if($shopid =='all'){
+			$qry = "select sum(amount) AS amount
+				FROM   money_inout t1
+				WHERE  date_format(t1.date,'%Y-%m-%d') BETWEEN '".$startdate."' and '".$enddate."'";
+			
+		} else {
+			$qry = "select sum(amount) AS amount
+				FROM   money_inout t1
+				WHERE  t1.shop_id = ".$shopid." and date_format(t1.date,'%Y-%m-%d') BETWEEN '".$startdate."' and '".$enddate."'";
 		}
 		return $this->getAmountReport2Zero($qry);
 	}
