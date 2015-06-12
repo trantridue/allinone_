@@ -299,7 +299,7 @@ class ReportService {
 		$amountInstock = $this->amountInstock();
 		$amountDebt = $this->amountDebt();
 
-		return "<strong>".date('Y-m-d H:i:s').tab8."
+		return "<strong>"."
 		Tiền trong két :".$this->formatNumber($amountInket).tab8."
 		Nợ tiền hàng :  ".$this->formatNumber($amountImportLoan).tab8."
 		Tiền trong quỹ :  ".$this->formatNumber($amountInFund).tab8."
