@@ -228,7 +228,10 @@ FROM   (SELECT t1.id,
                AND t1.tel NOT LIKE '%aaaaaaa%'
         GROUP  BY t1.id) t
 WHERE  ( t.total - t.paid ) <> 0) t2 where t2.code = t1.export_facture_code),0));
-update export_facture_trace set amount = 0 where id = 12073;
+update export_facture_trace set amount = (amount-7) where id = 12529;
+update export_facture_trace set amount = (amount-20) where id = 11272;
+update export_facture_trace set amount = (amount-5) where id = 6552;
+update export_facture_trace set amount = (amount-88) where id = 6047;
 #update `export_facture_trace` set amount = (amount+customer_give-give_customer+bonus_used) where give_customer >0;
 #update `export_facture_trace` set amount = (amount+customer_give+bonus_used) where give_customer <=0;
 update customer t1 set t1.date = (SELECT max(date) FROM `export_facture` where customer_id = t1.id);

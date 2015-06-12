@@ -406,6 +406,12 @@ class ExportService {
 				       t1.id,
 				       t1.tel,
 				       t1.name,
+				       (SELECT t5.description
+		                FROM   export_facture t5
+		                WHERE  t5.code = (SELECT Max(export_facture_code)
+		                                  FROM   export_facture_trace
+		                                  WHERE  customer_id = t1.id) limit 1) AS
+		               description,
 				       (select max(t4.date) from export_facture t4 where t4.customer_id = t1.id) as date,
 				       sum((t3.quantity-t3.re_qty)*t3.export_price) as total,
 				       (select sum(amount) from export_facture_trace t4 where t4.customer_id = t1.id) AS paid
@@ -430,6 +436,12 @@ class ExportService {
 				       t1.id,
 				       t1.tel,
 				       t1.name,
+				       (SELECT t5.description
+		                FROM   export_facture t5
+		                WHERE  t5.code = (SELECT Max(export_facture_code)
+		                                  FROM   export_facture_trace
+		                                  WHERE  customer_id = t1.id) limit 1) AS
+		               description,
 				       (select max(t4.date) from export_facture t4 where t4.customer_id = t1.id) as date,
 				       sum((t3.quantity-t3.re_qty)*t3.export_price) as total,
 				       (select sum(amount) from export_facture_trace t4 where t4.customer_id = t1.id) AS paid
@@ -461,8 +473,8 @@ class ExportService {
 	function buildArrayDebtParameter() {
 		return array (
 				"counter_colum" => "No",
-				"name" => "Khách Hàng",
-				"tel" => "Điện thoại",
+				"name,tel" => "Khách Hàng,name",
+				"description" => "Ghi chú",
 				"total" => "Tổng hàng",
 				"paid" => "Đã Thanh Toán",
 				"debt" => "Còn nợ",
