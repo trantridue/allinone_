@@ -477,8 +477,11 @@ function listExportTrace($params) {
 		$datefrom = isset($params['datefrom'])?$params['datefrom']:date('Y-m-01');
 		$dateto = isset($params['dateto'])?$params['dateto']:date('Y-m-d');
 		
-		$qry = "select t1.*,t2.date,t3.name as shop,t4.name as customer,t4.tel as tel from export_facture_trace t1, export_facture t2 ,shop t3, customer t4
-		where t3.id = t1.shop_id and t4.id = t1.customer_id and t2.code = t1.export_facture_code and Date_format(t2.date, '%Y-%m-%d') between '".$datefrom."' and '".$dateto."'";
+		$qry = "select t1.*,t2.date,t3.name as shop,t4.name as customer,t4.tel as tel 
+		from export_facture_trace t1,
+		 export_facture t2 ,shop t3, customer t4
+		where t3.id = t1.shop_id and t4.id = t1.customer_id and t2.code = t1.export_facture_code and
+		 Date_format(t2.date, '%Y-%m-%d') between '".$datefrom."' and '".$dateto."'";
 		
 		if($params['id_shop'] !='') {
 			$qry = $qry. " and t1.shop_id = ".	$params['id_shop'];

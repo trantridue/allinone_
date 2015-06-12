@@ -200,7 +200,7 @@ truncate export_facture_trace;
 insert into export_facture_trace (id,export_facture_code,total,debt,reserved,`order`,customer_give,give_customer,bonus_used,bonus_ratio,return_amount,
 shop_id,amount,customer_id)
 select t1.id,t1.export_facture_code,t1.total_facture,t1.old_debt,t1.ordered,t1.neworder,t1.customer_paid,t1.shop_repaid,
-t1.coupon,100,t1.returned,
+t1.coupon,100 as bonus_ratio,t1.returned,
 (select shops_id  FROM `zabuzach_store`.`export_facture` where code = t1.export_facture_code),
 (t1.total_facture-t1.returned+t1.coupon),
 (select customers_id  FROM `zabuzach_store`.`export_facture` where code = t1.export_facture_code) from `zabuzach_store`.`export_trace` t1;
