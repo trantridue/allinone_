@@ -230,8 +230,7 @@ $(function() {
 	});
 });
 function buildSearchImportCriteria() {
-	var criteriaString = "isdefault=false&isadvancedsearch="
-			+ $('#isadvancedsearch').val();
+	var criteriaString = "isdefault=false&isadvancedsearch=" + $('#isadvancedsearch').val();
 	// BASIC FIELD
 	var product_code = "&product_code=" + $('#product_code').val();
 	var product_name = "&product_name=" + $('#product_name').val();
@@ -338,8 +337,7 @@ function saleListProduct() {
 	}
 }
 function listReturnProduct() {
-	var url = "modules/import/listproductreturn.php?"
-			+ buildSearchImportCriteria();
+	var url = "modules/import/listproductreturn.php?" + buildSearchImportCriteria();
 	$('#listReturnProductArea').load(url);
 }
 function editproduct(str) {

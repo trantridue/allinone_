@@ -87,7 +87,7 @@ class ImportService {
 	}
 	
 	function listProduct($parameterArray) {
-		$qry = "SELECT t4.NAME                              AS provider_name, 
+		$qry = "select * from (SELECT t4.NAME                              AS provider_name, 
 				       t5.NAME                              AS brand_name, 
 				       t6.NAME                              AS category_name, 
 				       t7.NAME                              AS season_name, 
@@ -200,12 +200,12 @@ class ImportService {
 		if ($_REQUEST ['limit_search'] != '') {//TODO to be use session parameter
 			$qry = $qry . "  and t3.date >=' " . $this->commonService->getDateBeforeSomeDays (default_nbr_days_load_import) . "' ";
 		}
-		$qry = $qry . "  order by t2.code desc";
+		$qry = $qry . "  order by t2.code desc) t";
 //		echo $qry;
-		if ($_REQUEST ['limit_search'] != '') {
-			$qry = $qry . "  limit " . $_REQUEST ['limit_search'];
-		}
-//		echo $qry;
+//		if ($_REQUEST ['limit_search'] != '') {
+//			$qry = $qry . "  limit " . $_REQUEST ['limit_search'];
+//		}
+		echo $qry;
 		$this->processImportQuery ( $qry );
 	
 	}
@@ -330,7 +330,7 @@ class ImportService {
 	function getJsonProductCodeReturn($term) {
 		$qry = "select (select sum(quantity) from product_return where product_code = t1.product_code) as qtyreturned, t1.product_code, sum(t1.quantity) as qty,t4.name as provider_name, t2.code as import_facture_code, t2.provider_id,t3.name,t1.import_price 
 				from product_import t1, import_facture t2, product t3, provider t4
-				 where t4.id = t2.provider_id and t1.product_code like '%" . $term . "%' and t1.import_facture_code = t2.code and t3.code = t1.product_code group by t1.product_code limit 10";
+				 where t4.id = t2.provider_id and t1.import_facture_code = t2.code and t3.code = t1.product_code and t1.product_code like '%" . $term . "%' group by t1.product_code limit 10";
 		$result = mysql_query ( $qry, $this->connection );
 		$jsonArray = array ();
 		
@@ -634,11 +634,12 @@ class ImportService {
 		if ($parameterArray ['season_id'] != '')
 			$qry = $qry . " and t6.id like '%" . $parameterArray ['season_id'] . "%'";
 		
-		if ($parameterArray ['brand_name'] != '')
+		if ($parameterArray ['brand_name'] != '') 
 			$qry = $qry . " and t5.name like '%" . $parameterArray ['brand_name'] . "%'";
 		
-		if ($parameterArray ['description'] != '')
-			$qry = $qry . " and  t2.description like '%" . $parameterArray ['description'] . "%' ";
+		if ($parameterArray ['description'] != '') {
+			$qry = $qry . " and (t2.description like '%" . $parameterArray ['description'] . "%' or t1.description like '%" . $parameterArray ['description'] . "%')";
+		}
 		
 		if ($parameterArray ['datefrom'] != '')
 			$qry = $qry . " and DATE_FORMAT(t1.date, '%Y-%m-%d') >= '" . $parameterArray ['datefrom'] . "'";
@@ -667,7 +668,7 @@ class ImportService {
 				$qry = $qry . " and t2.sale = " . $parameterArray ['sale'];
 		}
 		$result = mysql_query ( $qry, $this->connection );
-		
+		echo $qry;
 		$this->commonService->generateJSDatatableComplex ( $result, 'productreturn', 7, 'desc', $this->getArrayTotalReturn () );
 		$this->commonService->generateJqueryDatatable ( $result, 'productreturn', $this->getArrayColumnReturn () );
 	}
@@ -689,7 +690,32 @@ class ImportService {
 		"tel" => "Phone" );
 	}
 	function getInputSearchParameters() {
-		$parameterArray = array ('product_code' => $_REQUEST ['product_code'], 'product_code_to' => $_REQUEST ['product_code_to'], 'product_name' => $_REQUEST ['product_name'], 'category_name' => $_REQUEST ['category_name'], 'provider_name' => $_REQUEST ['provider_name'], 'brand_name' => $_REQUEST ['brand_name'], 'season_id' => $_REQUEST ['season_id'], 'sale' => $_REQUEST ['sale'], 'sale_to' => $_REQUEST ['sale_to'], 'import_quantity' => $_REQUEST ['import_quantity'], 'import_quantity_to' => $_REQUEST ['import_quantity_to'], 'import_price' => $_REQUEST ['import_price'], 'import_price_to' => $_REQUEST ['import_price_to'], 'export_quantity' => $_REQUEST ['export_quantity'], 'export_quantity_to' => $_REQUEST ['export_quantity_to'], 'export_price' => $_REQUEST ['export_price'], 'export_price_to' => $_REQUEST ['export_price_to'], 'remain_quantity' => $_REQUEST ['remain_quantity'], 'remain_quantity_to' => $_REQUEST ['remain_quantity_to'], 'import_facture_code' => $_REQUEST ['import_facture_code'], 'sex_value_search' => $_REQUEST ['sex_value_search'], 'description' => $_REQUEST ['description'], 'datefrom' => $_REQUEST ['datefrom'], 'dateto' => $_REQUEST ['dateto'], 'limit_search' => $_REQUEST ['limit_search'], 'isadvancedsearch' => $_REQUEST ['isadvancedsearch'] );
+		$parameterArray = array ('product_code' => $_REQUEST ['product_code']
+		, 'product_code_to' => $_REQUEST ['product_code_to']
+		, 'product_name' => $_REQUEST ['product_name']
+		, 'category_name' => $_REQUEST ['category_name']
+		, 'provider_name' => $_REQUEST ['provider_name']
+		, 'brand_name' => $_REQUEST ['brand_name']
+		, 'season_id' => $_REQUEST ['season_id']
+		, 'sale' => $_REQUEST ['sale']
+		, 'sale_to' => $_REQUEST ['sale_to']
+		, 'import_quantity' => $_REQUEST ['import_quantity']
+		, 'import_quantity_to' => $_REQUEST ['import_quantity_to']
+		, 'import_price' => $_REQUEST ['import_price']
+		, 'import_price_to' => $_REQUEST ['import_price_to']
+		, 'export_quantity' => $_REQUEST ['export_quantity']
+		, 'export_quantity_to' => $_REQUEST ['export_quantity_to']
+		, 'export_price' => $_REQUEST ['export_price']
+		, 'export_price_to' => $_REQUEST ['export_price_to']
+		, 'remain_quantity' => $_REQUEST ['remain_quantity']
+		, 'remain_quantity_to' => $_REQUEST ['remain_quantity_to']
+		, 'import_facture_code' => $_REQUEST ['import_facture_code']
+		, 'sex_value_search' => $_REQUEST ['sex_value_search']
+		, 'description' => $_REQUEST ['description']
+		, 'datefrom' => $_REQUEST ['datefrom']
+		, 'dateto' => $_REQUEST ['dateto']
+		, 'limit_search' => $_REQUEST ['limit_search']
+		, 'isadvancedsearch' => $_REQUEST ['isadvancedsearch'] );
 		return $parameterArray;
 	}
 	function deleteProductImport($id) {

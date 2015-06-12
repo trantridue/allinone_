@@ -79,9 +79,11 @@ function returnProduct(){
 <?php session_start();?>
 <form id="returnproductForm">
 <div> 
-<input type="button" value="SAVE" class="menu_btn_sub" onclick="returnProduct();listReturnProduct();"/>
-<input type="button" value="SEARCH" class="menu_btn_sub" onclick="listReturnProduct();$('#returnproducttable').hide(300);"/>
-<input type="reset" value="TRẢ HÀNG" onclick="$('#returnproducttable').show(300);">
+
+<input type="button" value="SHOW SEARCH" class="menu_btn_sub" onclick="toggleDivShowBtnStatus('listReturnProductArea',this);" style="background-color: violet;"/>
+<input type="button" value="SEARCH" class="menu_btn_sub" onclick="listReturnProduct();"/>
+<input type="reset" value="SHOW TRẢ HÀNG" onclick="toggleDivShowBtnStatus('returnproducttable',this);"  style="background-color: violet;"/>
+<input type="button" value="TRẢ" class="menu_btn_sub" onclick="returnProduct();listReturnProduct();"/>
 <input type="hidden" name="numberrows" id="numberrows" value="<?php echo $_SESSION['default_row_product_return'];?>"/>
 <?php echo tab4;?> <strong> TOTAL: </strong>
 <input type="text" id="total_return" value="0" style="opacity:100%;" size="8" onkeypress="validateNon(event);"/>

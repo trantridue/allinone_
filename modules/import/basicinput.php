@@ -91,11 +91,10 @@
 			<input type="button" value="SALE" class="menu_btn_sub"
 	onclick="javascript:saleListProduct();">
 <input type="button" value="RETURN" class="menu_btn_sub"
-	onclick="toggleDiv('returnProductInputArea');">
+	onclick="toggleDivShowBtnStatus('returnProductInputArea',this);">
 	
 			</td>
 	</tr>
 </table>
-<input autocomplete="off" type="hidden" name="limit_search"
-			id="limit_search" value="" />
+<input autocomplete="off" type="hidden" name="limit_search" id="limit_search" value="" />
 </form>
