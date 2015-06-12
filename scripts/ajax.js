@@ -989,7 +989,7 @@ function saveAddFund() {
 	$.ajax( {
 		url : urls,
 		success : function(data) {
-		alert(data);
+//		alert(data);
 		if (data == 'success') {
 			operationSuccess();
 			reloadFundList();
