@@ -12,7 +12,7 @@
 	<tr>
 		<td align="right">User :</td>
 		<td><?php
-		$commonService->printDropDownListFromTable( 'user', 'add_user');
+		$commonService->printDropDownListFromTableSelected( 'user', 'add_user',1);
 		?></td>
 	</tr>
 	<tr>

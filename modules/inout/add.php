@@ -17,7 +17,7 @@
 		<td><?php $commonService->printDropDownListFromTable ( 'inout_type', 'add_inout_type');?> </td>
 		<td ><?php
 		session_start();
-		$commonService->printDropDownListFromTableSelected ( 'user', 'add_user',1);
+		$commonService->printDropDownListFromTable ( 'user', 'add_user',$_SESSION ['id_of_user']);
 		?></td>
 		<td>
 		<?php
