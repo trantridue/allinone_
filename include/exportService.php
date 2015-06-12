@@ -531,7 +531,7 @@ class ExportService {
 		left join customer t2 on (t2.id = t1.customer_id) order by status asc";
 		$result = mysql_query ( $qry, $this->connection );
 		$array_total = array (
-				3 => "Total"
+				2 => "Total"
 		);
 		$this->commonService->generateJSDatatableComplex ( $result, customerreservationdatatable, 5, 'asc', $array_total );
 		$this->commonService->generateJqueryDatatable ( $result, customerreservationdatatable, $this->buildArrayReservationParameter() );
@@ -540,9 +540,9 @@ class ExportService {
 		return array (
 				"counter_colum" => "No",
 				"name,tel" => "Khách Hàng,name",
-				"amount,complete_date" => "Tổng,amount",
+				"amount" => "Tổng",
 				"date" => "Ngày đặt",
-				"description" => "Desc",
+				"description,complete_date" => "Desc,description",
 				"reservation_status" => "Trạng thái"
 		);
 	}
