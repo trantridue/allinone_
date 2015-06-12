@@ -14,8 +14,8 @@
 	</tr>
 	<tr>
 		<td align="right">SALE</td>
-		<td><input autocomplete="off" name="sale" id="sale"
-			onkeypress="validateFloat(event);" maxlength="4" size="7" /> <input
+		<td><input autocomplete="off" name="sale" id="sale" type="number" class="number80"
+			onkeypress="validateFloat(event);" maxlength="4" size="7" /> <input  type="number" class="number80"
 			autocomplete="off" name="sale_to" id="sale_to"
 			onkeypress="validateFloat(event);" maxlength="4" size="7"
 			style="display: none;" /></td>
@@ -29,8 +29,8 @@
 	</tr>
 	<tr>
 		<td align="right">IMPORT QUANTITY</td>
-		<td><input autocomplete="off" name="import_quantity"
-			id="import_quantity" size="7" class="import_quantity" /> <input
+		<td><input autocomplete="off" name="import_quantity" type="number" class="number80"
+			id="import_quantity" size="7" class="import_quantity" /> <input  type="number" class="number80"
 			autocomplete="off" name="import_quantity_to" id="import_quantity_to"
 			size="7" class="import_quantity_to" style="display: none;" /></td>
 		<td align="right" title="Test This title <br> with HTML CODE">PRODUCT
@@ -45,14 +45,14 @@
 	</tr>
 	<tr>
 		<td align="right">IMPORT PRICE</td>
-		<td><input autocomplete="off" name="import_price" id="import_price"
+		<td><input autocomplete="off" name="import_price" id="import_price" type="number" class="number80"
 			size="7" class="import_price" /> <input autocomplete="off"
-			name="import_price_to" id="import_price_to" size="7"
+			name="import_price_to" id="import_price_to" size="7" type="number" class="number80"
 			class="import_price_to" style="display: none;" /></td>
 		<td align="right">EXPORT PRICE</td>
-		<td><input autocomplete="off" name="export_price" id="export_price"
+		<td><input autocomplete="off" name="export_price" id="export_price" type="number" class="number80"
 			size="7" class="export_price" /> <input autocomplete="off"
-			name="export_price_to" id="export_price_to" size="7"
+			name="export_price_to" id="export_price_to" size="7" type="number" class="number80"
 			class="export_price_to" style="display: none;" /></td>
 		<td align="right">DESCRIPTION</td>
 		<td><input autocomplete="off" name="description" id="description"
@@ -60,13 +60,13 @@
 	</tr>
 	<tr>
 		<td align="right">EXPORT QUANTITY</td>
-		<td><input autocomplete="off" name="export_quantity"
-			id="export_quantity" size="7" class="export_quantity" /> <input
+		<td><input autocomplete="off" name="export_quantity" type="number" class="number80"
+			id="export_quantity" size="7" class="export_quantity" /> <input type="number" class="number80"
 			autocomplete="off" name="export_quantity_to" id="export_quantity_to"
 			size="7" class="export_quantity_to" style="display: none;" /></td>
 		<td align="right">REMAIN QUANTITY</td>
-		<td><input autocomplete="off" name="remain_quantity"
-			id="remain_quantity" size="7" class="remain_quantity" /> <input
+		<td><input autocomplete="off" name="remain_quantity"  type="number" class="number80"
+			id="remain_quantity" size="7" class="remain_quantity" /> <input  type="number" class="number80"
 			autocomplete="off" name="remain_quantity_to" id="remain_quantity_to"
 			size="7" class="remain_quantity_to" style="display: none;" /></td>
 		<td align="right">SEX</td>
