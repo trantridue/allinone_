@@ -298,10 +298,10 @@ class ReportService {
 	
 	function showDynamicInformation($startdate,$enddate) {
 		$str =  "<table width='100%' style='font-size:10pt;'><tr><td align='right' style='background-color:pink;'>CASH All: </td>
-				<td style='background-color:pink;'><strong>".$this->getCashByShop('all',$startdate,$enddate).tab4."</strong></td>
-				 <td align='right'>CASH 1: </td><td><strong>".$this->getCashByShop(1,$startdate,$enddate).tab4."</strong>
-				 <td align='right'>CASH 2: </td><td><strong>".$this->getCashByShop(2,$startdate,$enddate).tab4."</strong>
-				 <td align='right'>CASH 3: </td><td><strong>".$this->getCashByShop(3,$startdate,$enddate).tab4."</strong>
+				<td style='background-color:pink;'><strong>".$this->getCashByShop($startdate,$enddate,'all').tab4."</strong></td>
+				 <td align='right'>CASH 1: </td><td><strong>".$this->getCashByShop($startdate,$enddate,1).tab4."</strong>
+				 <td align='right'>CASH 2: </td><td><strong>".$this->getCashByShop($startdate,$enddate,2).tab4."</strong>
+				 <td align='right'>CASH 3: </td><td><strong>".$this->getCashByShop($startdate,$enddate,3).tab4."</strong>
 				 <td align='right' style='background-color:violet;'>ROI ALL: </td>
 				 <td style='background-color:violet;'><strong>".$this->getRoiByShopAndDate($startdate,$enddate,'all').tab4."</strong>
 				 <td align='right'>ROI 1: </td><td><strong>".$this->getRoiByShopAndDate($startdate,$enddate,1).tab4."</strong>
@@ -387,7 +387,7 @@ class ReportService {
 		}
 		return $this->getAmountReport2Zero($qry);
 	}
-	function getCashByShop($shop_id,$start_date,$end_date) {
+	function getCashByShop($start_date,$end_date,$shop_id) {
 		session_start();
 		$cash = 0;
 		$qryFacture = "";
