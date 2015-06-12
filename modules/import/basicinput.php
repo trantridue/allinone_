@@ -79,7 +79,7 @@
 	<tr>
 		<td align="right">IMPORT FROM</td>
 		<td colspan="2"><input autocomplete="off" type="text"
-			class="datefield" id="datefrom" name="datefrom" value="<?php echo date('Y-01-01');?>"/> TO <input
+			class="datefield" id="datefrom" name="datefrom" value=""/> TO <input
 			autocomplete="off" type="text" class="datefield" id="dateto"
 			name="dateto" /></td>
 		<td colspan="5"><input type="button" value="SEARCH"
