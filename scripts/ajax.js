@@ -276,7 +276,7 @@ function buildSearchImportCriteria() {
 }
 function listProduct() {
 	var url = "modules/import/listproduct.php?" + buildSearchImportCriteria();
-	// alert(url);
+//	 alert(url);
 	$('#mainListArea').load(url);
 }
 function listProductReload() {

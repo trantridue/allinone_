@@ -42,7 +42,7 @@ class ImportService {
 	function listProductDefault() {
 		$dateBeforeSomeDays = $this->commonService->getDateBeforeSomeDays ($_SESSION['default_nbr_days_load_import']);
 		
-		$qry = "SELECT t4.NAME                              AS provider_name, 
+		$qry = "select *,(t.init_import-t.return_provider-t.export_qty+t.cus_return+t.deviation) as instock from (SELECT t4.NAME                              AS provider_name, 
 				       t5.NAME                              AS brand_name, 
 				       t6.NAME                              AS category_name, 
 				       t7.NAME                              AS season_name, 
@@ -82,12 +82,14 @@ class ImportService {
 				       AND t5.id = t2.brand_id 
 				       AND t6.id = t2.category_id 
 				       AND t7.id = t2.season_id 
-				and t3.date >= '" . $dateBeforeSomeDays . "' order by t2.code desc";
+				and t3.date >= '" . $dateBeforeSomeDays . "' order by t2.code desc) t";
 		$this->processImportQuery ( $qry );
 	}
 	
 	function listProduct($parameterArray) {
-		$qry = "select * from (SELECT t4.NAME                              AS provider_name, 
+		//echo $parameterArray['remain_quantity'];
+		$qry = "select *,(t.init_import-t.return_provider-t.export_qty+t.cus_return+t.deviation) as instock from 
+		(SELECT t4.NAME                              AS provider_name, 
 				       t5.NAME                              AS brand_name, 
 				       t6.NAME                              AS category_name, 
 				       t7.NAME                              AS season_name, 
@@ -197,22 +199,38 @@ class ImportService {
 			if ($parameterArray ['export_price'] != '')
 				$qry = $qry . " and t2.export_price = " . $parameterArray ['export_price'];
 		}
-		if ($_REQUEST ['limit_search'] != '') {//TODO to be use session parameter
-			$qry = $qry . "  and t3.date >=' " . $this->commonService->getDateBeforeSomeDays (default_nbr_days_load_import) . "' ";
+		
+		$qry = $qry . "  order by t2.code desc) t where 1 ";
+		if ($parameterArray ['isadvancedsearch'] == 'true') {
+			if ($parameterArray ['export_quantity'] != '') {
+				$qry = $qry . " and t.export_qty >= " .$parameterArray ['export_quantity'];
+			}
+			if ($parameterArray ['export_quantity_to'] != '') {
+				$qry = $qry . " and t.export_qty <= " .$parameterArray ['export_quantity_to'];
+			}
+			
+			if ($parameterArray ['remain_quantity'] != '') {
+				$qry = $qry . " and (t.init_import-t.return_provider-t.export_qty+t.cus_return+t.deviation) >= " .$parameterArray ['remain_quantity'];
+			}
+			if ($parameterArray ['remain_quantity_to'] != '') {
+				$qry = $qry . " and (t.init_import-t.return_provider-t.export_qty+t.cus_return+t.deviation) <= " .$parameterArray ['remain_quantity_to'];
+			}
+		}else {
+			if ($parameterArray ['export_quantity'] != '') {
+				$qry = $qry . " and t.export_qty = " .$parameterArray ['export_quantity'];
+			}
+			if ($parameterArray ['remain_quantity'] != '') {
+				$qry = $qry . " and (t.init_import-t.return_provider-t.export_qty+t.cus_return+t.deviation) = " .$parameterArray ['remain_quantity'];
+			}
 		}
-		$qry = $qry . "  order by t2.code desc) t";
 //		echo $qry;
-//		if ($_REQUEST ['limit_search'] != '') {
-//			$qry = $qry . "  limit " . $_REQUEST ['limit_search'];
-//		}
-		echo $qry;
 		$this->processImportQuery ( $qry );
 	
 	}
 	function processImportQuery($qry) {
 		$result = mysql_query ( $qry, $this->connection );
 		$resulttmp = mysql_query ( $qry, $this->connection );
-		$this->commonService->generateJSDatatableComplex ( $result, 'product', 14, 'desc', $this->getArrayTotalImport () );
+		$this->commonService->generateJSDatatableComplex ( $result, 'product', 15, 'desc', $this->getArrayTotalImport () );
 		$this->commonService->generateJqueryDatatable ( $result, 'product', $this->getArrayColumnImport () );
 		$this->commonService->generateJqueryToolTipScript ( $resulttmp, 'product', $this->getArrayColumnImport () );
 	}
@@ -227,13 +245,14 @@ class ImportService {
 		, "quantity*export_price" => "complex"
 		,"return_provider" => "re"
 		,"export_qty" => "ex"
-		,"cus_return" => "cus_re"
-		, "deviation" => "Devi"
+		,"cus_return" => "cur"
+		, "deviation" => "dev"
+		, "instock" => "sto"
+		, "import_price" => "Giá nhập"
+		, "export_price" => "Giá bán"
 		, "import_facture_code,date" => "Mã Hóa Đơn,import_facture_code,linkfact"
 		, "deviation,provider_id,descript,date_im,provider_name,brand_name,category_name,season_name,id,product_code,quantity,import_facture_code,import_price,name,category_id,season_id,sex_id,export_price,description,brand_id,sale,link,deadline" => "Edit"
 		, "name,description,descript" => "Tên Hàng,name"
-		, "import_price" => "Giá nhập"
-		, "export_price" => "Giá bán"
 		, "sale" => "Sale"
 		, "date_im" => "Date"
 		, "provider_id,provider_name,name" => "Cung Cấp,provider_name"
