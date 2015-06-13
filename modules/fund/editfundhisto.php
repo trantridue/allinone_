@@ -39,7 +39,7 @@
 		<td>
 			<input type="reset" value="RESET" class="menu_btn_sub">
 			<input type="button" value="UPDATE" class="menu_btn_sub" onclick="updateFund();">
-			<input type="button" value="SEARCH FORM" class="menu_btn_sub" onclick="$('#searchFund').show();$('#addFund').hide();$('#editFund').hide();">
+			<input type="button" value="SEARCH FORM" class="menu_btn_sub" onclick="$('#searchFund').show(500);$('#addFund').hide(500);$('#editFund').hide();">
 		</td>
 	</tr>
 </table>

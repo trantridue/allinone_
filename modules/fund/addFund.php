@@ -31,7 +31,7 @@
 		<td>
 			<input type="button" value="SAVE" class="menu_btn_sub" onclick="addFund();">
 			<input type="reset" value="RESET" class="menu_btn_sub">
-			<input type="button" value="SEARCH FORM" class="menu_btn_sub" onclick="$('#searchFund').show();$('#addFund').hide();">
+			<input type="button" value="SEARCH FORM" class="menu_btn_sub" onclick="$('#searchFund').show(500);$('#addFund').hide(500);">
 		</td>
 	</tr>
 </table>

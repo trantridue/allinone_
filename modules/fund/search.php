@@ -29,11 +29,15 @@
 		<td colspan="3"><textarea rows="3" cols="40" id="search_description"></textarea> </td>
 	</tr>
 	<tr>
+		<td align="right">&nbsp;</td>
+		<td colspan="3"> </td>
+	</tr>
+	<tr>
 		<td align="right"></td>
 		<td colspan="3">
 			<input type="reset" value="RESET" class="menu_btn_sub">
 			<input type="button" value="SEARCH" class="menu_btn_sub" onclick="listHistoFund('true');">
-			<input type="button" value="ADD FORM FORM" class="menu_btn_sub" onclick="$('#searchFund').hide();$('#addFund').show();">
+			<input type="button" value="ADD FORM FORM" class="menu_btn_sub" onclick="$('#searchFund').hide(500);$('#addFund').show(500);">
 		</td>
 	</tr>
 </table>
