@@ -64,7 +64,6 @@ FROM   (SELECT t1.*,
         FROM   provider t1  
 		 where t1.name like '%" . $parameterArray ['provider_name'] . "%') t2 
 		 where t2.tel like '%" . $parameterArray ['provider_tel'] . "%'";
-//		echo $qry;
 		if ($parameterArray ['provider_address'] != null) {
 			$qry = $qry . " and t2.address like '%" . $parameterArray ['provider_address'] . "%'";
 		}

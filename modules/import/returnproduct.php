@@ -18,6 +18,7 @@ function returnProduct(){
 	var strQty = "";
 	var strDesc = "";
 	var strProvider = "";
+	var strPrice = "";
 	var atLeastOneNotNul = false;
 	var allNotNull = false;
 	var flagRowWrong = true;
@@ -28,6 +29,7 @@ function returnProduct(){
 		var code = $('#product_code_'+i).val();
 		var qty = $('#product_return_qty_'+i).val();
 		var provider_id = $('#provider_id_'+i).val();
+		var price = $('#product_import_price_'+i).val();
 		var qtyremain = $('#remained_'+i).val();
 		
 		var desc = encodeURIComponent($('#description_return_'+i).val());
@@ -48,6 +50,7 @@ function returnProduct(){
 			strQty = strQty + qty + ",";
 			strDesc = strDesc + desc + ",";
 			strProvider = strProvider + provider_id + ",";
+			strPrice = strPrice + price + ",";
 		}
 		allNotNull = !(code != '' && qty != '' && desc != '');
 		atLeastOneNotNul = (code != '' || qty != '' || desc != '');
@@ -63,7 +66,7 @@ function returnProduct(){
 		}
 	}
 	if(flagRowWrong && strCode !='' && returnable) {
-		insertReturnProduct(strCode,strQty,strDesc,strProvider);
+		insertReturnProduct(strCode,strQty,strDesc,strProvider,strPrice);
 	} 
 	else  {
 // 		$('#serverMessage').show();

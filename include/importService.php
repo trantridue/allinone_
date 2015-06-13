@@ -515,18 +515,21 @@ class ImportService {
 		if ($haveNewProduct)
 			mysql_query ( $qry, $this->connection );
 	}
-	function addReturnProduct($codes, $quantities, $descriptions, $providers) {
+	function addReturnProduct($codes, $quantities, $descriptions, $providers, $prices) {
 		$listcode = explode ( ',', substr ( $codes, 0, - 1 ) );
 		$listquantity = explode ( ',', substr ( $quantities, 0, - 1 ) );
 		$listdescriptions = explode ( ',', substr ( $descriptions, 0, - 1 ) );
 		$listproviders = explode ( ',', substr ( $providers, 0, - 1 ) );
+		$listprices = explode ( ',', substr ( $prices, 0, - 1 ) );
 		
-		$qry = "insert into product_return(product_code,quantity,date,description,provider_id) values ";
+		$qry = "insert into product_return(product_code,quantity,date,description,provider_id,return_price) values ";
 		for($i = 0; $i < sizeof ( $listcode ); $i ++) {
 			if ($i < sizeof ( $listcode ) - 1)
-				$qry = $qry . " ('" . $listcode [$i] . "'," . $listquantity [$i] . ",'" . date ( 'Y-m-d H:i:s' ) . "','" . $listdescriptions [$i] . "'," . $listproviders [$i] . "),";
+				$qry = $qry . " ('" . $listcode [$i] . "'," . $listquantity [$i] . ",'" . date ( 'Y-m-d H:i:s' ) . "','" 
+				. $listdescriptions [$i] . "'," . $listproviders [$i] . ",".$listprices[$i]."),";
 			else
-				$qry = $qry . " ('" . $listcode [$i] . "'," . $listquantity [$i] . ",'" . date ( 'Y-m-d H:i:s' ) . "','" . $listdescriptions [$i] . "'," . $listproviders [$i] . ")";
+				$qry = $qry . " ('" . $listcode [$i] . "'," . $listquantity [$i] . ",'" . date ( 'Y-m-d H:i:s' ) . "','" 
+				. $listdescriptions [$i] . "'," . $listproviders [$i] . ",".$listprices[$i].")";
 		}
 		echo mysql_query ( $qry, $this->connection );
 	}
@@ -687,7 +690,7 @@ class ImportService {
 				$qry = $qry . " and t2.sale = " . $parameterArray ['sale'];
 		}
 		$result = mysql_query ( $qry, $this->connection );
-		echo $qry;
+//		echo $qry;
 		$this->commonService->generateJSDatatableComplex ( $result, 'productreturn', 7, 'desc', $this->getArrayTotalReturn () );
 		$this->commonService->generateJqueryDatatable ( $result, 'productreturn', $this->getArrayColumnReturn () );
 	}

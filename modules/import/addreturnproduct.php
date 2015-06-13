@@ -8,5 +8,6 @@ $importService = new ImportService ( hostname, username, password, database, $co
 	$quantities = $_REQUEST['quantities'];
 	$descriptions = $_REQUEST['descriptions'];
 	$providers = $_REQUEST['providers'];
-	$importService->addReturnProduct($codes,$quantities,$descriptions,$providers);
+	$prices = $_REQUEST['prices'];
+	$importService->addReturnProduct($codes,$quantities,$descriptions,$providers,$prices);
 ?>

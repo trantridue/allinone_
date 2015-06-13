@@ -298,9 +298,9 @@ function show_product_product_code(str) {
 	var imgUrl = "img/product/"+str.substring(str.indexOf('=')+1, str.indexOf('&'))+".png";
 	window.open(imgUrl,'_blank');
 }
-function insertReturnProduct(codes, quantities, descriptions, providers) {
+function insertReturnProduct(codes, quantities, descriptions, providers, prices) {
 	var returnproduct = 'modules/import/addreturnproduct.php?codes=' + codes
-			+ '&quantities=' + quantities + '&descriptions=' + descriptions
+			+ '&quantities=' + quantities + '&descriptions=' + descriptions + '&prices=' + prices
 			+ '&providers=' + providers;
 	$.ajax( {
 		url : returnproduct,
