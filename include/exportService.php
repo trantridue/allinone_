@@ -77,13 +77,15 @@ class ExportService {
 			price => $rows ['price'],
 			posted_price => $rows ['export_price'], 
 			detail => "<div style='background-color:pink; min-width:500px;'><span style='color:red;'>".$rows ['name']."</span><hr>".
-			$rows ['description']
+			$rows ['description']."<table><tr><td>"
 			."<ul><li>  Tổng nhập : ".$rows['init_import']
 			."</li><li> Trả CC    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: ".$rows['return_provider']
 			."</li><li> Đã bán    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: ".$rows['export_qty']
 			."</li><li> Khách Trả &nbsp;: ".$rows['cus_return']
 			."</li><li> Sai số  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  : ".$rows['deviation']
-			."</li></ul><hr>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Tồn kho &nbsp;&nbsp;  :".($rows['init_import']-$rows['return_provider']-$rows['export_qty']+$rows['cus_return']+$rows['deviation'])."</div>", 
+			."</li></ul></td><td><img style='max-width:280px; max-height=200px' src='".$rows['link']."'></td>
+			<tr><td colspan='2'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Tồn kho &nbsp;&nbsp;  :".($rows['init_import']-$rows['return_provider']-$rows['export_qty']+$rows['cus_return']+$rows['deviation'])."
+			</tr></table></div>", 
 			value => $rows ['code'], 
 			label => $labelvalue );
 				
