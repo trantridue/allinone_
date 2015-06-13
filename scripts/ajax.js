@@ -1002,20 +1002,20 @@ function saveAddFund() {
 }
 function addOrUpdateCustomer() {
 	var urls = 'modules/customer/addcustomer.php' + getCustomerInformation();
-	if(validateEditCustomerForm()){
-		$.ajax( {
-			url : urls,
-			success : function(data) {
-				if (data == 'success') {
-					operationSuccess();
-					listCustomer('true');
-					$('#customerAddForm')[0].reset();
-				} else {
-					operationError();
-				}
+//	if(validateEditCustomerForm()){
+	$.ajax( {
+		url : urls,
+		success : function(data) {
+			if (data == 'success') {
+				operationSuccess();
+				listCustomer('true');
+				$('#customerAddForm')[0].reset();
+			} else {
+				operationError();
 			}
-		});
-	}
+		}
+	});
+//	}
 }
 function saveExchange() {
 	var urls = 'modules/fund/saveExchange.php' + getFundExchangeInformation();

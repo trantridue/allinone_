@@ -210,6 +210,7 @@ function customerpostaction(data, actionType) {
 	displayMessageServer(data, errorMessage, successMessage, "customer");
 }
 function validateEditCustomerForm() {
+//	alert('dđ');
 	var nameReg = /^(?!\s*$).+$/;
 	var telReg = /^[0-9]{9,12}$/;
 
