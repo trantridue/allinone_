@@ -1920,22 +1920,25 @@ function validateField(fieldname,min,max){
 function show_export_facture_product_product_code(parameter){
 	var urls = 'modules/export/updateLinkOnly.php?' + parameter + '&link=' + encodeURIComponent($('#customer_description').val());
 //	alert(urls);
-	$.ajax( {
-		url : urls,
-		success : function(data) {
-		if(data=='success'){
-			searchExport('true', 'exportList', 'exportList');
-			operationSuccess();
-			$('#customer_description').val('');
-		}else {
-			operationError();
+	if($('#customer_description').val() != '' && $('#customer_description').val() != 'undefined') {
+//		alert($('#customer_description').val());
+		$.ajax( {
+			url : urls,
+			success : function(data) {
+			if(data=='success'){
+				searchExport('true', 'exportList', 'exportList');
+				operationSuccess();
+				$('#customer_description').val('');
+			}else {
+				operationError();
+			}
 		}
+		});
 	}
-	});
 }
 function show_export_facture_product_shop(parameter){
 	var urls = 'modules/export/changeshop.php?' + parameter + '&newshopid=' + encodeURIComponent($('#id_search_shop').val());
-	alert(urls);
+//	alert(urls);
 	$.ajax( {
 		url : urls,
 		success : function(data) {
