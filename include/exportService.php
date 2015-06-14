@@ -729,7 +729,7 @@ class ExportService {
 						"export_price*quantity" => "complex",
 						"export_price*re_qty" => "complex",
 						"export_facture_code" => "MÃ_HÓA_ĐƠN",
-						"shop" => "Shop&nbsp;&nbsp;",
+						"shop,export_facture_code" => "Shop&nbsp;&nbsp;,shop",
 						"date,username" => "Time,time",
 						"id,deleteExportFacture,export_facture_code" => "Delete"
 				);
@@ -763,7 +763,7 @@ class ExportService {
 						"export_price*quantity" => "complex",
 						"export_price*re_qty" => "complex",
 						"export_facture_code" => "MÃ_HÓA_ĐƠN",
-						"shop" => "Shop&nbsp;&nbsp;",
+						"shop,export_facture_code" => "Shop&nbsp;&nbsp;,shop",
 						"date,username" => "Time,time",
 						"id,deleteExportFacture,export_facture_code" => "Delete"
 				);
@@ -828,6 +828,22 @@ class ExportService {
 		}else {
 			$qry = "update product set link = '".$link."' where code ='".$product_code."'";
 			if(mysql_query ( $qry, $this->connection ) != null){
+				mysql_query ( "COMMIT" );
+				echo 'success';
+			}else {
+				mysql_query ( "ROLLBACK" );
+				echo 'error';
+			}
+		}
+	}
+	function changshop($export_facture_code,$shopid){
+		mysql_query ( "BEGIN" );
+		if($shopid=='' || $shopid == 'undefined') {
+			echo 'error';
+		}else {
+			$qry = "update export_facture set shop_id = ".$shopid." where code ='".$export_facture_code."'";
+			$qry1 = "update export_facture_trace set shop_id = ".$shopid." where export_facture_code ='".$export_facture_code."'";
+			if(mysql_query ( $qry, $this->connection ) != null && mysql_query ( $qry1, $this->connection ) != null){
 				mysql_query ( "COMMIT" );
 				echo 'success';
 			}else {

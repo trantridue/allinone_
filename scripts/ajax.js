@@ -1923,10 +1923,26 @@ function show_export_facture_product_product_code(parameter){
 	$.ajax( {
 		url : urls,
 		success : function(data) {
+		if(data=='success'){
+			searchExport('true', 'exportList', 'exportList');
+			operationSuccess();
+			$('#customer_description').val('');
+		}else {
+			operationError();
+		}
+	}
+	});
+}
+function show_export_facture_product_shop(parameter){
+	var urls = 'modules/export/changeshop.php?' + parameter + '&newshopid=' + encodeURIComponent($('#id_search_shop').val());
+	alert(urls);
+	$.ajax( {
+		url : urls,
+		success : function(data) {
 			if(data=='success'){
+				$('#id_search_shop').val('');
 				searchExport('true', 'exportList', 'exportList');
 				operationSuccess();
-				$('#customer_description').val('');
 			}else {
 				operationError();
 			}
@@ -1935,7 +1951,6 @@ function show_export_facture_product_product_code(parameter){
 }
 function updateUser(){
 	var urls = 'modules/user/updateuser.php' + getUpdateUserInformation();
-//	alert(urls);
 	$.ajax( {
 		url : urls,
 		success : function(data) {
