@@ -3,7 +3,6 @@
 <a href='logout.php'>Logout</a><?php echo tab4;?>
 <input type="hidden" id="isAdminField" value="<?php echo $commonService->isAdmin();?>"><?php echo tab4;?>
 <?php echo $fgmembersite->UserFullName(); ?><?php echo tab4;?>
-<?php echo "<span style='background-color: rgb(57, 250, 16);'> mã lớn nhất : ".$importService->currentMaxProductCode(0)."</span>"; ?><?php echo tab4;?>
 <?php echo 'Shop '.$_SESSION ['id_of_shop'];?><?php echo tab4;?>
 <?php echo $exportService->showAllCashToday();?><?php echo tab4;?>
 	
