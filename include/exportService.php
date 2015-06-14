@@ -69,7 +69,7 @@ class ExportService {
 		while ( $rows = mysql_fetch_array ( $result ) ) {
 			$labelvalue = "Code : " . $rows ['code'] 
 			. ",Name :" . $rows ['name']
-			.", Kho :".($rows['init_import']-$rows['return_provider']-$rows['export_qty']+$rows['cus_return']+$rows['deviation'])
+			.", Trong kho :".($rows['init_import']-$rows['return_provider']-$rows['export_qty']+$rows['cus_return']+$rows['deviation'])
 			;
 			$element = array (
 			code => $rows ['code'], 
