@@ -642,13 +642,14 @@ class ExportService {
 		and t4.id = t2.customer_id
 		and t5.id = t2.shop_id
 		and datediff(now(),t2.date) <= ".$_SESSION['listExportDefault_nbr_day_limit']." order by date desc";
-//		echo $qry; 
+		$this->processExportQuery($qry);		
+	}
+	function processExportQuery($qry) {
 		$result = mysql_query ( $qry, $this->connection );
 		$resulttmp = mysql_query ( $qry, $this->connection );
-//		echo $qry;
-		$this->commonService->generateJSDatatableComplexExport ( $result, exportproductdatatable, 12, 'desc', $this->getExportListArrayTotal() );
+		$this->commonService->generateJSDatatableComplexExport ( $result, exportproductdatatable, 10, 'desc', $this->getExportListArrayTotal() );
 		$this->commonService->generateJqueryDatatableExport ( $result, exportproductdatatable, $this->getExportListArrayColumn($isAdminField) );		
-		$this->commonService->generateJqueryToolTipScript ( $resulttmp, exportproductdatatable, $this->getExportListArrayColumn($isAdminField) );		
+		$this->commonService->generateJqueryToolTipScript ( $resulttmp, exportproductdatatable, $this->getExportListArrayColumn($isAdminField) );
 	}
 	function listExport($params) {
 		$isAdminField= $params['isAdminField'];
@@ -699,12 +700,7 @@ class ExportService {
 			$qry = $qry." and datediff(now(),t2.date) < ". $params['default_nbr_days_load_export'];
 		}
 		$qry = $qry . "  order by date desc";
-		$result = mysql_query ( $qry, $this->connection );
-		$resulttmp = mysql_query ( $qry, $this->connection );
-//		echo $qry; 
-		$this->commonService->generateJSDatatableComplexExport ( $result, exportproductdatatable, 12, 'desc', $this->getExportListArrayTotal() );
-		$this->commonService->generateJqueryDatatableExport ( $result, exportproductdatatable, $this->getExportListArrayColumn($isAdminField) );		
-		$this->commonService->generateJqueryToolTipScript ( $resulttmp, exportproductdatatable, $this->getExportListArrayColumn($isAdminField) );		
+		$this->processExportQuery($qry);		
 	}
 	function getExportListArrayTotal() {
 		return  $array_total = array (
