@@ -74,6 +74,7 @@ class ExportService {
 			$element = array (
 			code => $rows ['code'], 
 			name => $rows ['name'], 
+			stock => ($rows['init_import']-$rows['return_provider']-$rows['export_qty']+$rows['cus_return']+$rows['deviation']),
 			price => $rows ['price'],
 			posted_price => $rows ['export_price'], 
 			detail => "<div style='background-color:pink; min-width:500px;'><span style='color:red;'>".$rows ['name']."</span><hr>".
