@@ -123,7 +123,7 @@ $(document).ready(function(){
 			$("#product_import_price_<?php echo $i;?>").val(ui.item.import_price);
 			$("#qtyreturned_<?php echo $i;?>").val(ui.item.qtyreturned==null?0:ui.item.qtyreturned);
 			$("#description_return_<?php echo $i;?>").val('Lỗi ');
-			
+			calculateReturnProduct();
 		},
 		minLength:1
 	};
@@ -132,7 +132,8 @@ $(document).ready(function(){
 </script>
 <tr>
 <td><input type="text" size="6" id="product_code_<?php echo $i;?>" name="product_code_<?php echo $i;?>"></td>
-<td><input type="number" style="width:35px;" id="product_return_qty_<?php echo $i;?>" name="product_return_qty_<?php echo $i;?>" onkeyup="calculateReturnProduct();"></td>
+<td><input type="number" style="width:35px;" id="product_return_qty_<?php echo $i;?>" name="product_return_qty_<?php echo $i;?>" onkeyup="calculateReturnProduct();" 
+onclick="calculateReturnProduct();"></td>
 <td><input type="text" size="6" id="product_import_price_<?php echo $i;?>" name="product_import_price_<?php echo $i;?>" onkeypress="validateNon(event);"></td>
 <td><input type="text" size="30" id="description_return_<?php echo $i;?>" name="description_return_<?php echo $i;?>"></td>
 <td><input type="text" size="6" class="transparentText" id="product_import_qty_<?php echo $i;?>" name="product_import_qty_<?php echo $i;?>" onkeypress="validateNon(event);"></td>
