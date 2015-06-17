@@ -86,7 +86,7 @@ class NewsService {
 		$result = mysql_query ( $qry, $this->connection );
 		while ( $rows = mysql_fetch_array ( $result ) ) {		
 			if($count <= 5){
-				echo $rows ['username'] . "(".$rows ['displaydate'].") : <span style='color:#800080;'>" . $rows ['description'] . "</span><br>";
+				echo $rows ['username'] . " (".$rows ['displaydate'].") : <span style='color:#800080;'>" . $rows ['description'] . "</span><br>";
 			}
 			$count++;
 		}
