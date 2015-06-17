@@ -76,6 +76,21 @@ class NewsService {
 		$this->commonService->generateJSDatatableSimple ( newsdatatable, 0, 'desc' );
 		$this->commonService->generateJqueryDatatable ( $result, newsdatatable, $this->buildArrayParameter() );
 	}
+	function latestNews(){
+		$qry = "select t1.*, t2.name as shop, t3.name as username,
+				concat(DATE_FORMAT(t1.date,'%m/%d/%Y'),':',DATE_FORMAT(t1.date,'%T')) as displaydate
+			   from news t1, shop t2, `user` t3
+			   where t1.shop_id = t2.id
+         		and t1.user_id = t3.id 
+				order by date desc";
+		$result = mysql_query ( $qry, $this->connection );
+		while ( $rows = mysql_fetch_array ( $result ) ) {		
+			if($count <= 5){
+				echo $rows ['username'] . "(".$rows ['displaydate'].") : <span style='color:#800080;'>" . $rows ['description'] . "</span><br>";
+			}
+			$count++;
+		}
+	}
 	function buildArrayParameter() {
 		session_start();
 		if($this->commonService->isAdmin()){

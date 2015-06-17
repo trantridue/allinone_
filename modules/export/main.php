@@ -7,7 +7,7 @@ if (!$commonService->isMobile ()){
 	<hr>
 	<div id="exportFactureInformation"><?php include 'factureInfor.php';?></div>
 	<div id="exportInputProduct"><?php include 'exportInput.php';?></div>
-	<div id="uploadId" style='display:none;'><?php include 'uploadForm.php';?></div>
+	<div id="marqueeId"><?php include 'marquee.php';?></div>
 </div>
 
 <div id="exportRight">
