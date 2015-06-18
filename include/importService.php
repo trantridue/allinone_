@@ -239,7 +239,7 @@ class ImportService {
 	}
 	function getArrayColumnImport() {
 		return array (
-		"product_code,description" => "Code,product_code,link"
+		"product_code,description" => "Code,product_code,link,instock"
 		,"quantity" => "Qty"
 		, "quantity*import_price" => "complex"
 		, "quantity*export_price" => "complex"

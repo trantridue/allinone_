@@ -634,6 +634,11 @@ class ExportService {
 		$isAdminField = 'default';
 		$qry = "SELECT t1.id,t1.product_code,t1.quantity,t1.export_price,t1.re_qty,t3.description,
 		format((1-t1.export_price/t3.export_price)*100,2) as salepercent,
+		((select ifnull(sum(quantity),0) from product_import where product_code = t3.code) - 
+(select ifnull(sum(quantity),0) from product_return where product_code = t3.code) -
+(select ifnull(sum(quantity),0) from export_facture_product where product_code = t3.code) +
+(select ifnull(sum(re_qty),0) from export_facture_product where product_code = t3.code) +
+(select ifnull(sum(quantity),0) from product_deviation where product_code = t3.code)) as stock,
 		t3.link,t3.name as product_name,t6.name as username,t3.export_price as price_origine,
 		t1.export_facture_code, t2.date,date_format(t2.date,'%H:%m:%s') as time,t4.name as customer,t4.tel as customer_tel,t5.name as shop
 		 FROM `export_facture_product` t1, export_facture t2, product t3, customer t4, shop t5, user t6
@@ -650,11 +655,17 @@ class ExportService {
 		$resulttmp = mysql_query ( $qry, $this->connection );
 		$this->commonService->generateJSDatatableComplexExport ( $result, exportproductdatatable, 10, 'desc', $this->getExportListArrayTotal() );
 		$this->commonService->generateJqueryDatatableExport ( $result, exportproductdatatable, $this->getExportListArrayColumn($isAdminField) );		
-		$this->commonService->generateJqueryToolTipScript ( $resulttmp, exportproductdatatable, $this->getExportListArrayColumn($isAdminField) );
+		//$this->commonService->generateJqueryToolTipScript ( $resulttmp, exportproductdatatable, $this->getExportListArrayColumn($isAdminField) );
 	}
 	function listExport($params) {
 		$isAdminField= $params['isAdminField'];
-		$qry = "SELECT t1.id,t1.product_code,t1.quantity,t1.export_price,t1.re_qty,t3.description,format((1-t1.export_price/t3.export_price)*100,2) as salepercent,
+		$qry = "SELECT t1.id,t1.product_code,t1.quantity,t1.export_price,t1.re_qty,t3.description,
+		format((1-t1.export_price/t3.export_price)*100,2) as salepercent,
+		((select ifnull(sum(quantity),0) from product_import where product_code = t3.code) - 
+(select ifnull(sum(quantity),0) from product_return where product_code = t3.code) -
+(select ifnull(sum(quantity),0) from export_facture_product where product_code = t3.code) +
+(select ifnull(sum(re_qty),0) from export_facture_product where product_code = t3.code) +
+(select ifnull(sum(quantity),0) from product_deviation where product_code = t3.code)) as stock,
 		t3.link,t3.name as product_name,t6.name as username,t3.export_price as price_origine,
 		t1.export_facture_code, t2.date,date_format(t2.date,'%H:%m:%s') as time,t4.name as customer,t4.tel as customer_tel,t5.name as shop
 		 FROM `export_facture_product` t1, export_facture t2, product t3, customer t4, shop t5, user t6
@@ -717,7 +728,7 @@ class ExportService {
 				return array (
 						"checkbox" => "RE",
 						"qtyre" => "&nbsp;&nbsp;",
-						"product_code" => "Code,product_code,link",
+						"product_code" => "Code,product_code,link,stock",
 						"product_name" => "Tên hàng",
 						"customer,customer_tel" => "Khách,customer",
 						"quantity" => "SL&nbsp;&nbsp;",
@@ -734,7 +745,7 @@ class ExportService {
 				return array (
 						"checkbox" => "RE",
 						"qtyre" => "&nbsp;&nbsp;",
-						"product_code" => "Code,product_code,link",
+						"product_code" => "Code,product_code,link,stock",
 						"product_name" => "Tên hàng",
 						"customer,customer_tel" => "Khách,customer",
 						"quantity" => "SL&nbsp;&nbsp;",
@@ -751,7 +762,7 @@ class ExportService {
 			return array (
 						"checkbox" => "RE",
 						"qtyre" => "&nbsp;&nbsp;",
-						"product_code" => "Code,product_code,link",
+						"product_code" => "Code,product_code,link,stock",
 						"product_name" => "Tên hàng",
 						"customer,customer_tel" => "Khách,customer",
 						"quantity" => "SL&nbsp;&nbsp;",
@@ -768,7 +779,7 @@ class ExportService {
 			return array (
 						"checkbox" => "RE",
 						"qtyre" => "&nbsp;&nbsp;",
-						"product_code" => "Code,product_code,link",
+						"product_code" => "Code,product_code,link,stock",
 						"product_name" => "Tên hàng",
 						"customer,customer_tel" => "Khách,customer",
 						"quantity" => "SL&nbsp;&nbsp;",

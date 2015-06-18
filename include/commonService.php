@@ -233,7 +233,7 @@ echo "</script> ";
 							$str = $str . $fields [$i] . "=" . urlencode($rows [$fields [$i]]) . "&";
 						}
 					}
-					echo "<td><a title='<img style=\"max-width:300px; max-height=300px\" class=\"toltipimg\" src=\"".$rows[$fieldskey[2]]."\" />' onclick='show_".$datatable_id."_".$fields [0]."(\"".$str."\");' href='javascript:void(0);' id='".$fieldskey [1].$rows [$fieldskey [1]]."'>".$rows [$fieldskey [1]]."</a></td>";
+					echo "<td><a title='<img style=\"max-width:300px; max-height=300px\" class=\"toltipimg\" src=\"".$rows[$fieldskey[2]]."\" /><br>Kho : ".$rows[$fieldskey[3]]."' onclick='show_".$datatable_id."_".$fields [0]."(\"".$str."\");' href='javascript:void(0);' id='".$fieldskey [1].$rows [$fieldskey [1]]."'>".$rows [$fieldskey [1]]."</a></td>";
 					
 				}	else if(sizeof(explode ( ",", $key ))>1 && sizeof(explode ( ",", $key ))<=2) {
 					$fields = explode ( ",", $value );
@@ -249,7 +249,7 @@ echo "</script> ";
 							$title = $title . $fields [$i] . ":<strong>" . $rows [$fields [$i]] . "</strong><br>";
 						}						
 					}
-					echo "<td><a title='".$title."' onclick='show_".$datatable_id."_".$fields [0]."(\"".$str."\");' href='javascript:void(0);' >".$rows [$fieldskey [1]]."</a></td>";
+					echo "<td><a title='<img style=\"max-width:300px; max-height=300px\" class=\"toltipimg\" src=\"".$rows[$fieldskey[2]]."\" /><br>Kho:".$rows[$fieldskey[3]]."' onclick='show_".$datatable_id."_".$fields [0]."(\"".$str."\");' href='javascript:void(0);' id='".$fieldskey [1].$rows [$fieldskey [1]]."'>".$rows [$fieldskey [1]]."</a></td>";
 					
 				} else if ($value == 'date'){
 					echo "<td style='width:120px;'>" . $rows [$value] . "</td>";
@@ -385,7 +385,7 @@ function generateJqueryDatatableExport($result, $datatable_id, $array_column) {
 							$str = $str . $fields [$i] . "=" . urlencode($rows [$fields [$i]]) . "&";
 						}
 					}
-					echo "<td><a title='' onclick='show_".$datatable_id."_".$fields [0]."(\"".$str."\");' href='javascript:void(0);' id='".$fieldskey [1].$rows [$fieldskey [1]]."'>".$rows [$fieldskey [1]]."</a></td>";
+					echo "<td><a title='<img style=\"max-width:300px; max-height=300px\" class=\"toltipimg\" src=\"".$rows[$fieldskey[2]]."\" /><br>Kho:".$rows[$fieldskey[3]]."' onclick='show_".$datatable_id."_".$fields [0]."(\"".$str."\");' href='javascript:void(0);' id='".$fieldskey [1].$rows [$fieldskey [1]]."'>".$rows [$fieldskey [1]]."</a></td>";
 					
 				}	else if(sizeof(explode ( ",", $key ))>1 && sizeof(explode ( ",", $key ))<=2) {
 					$fields = explode ( ",", $value );
