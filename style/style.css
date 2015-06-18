@@ -572,3 +572,17 @@ div#table_list_product_wrapper table.dataTable tbody th,div#table_list_product_w
 	font-size: 3em;
 	text-align: center;
 }
+#marqueeId {
+	height: 120px;
+}
+#marqueeId marquee {
+	height: 100%;
+	margin-top:10px;
+}
+#marqueeId marquee table tr{
+	min-height: 35px;
+	font-size: 10pt;
+}
+#marqueeId marquee table{
+	border-collapse: collapse;
+}

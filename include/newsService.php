@@ -77,19 +77,20 @@ class NewsService {
 		$this->commonService->generateJqueryDatatable ( $result, newsdatatable, $this->buildArrayParameter() );
 	}
 	function latestNews(){
+		$count = 0;
 		$qry = "select t1.*, t2.name as shop, t3.name as username,
-				concat(DATE_FORMAT(t1.date,'%m/%d/%Y'),':',DATE_FORMAT(t1.date,'%T')) as displaydate
+				date_format(t1.date,'%Y-%m-%d') as datedisplay
 			   from news t1, shop t2, `user` t3
 			   where t1.shop_id = t2.id
          		and t1.user_id = t3.id 
 				order by date desc";
-		echo "<table width='96%'>";
+		echo "<table width='100%' border='1'>";
 		$result = mysql_query ( $qry, $this->connection );
-		while ( $rows = mysql_fetch_array ( $result ) ) {		
+		while ( $rows = mysql_fetch_array ( $result ) ) {	
+			$count++;	
 			if($count <= 5){
-				echo "<tr><td width='25%'>".$rows['username'] . " (".$rows ['displaydate'].") </td><td style='color:#800080;'>" . $rows ['description'] . "</td></tr>";
+				echo "<tr><td width='20%'>".$count.".".$rows['username']." (".$rows['datedisplay'] .") </td><td style='color:#800080;'>" . $rows ['description'] . "</td></tr>";
 			}
-			$count++;
 		}
 		echo "</table>";
 	}
