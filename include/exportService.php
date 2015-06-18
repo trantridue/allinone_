@@ -823,7 +823,7 @@ class ExportService {
 		if($link=='' || $link == 'undefined') {
 			echo 'error';
 		}else {
-			$qry = "update product set link = '".$link."' where code ='".$product_code."'";
+			$qry = "update product set description = '".$link."' where code ='".$product_code."'";
 			if(mysql_query ( $qry, $this->connection ) != null){
 				mysql_query ( "COMMIT" );
 				echo 'success';
