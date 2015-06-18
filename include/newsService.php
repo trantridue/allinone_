@@ -83,13 +83,15 @@ class NewsService {
 			   where t1.shop_id = t2.id
          		and t1.user_id = t3.id 
 				order by date desc";
+		echo "<table width='96%'>";
 		$result = mysql_query ( $qry, $this->connection );
 		while ( $rows = mysql_fetch_array ( $result ) ) {		
 			if($count <= 5){
-				echo $rows ['username'] . "(".$rows ['displaydate'].") : <span style='color:#800080;'>" . $rows ['description'] . "</span><br>";
+				echo "<tr><td width='25%'>".$rows['username'] . " (".$rows ['displaydate'].") </td><td style='color:#800080;'>" . $rows ['description'] . "</td></tr>";
 			}
 			$count++;
 		}
+		echo "</table>";
 	}
 	function buildArrayParameter() {
 		session_start();
