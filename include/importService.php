@@ -232,7 +232,7 @@ class ImportService {
 		$resulttmp = mysql_query ( $qry, $this->connection );
 		$this->commonService->generateJSDatatableComplex ( $result, 'product', 15, 'desc', $this->getArrayTotalImport () );
 		$this->commonService->generateJqueryDatatable ( $result, 'product', $this->getArrayColumnImport () );
-		$this->commonService->generateJqueryToolTipScript ( $resulttmp, 'product', $this->getArrayColumnImport () );
+		//$this->commonService->generateJqueryToolTipScript ( $resulttmp, 'product', $this->getArrayColumnImport () );
 	}
 	function getArrayTotalImport() {
 		return array (1 => "Số lượng", 2 => "Tổng nhập", 3 => "Tổng NY" );
