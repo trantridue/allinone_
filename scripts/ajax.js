@@ -1918,9 +1918,10 @@ function validateField(fieldname,min,max){
 }
 
 function show_export_facture_product_product_code(parameter){
-	var urls = 'modules/export/updateLinkOnly.php?' + parameter + '&link=' + encodeURIComponent($('#customer_description').val());
+	var desc=encodeURIComponent($('#customer_description').val());
+	var urls = 'modules/export/updateLinkOnly.php?' + parameter + '&link=' + desc;
 //	alert(urls);
-	if($('#customer_description').val() != '' && $('#customer_description').val() != 'undefined') {
+	if((desc != '') && (desc != 'undefined')) {
 //		alert($('#customer_description').val());
 		$.ajax( {
 			url : urls,
@@ -1932,7 +1933,7 @@ function show_export_facture_product_product_code(parameter){
 			}else {
 				operationError();
 			}
-		}
+			}
 		});
 	}
 }
