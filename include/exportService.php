@@ -521,6 +521,9 @@ class ExportService {
 		if($params['search_date_to'] != ''){
 			$qry = $qry." and t1.re_date <= '".$params['search_date_to']."'";
 		}
+		if($params['search_product_code'] != ''){
+			$qry = $qry." and t1.product_code like '%".$params['search_product_code']."%'";
+		}
 		
 		$qry = $qry . "order by t1.re_date desc";
 //		echo $qry;
@@ -538,7 +541,8 @@ class ExportService {
 				"name" => "Khách Hàng",
 				"tel" => "Điện thoại",
 				"re_qty*export_price" => "complex",
-				"product_code,code" => "Sản phẩm,product",
+				"product_code,code" => "Code,product_code",
+				"product" => "Sản phẩm",
 				"quantity" => "Đã mua",
 				"re_qty" => "Trả lại",
 				"export_price" => "Giá bán",
