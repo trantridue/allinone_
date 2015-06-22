@@ -501,7 +501,7 @@ class ExportService {
 		$result = mysql_query ( $qry, $this->connection );
 		$array_total = array (
 				3 => "Total return",
-				5 => "Quantity"
+				6 => "Quantity"
 		);
 		$this->commonService->generateJSDatatableComplex ( $result, customerreturndatatable, 8, 'desc', $array_total );
 		$this->commonService->generateJqueryDatatable ( $result, customerreturndatatable, $this->buildArrayReturnParameter() );
@@ -530,7 +530,7 @@ class ExportService {
 		$result = mysql_query ( $qry, $this->connection );
 		$array_total = array (
 				3 => "Total return",
-				5 => "Quantity"
+				6 => "Quantity"
 		);
 		$this->commonService->generateJSDatatableComplex ( $result, customerreturndatatable, 8, 'desc', $array_total );
 		$this->commonService->generateJqueryDatatable ( $result, customerreturndatatable, $this->buildArrayReturnParameter() );
@@ -644,7 +644,7 @@ class ExportService {
 (select ifnull(sum(re_qty),0) from export_facture_product where product_code = t3.code) +
 (select ifnull(sum(quantity),0) from product_deviation where product_code = t3.code)) as stock,
 		t3.link,t3.name as product_name,t6.name as username,t3.export_price as price_origine,
-		t1.export_facture_code, t2.date,date_format(t2.date,'%H:%m:%s') as time,t4.name as customer,t4.tel as customer_tel,t5.name as shop
+		t1.export_facture_code, t2.date,date_format(t2.date,'%H:%i:%s') as time,t4.name as customer,t4.tel as customer_tel,t5.name as shop
 		 FROM `export_facture_product` t1, export_facture t2, product t3, customer t4, shop t5, user t6
 		where t1.export_facture_code = t2.code
 		and t1.product_code = t3.code
@@ -671,7 +671,7 @@ class ExportService {
 (select ifnull(sum(re_qty),0) from export_facture_product where product_code = t3.code) +
 (select ifnull(sum(quantity),0) from product_deviation where product_code = t3.code)) as stock,
 		t3.link,t3.name as product_name,t6.name as username,t3.export_price as price_origine,
-		t1.export_facture_code, t2.date,date_format(t2.date,'%H:%m:%s') as time,t4.name as customer,t4.tel as customer_tel,t5.name as shop
+		t1.export_facture_code, t2.date,date_format(t2.date,'%H:%i:%s') as time,t4.name as customer,t4.tel as customer_tel,t5.name as shop
 		 FROM `export_facture_product` t1, export_facture t2, product t3, customer t4, shop t5, user t6
 		where t1.export_facture_code = t2.code
 		and t1.product_code = t3.code
