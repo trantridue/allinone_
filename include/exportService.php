@@ -634,7 +634,7 @@ class ExportService {
 		session_start();
 		$isAdminField = 'default';
 		$qry = "SELECT t1.id,t1.product_code,t1.quantity,t1.export_price,t1.re_qty,t3.description,
-		format((1-t1.export_price/t3.export_price)*100,2) as salepercent,
+		format((1-t1.export_price/t3.export_price)*100,2) as salepercent,t2.customer_id, if((t1.quantity-t1.re_qty) >0,'','disabled') as checkbox,
 		((select ifnull(sum(quantity),0) from product_import where product_code = t3.code) - 
 (select ifnull(sum(quantity),0) from product_return where product_code = t3.code) -
 (select ifnull(sum(quantity),0) from export_facture_product where product_code = t3.code) +
@@ -649,6 +649,7 @@ class ExportService {
 		and t4.id = t2.customer_id
 		and t5.id = t2.shop_id
 		and datediff(now(),t2.date) <= ".$_SESSION['listExportDefault_nbr_day_limit']." order by date desc";
+//		echo $qry;
 		$this->processExportQuery($qry);		
 	}
 	function processExportQuery($qry) {
@@ -660,7 +661,7 @@ class ExportService {
 	function listExport($params) {
 		$isAdminField= $params['isAdminField'];
 		$qry = "SELECT t1.id,t1.product_code,t1.quantity,t1.export_price,t1.re_qty,t3.description,
-		format((1-t1.export_price/t3.export_price)*100,2) as salepercent,
+		format((1-t1.export_price/t3.export_price)*100,2) as salepercent,t2.customer_id, if((t1.quantity-t1.re_qty) >0,'','disabled') as checkbox,
 		((select ifnull(sum(quantity),0) from product_import where product_code = t3.code) - 
 (select ifnull(sum(quantity),0) from product_return where product_code = t3.code) -
 (select ifnull(sum(quantity),0) from export_facture_product where product_code = t3.code) +
@@ -730,7 +731,7 @@ class ExportService {
 						"qtyre" => "&nbsp;&nbsp;",
 						"product_code" => "Code,product_code,link,stock",
 						"product_name" => "Tên hàng",
-						"customer,customer_tel" => "Khách,customer",
+						"customer,customer_tel,checkbox" => "Khách,customer",
 						"quantity" => "SL&nbsp;&nbsp;",
 						"re_qty" => "RQ&nbsp;&nbsp;",
 						"export_price,price_origine,salepercent" => "PRI&nbsp;&nbsp;&nbsp;&nbsp;,export_price",
@@ -739,7 +740,10 @@ class ExportService {
 						"export_facture_code" => "MÃ_HÓA_ĐƠN",
 						"shop,export_facture_code" => "Shop&nbsp;&nbsp;,shop",
 						"date,username" => "Time,time",
-						"id,deleteExportFacture,export_facture_code" => "Delete"
+						"id,deleteExportFacture,export_facture_code" => "Delete",
+						"customer_id" => "hidden_label",
+						"customer" => "hidden_label",
+						"customer_tel" => "hidden_label"
 				);
 			} else {
 				return array (
@@ -755,7 +759,10 @@ class ExportService {
 						"export_price*re_qty" => "complex",
 						"export_facture_code" => "MÃ_HÓA_ĐƠN",
 						"shop" => "Shop&nbsp;&nbsp;",
-						"date,username" => "Time,time"
+						"date,username" => "Time,time",
+						"customer_id" => "hidden_label",
+						"customer" => "hidden_label",
+						"customer_tel" => "hidden_label"
 				);
 			}
 		} else if ($isAdminField == '1') {
@@ -773,7 +780,10 @@ class ExportService {
 						"export_facture_code" => "MÃ_HÓA_ĐƠN",
 						"shop,export_facture_code" => "Shop&nbsp;&nbsp;,shop",
 						"date,username" => "Time,time",
-						"id,deleteExportFacture,export_facture_code" => "Delete"
+						"id,deleteExportFacture,export_facture_code" => "Delete",
+						"customer_id" => "hidden_label",
+						"customer" => "hidden_label",
+						"customer_tel" => "hidden_label"
 				);
 		} else {
 			return array (
@@ -789,7 +799,10 @@ class ExportService {
 						"export_price*re_qty" => "complex",
 						"export_facture_code" => "MÃ_HÓA_ĐƠN",
 						"shop" => "Shop&nbsp;&nbsp;",
-						"date,username" => "Time,time"
+						"date,username" => "Time,time",
+						"customer_id" => "hidden_label",
+						"customer" => "hidden_label",
+						"customer_tel" => "hidden_label"
 				);
 		}
 	}

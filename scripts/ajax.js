@@ -1399,6 +1399,14 @@ function validateExportForm() {
 	var id_search_user = $('#id_search_user').val();
 	var listProductReturnId = $('#listProductReturnId').val();
 	var listProductReturnQty = $('#listProductReturnQty').val();
+	
+	//Validate on return
+	if($('#customer_tel_flag').val() =='false') {
+		return showNote('Không được chọn sản phẩm của nhiều khách hàng trả cùng lúc!');
+	}
+	if($('#customer_tel_first').val() !='' && $('#customer_tel').val()=='') {
+		return showNote('Phải nhập số điện thoại của khách!');
+	}
 	// Validate date export
 	if(export_date > getCurrentDate_YYYYmmdd()){
 		return showNote('Không nhập ngày trong tương lai!');
@@ -1815,16 +1823,39 @@ function updateListProductAndTotalReturn() {
 	var totalReturn = 0;
 	var lstReturnId = '';
 	var lstReturnQty = '';
+	$('#customer_tel_last').val('');
+	$('#customer_tel_guess').val('');
+	$('#customer_tel_first').val('');
+	$('#customer_tel_flag').val('true');
 	for ( var i = 1; i <= nbrLine; i++) {
 		var isCheckedReturn = $('#checkbox_return_' + i).is(":checked");
 		if (isCheckedReturn) {
 			var qty_return = parseInt($('#quantity_return_' + i).val());
 			var export_price = parseInt($('#export_price_' + i).val());
-			var export_facture_product_id = $('#export_facture_product_id_' + i)
-					.val();
+			var export_facture_product_id = $('#export_facture_product_id_' + i).val();
+			
 			totalReturn = totalReturn + qty_return * export_price;
 			lstReturnId = lstReturnId + export_facture_product_id + ";";
 			lstReturnQty = lstReturnQty + qty_return + ";";
+			
+			if($('#customer_tel_' + i).html()=='aaaaaaaaa') {
+				$('#customer_tel_guess').val('aaaaaaaaa');
+				if($('#customer_tel_first').val() != '') {
+					$('#customer_tel_flag').val('false');
+				}
+			} else {
+				if($('#customer_tel_first').val() == '') {
+					$('#customer_tel_first').val($('#customer_tel_' + i).html());
+				}
+				$('#customer_tel_last').val($('#customer_tel_' + i).html());
+				
+				if($('#customer_tel_guess').val() != '') {
+					$('#customer_tel_flag').val('false');
+				}
+				if($('#customer_tel_last').val() != $('#customer_tel_first').val()) {
+					$('#customer_tel_flag').val('false');
+				}
+			}
 		}
 	}
 	$('#customer_returned').html(totalReturn);

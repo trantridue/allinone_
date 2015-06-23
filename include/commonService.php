@@ -306,7 +306,7 @@ function generateJqueryDatatableExport($result, $datatable_id, $array_column) {
 		echo "<tr>";
 		
 		foreach ( $array_column as $value => $key ) {
-			if ($key == 'hidden_field' || $key == 'complex') { 
+			if ($key == 'hidden_field' || $key == 'complex' || $key == 'hidden_label') { 
 				echo "<th style='display: none;'>" . $key . "</th>";
 			} else if(sizeof(explode ( ",", $key ))>1){
 				$fieldskey = explode ( ",", $key );
@@ -408,7 +408,7 @@ function generateJqueryDatatableExport($result, $datatable_id, $array_column) {
 				} else if ($value == 'counter_colum'){
 					echo "<td style='width:15px;'>" . $counter_colum . "</td>";
 				}else if ($value == 'checkbox'){
-					echo "<td><input type='checkbox' onclick='toggleDivCheckBox(\"quantity_return_".$counter_colum
+					echo "<td><input type='checkbox' ".$rows[$value]." onclick='toggleDivCheckBox(\"quantity_return_".$counter_colum
 					."\");checkTheReturnCheckBox();' id='checkbox_return_".$counter_colum."'/></td>";
 				}else if ($value == 'qtyre'){
 					echo "<td><input type='number' style='width:30px;height:13px;display:none;margin-top:1px;' value='"
@@ -416,6 +416,8 @@ function generateJqueryDatatableExport($result, $datatable_id, $array_column) {
 					<input type='hidden' value='".$rows ['quantity']."' id='quantity_re_".$counter_colum."'>
 					<input type='hidden' value='".$rows ['export_price']."' id='export_price_".$counter_colum."'>
 					<input type='hidden' value='".$rows ['id']."' id='export_facture_product_id_".$counter_colum."'></td>";
+				}else if ($key == 'hidden_label'){
+					echo "<td style='display:none;'><label id='".$value."_".$counter_colum."'>".$rows[$value]."</label></td>";
 				} else {
 					echo "<td>" . $rows [$value] . "</td>";
 				}
