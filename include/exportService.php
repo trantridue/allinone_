@@ -573,12 +573,7 @@ class ExportService {
 		$qry = "SELECT t1.*,REPLACE(t1.description,'\'','') as new_description,t2.name as product_name,datediff(now(),t1.date) as diff,
 		t1.status as order_status 
 		from customer_order t1 left join product t2 on (t1.product_code = t2.code) order by diff desc ,t1.status";
-		$result = mysql_query ( $qry, $this->connection );
-		$array_total = array (
-				2 => "Quantity"
-		);
-		$this->commonService->generateJSDatatableComplex ( $result, customerorderdatatable, 6, 'asc', $array_total );
-		$this->commonService->generateJqueryDatatable ( $result, customerorderdatatable, $this->getArrayColummOrder() );
+		$this->processlistOrder($qry);
 	}
 	function listOrder($params) {
 		$qry = "SELECT t1.*,REPLACE(t1.description,'\'','') as new_description,
@@ -595,7 +590,9 @@ class ExportService {
 		}
 		
 		$qry = $qry . " ORDER  BY diff DESC, t1.status";
-//		echo $qry;
+		$this->processlistOrder($qry);
+	}
+	function processlistOrder($qry){
 		$result = mysql_query ( $qry, $this->connection );
 		$array_total = array (
 				2 => "Quantity"
@@ -659,7 +656,6 @@ class ExportService {
 		$resulttmp = mysql_query ( $qry, $this->connection );
 		$this->commonService->generateJSDatatableComplexExport ( $result, exportproductdatatable, 10, 'desc', $this->getExportListArrayTotal() );
 		$this->commonService->generateJqueryDatatableExport ( $result, exportproductdatatable, $this->getExportListArrayColumn($isAdminField) );		
-		//$this->commonService->generateJqueryToolTipScript ( $resulttmp, exportproductdatatable, $this->getExportListArrayColumn($isAdminField) );
 	}
 	function listExport($params) {
 		$isAdminField= $params['isAdminField'];
