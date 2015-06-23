@@ -1404,8 +1404,11 @@ function validateExportForm() {
 	if($('#customer_tel_flag').val() =='false') {
 		return showNote('Không được chọn sản phẩm của nhiều khách hàng trả cùng lúc!');
 	}
-	if($('#customer_tel_first').val() !='' && $('#customer_tel').val()=='') {
-		return showNote('Phải nhập số điện thoại của khách!');
+	if($('#customer_tel_first').val() !='' && $('#customer_tel').val()!=$('#customer_tel_first').val()) {
+		return showNote('Phải nhập đúng số điện thoại của khách!');
+	}
+	if(parseInt($('#customer_give').val()) ==0 && parseInt($('#give_customer').val())>0 && $('#total_facture').html()=='0') {
+		return showNote('Không trả lại tiền cho khách!');
 	}
 	// Validate date export
 	if(export_date > getCurrentDate_YYYYmmdd()){
