@@ -769,9 +769,7 @@ class ImportService {
 
 		$flag = $flag && (mysql_query ( $qryReturn, $this->connection ) != null);
 		//TODO: to be delete when finish migration data
-		$flag = $flag && (mysql_query ( $qryDeviation, $this->connection ) != null);
-		
-		
+		//$flag = $flag && (mysql_query ( $qryDeviation, $this->connection ) != null);
 		$this->commitOrRollback($flag);
 		echo "success";
 	}

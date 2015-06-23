@@ -1071,6 +1071,7 @@ function validateOrderForm() {
 function isFactureInforBlank(){
 	return ($('#customer_reserve_more').val()=='' || $('#customer_reserve_more').val()=='0') &&
 	($('#customer_give').val()=='' || $('#customer_give').val()=='0') &&
+	($('#total_facture').html()=='' || $('#total_facture').html()=='0') &&
 	($('#give_customer').val()=='' || $('#give_customer').val()=='0');
 }
 function validateAddFund() {
