@@ -249,7 +249,7 @@ echo "</script> ";
 							$title = $title . $fields [$i] . ":<strong>" . $rows [$fields [$i]] . "</strong><br>";
 						}						
 					}
-					echo "<td><a title='<img style=\"max-width:300px; max-height=300px\" class=\"toltipimg\" src=\"".$rows[$fieldskey[2]]."\" /><br>Kho:".$rows[$fieldskey[3]]."' onclick='show_".$datatable_id."_".$fields [0]."(\"".$str."\");' href='javascript:void(0);' id='".$fieldskey [1].$rows [$fieldskey [1]]."'>".$rows [$fieldskey [1]]."</a></td>";
+					echo "<td><a title='".$title."' onclick='show_".$datatable_id."_".$fields [0]."(\"".$str."\");' href='javascript:void(0);' >".$rows [$fieldskey [1]]."</a></td>";
 					
 				} else if ($value == 'date'){
 					echo "<td style='width:120px;'>" . $rows [$value] . "</td>";
