@@ -1358,7 +1358,6 @@ function saveExport() {
 	$.ajax( {
 		url : urls,
 		success : function(data) {
-// alert(data);
 		$("#exportSearch").html(data);
 			if (data == 'success') {
 				operationSuccess();
@@ -1495,6 +1494,7 @@ function getExportProductParameter() {
 	var id_search_user = $('#id_search_user').val();
 	var listProductReturnId = $('#listProductReturnId').val();
 	var listProductReturnQty = $('#listProductReturnQty').val();
+	var customer_tel_guess = $('#customer_tel_guess').val();
 	
 	str = str + "?customer_tel=" + customer_tel;
 	str = str + "&customer_id=" + customer_id;
@@ -1519,6 +1519,7 @@ function getExportProductParameter() {
 	str = str + "&export_number_row=" + export_number_row;
 	str = str + "&listProductReturnQty=" + listProductReturnQty;
 	str = str + "&listProductReturnId=" + listProductReturnId;
+	str = str + "&customer_tel_guess=" + customer_tel_guess;
 	
 	for(var i =1;i<=export_number_row;i++) {
 		var code_field = 'productcode_' + i;
