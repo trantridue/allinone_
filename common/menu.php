@@ -22,9 +22,9 @@ $arr = array (
 );
 } else {
 	$arr = array (
-		"export" => "EXPORT",
-		"inout" => "IN-OUT",
-		"news" => "NEWS",
+		"export" => "BÁN HÀNG",
+		"inout" => "THÊM/RÚT TIỀN",
+		"news" => "TIN TỨC",
 		"upload" => "UPLOAD"
 );
 }
