@@ -297,6 +297,7 @@ class ReportService {
 		PROPERTY :  " . $this->formatNumber ( $amountInFund - $amountImportLoan + $amountInstock + $amountDebt ) . "</strong>";
 	}
 	function saveProperty() {
+//		echo date ( 'H' );
 		if (date ( 'H' ) <= $_SESSION['start_time_backup'] || date ( 'H' ) >= $_SESSION['end_time_backup']) {
 			$query = "select count(*) as amount from property where date = '" . date ( 'Y-m-d' ) . "'";
 			if ($this->getAmountReportnoFormat ( $query ) == 0) {
