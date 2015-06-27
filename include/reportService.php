@@ -39,25 +39,18 @@ class ReportService {
 	function HandleDBError($err) {
 		$this->HandleError ( $err . "\r\n mysqlerror:" . mysql_error () );
 	}
-	function getReportParameters(){
-		$parameterArray = array (
-				'datefrom' => $_REQUEST ['datefrom'],
-				'dateto' => $_REQUEST ['dateto'],
-				'id_shop' => $_REQUEST ['id_shop'],
-				'charttype' => $_REQUEST ['charttype'],
-				'charttime' => $_REQUEST ['charttime']
-		);
+	function getReportParameters() {
+		$parameterArray = array ('datefrom' => $_REQUEST ['datefrom'], 'dateto' => $_REQUEST ['dateto'], 'id_shop' => $_REQUEST ['id_shop'], 'charttype' => $_REQUEST ['charttype'], 'charttime' => $_REQUEST ['charttime'] );
 		return $parameterArray;
 	}
-	function generateDataExportChart ($params,$chartId,$title,$nbrShop){
-		$datefrom = isset($params['datefrom'])?$params['datefrom']:date('Y-m-01');
-		$dateto = isset($params['dateto'])?$params['dateto']:date('Y-m-t');
-		$charttype = isset($params['charttype'])?$params['charttype']:'spline';
-		$charttime = isset($params['charttime'])?$params['charttime']:'%Y-%m-%d';
-		$id_shop = $params['id_shop'];
-		$str =		
-		 "$(document).ready(function () {
-            $('#".$chartId."').jqChart({
+	function generateDataExportChart($params, $chartId, $title, $nbrShop) {
+		$datefrom = isset ( $params ['datefrom'] ) ? $params ['datefrom'] : date ( 'Y-m-01' );
+		$dateto = isset ( $params ['dateto'] ) ? $params ['dateto'] : date ( 'Y-m-t' );
+		$charttype = isset ( $params ['charttype'] ) ? $params ['charttype'] : 'spline';
+		$charttime = isset ( $params ['charttime'] ) ? $params ['charttime'] : '%Y-%m-%d';
+		$id_shop = $params ['id_shop'];
+		$str = "$(document).ready(function () {
+            $('#" . $chartId . "').jqChart({
             	background: background,      
             	border: { strokeStyle: '#6ba851' },            	
             	tooltips: { type: 'shared' },
@@ -74,7 +67,7 @@ class ReportService {
                     vLine: { strokeStyle: '#cc0a0c' }
                 },
             	legend: { title: 'Legend' },            	
-                title: { text: '".$title."' },
+                title: { text: '" . $title . "' },
                 axes: [
                         {
                         	type: 'category',
@@ -83,24 +76,23 @@ class ReportService {
                         }
                       ],
                 series: [";
-          $str = $str.$this->genData($datefrom,$dateto,$charttype,$charttime,$nbrShop,$id_shop)                 
-                        ."]
+		$str = $str . $this->genData ( $datefrom, $dateto, $charttype, $charttime, $nbrShop, $id_shop ) . "]
             });
         });";
-  	echo $str;
+		echo $str;
 	}
-	function genData($datefrom,$dateto,$charttype,$charttime,$nbrShop,$id_shop){
+	function genData($datefrom, $dateto, $charttype, $charttime, $nbrShop, $id_shop) {
 		$returnStr = "";
-		if($id_shop !='') {
-			$returnStr = $returnStr.$this->generateDataByShop($datefrom,$dateto,$charttype,$charttime,$id_shop);
-		}else {
-			for($i=0;$i<=$nbrShop;$i++){
-				$returnStr = $returnStr.$this->generateDataByShop($datefrom,$dateto,$charttype,$charttime,$i);
+		if ($id_shop != '') {
+			$returnStr = $returnStr . $this->generateDataByShop ( $datefrom, $dateto, $charttype, $charttime, $id_shop );
+		} else {
+			for($i = 0; $i <= $nbrShop; $i ++) {
+				$returnStr = $returnStr . $this->generateDataByShop ( $datefrom, $dateto, $charttype, $charttime, $i );
 			}
 		}
-		return substr($returnStr,0,-1);
+		return substr ( $returnStr, 0, - 1 );
 	}
-	function generateDataByShop($datefrom,$dateto,$charttype,$charttime,$shop_id){
+	function generateDataByShop($datefrom, $dateto, $charttype, $charttime, $shop_id) {
 		$qry = "";
 		$str = "";
 		$qry1 = "";
@@ -111,153 +103,151 @@ class ReportService {
 		$str3 = "";
 		$qry4 = "";
 		$str4 = "";
-		if($shop_id==0){
-			$str =   "{	title : 'Income All ',type: '".$charttype."',data: [";
+		if ($shop_id == 0) {
+			$str = "{	title : 'Income All ',type: '" . $charttype . "',data: [";
 			$qry = "SELECT Sum(( t1.quantity - t1.re_qty ) *
            			t1.export_price ) AS total,
-			       Date_format(t2.date, '".$charttime."') as date
+			       Date_format(t2.date, '" . $charttime . "') as date
 			FROM   export_facture_product t1,
 			       export_facture t2
 			WHERE  t1.export_facture_code = t2.code
-			       AND Date_format(t2.date, '%Y-%m-%d') BETWEEN '".$datefrom."' and '".$dateto."'
-			GROUP  BY Date_format(t2.date, '".$charttime."')";
-			$str1 =   "{	title : 'Interet All ',type: '".$charttype."',data: [";
+			       AND Date_format(t2.date, '%Y-%m-%d') BETWEEN '" . $datefrom . "' and '" . $dateto . "'
+			GROUP  BY Date_format(t2.date, '" . $charttime . "')";
+			$str1 = "{	title : 'Interet All ',type: '" . $charttype . "',data: [";
 			$qry1 = "SELECT Sum(( t1.quantity - t1.re_qty ) *
            			(t1.export_price - (SELECT Max(import_price)
                               FROM   product_import
                               WHERE  product_code =
        				t1.product_code) ) ) AS total,
-			       Date_format(t2.date, '".$charttime."') as date
+			       Date_format(t2.date, '" . $charttime . "') as date
 			FROM   export_facture_product t1,
 			       export_facture t2
 			WHERE  t1.export_facture_code = t2.code
-			       AND Date_format(t2.date, '%Y-%m-%d') BETWEEN '".$datefrom."' and '".$dateto."'
-			GROUP  BY Date_format(t2.date, '".$charttime."')";
-			
-		}else {
-			$str =   "{	title : 'Income Shop ".$shop_id."',type: '".$charttype."',data: [";
+			       AND Date_format(t2.date, '%Y-%m-%d') BETWEEN '" . $datefrom . "' and '" . $dateto . "'
+			GROUP  BY Date_format(t2.date, '" . $charttime . "')";
+		
+		} else {
+			$str = "{	title : 'Income Shop " . $shop_id . "',type: '" . $charttype . "',data: [";
 			$qry = "SELECT Sum(( t1.quantity - t1.re_qty ) *
            			t1.export_price ) AS total,
-			       Date_format(t2.date, '".$charttime."') as date
+			       Date_format(t2.date, '" . $charttime . "') as date
 			FROM   export_facture_product t1,
 			       export_facture t2
 			WHERE  t1.export_facture_code = t2.code
-			       AND t2.shop_id = ".$shop_id."
-			       AND Date_format(t2.date, '%Y-%m-%d') BETWEEN '".$datefrom."' and '".$dateto."'
-			GROUP  BY Date_format(t2.date, '".$charttime."')";
-			$str1 =   "{	title : 'Interet Shop ".$shop_id."',type: '".$charttype."',data: [";
+			       AND t2.shop_id = " . $shop_id . "
+			       AND Date_format(t2.date, '%Y-%m-%d') BETWEEN '" . $datefrom . "' and '" . $dateto . "'
+			GROUP  BY Date_format(t2.date, '" . $charttime . "')";
+			$str1 = "{	title : 'Interet Shop " . $shop_id . "',type: '" . $charttype . "',data: [";
 			$qry1 = "SELECT Sum(( t1.quantity - t1.re_qty ) *
            			(t1.export_price - (SELECT Max(import_price)
                               FROM   product_import
                               WHERE  product_code =
        				t1.product_code) ) ) AS total,
-			       Date_format(t2.date, '".$charttime."') as date
+			       Date_format(t2.date, '" . $charttime . "') as date
 			FROM   export_facture_product t1,
 			       export_facture t2
 			WHERE  t1.export_facture_code = t2.code
-			       AND t2.shop_id = ".$shop_id."
-			       AND Date_format(t2.date, '%Y-%m-%d') BETWEEN '".$datefrom."' and '".$dateto."'
-			GROUP  BY Date_format(t2.date, '".$charttime."')";
+			       AND t2.shop_id = " . $shop_id . "
+			       AND Date_format(t2.date, '%Y-%m-%d') BETWEEN '" . $datefrom . "' and '" . $dateto . "'
+			GROUP  BY Date_format(t2.date, '" . $charttime . "')";
 		}
-		$str2 =   "{	title : 'Chi phí ',type: '".$charttype."',data: [";
+		$str2 = "{	title : 'Chi phí ',type: '" . $charttype . "',data: [";
 		$qry2 = "SELECT Sum(amount) AS total,
-		       Date_format(date, '".$charttime."') as date
+		       Date_format(date, '" . $charttime . "') as date
 		FROM   spend
-		WHERE  Date_format(date, '%Y-%m-%d') BETWEEN '".$datefrom."' and '".$dateto."'
-		GROUP  BY Date_format(date, '".$charttime."')";
+		WHERE  Date_format(date, '%Y-%m-%d') BETWEEN '" . $datefrom . "' and '" . $dateto . "'
+		GROUP  BY Date_format(date, '" . $charttime . "')";
 		
-		$str3 =   "{	title : 'Chi phí Shop',type: '".$charttype."',data: [";
+		$str3 = "{	title : 'Chi phí Shop',type: '" . $charttype . "',data: [";
 		$qry3 = "SELECT Sum(amount) AS total,
-		       Date_format(date, '".$charttime."') as date
+		       Date_format(date, '" . $charttime . "') as date
 		FROM   spend
-		WHERE  spend_for_id =2 and Date_format(date, '%Y-%m-%d') BETWEEN '".$datefrom."' and '".$dateto."'
-		GROUP  BY Date_format(date, '".$charttime."')";
+		WHERE  spend_for_id =2 and Date_format(date, '%Y-%m-%d') BETWEEN '" . $datefrom . "' and '" . $dateto . "'
+		GROUP  BY Date_format(date, '" . $charttime . "')";
 		
-		$str4 =   "{	title : 'Chi phí Fami',type: '".$charttype."',data: [";
+		$str4 = "{	title : 'Chi phí Fami',type: '" . $charttype . "',data: [";
 		$qry4 = "SELECT Sum(amount) AS total,
-		       Date_format(date, '".$charttime."') as date
+		       Date_format(date, '" . $charttime . "') as date
 		FROM   spend
-		WHERE  spend_for_id =1 and Date_format(date, '%Y-%m-%d') BETWEEN '".$datefrom."' and '".$dateto."'
-		GROUP  BY Date_format(date, '".$charttime."')";
-			
+		WHERE  spend_for_id =1 and Date_format(date, '%Y-%m-%d') BETWEEN '" . $datefrom . "' and '" . $dateto . "'
+		GROUP  BY Date_format(date, '" . $charttime . "')";
+		
 		$result = mysql_query ( $qry, $this->connection );
 		$result1 = mysql_query ( $qry1, $this->connection );
 		
-		
 		while ( $rows = mysql_fetch_array ( $result ) ) {
-			$str = $str."['".$rows['date']."',".$rows['total']."],";
+			$str = $str . "['" . $rows ['date'] . "'," . $rows ['total'] . "],";
 		}
-		$str = $str."]},";
+		$str = $str . "]},";
 		//
 		while ( $rows1 = mysql_fetch_array ( $result1 ) ) {
-			$str1 = $str1."['".$rows1['date']."',".$rows1['total']."],";
+			$str1 = $str1 . "['" . $rows1 ['date'] . "'," . $rows1 ['total'] . "],";
 		}
-		$str1 = $str1."]},";
+		$str1 = $str1 . "]},";
 		
-		
-		if($shop_id==0){
+		if ($shop_id == 0) {
 			$result2 = mysql_query ( $qry2, $this->connection );
 			$result3 = mysql_query ( $qry3, $this->connection );
 			$result4 = mysql_query ( $qry4, $this->connection );
 			//
 			while ( $rows2 = mysql_fetch_array ( $result2 ) ) {
-				$str2 = $str2."['".$rows2['date']."',".$rows2['total']."],";
+				$str2 = $str2 . "['" . $rows2 ['date'] . "'," . $rows2 ['total'] . "],";
 			}
-			$str2 = $str2."]},";
+			$str2 = $str2 . "]},";
 			//
 			while ( $rows3 = mysql_fetch_array ( $result3 ) ) {
-				$str3 = $str3."['".$rows3['date']."',".$rows3['total']."],";
+				$str3 = $str3 . "['" . $rows3 ['date'] . "'," . $rows3 ['total'] . "],";
 			}
-			$str3 = $str3."]},";
+			$str3 = $str3 . "]},";
 			//
 			while ( $rows4 = mysql_fetch_array ( $result4 ) ) {
-				$str4 = $str4."['".$rows4['date']."',".$rows4['total']."],";
+				$str4 = $str4 . "['" . $rows4 ['date'] . "'," . $rows4 ['total'] . "],";
 			}
-			$str4 = $str4."]},";
-			return $str.$str1.$str2.$str3.$str4;
+			$str4 = $str4 . "]},";
+			return $str . $str1 . $str2 . $str3 . $str4;
 		} else {
-			return $str.$str1;	
+			return $str . $str1;
 		}
-		
+	
 	}
-	function generateStatistic($params){
-		$datefrom = isset($params['datefrom'])?$params['datefrom']:date('Y-m-d');
-		$dateto = isset($params['dateto'])?$params['dateto']:date('Y-m-d');
+	function generateStatistic($params) {
+		$datefrom = isset ( $params ['datefrom'] ) ? $params ['datefrom'] : date ( 'Y-m-d' );
+		$dateto = isset ( $params ['dateto'] ) ? $params ['dateto'] : date ( 'Y-m-d' );
 		echo "<div>";
-		echo "<div class='reportStatDiv'>".$this->showStaticInformation()."</div>";
-		echo "<div class='reportStatDiv'>".$this->showDynamicInformation($datefrom,$dateto)."</div>";
+		echo "<div class='reportStatDiv'>" . $this->showStaticInformation () . "</div>";
+		echo "<div class='reportStatDiv'>" . $this->showDynamicInformation ( $datefrom, $dateto ) . "</div>";
 		echo "</div>";
 	}
-	function getAmountReport($qry){
+	function getAmountReport($qry) {
 		$amount = 0;
 		$result = mysql_query ( $qry, $this->connection );
 		while ( $rows = mysql_fetch_array ( $result ) ) {
-			$amount = $rows['amount'];
+			$amount = $rows ['amount'];
 		}
-		return number_format($amount,0,'.',',');
+		return number_format ( $amount, 0, '.', ',' );
 	}
-	function getAmountReport2Zero($qry){
+	function getAmountReport2Zero($qry) {
 		$amount = 0;
 		$result = mysql_query ( $qry, $this->connection );
 		while ( $rows = mysql_fetch_array ( $result ) ) {
-			$amount = $rows['amount'];
+			$amount = $rows ['amount'];
 		}
-		return number_format($amount,0,'.',',');
+		return number_format ( $amount, 0, '.', ',' );
 	}
-	function getAmountReportnoFormat($qry){
+	function getAmountReportnoFormat($qry) {
 		$amount = 0;
 		$result = mysql_query ( $qry, $this->connection );
 		while ( $rows = mysql_fetch_array ( $result ) ) {
-			$amount = $rows['amount'];
+			$amount = $rows ['amount'];
 		}
 		return $amount;
 	}
-	function amountInket(){
+	function amountInket() {
 		//tien trong ket
 		$qry = "select sum(amount*ratio) as amount from fund_change_histo where fund_id = 1 ";
-		return $this->getAmountReportnoFormat($qry);
+		return $this->getAmountReportnoFormat ( $qry );
 	}
-	function amountImportLoan(){
+	function amountImportLoan() {
 		//no tien hang
 		$qry = "SELECT
        sum(( Ifnull(t2.total, 0) - Ifnull(t2.paid, 0) - Ifnull(t2.total_return, 0))) AS amount
@@ -274,66 +264,81 @@ class ReportService {
                paid,
                (select sum(quantity*return_price) from product_return where provider_id = t1.id) as total_return
         FROM   provider t1  ) t2";
-		return $this->getAmountReportnoFormat($qry);
+		return $this->getAmountReportnoFormat ( $qry );
 	}
 	
-	function showStaticInformation(){
-		$amountInket = $this->amountInket();
-		$amountImportLoan = $this->amountImportLoan();
-		$amountInFund = $this->amountInFund();
-		$amountInstock = $this->amountInstock();
-		$amountDebt = $this->amountDebt();
-
-		return 
-		"<table width='100%'><tr><td align='right'>Tiền trong két :</td> <td><strong>".$this->formatNumber($amountInket)."</strong></td>
-		<td align='right'>Nợ tiền hàng : </td> <td><strong> ".$this->formatNumber($amountImportLoan)."</strong></td>
-		<td align='right'>Tiền trong quỹ : </td> <td><strong> ".$this->formatNumber($amountInFund)."</strong></td>
-		<td align='right'>Kho hàng : </td> <td><strong> ".$this->formatNumber($amountInstock)."</strong></td>
-		<td align='right'>Khách nợ : </td> <td><strong> ".$this->formatNumber($amountDebt)."</strong></td>
-		<td align='right'>Tổng tài sản : </td> <td><strong> ".$this->formatNumber($amountInFund-$amountImportLoan+$amountInstock+$amountDebt)."</strong></td></tr></table>";
+	function showStaticInformation() {
+		$amountInket = $this->amountInket ();
+		$amountImportLoan = $this->amountImportLoan ();
+		$amountInFund = $this->amountInFund ();
+		$amountInstock = $this->amountInstock ();
+		$amountDebt = $this->amountDebt ();
+		
+		return "<table width='100%'><tr><td align='right'>Tiền trong két :</td> <td><strong>" . $this->formatNumber ( $amountInket ) . "</strong></td>
+		<td align='right'>Nợ tiền hàng : </td> <td><strong> " . $this->formatNumber ( $amountImportLoan ) . "</strong></td>
+		<td align='right'>Tiền trong quỹ : </td> <td><strong> " . $this->formatNumber ( $amountInFund ) . "</strong></td>
+		<td align='right'>Kho hàng : </td> <td><strong> " . $this->formatNumber ( $amountInstock ) . "</strong></td>
+		<td align='right'>Khách nợ : </td> <td><strong> " . $this->formatNumber ( $amountDebt ) . "</strong></td>
+		<td align='right'>Tổng tài sản : </td> <td><strong> " . $this->formatNumber ( $amountInFund - $amountImportLoan + $amountInstock + $amountDebt ) . "</strong></td></tr></table>";
 	}
-	function showStaticInformationFooter(){
-		$amountInket = $this->amountInket();
-		$amountImportLoan = $this->amountImportLoan();
-		$amountInFund = $this->amountInFund();
-		$amountInstock = $this->amountInstock();
-		$amountDebt = $this->amountDebt();
-
-		return "<strong>"."
-		Tiền trong két :".$this->formatNumber($amountInket).tab8."
-		Nợ tiền hàng :  ".$this->formatNumber($amountImportLoan).tab8."
-		Tiền trong quỹ :  ".$this->formatNumber($amountInFund).tab8."
-		Kho hàng : ".$this->formatNumber($amountInstock).tab8."
-		Khách nợ :  ".$this->formatNumber($amountDebt).tab8."
-		Tổng tài sản :  ".$this->formatNumber($amountInFund-$amountImportLoan+$amountInstock+$amountDebt)
-		."</strong>";
+	function showStaticInformationFooter() {
+		$amountInket = $this->amountInket ();
+		$amountImportLoan = $this->amountImportLoan ();
+		$amountInFund = $this->amountInFund ();
+		$amountInstock = $this->amountInstock ();
+		$amountDebt = $this->amountDebt ();
+		
+		return "<strong>" . "
+		KET :" . $this->formatNumber ( $amountInket ) . tab4 . "
+		LOAN :  " . $this->formatNumber ( $amountImportLoan ) . tab4 . "
+		FUND :  " . $this->formatNumber ( $amountInFund ) . tab4 . "
+		STORE : " . $this->formatNumber ( $amountInstock ) . tab4 . "
+		DEBT :  " . $this->formatNumber ( $amountDebt ) . tab4 . "
+		PROPERTY :  " . $this->formatNumber ( $amountInFund - $amountImportLoan + $amountInstock + $amountDebt ) . "</strong>";
 	}
-	function formatNumber($number){
-		return number_format($number,0,'.',',');
+	function saveProperty() {
+		if (date ( 'H' ) <= $_SESSION['start_time_backup'] || date ( 'H' ) >= $_SESSION['end_time_backup']) {
+			$query = "select count(*) as amount from property where date = '" . date ( 'Y-m-d' ) . "'";
+			if ($this->getAmountReportnoFormat ( $query ) == 0) {
+				$amountInket = $this->amountInket ();
+				$amountImportLoan = $this->amountImportLoan ();
+				$amountInFund = $this->amountInFund ();
+				$amountInstock = $this->amountInstock ();
+				$amountDebt = $this->amountDebt ();
+				$property = $amountInFund - $amountImportLoan + $amountInstock + $amountDebt;
+				
+				$qryInsertProperty = "insert into property(date,amount,ket,loan,fund,store,debt) 
+			values ('" . date ( 'Y-m-d' ) . "'," . $property . "," . $amountInket . "," . $amountImportLoan . "," . $amountInFund . "," . $amountInstock . "," . $amountDebt . ")";
+				mysql_query ( $qryInsertProperty, $this->connection );
+			}
+		}
+	}
+	function formatNumber($number) {
+		return number_format ( $number, 0, '.', ',' );
 	}
 	
-	function showDynamicInformation($startdate,$enddate) {
-		$str =  "<table width='100%' style='font-size:10pt;'><tr><td align='right' style='background-color:pink;'>CASH All: </td>
-				<td style='background-color:pink;'><strong>".$this->getCashByShop($startdate,$enddate,'all').tab4."</strong></td>
-				 <td align='right'>CASH 1: </td><td><strong>".$this->getCashByShop($startdate,$enddate,1).tab4."</strong>
-				 <td align='right'>CASH 2: </td><td><strong>".$this->getCashByShop($startdate,$enddate,2).tab4."</strong>
-				 <td align='right'>CASH 3: </td><td><strong>".$this->getCashByShop($startdate,$enddate,3).tab4."</strong>
+	function showDynamicInformation($startdate, $enddate) {
+		$str = "<table width='100%' style='font-size:10pt;'><tr><td align='right' style='background-color:pink;'>CASH All: </td>
+				<td style='background-color:pink;'><strong>" . $this->getCashByShop ( $startdate, $enddate, 'all' ) . tab4 . "</strong></td>
+				 <td align='right'>CASH 1: </td><td><strong>" . $this->getCashByShop ( $startdate, $enddate, 1 ) . tab4 . "</strong>
+				 <td align='right'>CASH 2: </td><td><strong>" . $this->getCashByShop ( $startdate, $enddate, 2 ) . tab4 . "</strong>
+				 <td align='right'>CASH 3: </td><td><strong>" . $this->getCashByShop ( $startdate, $enddate, 3 ) . tab4 . "</strong>
 				 <td align='right' style='background-color:violet;'>ROI ALL: </td>
-				 <td style='background-color:violet;'><strong>".$this->getRoiByShopAndDate($startdate,$enddate,'all').tab4."</strong>
-				 <td align='right'>ROI 1: </td><td><strong>".$this->getRoiByShopAndDate($startdate,$enddate,1).tab4."</strong>
-				 <td align='right'>ROI 2: </td><td><strong>".$this->getRoiByShopAndDate($startdate,$enddate,2).tab4."</strong>
-				 <td align='right'>ROI 3: </td><td><strong>".$this->getRoiByShopAndDate($startdate,$enddate,3).tab4."</strong></td></tr>
+				 <td style='background-color:violet;'><strong>" . $this->getRoiByShopAndDate ( $startdate, $enddate, 'all' ) . tab4 . "</strong>
+				 <td align='right'>ROI 1: </td><td><strong>" . $this->getRoiByShopAndDate ( $startdate, $enddate, 1 ) . tab4 . "</strong>
+				 <td align='right'>ROI 2: </td><td><strong>" . $this->getRoiByShopAndDate ( $startdate, $enddate, 2 ) . tab4 . "</strong>
+				 <td align='right'>ROI 3: </td><td><strong>" . $this->getRoiByShopAndDate ( $startdate, $enddate, 3 ) . tab4 . "</strong></td></tr>
 				 <tr>
 				 <td align='right' style='background-color:yellow;'>Ex ALL: </td>
-				 <td style='background-color:yellow;'><strong>".$this->getExportByShopAndDate($startdate,$enddate,'all').tab4."</strong>
-				 <td align='right'>Ex 1: </td><td><strong>".$this->getExportByShopAndDate($startdate,$enddate,1).tab4."</strong>
-				 <td align='right'>Ex 2: </td><td><strong>".$this->getExportByShopAndDate($startdate,$enddate,2).tab4."</strong>
-				 <td align='right'>Ex 3: </td><td><strong>".$this->getExportByShopAndDate($startdate,$enddate,3).tab4."</strong></td>
+				 <td style='background-color:yellow;'><strong>" . $this->getExportByShopAndDate ( $startdate, $enddate, 'all' ) . tab4 . "</strong>
+				 <td align='right'>Ex 1: </td><td><strong>" . $this->getExportByShopAndDate ( $startdate, $enddate, 1 ) . tab4 . "</strong>
+				 <td align='right'>Ex 2: </td><td><strong>" . $this->getExportByShopAndDate ( $startdate, $enddate, 2 ) . tab4 . "</strong>
+				 <td align='right'>Ex 3: </td><td><strong>" . $this->getExportByShopAndDate ( $startdate, $enddate, 3 ) . tab4 . "</strong></td>
 				 <td align='right' style='background-color:rgb(65, 140, 240);'>Re ALL: </td>
-				 <td style='background-color:rgb(65, 140, 240);'><strong>".$this->getReturnByShopAndDate($startdate,$enddate,'all').tab4."</strong>
-				 <td align='right'>Re  1: </td><td><strong>".$this->getReturnByShopAndDate($startdate,$enddate,1).tab4."</strong>
-				 <td align='right'>Re  2: </td><td><strong>".$this->getReturnByShopAndDate($startdate,$enddate,2).tab4."</strong>
-				 <td align='right'>Re  3: </td><td><strong>".$this->getReturnByShopAndDate($startdate,$enddate,3).tab4."</strong></td>
+				 <td style='background-color:rgb(65, 140, 240);'><strong>" . $this->getReturnByShopAndDate ( $startdate, $enddate, 'all' ) . tab4 . "</strong>
+				 <td align='right'>Re  1: </td><td><strong>" . $this->getReturnByShopAndDate ( $startdate, $enddate, 1 ) . tab4 . "</strong>
+				 <td align='right'>Re  2: </td><td><strong>" . $this->getReturnByShopAndDate ( $startdate, $enddate, 2 ) . tab4 . "</strong>
+				 <td align='right'>Re  3: </td><td><strong>" . $this->getReturnByShopAndDate ( $startdate, $enddate, 3 ) . tab4 . "</strong></td>
 				
 				 </tr>
 				 </table>
@@ -341,57 +346,57 @@ class ReportService {
 		return $str;
 	}
 	
-	function getExportByShopAndDate($startdate,$enddate,$shopid){
-		$qry="";
-		if($shopid =='all'){
+	function getExportByShopAndDate($startdate, $enddate, $shopid) {
+		$qry = "";
+		if ($shopid == 'all') {
 			$qry = "select sum((t1.quantity-t1.re_qty)*t1.export_price) AS amount
 				FROM   export_facture_product t1,
 				       export_facture t2
 				WHERE  t1.export_facture_code = t2.code
-				       AND date_format(t2.date,'%Y-%m-%d') BETWEEN '".$startdate."' and '".$enddate."'";
-			
+				       AND date_format(t2.date,'%Y-%m-%d') BETWEEN '" . $startdate . "' and '" . $enddate . "'";
+		
 		} else {
 			$qry = "select sum((t1.quantity-t1.re_qty)*t1.export_price) AS amount
 				FROM   export_facture_product t1,
 				       export_facture t2
-				WHERE  t1.export_facture_code = t2.code and t2.shop_id=".$shopid."
-				       AND date_format(t2.date,'%Y-%m-%d') BETWEEN '".$startdate."' and '".$enddate."'";
+				WHERE  t1.export_facture_code = t2.code and t2.shop_id=" . $shopid . "
+				       AND date_format(t2.date,'%Y-%m-%d') BETWEEN '" . $startdate . "' and '" . $enddate . "'";
 		}
-		return $this->getAmountReport2Zero($qry);
+		return $this->getAmountReport2Zero ( $qry );
 	}
-	function getInoutByShopAndDate($startdate,$enddate,$shopid){
-		$qry="";
-		if($shopid =='all'){
+	function getInoutByShopAndDate($startdate, $enddate, $shopid) {
+		$qry = "";
+		if ($shopid == 'all') {
 			$qry = "select sum(amount) AS amount
 				FROM   money_inout t1
-				WHERE  date_format(t1.date,'%Y-%m-%d') BETWEEN '".$startdate."' and '".$enddate."'";
-			
+				WHERE  date_format(t1.date,'%Y-%m-%d') BETWEEN '" . $startdate . "' and '" . $enddate . "'";
+		
 		} else {
 			$qry = "select sum(amount) AS amount
 				FROM   money_inout t1
-				WHERE  t1.shop_id = ".$shopid." and date_format(t1.date,'%Y-%m-%d') BETWEEN '".$startdate."' and '".$enddate."'";
+				WHERE  t1.shop_id = " . $shopid . " and date_format(t1.date,'%Y-%m-%d') BETWEEN '" . $startdate . "' and '" . $enddate . "'";
 		}
-		return $this->getAmountReport2Zero($qry);
+		return $this->getAmountReport2Zero ( $qry );
 	}
-	function getReturnByShopAndDate($startdate,$enddate,$shopid){
-		$qry="";
-		if($shopid =='all'){
+	function getReturnByShopAndDate($startdate, $enddate, $shopid) {
+		$qry = "";
+		if ($shopid == 'all') {
 			$qry = "select sum(t1.re_qty*t1.export_price) AS amount
 				FROM   export_facture_product t1
-				WHERE  date_format(t1.re_date,'%Y-%m-%d') BETWEEN '".$startdate."' and '".$enddate."'";
-			
+				WHERE  date_format(t1.re_date,'%Y-%m-%d') BETWEEN '" . $startdate . "' and '" . $enddate . "'";
+		
 		} else {
 			$qry = "select sum(t1.re_qty*t1.export_price) AS amount
 				FROM   export_facture_product t1,
 					   export_facture t2
-				WHERE  t1.export_facture_code = t2.code and t2.shop_id=".$shopid."
-				       AND date_format(t1.re_date,'%Y-%m-%d') BETWEEN '".$startdate."' and '".$enddate."'";
+				WHERE  t1.export_facture_code = t2.code and t2.shop_id=" . $shopid . "
+				       AND date_format(t1.re_date,'%Y-%m-%d') BETWEEN '" . $startdate . "' and '" . $enddate . "'";
 		}
-		return $this->getAmountReport2Zero($qry);
+		return $this->getAmountReport2Zero ( $qry );
 	}
-	function getRoiByShopAndDate($startdate,$enddate,$shopid){
-		$qry="";
-		if($shopid =='all'){
+	function getRoiByShopAndDate($startdate, $enddate, $shopid) {
+		$qry = "";
+		if ($shopid == 'all') {
 			$qry = "SELECT ifnull((Sum(( t1.quantity - t1.re_qty ) *
 	           			(t1.export_price - (SELECT Max(import_price)
 	                              FROM   product_import
@@ -401,8 +406,8 @@ class ReportService {
 				FROM   export_facture_product t1,
 				       export_facture t2
 				WHERE  t1.export_facture_code = t2.code
-				       AND date_format(t2.date,'%Y-%m-%d') BETWEEN '".$startdate."' and '".$enddate."'";
-			
+				       AND date_format(t2.date,'%Y-%m-%d') BETWEEN '" . $startdate . "' and '" . $enddate . "'";
+		
 		} else {
 			$qry = "SELECT ifnull((Sum(( t1.quantity - t1.re_qty ) *
 	           			(t1.export_price - (SELECT Max(import_price)
@@ -412,41 +417,39 @@ class ReportService {
 	           			t1.export_price )),0)*100 AS amount
 				FROM   export_facture_product t1,
 				       export_facture t2
-				WHERE  t1.export_facture_code = t2.code and t2.shop_id=".$shopid."
-				       AND date_format(t2.date,'%Y-%m-%d') BETWEEN '".$startdate."' and '".$enddate."'";
+				WHERE  t1.export_facture_code = t2.code and t2.shop_id=" . $shopid . "
+				       AND date_format(t2.date,'%Y-%m-%d') BETWEEN '" . $startdate . "' and '" . $enddate . "'";
 		}
-		return $this->getAmountReport2Zero($qry);
+		return $this->getAmountReport2Zero ( $qry );
 	}
-	function getCashByShop($start_date,$end_date,$shop_id) {
-		session_start();
+	function getCashByShop($start_date, $end_date, $shop_id) {
+		session_start ();
 		$cash = 0;
 		$qryFacture = "";
 		$qryInout = "";
 		$cashCaseAll = 0;
-		if($shop_id=='all') {
+		if ($shop_id == 'all') {
 			$qryFacture = "select sum(if((give_customer>0),(customer_give - give_customer),customer_give)) as amount
 			from export_facture_trace where export_facture_code in 
-			(select code from export_facture where date_format(date,'%Y-%m-%d') between '".$start_date."' and '".$end_date."')";
+			(select code from export_facture where date_format(date,'%Y-%m-%d') between '" . $start_date . "' and '" . $end_date . "')";
 			
 			$qryInout = "select sum(amount) as amount 
-			from money_inout where  date_format(date,'%Y-%m-%d') between '".$start_date."' and '".$end_date."'";
-			$cashCaseAll = $_SESSION ['init_money'] *2;
+			from money_inout where  date_format(date,'%Y-%m-%d') between '" . $start_date . "' and '" . $end_date . "'";
+			$cashCaseAll = $_SESSION ['init_money'] * 2;
 		} else {
 			$qryFacture = "select sum(if((give_customer>0),(customer_give - give_customer),customer_give)) as amount
-			from export_facture_trace where shop_id = ".$shop_id." and export_facture_code in 
-			(select code from export_facture where date_format(date,'%Y-%m-%d') between '".$start_date."' and '".$end_date."')";
+			from export_facture_trace where shop_id = " . $shop_id . " and export_facture_code in 
+			(select code from export_facture where date_format(date,'%Y-%m-%d') between '" . $start_date . "' and '" . $end_date . "')";
 			
-			$qryInout = "select sum(amount) as amount from money_inout where shop_id = ".$shop_id." 
-			and date_format(date,'%Y-%m-%d') between '".$start_date."' and '".$end_date."'";
+			$qryInout = "select sum(amount) as amount from money_inout where shop_id = " . $shop_id . " 
+			and date_format(date,'%Y-%m-%d') between '" . $start_date . "' and '" . $end_date . "'";
 		}
-		$cash = $_SESSION ['init_money'] + $cashCaseAll
-				+ $this->commonService->getAmountResult($qryFacture) 
-				+ $this->commonService->getAmountResult($qryInout);
-		return number_format($cash,0,'.',',');
+		$cash = $_SESSION ['init_money'] + $cashCaseAll + $this->commonService->getAmountResult ( $qryFacture ) + $this->commonService->getAmountResult ( $qryInout );
+		return number_format ( $cash, 0, '.', ',' );
 	}
 	function amountInFund() {
 		$qry = "select sum(amount*ratio) as amount from fund_change_histo where fund_id <> 18 ";
-		return $this->getAmountReportnoFormat($qry);
+		return $this->getAmountReportnoFormat ( $qry );
 	}
 	function amountInstock() {
 		$qry = "select sum((select max(import_price) from product_import where product_code =t1.code)*(
@@ -455,7 +458,7 @@ class ReportService {
 		(select ifnull(sum(quantity),0) from export_facture_product where product_code = t1.code) +
 		(select ifnull(sum(re_qty),0) from export_facture_product where product_code = t1.code) +
 		(select ifnull(sum(quantity),0) from product_deviation where product_code = t1.code))) as amount from product t1";
-		return $this->getAmountReportnoFormat($qry);
+		return $this->getAmountReportnoFormat ( $qry );
 	}
 	function amountDebt() {
 		$qry = "select sum(t.total-t.paid) as amount from (SELECT
@@ -471,37 +474,23 @@ class ReportService {
 				WHERE  t1.id = t2.customer_id
 				       AND t2.code = t3.export_facture_code
 				       and t1.tel not like '%aaaaaaa%' group by t1.id) t where (t.total-t.paid) > 0 ";
-		return $this->getAmountReportnoFormat($qry);
+		return $this->getAmountReportnoFormat ( $qry );
 	}
-function listExportTrace($params) {
-		$datefrom = isset($params['datefrom'])?$params['datefrom']:date('Y-m-01');
-		$dateto = isset($params['dateto'])?$params['dateto']:date('Y-m-d');
+	function listExportTrace($params) {
+		$datefrom = isset ( $params ['datefrom'] ) ? $params ['datefrom'] : date ( 'Y-m-01' );
+		$dateto = isset ( $params ['dateto'] ) ? $params ['dateto'] : date ( 'Y-m-d' );
 		
 		$qry = "select t1.*,t2.date,t3.name as shop,t4.name as customer,t4.tel as tel 
 		from export_facture_trace t1,
 		 export_facture t2 ,shop t3, customer t4
 		where t3.id = t1.shop_id and t4.id = t1.customer_id and t2.code = t1.export_facture_code and
-		 Date_format(t2.date, '%Y-%m-%d') between '".$datefrom."' and '".$dateto."'";
+		 Date_format(t2.date, '%Y-%m-%d') between '" . $datefrom . "' and '" . $dateto . "'";
 		
-		if($params['id_shop'] !='') {
-			$qry = $qry. " and t1.shop_id = ".	$params['id_shop'];
+		if ($params ['id_shop'] != '') {
+			$qry = $qry . " and t1.shop_id = " . $params ['id_shop'];
 		}
 		$result = mysql_query ( $qry, $this->connection );
-		$array_column = array (
-				"id,tel" => "id,customer",
-				"export_facture_code" => "Code",
-				"total" => "total",
-				"customer_give" => "customer give",
-				"give_customer" => "give customer",
-				"return_amount" => "return amount",
-				"amount" => "amount",
-				"debt" => "debt",
-				"reserved" => "reserved",
-				"order" => "order",
-				"bonus_used" => "bonus used",
-				"shop" => "shop",
-				"date" => "date"
-		);
+		$array_column = array ("id,tel" => "id,customer", "export_facture_code" => "Code", "total" => "total", "customer_give" => "customer give", "give_customer" => "give customer", "return_amount" => "return amount", "amount" => "amount", "debt" => "debt", "reserved" => "reserved", "order" => "order", "bonus_used" => "bonus used", "shop" => "shop", "date" => "date" );
 		$this->commonService->generateJSDatatableSimple ( 'export_trace', 12, 'desc' );
 		$this->commonService->generateJqueryDatatable ( $result, 'export_trace', $array_column );
 	}
