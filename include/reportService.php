@@ -156,9 +156,23 @@ class ReportService {
 		WHERE  Date_format(date, '%Y-%m-%d') BETWEEN '" . $datefrom . "' and '" . $dateto . "'
 		GROUP  BY Date_format(date, '" . $charttime . "')";
 		
+		$str3 = "{	title : 'Lợi nhuận ',type: '" . $charttype . "',data: [";
+			$qry3 = "SELECT Sum(( t1.quantity - t1.re_qty ) *
+           			(t1.export_price - (SELECT Max(import_price)
+                              FROM   product_import
+                              WHERE  product_code =
+       				t1.product_code) ) ) AS total,
+			       Date_format(t2.date, '" . $charttime . "') as date
+			FROM   export_facture_product t1,
+			       export_facture t2
+			WHERE  t1.export_facture_code = t2.code
+			       AND Date_format(t2.date, '%Y-%m-%d') BETWEEN '" . $datefrom . "' and '" . $dateto . "'
+			GROUP  BY Date_format(t2.date, '" . $charttime . "')";
+		
 		$result = mysql_query ( $qry, $this->connection );
 		$result1 = mysql_query ( $qry1, $this->connection );
 		$result2 = mysql_query ( $qry2, $this->connection );
+		$result3 = mysql_query ( $qry3, $this->connection );
 		
 		while ( $rows = mysql_fetch_array ( $result ) ) {
 			$str = $str . "['" . $rows ['date'] . "'," . $rows ['total'] . "],";
@@ -175,7 +189,12 @@ class ReportService {
 		}
 		$str2 = $str2 . "]},";
 		
-		$str = $str.$str1.$str2;
+		while ( $rows3 = mysql_fetch_array ( $result3 ) ) {
+			$str3 = $str3 . "['" . $rows3 ['date'] . "'," . $rows3 ['total'] . "],";
+		}
+		$str3 = $str3 . "]},";
+		
+		$str = $str.$str1.$str2.$str3;
 		
 		return $str;
 	
