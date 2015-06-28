@@ -13,7 +13,7 @@ if ($isAjax == 'true') {
 ?>
 <script lang="javascript" type="text/javascript">
 
-     <?php echo $reportService->generateDataExportChart($params,"reportChart3","Tài Sản ",$nbrShop);?>
+     <?php echo $reportService->generateDataPropertyChart($params,"reportChart3","Tài Sản ",$nbrShop);?>
     </script>
 
 <div id="reportChart3" style="width: 100%; height: 520px;"></div>

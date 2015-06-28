@@ -86,6 +86,9 @@ function displayChartNow(){
 	if ($('#report2').css('display') == "block") {
 		displayChart('report2');
 	}
+	if ($('#report3').css('display') == "block") {
+		displayChart('report3');
+	}
 }
 function displayChart(divid){
 	var url = 'modules/report/'+divid+'Report.php' + getSearchParamsReport();

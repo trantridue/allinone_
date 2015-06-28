@@ -76,12 +76,50 @@ class ReportService {
                         }
                       ],
                 series: [";
-		$str = $str . $this->genData ( $datefrom, $dateto, $charttype, $charttime, $nbrShop, $id_shop ) . "]
+		$str = $str . $this->genDataExport ( $datefrom, $dateto, $charttype, $charttime, $nbrShop, $id_shop ) . "]
             });
         });";
 		echo $str;
 	}
-	function genData($datefrom, $dateto, $charttype, $charttime, $nbrShop, $id_shop) {
+	function generateDataPropertyChart($params, $chartId, $title, $nbrShop) {
+		$datefrom = isset ( $params ['datefrom'] ) ? $params ['datefrom'] : date ( 'Y-m-01' );
+		$dateto = isset ( $params ['dateto'] ) ? $params ['dateto'] : date ( 'Y-m-t' );
+		$charttype = isset ( $params ['charttype'] ) ? $params ['charttype'] : 'spline';
+		$charttime = isset ( $params ['charttime'] ) ? $params ['charttime'] : '%Y-%m-%d';
+		$id_shop = $params ['id_shop'];
+		$str = "$(document).ready(function () {
+            $('#" . $chartId . "').jqChart({
+            	background: background,      
+            	border: { strokeStyle: '#6ba851' },            	
+            	tooltips: { type: 'shared' },
+            	shadows: {
+                    enabled: true,
+                    shadowColor: 'gray',
+                    shadowBlur: 10,
+                    shadowOffsetX: 3,
+                    shadowOffsetY: 3
+                },
+                crosshairs: {
+                    enabled: true,
+                    hLine: false,
+                    vLine: { strokeStyle: '#cc0a0c' }
+                },
+            	legend: { title: 'Legend' },            	
+                title: { text: '" . $title . "' },
+                axes: [
+                        {
+                        	type: 'category',
+                            location: 'bottom',
+                            zoomEnabled: true
+                        }
+                      ],
+                series: [";
+		$str = $str . $this->genDataProperty ( $datefrom, $dateto, $charttype, $charttime, $nbrShop, $id_shop ) . "]
+            });
+        });";
+		echo $str;
+	}
+	function genDataExport($datefrom, $dateto, $charttype, $charttime, $nbrShop, $id_shop) {
 		$returnStr = "";
 		if ($id_shop != '') {
 			$returnStr = $returnStr . $this->generateDataByShop ( $datefrom, $dateto, $charttype, $charttime, $id_shop );
@@ -91,6 +129,36 @@ class ReportService {
 			}
 		}
 		return substr ( $returnStr, 0, - 1 );
+	}
+	function genDataProperty($datefrom, $dateto, $charttype, $charttime, $nbrShop, $id_shop) {
+		$returnStr = "";
+//		if ($id_shop != '') {
+			$returnStr = $returnStr . $this->generateProperty ( $datefrom, $dateto, $charttype, $charttime, $id_shop );
+//		} else {
+//			for($i = 0; $i <= $nbrShop; $i ++) {
+//				$returnStr = $returnStr . $this->generateDataByShop ( $datefrom, $dateto, $charttype, $charttime, $i );
+//			}
+//		}
+		return substr ( $returnStr, 0, - 1 );
+	}
+	function generateProperty($datefrom, $dateto, $charttype, $charttime, $shop_id) {
+		$qry = "";
+		$str = "";
+		
+		$str = "{	title : 'Property',type: '" . $charttype . "',data: [";
+		$qry = "select avg(t1.amount) as total,Date_format(t1.date, '" . $charttime . "') 
+		as date from  property t1 where t1.date BETWEEN '" . $datefrom . "' and '" . $dateto . "'
+		GROUP  BY Date_format(t1.date, '" . $charttime . "')";
+		
+		$result = mysql_query ( $qry, $this->connection );
+		
+		while ( $rows = mysql_fetch_array ( $result ) ) {
+			$str = $str . "['" . $rows ['date'] . "'," . $rows ['total'] . "],";
+		}
+		$str = $str . "]},";
+		
+		return $str;
+	
 	}
 	function generateDataByShop($datefrom, $dateto, $charttype, $charttime, $shop_id) {
 		$qry = "";

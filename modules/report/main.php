@@ -29,14 +29,14 @@ if($commonService->isAdmin()) {?>
      <div id="report1"  style="display:block;">
 	<?php include 'report1Report.php';?>
 	</div>
+	<div id="report3" style="display:none;">
+	<?php include 'report3Report.php';?>
+	</div>
   	<div id="report0" style="display:none;">
 	<?php include 'report0Report.php';?>
 	</div>
   	<div id="report2" style="display:block;">
 	<?php include 'report2Report.php';?>
-	</div>
-  	<div id="report3" style="display:none;">
-	<?php include 'report3Report.php';?>
 	</div>
    
   </div>
