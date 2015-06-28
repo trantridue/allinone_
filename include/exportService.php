@@ -448,20 +448,19 @@ class ExportService {
 	function listReturnDefault() {
 		session_start ();
 		$qry = "SELECT t1.re_date as date,if(datediff(now(),t1.re_date)=0,'Hôm nay',t1.re_date) as istoday ,
-		t3.name,t3.tel,t1.product_code,t4.name as product,t1.quantity,t1.export_price,t2.code,t1.re_qty,t1.re_date
+		t3.name,t3.tel,t1.product_code,t4.name as product,t1.quantity,t1.export_price,t2.code,t1.re_qty,
+		t1.re_date, t2.date as buydate, date_format(t2.date,'%Y-%m-%d') as buydatedis,t2.code as export_facture_code
 		FROM `export_facture_product` t1,export_facture t2,customer t3,product t4
 		where t1.re_qty > 0
 		and t1.export_facture_code = t2.code
 		and t3.id = t2.customer_id
 		and t4.code = t1.product_code and datediff(now(),t1.re_date) <= " . $_SESSION ['nbr_day_default_export_returned'] . " order by t1.re_date desc";
-		$result = mysql_query ( $qry, $this->connection );
-		$array_total = array (3 => "Total return", 6 => "Quantity" );
-		$this->commonService->generateJSDatatableComplex ( $result, customerreturndatatable, 8, 'desc', $array_total );
-		$this->commonService->generateJqueryDatatable ( $result, customerreturndatatable, $this->buildArrayReturnParameter () );
+		$this->processListReturn($qry);
 	}
 	function listReturn($params) {
 		$qry = "SELECT t1.re_date as date,if(datediff(now(),t1.re_date)=0,'Hôm nay',t1.re_date) as istoday ,
-		t3.name,t3.tel,t1.product_code,t4.name as product,t1.quantity,t1.export_price,t2.code,t1.re_qty,t1.re_date
+		t3.name,t3.tel,t1.product_code,t4.name as product,t1.quantity,t1.export_price,t2.code,t1.re_qty,t2.code as export_facture_code,
+		t1.re_date, t2.date as buydate, date_format(t2.date,'%Y-%m-%d') as buydatedis
 		FROM `export_facture_product` t1,export_facture t2,customer t3,product t4
 		where t1.re_qty > 0
 		and t1.export_facture_code = t2.code
@@ -480,13 +479,26 @@ class ExportService {
 		
 		$qry = $qry . "order by t1.re_date desc";
 		//		echo $qry;
+		$this->processListReturn($qry);
+	}
+	function processListReturn($qry) {
 		$result = mysql_query ( $qry, $this->connection );
-		$array_total = array (3 => "Total return", 6 => "Quantity" );
+		$array_total = array (2 => "Total return", 5 => "Quantity", 6 => "Return" );
 		$this->commonService->generateJSDatatableComplex ( $result, customerreturndatatable, 8, 'desc', $array_total );
 		$this->commonService->generateJqueryDatatable ( $result, customerreturndatatable, $this->buildArrayReturnParameter () );
 	}
 	function buildArrayReturnParameter() {
-		return array ("counter_colum" => "No", "name" => "Khách Hàng", "tel" => "Điện thoại", "re_qty*export_price" => "complex", "product_code,code" => "Code,product_code", "product" => "Sản phẩm", "quantity" => "Đã mua", "re_qty" => "Trả lại", "export_price" => "Giá bán", "date" => "Ngày trả,istoday" );
+		return array (
+		"counter_colum" => "No"
+		,"tel" => "Khách Hàng,name"
+		, "re_qty*export_price" => "complex"
+		, "export_facture_code" => "Code,product_code"
+		, "product" => "Sản phẩm"
+		, "quantity" => "Đã mua"
+		, "re_qty" => "Trả lại"
+		, "export_price" => "Giá bán"
+		, "buydate,export_facture_code" => "Ngày mua,buydatedis"
+		, "date" => "Ngày trả,istoday" );
 	}
 	function listReservationDefault() {
 		$qry = "SELECT t1.*,t1.status as reservation_status,t2.name,t2.tel FROM `customer_reservation_histo` t1 
