@@ -222,10 +222,10 @@ class SpendService {
 				
 		$result = mysql_query ( $qry, $this->connection );
 		$array_total = array (
-				0 => "Tổng Chi"
+				1 => "Tổng Chi"
 		);
 //		echo $qry;
-		$this->commonService->generateJSDatatableComplex ( $result, spenddatatable, 2, 'desc', $array_total );
+		$this->commonService->generateJSDatatableComplex ( $result, spenddatatable, 3, 'desc', $array_total );
 		$this->commonService->generateJqueryDatatable ( $result, spenddatatable, $this->buildArrayParameter() );
 	}
 	function deleteSpend($spendid) {
