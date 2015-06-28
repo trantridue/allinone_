@@ -132,13 +132,7 @@ class ReportService {
 	}
 	function genDataProperty($datefrom, $dateto, $charttype, $charttime, $nbrShop, $id_shop) {
 		$returnStr = "";
-//		if ($id_shop != '') {
-			$returnStr = $returnStr . $this->generateProperty ( $datefrom, $dateto, $charttype, $charttime, $id_shop );
-//		} else {
-//			for($i = 0; $i <= $nbrShop; $i ++) {
-//				$returnStr = $returnStr . $this->generateDataByShop ( $datefrom, $dateto, $charttype, $charttime, $i );
-//			}
-//		}
+		$returnStr = $returnStr . $this->generateProperty ( $datefrom, $dateto, $charttype, $charttime, $id_shop );
 		return substr ( $returnStr, 0, - 1 );
 	}
 	function generateProperty($datefrom, $dateto, $charttype, $charttime, $shop_id) {
@@ -150,12 +144,38 @@ class ReportService {
 		as date from  property t1 where t1.date BETWEEN '" . $datefrom . "' and '" . $dateto . "'
 		GROUP  BY Date_format(t1.date, '" . $charttime . "')";
 		
+		$str1 = "{	title : 'Fund',type: '" . $charttype . "',data: [";
+		$qry1 = "select avg(t1.fund) as total,Date_format(t1.date, '" . $charttime . "') 
+		as date from  property t1 where t1.date BETWEEN '" . $datefrom . "' and '" . $dateto . "'
+		GROUP  BY Date_format(t1.date, '" . $charttime . "')";
+		
+		$str2 = "{	title : 'Chi phí ',type: '" . $charttype . "',data: [";
+		$qry2 = "SELECT Sum(amount) AS total,
+		       Date_format(date, '" . $charttime . "') as date
+		FROM   spend
+		WHERE  Date_format(date, '%Y-%m-%d') BETWEEN '" . $datefrom . "' and '" . $dateto . "'
+		GROUP  BY Date_format(date, '" . $charttime . "')";
+		
 		$result = mysql_query ( $qry, $this->connection );
+		$result1 = mysql_query ( $qry1, $this->connection );
+		$result2 = mysql_query ( $qry2, $this->connection );
 		
 		while ( $rows = mysql_fetch_array ( $result ) ) {
 			$str = $str . "['" . $rows ['date'] . "'," . $rows ['total'] . "],";
 		}
 		$str = $str . "]},";
+		
+		while ( $rows1 = mysql_fetch_array ( $result1 ) ) {
+			$str1 = $str1 . "['" . $rows1 ['date'] . "'," . $rows1 ['total'] . "],";
+		}
+		$str1 = $str1 . "]},";
+		
+		while ( $rows2 = mysql_fetch_array ( $result2 ) ) {
+			$str2 = $str2 . "['" . $rows2 ['date'] . "'," . $rows2 ['total'] . "],";
+		}
+		$str2 = $str2 . "]},";
+		
+		$str = $str.$str1.$str2;
 		
 		return $str;
 	
