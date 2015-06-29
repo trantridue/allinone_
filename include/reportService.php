@@ -483,6 +483,17 @@ class ReportService {
 		}
 		return $this->getAmountReport2Zero ( $qry );
 	}
+	function getAmountToDay() {
+		$qry = "select sum(t1.quantity*t1.export_price) AS amount
+				FROM   export_facture_product t1,
+				       export_facture t2
+				WHERE  t1.export_facture_code = t2.code
+				       AND date_format(t2.date,'%Y-%m-%d') BETWEEN '" . date('Y-m-d') . "' and '" . date('Y-m-d') . "'";
+		$qry1 = "SELECT sum(re_qty*export_price) as amount FROM `export_facture_product` t1
+				where t1.re_qty >0 and date_format(t1.re_date,'%Y-%m-%d') = date_format(now(),'%Y-%m-%d')
+				";
+		return number_format($this->getAmountReportnoFormat ( $qry ) - $this->getAmountReportnoFormat ( $qry1 ),0,'.',',');
+	}
 	function getInoutByShopAndDate($startdate, $enddate, $shopid) {
 		$qry = "";
 		if ($shopid == 'all') {
