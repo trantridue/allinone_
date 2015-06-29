@@ -154,6 +154,10 @@ class ReportService {
 		as date from  property t1 where t1.date BETWEEN '" . $datefrom . "' and '" . $dateto . "'
 		GROUP  BY Date_format(t1.date, '" . $charttime . "')";
 		
+		$qryLoan = "select avg(t1.loan) as total,Date_format(t1.date, '" . $charttime . "') 
+		as date from  property t1 where t1.date BETWEEN '" . $datefrom . "' and '" . $dateto . "'
+		GROUP  BY Date_format(t1.date, '" . $charttime . "')";
+		
 		$qrySpend = "SELECT Sum(amount) AS total,
 		       Date_format(date, '" . $charttime . "') as date
 		FROM   spend
@@ -171,19 +175,15 @@ class ReportService {
 			WHERE  t1.export_facture_code = t2.code
 			       AND Date_format(t2.date, '%Y-%m-%d') BETWEEN '" . $datefrom . "' and '" . $dateto . "'
 			GROUP  BY Date_format(t2.date, '" . $charttime . "')";
-		$str = "";
-		if($issimplemode=='false'){
-			$str = 	$this->getChartDataOfQuery($qryProperty,$charttype,'Tài sản')
+		$str = 	$this->getChartDataOfQuery($qryProperty,$charttype,'Tài sản')
 				.$this->getChartDataOfQuery($qryFund,$charttype,'Quỹ')
+				.$this->getChartDataOfQuery($qryLoan,$charttype,'Loan')
 				.$this->getChartDataOfQuery($qryStore,$charttype,'Kho hàng');
-		} else {
-			$str = 	$this->getChartDataOfQuery($qryProperty,$charttype,'Tài sản')
-				.$this->getChartDataOfQuery($qryFund,$charttype,'Quỹ')
-				.$this->getChartDataOfQuery($qryStore,$charttype,'Kho hàng')
-				.$this->getChartDataOfQuery($qrySpend,$charttype,'Chi tiêu')
-				.$this->getChartDataOfQuery($qryInteret,$charttype,'Lợi nhuận');
-		}
-		
+				
+		if($issimplemode != 'false'){
+			$str = $str . $this->getChartDataOfQuery($qrySpend,$charttype,'Chi tiêu')
+						.$this->getChartDataOfQuery($qryInteret,$charttype,'Lợi nhuận');
+		} 
 		return $str;
 	
 	}
@@ -423,8 +423,10 @@ class ReportService {
 	}
 	
 	function showDynamicInformation($startdate, $enddate) {
-		$str = "<table width='100%' style='font-size:10pt;'><tr><td align='right' style='background-color:pink;'>CASH All: </td>
-				<td style='background-color:pink;'><strong>" . $this->getCashByShop ( $startdate, $enddate, 'all' ) . tab4 . "</strong></td>
+		$str = "<table width='100%' style='font-size:10pt;'>
+				<tr>
+				 <td align='right' style='background-color:pink;'>CASH All: </td>
+				 <td style='background-color:pink;'><strong>" . $this->getCashByShop ( $startdate, $enddate, 'all' ) . tab4 . "</strong></td>
 				 <td align='right'>CASH 1: </td><td><strong>" . $this->getCashByShop ( $startdate, $enddate, 1 ) . tab4 . "</strong>
 				 <td align='right'>CASH 2: </td><td><strong>" . $this->getCashByShop ( $startdate, $enddate, 2 ) . tab4 . "</strong>
 				 <td align='right'>CASH 3: </td><td><strong>" . $this->getCashByShop ( $startdate, $enddate, 3 ) . tab4 . "</strong>
@@ -432,8 +434,9 @@ class ReportService {
 				 <td style='background-color:violet;'><strong>" . $this->getRoiByShopAndDate ( $startdate, $enddate, 'all' ) . tab4 . "</strong>
 				 <td align='right'>ROI 1: </td><td><strong>" . $this->getRoiByShopAndDate ( $startdate, $enddate, 1 ) . tab4 . "</strong>
 				 <td align='right'>ROI 2: </td><td><strong>" . $this->getRoiByShopAndDate ( $startdate, $enddate, 2 ) . tab4 . "</strong>
-				 <td align='right'>ROI 3: </td><td><strong>" . $this->getRoiByShopAndDate ( $startdate, $enddate, 3 ) . tab4 . "</strong></td></tr>
-				 <tr>
+				 <td align='right'>ROI 3: </td><td><strong>" . $this->getRoiByShopAndDate ( $startdate, $enddate, 3 ) . tab4 . "</strong></td>
+				</tr>
+				<tr>
 				 <td align='right' style='background-color:yellow;'>Ex ALL: </td>
 				 <td style='background-color:yellow;'><strong>" . $this->getExportByShopAndDate ( $startdate, $enddate, 'all' ) . tab4 . "</strong>
 				 <td align='right'>Ex 1: </td><td><strong>" . $this->getExportByShopAndDate ( $startdate, $enddate, 1 ) . tab4 . "</strong>
@@ -444,9 +447,20 @@ class ReportService {
 				 <td align='right'>Re  1: </td><td><strong>" . $this->getReturnByShopAndDate ( $startdate, $enddate, 1 ) . tab4 . "</strong>
 				 <td align='right'>Re  2: </td><td><strong>" . $this->getReturnByShopAndDate ( $startdate, $enddate, 2 ) . tab4 . "</strong>
 				 <td align='right'>Re  3: </td><td><strong>" . $this->getReturnByShopAndDate ( $startdate, $enddate, 3 ) . tab4 . "</strong></td>
-				
-				 </tr>
-				 </table>
+				</tr>
+				<tr>
+				 <td align='right' style='background-color:yellow;'>EARN ALL: </td>
+				 <td style='background-color:yellow;'><strong>" . $this->getInteretByShopAndDate ( $startdate, $enddate, 'all' ) . tab4 . "</strong>
+				 <td align='right'>EARN 1: </td><td><strong>" . $this->getInteretByShopAndDate ( $startdate, $enddate, 1 ) . tab4 . "</strong>
+				 <td align='right'>EARN 2: </td><td><strong>" . $this->getInteretByShopAndDate ( $startdate, $enddate, 2 ) . tab4 . "</strong>
+				 <td align='right'>EARN 3: </td><td><strong>" . $this->getInteretByShopAndDate ( $startdate, $enddate, 3 ) . tab4 . "</strong></td>
+				 <td align='right' style='background-color:rgb(65, 140, 240);'>Re ALL: </td>
+				 <td style='background-color:rgb(65, 140, 240);'><strong>"  . "</strong>
+				 <td align='right'>Re  1: </td><td><strong>"  . "</strong>
+				 <td align='right'>Re  2: </td><td><strong>" . "</strong>
+				 <td align='right'>Re  3: </td><td><strong>" . "</strong></td>
+				</tr>
+				</table>
 				 ";
 		return $str;
 	}
@@ -496,6 +510,32 @@ class ReportService {
 					   export_facture t2
 				WHERE  t1.export_facture_code = t2.code and t2.shop_id=" . $shopid . "
 				       AND date_format(t1.re_date,'%Y-%m-%d') BETWEEN '" . $startdate . "' and '" . $enddate . "'";
+		}
+		return $this->getAmountReport2Zero ( $qry );
+	}
+	function getInteretByShopAndDate($startdate, $enddate, $shopid) {
+		$qry = "";
+		if ($shopid == 'all') {
+			$qry = "SELECT Sum(( t1.quantity - t1.re_qty ) *
+           			(t1.export_price - (SELECT Max(import_price)
+                              FROM   product_import
+                              WHERE  product_code =
+       				t1.product_code) ) ) AS amount
+			FROM   export_facture_product t1,
+			       export_facture t2
+			WHERE  t1.export_facture_code = t2.code
+			       AND Date_format(t2.date, '%Y-%m-%d') BETWEEN '" . $startdate . "' and '" . $enddate . "'";
+		
+		} else {
+			$qry = "SELECT Sum(( t1.quantity - t1.re_qty ) *
+           			(t1.export_price - (SELECT Max(import_price)
+                              FROM   product_import
+                              WHERE  product_code =
+       				t1.product_code) ) ) AS amount
+			FROM   export_facture_product t1,
+			       export_facture t2
+			WHERE  t1.export_facture_code = t2.code and t2.shop_id = ".$shopid."
+			       AND Date_format(t2.date, '%Y-%m-%d') BETWEEN '" . $startdate . "' and '" . $enddate . "'";
 		}
 		return $this->getAmountReport2Zero ( $qry );
 	}
