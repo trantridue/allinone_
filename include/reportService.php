@@ -40,7 +40,13 @@ class ReportService {
 		$this->HandleError ( $err . "\r\n mysqlerror:" . mysql_error () );
 	}
 	function getReportParameters() {
-		$parameterArray = array ('datefrom' => $_REQUEST ['datefrom'], 'dateto' => $_REQUEST ['dateto'], 'id_shop' => $_REQUEST ['id_shop'], 'charttype' => $_REQUEST ['charttype'], 'charttime' => $_REQUEST ['charttime'] );
+		$parameterArray = array (
+		'datefrom' => $_REQUEST ['datefrom'], 
+		'dateto' => $_REQUEST ['dateto'], 
+		'id_shop' => $_REQUEST ['id_shop'], 
+		'charttype' => $_REQUEST ['charttype'], 
+		'issimplechart' => $_REQUEST ['issimplechart'], 
+		'charttime' => $_REQUEST ['charttime'] );
 		return $parameterArray;
 	}
 	function generateDataExportChart($params, $chartId, $title, $nbrShop) {
@@ -114,7 +120,7 @@ class ReportService {
                         }
                       ],
                 series: [";
-		$str = $str . $this->genDataProperty ( $datefrom, $dateto, $charttype, $charttime, $nbrShop, $id_shop ) . "]
+		$str = $str . $this->genDataProperty ( $datefrom, $dateto, $charttype, $charttime, $nbrShop, $id_shop , $params['issimplechart']) . "]
             });
         });";
 		echo $str;
@@ -130,34 +136,31 @@ class ReportService {
 		}
 		return substr ( $returnStr, 0, - 1 );
 	}
-	function genDataProperty($datefrom, $dateto, $charttype, $charttime, $nbrShop, $id_shop) {
+	function genDataProperty($datefrom, $dateto, $charttype, $charttime, $nbrShop, $id_shop,$issimplemode) {
 		$returnStr = "";
-		$returnStr = $returnStr . $this->generateProperty ( $datefrom, $dateto, $charttype, $charttime, $id_shop );
+		$returnStr = $returnStr . $this->generateProperty ( $datefrom, $dateto, $charttype, $charttime, $id_shop,$issimplemode );
 		return substr ( $returnStr, 0, - 1 );
 	}
-	function generateProperty($datefrom, $dateto, $charttype, $charttime, $shop_id) {
-		$qry = "";
-		$str = "";
-		
-		$str = "{	title : 'Property',type: '" . $charttype . "',data: [";
-		$qry = "select avg(t1.amount) as total,Date_format(t1.date, '" . $charttime . "') 
+	function generateProperty($datefrom, $dateto, $charttype, $charttime, $shop_id, $issimplemode) {
+		$qryProperty = "select avg(t1.amount) as total,Date_format(t1.date, '" . $charttime . "') 
 		as date from  property t1 where t1.date BETWEEN '" . $datefrom . "' and '" . $dateto . "'
 		GROUP  BY Date_format(t1.date, '" . $charttime . "')";
 		
-		$str1 = "{	title : 'Fund',type: '" . $charttype . "',data: [";
-		$qry1 = "select avg(t1.fund) as total,Date_format(t1.date, '" . $charttime . "') 
+		$qryFund = "select avg(t1.fund) as total,Date_format(t1.date, '" . $charttime . "') 
 		as date from  property t1 where t1.date BETWEEN '" . $datefrom . "' and '" . $dateto . "'
 		GROUP  BY Date_format(t1.date, '" . $charttime . "')";
 		
-		$str2 = "{	title : 'Chi phí ',type: '" . $charttype . "',data: [";
-		$qry2 = "SELECT Sum(amount) AS total,
+		$qryStore = "select avg(t1.store) as total,Date_format(t1.date, '" . $charttime . "') 
+		as date from  property t1 where t1.date BETWEEN '" . $datefrom . "' and '" . $dateto . "'
+		GROUP  BY Date_format(t1.date, '" . $charttime . "')";
+		
+		$qrySpend = "SELECT Sum(amount) AS total,
 		       Date_format(date, '" . $charttime . "') as date
 		FROM   spend
 		WHERE  Date_format(date, '%Y-%m-%d') BETWEEN '" . $datefrom . "' and '" . $dateto . "'
 		GROUP  BY Date_format(date, '" . $charttime . "')";
 		
-		$str3 = "{	title : 'Lợi nhuận ',type: '" . $charttype . "',data: [";
-			$qry3 = "SELECT Sum(( t1.quantity - t1.re_qty ) *
+		$qryInteret = "SELECT Sum(( t1.quantity - t1.re_qty ) *
            			(t1.export_price - (SELECT Max(import_price)
                               FROM   product_import
                               WHERE  product_code =
@@ -168,36 +171,30 @@ class ReportService {
 			WHERE  t1.export_facture_code = t2.code
 			       AND Date_format(t2.date, '%Y-%m-%d') BETWEEN '" . $datefrom . "' and '" . $dateto . "'
 			GROUP  BY Date_format(t2.date, '" . $charttime . "')";
+		$str = "";
+		if($issimplemode=='false'){
+			$str = 	$this->getChartDataOfQuery($qryProperty,$charttype,'Tài sản')
+				.$this->getChartDataOfQuery($qryFund,$charttype,'Quỹ')
+				.$this->getChartDataOfQuery($qryStore,$charttype,'Kho hàng');
+		} else {
+			$str = 	$this->getChartDataOfQuery($qryProperty,$charttype,'Tài sản')
+				.$this->getChartDataOfQuery($qryFund,$charttype,'Quỹ')
+				.$this->getChartDataOfQuery($qryStore,$charttype,'Kho hàng')
+				.$this->getChartDataOfQuery($qrySpend,$charttype,'Chi tiêu')
+				.$this->getChartDataOfQuery($qryInteret,$charttype,'Lợi nhuận');
+		}
 		
+		return $str;
+	
+	}
+	function getChartDataOfQuery($qry,$charttype,$title){
+		$str = "{	title : '".$title."',type: '" . $charttype . "',data: [";
 		$result = mysql_query ( $qry, $this->connection );
-		$result1 = mysql_query ( $qry1, $this->connection );
-		$result2 = mysql_query ( $qry2, $this->connection );
-		$result3 = mysql_query ( $qry3, $this->connection );
-		
 		while ( $rows = mysql_fetch_array ( $result ) ) {
 			$str = $str . "['" . $rows ['date'] . "'," . $rows ['total'] . "],";
 		}
 		$str = $str . "]},";
-		
-		while ( $rows1 = mysql_fetch_array ( $result1 ) ) {
-			$str1 = $str1 . "['" . $rows1 ['date'] . "'," . $rows1 ['total'] . "],";
-		}
-		$str1 = $str1 . "]},";
-		
-		while ( $rows2 = mysql_fetch_array ( $result2 ) ) {
-			$str2 = $str2 . "['" . $rows2 ['date'] . "'," . $rows2 ['total'] . "],";
-		}
-		$str2 = $str2 . "]},";
-		
-		while ( $rows3 = mysql_fetch_array ( $result3 ) ) {
-			$str3 = $str3 . "['" . $rows3 ['date'] . "'," . $rows3 ['total'] . "],";
-		}
-		$str3 = $str3 . "]},";
-		
-		$str = $str.$str1.$str2.$str3;
-		
 		return $str;
-	
 	}
 	function generateDataByShop($datefrom, $dateto, $charttype, $charttime, $shop_id) {
 		$qry = "";
