@@ -2,6 +2,12 @@
 <span style="background-color: yellow;">
 EX : <?php echo $reportService->getAmountToDay();?><?php echo tab4;?>
 </span>
+<span style="background-color:  rgb(116, 221, 137);">
+EA_TD : <?php echo $reportService->getInteretByShopAndDate(date('Y-m-d'),date('Y-m-d'),'all');?><?php echo tab4;?>
+</span>
+<span style="background-color: rgb(255, 0, 48);color:white;">
+EA_MO : <?php echo $reportService->getInteretByShopAndDate(date('Y-m-01'),date('Y-m-t'),'all');?><?php echo tab4;?>
+</span>
 <span style="background-color: rgb(247, 128, 232);">
 RE : <?php echo $reportService->getReturnByShopAndDate(date('Y-m-d'),date('Y-m-d'),'all');?><?php echo tab4;?>
 </span>

@@ -550,6 +550,7 @@ class ReportService {
 		}
 		return $this->getAmountReport2Zero ( $qry );
 	}
+
 	function getRoiByShopAndDate($startdate, $enddate, $shopid) {
 		$qry = "";
 		if ($shopid == 'all') {
