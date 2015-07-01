@@ -447,7 +447,7 @@ class ExportService {
 	}
 	function listReturnDefault() {
 		session_start ();
-		$qry = "SELECT t1.re_date as date,if(datediff(now(),t1.re_date)=0,'Hôm nay',t1.re_date) as istoday ,
+		$qry = "SELECT t1.re_date as date,if(datediff(now(),t1.re_date)=0,'Hôm nay',t1.re_date) as istoday ,t4.link,
 		t3.name,t3.tel,t1.product_code,t4.name as product,t1.quantity,t1.export_price,t2.code,t1.re_qty,
 		t1.re_date, t2.date as buydate, date_format(t2.date,'%Y-%m-%d') as buydatedis,t2.code as export_facture_code
 		FROM `export_facture_product` t1,export_facture t2,customer t3,product t4
@@ -458,7 +458,7 @@ class ExportService {
 		$this->processListReturn($qry);
 	}
 	function listReturn($params) {
-		$qry = "SELECT t1.re_date as date,if(datediff(now(),t1.re_date)=0,'Hôm nay',t1.re_date) as istoday ,
+		$qry = "SELECT t1.re_date as date,if(datediff(now(),t1.re_date)=0,'Hôm nay',t1.re_date) as istoday ,t4.link,
 		t3.name,t3.tel,t1.product_code,t4.name as product,t1.quantity,t1.export_price,t2.code,t1.re_qty,t2.code as export_facture_code,
 		t1.re_date, t2.date as buydate, date_format(t2.date,'%Y-%m-%d') as buydatedis
 		FROM `export_facture_product` t1,export_facture t2,customer t3,product t4
@@ -492,7 +492,7 @@ class ExportService {
 		"counter_colum" => "No"
 		,"tel" => "Khách Hàng,name"
 		, "re_qty*export_price" => "complex"
-		, "export_facture_code" => "Code,product_code"
+		, "export_facture_code" => "Code,product_code,link"
 		, "product" => "Sản phẩm"
 		, "quantity" => "Đã mua"
 		, "re_qty" => "Trả lại"
