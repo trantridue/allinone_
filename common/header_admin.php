@@ -1,25 +1,8 @@
-<a href='change-pwd.php' style="display: none;">Change Pass</a><?php echo tab4;?>
-<span style="background-color: yellow;">
-EX : <?php echo $reportService->getAmountToDay();?><?php echo tab4;?>
-</span>
-<span style="background-color:  rgb(116, 221, 137);">
-EA_TD : <?php echo $reportService->getInteretByShopAndDate(date('Y-m-d'),date('Y-m-d'),'all');?><?php echo tab4;?>
-</span>
-<span style="background-color: rgb(255, 0, 48);color:white;">
-EA_MO : <?php echo $reportService->getInteretByShopAndDate(date('Y-m-01'),date('Y-m-t'),'all');?><?php echo tab4;?>
-</span>
-<span style="background-color: rgb(247, 128, 232);">
-RE : <?php echo $reportService->getReturnByShopAndDate(date('Y-m-d'),date('Y-m-d'),'all');?><?php echo tab4;?>
-</span>
-<span style="background-color: rgb(34, 218, 120);">
-ROI : <?php echo $reportService->getRoiByShopAndDate(date('Y-m-d'),date('Y-m-d'),'all');?><?php echo tab4;?>
-</span>
-<span style="background-color: rgb(255, 192, 203);">
-CA : <?php echo $reportService->getCashByShop(date('Y-m-d'),date('Y-m-d'),'all');?><?php echo tab4;?>
-</span>
-<span style="background-color: rgb(116, 221, 201);">
-KET : <?php echo number_format($reportService->amountInket(),0);?><?php echo tab4;?>
-</span>
-<span style="background-color: rgb(116, 221, 201);">
-INOUT : <?php echo $reportService->getInoutByShopAndDate(date('Y-m-d'),date('Y-m-d'),'all')?><?php echo tab4;?>
-</span>
+<td>EX : <?php echo $reportService->getAmountToDay();?></td>
+<td>ETD : <?php echo $reportService->getInteretByShopAndDate(date('Y-m-d'),date('Y-m-d'),'all');?></td>
+<td>EMO : <?php echo $reportService->getInteretByShopAndDate(date('Y-m-01'),date('Y-m-t'),'all');?></td>
+<td>RE : <?php echo $reportService->getReturnByShopAndDate(date('Y-m-d'),date('Y-m-d'),'all');?></td>
+<td>ROI : <?php echo $reportService->getRoiByShopAndDate(date('Y-m-d'),date('Y-m-d'),'all');?></td>
+<td>CA : <?php echo $reportService->getCashByShop(date('Y-m-d'),date('Y-m-d'),'all');?></td>
+<td>KET : <?php echo number_format($reportService->amountInket(),0);?></td>
+<td>INOUT : <?php echo $reportService->getInoutByShopAndDate(date('Y-m-d'),date('Y-m-d'),'all')?></td>
