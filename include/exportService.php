@@ -582,9 +582,9 @@ class ExportService {
 		and t5.id = t2.shop_id
 		and datediff(now(),t2.date) <= " . $_SESSION ['listExportDefault_nbr_day_limit'] . " order by date desc";
 		//		echo $qry;
-		$this->processExportQuery ( $qry );
+		$this->processExportQuery ( $qry , $isAdminField);
 	}
-	function processExportQuery($qry) {
+	function processExportQuery($qry, $isAdminField) {
 		$result = mysql_query ( $qry, $this->connection );
 		$resulttmp = mysql_query ( $qry, $this->connection );
 		$this->commonService->generateJSDatatableComplexExport ( $result, exportproductdatatable, 10, 'desc', $this->getExportListArrayTotal () );
@@ -644,7 +644,7 @@ class ExportService {
 			$qry = $qry . " and datediff(now(),t2.date) < " . $params ['default_nbr_days_load_export'];
 		}
 		$qry = $qry . "  order by date desc";
-		$this->processExportQuery ( $qry );
+		$this->processExportQuery ( $qry, $isAdminField );
 	}
 	function getExportListArrayTotal() {
 		return $array_total = array (5 => "Q", 6 => "RE", 8 => "T", 9 => "TRE" );
@@ -652,7 +652,6 @@ class ExportService {
 	function getExportListArrayColumn($isAdminField) {
 		if ($isAdminField == 'default') {
 			if ($this->commonService->isAdmin ()) {
-				echo "1";
 				return array ("checkbox" => "RE", "qtyre" => "&nbsp;&nbsp;", "product_code" => "Code,product_code,link,stock", "product_name" => "Tên hàng", "customer,customer_tel,customer_id" => "Khách,customer", "quantity" => "SL&nbsp;&nbsp;", "re_qty" => "RQ&nbsp;&nbsp;", "export_price,price_origine,salepercent" => "PRI&nbsp;&nbsp;&nbsp;&nbsp;,export_price", "export_price*quantity" => "complex", "export_price*re_qty" => "complex", "export_facture_code" => "MÃ_HÓA_ĐƠN", "shop,export_facture_code" => "Shop&nbsp;&nbsp;,shop", "date,username" => "Time,time", "id,deleteExportFacture,export_facture_code" => "Delete", "customer_id" => "hidden_label", "customer" => "hidden_label", "customer_tel" => "hidden_label" );
 			} else {
 				return array ("checkbox" => "RE", "qtyre" => "&nbsp;&nbsp;", "product_code" => "Code,product_code,link,stock", "product_name" => "Tên hàng", "customer,customer_tel,customer_id" => "Khách,customer", "quantity" => "SL&nbsp;&nbsp;", "re_qty" => "RQ&nbsp;&nbsp;", "export_price,price_origine,salepercent" => "PRI&nbsp;&nbsp;&nbsp;&nbsp;,export_price", "export_price*quantity" => "complex", "export_price*re_qty" => "complex", "export_facture_code" => "MÃ_HÓA_ĐƠN", "shop" => "Shop&nbsp;&nbsp;", "date,username" => "Time,time", "customer_id" => "hidden_label", "customer" => "hidden_label", "customer_tel" => "hidden_label" );
