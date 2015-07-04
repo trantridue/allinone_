@@ -286,7 +286,7 @@ class FGMembersite {
 		}
 		$username = $this->SanitizeForSQL ( $username );
 		$pwdmd5 = md5 ( $password );
-		$qry = "select id, shop_id, name, email from $this->tablename where username='$username' and password='$pwdmd5' and confirmcode='y'";
+		$qry = "select id, shop_id, name, email from $this->tablename where username='$username' and password='$pwdmd5' and confirmcode='y' and status='y'";
 		$qryIsAdmin = "select count(*) as isAdmin from user_role t1, role t2, `user` t3 where t3.id = t1.user_id and t1.role_id = t2.id and t2.name='admin' and t3.username ='$username'";
 		
 		$result = mysql_query ( $qry, $this->connection );
