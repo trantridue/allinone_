@@ -89,6 +89,9 @@ function displayChartNow(){
 	if ($('#report3').css('display') == "block") {
 		displayChart('report3');
 	}
+	if ($('#report4').css('display') == "block") {
+		displayChart('report4');
+	}
 }
 function displayChart(divid){
 	var url = 'modules/report/'+divid+'Report.php' + getSearchParamsReport();
@@ -107,7 +110,7 @@ function getSearchParamsReport(){
 }
 function toggleDivShowBtnStatusAndRefresh(divid,thisval){
 	toggleDivShowBtnStatusImediatly(divid,thisval);
-	if(divid=='report0' || divid=='report3') {
+	if(divid=='report0' || divid=='report3' || divid=='report4') {
 		displayChart(divid);
 	}
 }
