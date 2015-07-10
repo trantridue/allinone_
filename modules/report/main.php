@@ -16,10 +16,10 @@ if($commonService->isAdmin()) {?>
   	<input type="button" value="STATISTIC" class="menu_btn_sub" style="background-color:violet;"
 	onclick="toggleDivShowBtnStatusAndRefresh('report1',this);">
   	
-  	<input type="button" value="CHART GRAPH" class="menu_btn_sub" 
+  	<input type="button" value="CHART GRAPH" class="menu_btn_sub"  style="background-color:violet;"
 	onclick="toggleDivShowBtnStatusAndRefresh('report0',this);">
 	
-	<input type="button" value="EXPORT TRACE" class="menu_btn_sub" style="background-color:violet;"
+	<input type="button" value="EXPORT TRACE" class="menu_btn_sub"
 	onclick="toggleDivShowBtnStatusAndRefresh('report2',this);">
 	
 	<input type="button" value="PROPERTY" class="menu_btn_sub"
@@ -35,13 +35,13 @@ if($commonService->isAdmin()) {?>
 	<div id="report3" style="display:none;">
 	<?php include 'report3Report.php';?>
 	</div>
-  	<div id="report0" style="display:none;">
+  	<div id="report0" style="display:block;">
 	<?php include 'report0Report.php';?>
 	</div>
-  	<div id="report2" style="display:block;">
+  	<div id="report2" style="display:none;">
 	<?php include 'report2Report.php';?>
 	</div>
-  	<div id="report4" style="display:block;">
+  	<div id="report4" style="display:none;">
 	<?php include 'report4Report.php';?>
 	</div>
    

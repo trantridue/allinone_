@@ -185,9 +185,6 @@ class ReportService {
 		return substr ( $returnStr, 0, - 1 );
 	}
 function generateCustomer($datefrom, $dateto, $charttype, $charttime, $shop_id, $issimplemode) {
-		$qryProperty = "select avg(t1.amount) as total,Date_format(t1.date, '" . $charttime . "') 
-		as date from  property t1 where t1.date BETWEEN '" . $datefrom . "' and '" . $dateto . "'
-		GROUP  BY Date_format(t1.date, '" . $charttime . "')";
 		
 		$qryTotalFacture = "select count(*) as total, date_format(t1.date,'" . $charttime . "') as date 
 		from export_facture t1 where t1.date between 
@@ -201,39 +198,25 @@ function generateCustomer($datefrom, $dateto, $charttype, $charttime, $shop_id, 
 		from export_facture t1 where t1.date between 
 		'" . $datefrom . "' and '" . $dateto . "' and t1.customer_id <> 1288 group by date_format(t1.date,'" . $charttime . "')";
 		
-		$qryFund = "select avg(t1.fund) as total,Date_format(t1.date, '" . $charttime . "') 
-		as date from  property t1 where t1.date BETWEEN '" . $datefrom . "' and '" . $dateto . "'
-		GROUP  BY Date_format(t1.date, '" . $charttime . "')";
+		$qryTotalNewCustomer = "select distinct count(*) as total, date_format(t1.date,'" . $charttime . "') as date 
+		from export_facture t1 
+		where t1.date between '" . $datefrom . "' and '" . $dateto . "' 
+		and t1.customer_id <> 1288
+		and t1.customer_id in (select id from customer where created_date  between '" . $datefrom . "' and '" . $dateto . "') 
+		group by date_format(t1.date,'" . $charttime . "')";
 		
-		$qryStore = "select avg(t1.store) as total,Date_format(t1.date, '" . $charttime . "') 
-		as date from  property t1 where t1.date BETWEEN '" . $datefrom . "' and '" . $dateto . "'
-		GROUP  BY Date_format(t1.date, '" . $charttime . "')";
+		$qryTotalOldCustomer = "select distinct count(*) as total, date_format(t1.date,'" . $charttime . "') as date 
+		from export_facture t1 
+		where t1.date between '" . $datefrom . "' and '" . $dateto . "' 
+		and t1.customer_id <> 1288
+		and t1.customer_id in (select id from customer where created_date < '" . $datefrom . "') 
+		group by date_format(t1.date,'" . $charttime . "')";
 		
-		$qryLoan = "select avg(t1.loan) as total,Date_format(t1.date, '" . $charttime . "') 
-		as date from  property t1 where t1.date BETWEEN '" . $datefrom . "' and '" . $dateto . "'
-		GROUP  BY Date_format(t1.date, '" . $charttime . "')";
-		
-		$qrySpend = "SELECT Sum(amount) AS total,
-		       Date_format(date, '" . $charttime . "') as date
-		FROM   spend
-		WHERE  Date_format(date, '%Y-%m-%d') BETWEEN '" . $datefrom . "' and '" . $dateto . "'
-		GROUP  BY Date_format(date, '" . $charttime . "')";
-		
-		$qryInteret = "SELECT Sum(( t1.quantity - t1.re_qty ) *
-           			(t1.export_price - (SELECT Max(import_price)
-                              FROM   product_import
-                              WHERE  product_code =
-       				t1.product_code) ) ) AS total,
-			       Date_format(t2.date, '" . $charttime . "') as date
-			FROM   export_facture_product t1,
-			       export_facture t2
-			WHERE  t1.export_facture_code = t2.code
-			       AND Date_format(t2.date, '%Y-%m-%d') BETWEEN '" . $datefrom . "' and '" . $dateto . "'
-			GROUP  BY Date_format(t2.date, '" . $charttime . "')";
 		$str = 	$this->getChartDataOfQuery($qryTotalFacture,$charttype,'FACT')
 				.$this->getChartDataOfQuery($qryTotalFactureGuess,$charttype,'FACT GUESS')
 				.$this->getChartDataOfQuery($qryTotalFactureNoGuess,$charttype,'FACT NO GUESS')
-//				.$this->getChartDataOfQuery($qryStore,$charttype,'Kho hàng')
+				.$this->getChartDataOfQuery($qryTotalNewCustomer,$charttype,'NEW CUS')
+				.$this->getChartDataOfQuery($qryTotalOldCustomer,$charttype,'OLD CUS')
 ;
 				
 //		if($issimplemode != 'false'){
