@@ -1,5 +1,6 @@
 
 <?php
+session_start();
 if (!$commonService->isMobile ()){ 
 ?>
 <div id="exportLeft">

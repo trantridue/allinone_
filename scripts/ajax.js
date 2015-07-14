@@ -1661,6 +1661,7 @@ function calculateTotalFactureSaled(nbrow) {
 		$('#sale_percentage').html('0');
 		$('#sale_percentage').prop('title','0');
 	}
+	$('#salefacture').val($('#sale_percentage').html());
 }
 $(function() {
 	$(".productcode").autocomplete( {
@@ -1692,6 +1693,14 @@ function cancelExportLine(line) {
 	$('#exportpostedprice_' + line).html('');
 	$('#quantity_' + line).val(1);
 	$('#exportprice_' + line).val('');
+	$('#salebyproduct_' + line).val('');
+	calculateExportForm();
+}
+function saleExportLine(line) {
+	if(parseInt($('#salebyproduct_' + line).val())<=0) $('#salebyproduct_' + line).val(0);
+	if(parseInt($('#salebyproduct_' + line).val())>=100) $('#salebyproduct_' + line).val(100);
+	$('#exportprice_' + line).prop('title',(parseInt($('#exportpostedprice_' + line).html())*(100-parseInt($('#salebyproduct_' + line).val()))/100));
+	$('#exportprice_' + line).val(Math.round(parseInt($('#exportpostedprice_' + line).html())*(100-parseInt($('#salebyproduct_' + line).val()))/100));
 	calculateExportForm();
 }
 $(document).ready(
@@ -1753,10 +1762,12 @@ function updatePriceProduct() {
 		$('#salefacture').val('100');
 	}
 	for ( var i = 1; i <= 10; i++) {
-		if ($('#productcode_' + i).val() != '')
+		if ($('#productcode_' + i).val() != '') {
 			$('#exportprice_' + i).val(
-					Math.ceil(parseInt($('#exportpostedprice_' + i).html())
+					Math.round(parseInt($('#exportpostedprice_' + i).html())
 							* (100 - $('#salefacture').val()) / 100));
+			$('#salebyproduct_' + i).val($('#salefacture').val());
+		}
 	}
 	calculateExportForm();
 }

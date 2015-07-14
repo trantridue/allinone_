@@ -16,8 +16,10 @@ $(document).ready(function(){
 			<?php } else { ?>
 			$("#productname_<?php echo $i;?>").prop('title',ui.item.detail_emp);
 			<?php }?>
-			$("#exportprice_<?php echo $i;?>").val(Math.trunc(ui.item.price));
+			$("#exportprice_<?php echo $i;?>").val(Math.round(ui.item.price));
+			$("#salebyproduct_<?php echo $i;?>").val(ui.item.sale);
 			$("#exportpostedprice_<?php echo $i;?>").html(ui.item.posted_price);
+			$("#exportprice_" + <?php echo $i;?>).prop("title",ui.item.price);
 			calculateExportForm();
 		},
 		minLength:1
@@ -34,6 +36,7 @@ $(document).ready(function(){
 	<th width="8%">SL</th>
 	<th width="8%">Giá gốc</th>
 	<th width="8%">Giá bán</th>
+	<th width="8%">Sale</th>
 	<th width="8%">Hủy</th>
 </tr>
 <?php
@@ -54,6 +57,13 @@ for($i = 1; $i <= $_SESSION ['export_number_row']; $i ++) {
 </td>
 <td>
 <input style="text-align: center;" type="number" class="number50" size="2"	id="exportprice_<?php echo $i;?>" maxlength="4" autocomplete="off" onkeypress="validateNum(event);" onkeyup="calculateExportForm();"/>
+</td>
+<td>
+<input style="text-align: center;" type="number" class="number50" size="2"	
+id="salebyproduct_<?php echo $i;?>" 
+onkeypress="saleExportLine('<?php echo $i;?>');" 
+onkeyup="saleExportLine('<?php echo $i;?>');" 
+onclick="saleExportLine('<?php echo $i;?>');"/>
 </td>
 <td><input type="button" onclick="cancelExportLine('<?php echo $i;?>');" value="Hủy"/></td>
 </tr>
