@@ -455,22 +455,25 @@ class ExportService {
 	function listReturnDefault() {
 		session_start ();
 		$qry = "SELECT t1.re_date as date,if(datediff(now(),t1.re_date)=0,'Hôm nay',t1.re_date) as istoday ,t4.link,
-		t3.name,t3.tel,t1.product_code,t4.name as product,t1.quantity,t1.export_price,t2.code,t1.re_qty,
+		t3.name,t3.tel,t1.product_code,t4.name as product,t1.quantity,t1.export_price,t2.code,t1.re_qty,t5.name as shop,
 		t1.re_date, t2.date as buydate, date_format(t2.date,'%Y-%m-%d') as buydatedis,t2.code as export_facture_code
-		FROM `export_facture_product` t1,export_facture t2,customer t3,product t4
+		FROM `export_facture_product` t1,export_facture t2,customer t3,product t4, shop t5
 		where t1.re_qty > 0
 		and t1.export_facture_code = t2.code
 		and t3.id = t2.customer_id
+		and t5.id = t2.shop_id
 		and t4.code = t1.product_code and datediff(now(),t1.re_date) <= " . $_SESSION ['nbr_day_default_export_returned'] . " order by t1.re_date desc";
 		$this->processListReturn($qry);
 	}
 	function listReturn($params) {
 		$qry = "SELECT t1.re_date as date,if(datediff(now(),t1.re_date)=0,'Hôm nay',t1.re_date) as istoday ,t4.link,
-		t3.name,t3.tel,t1.product_code,t4.name as product,t1.quantity,t1.export_price,t2.code,t1.re_qty,t2.code as export_facture_code,
+		t3.name,t3.tel,t1.product_code,t4.name as product,t1.quantity,t1.export_price,t2.code,t1.re_qty,
+		t2.code as export_facture_code, t5.name as shop,
 		t1.re_date, t2.date as buydate, date_format(t2.date,'%Y-%m-%d') as buydatedis
-		FROM `export_facture_product` t1,export_facture t2,customer t3,product t4
+		FROM `export_facture_product` t1,export_facture t2,customer t3,product t4, shop t5
 		where t1.re_qty > 0
 		and t1.export_facture_code = t2.code
+		and t5.id = t2.shop_id
 		and t3.id = t2.customer_id
 		and t4.code = t1.product_code ";
 		
@@ -483,8 +486,14 @@ class ExportService {
 		if ($params ['search_product_code'] != '') {
 			$qry = $qry . " and t1.product_code like '%" . $params ['search_product_code'] . "%'";
 		}
+		if ($params ['id_search_shop'] != '') {
+			$qry = $qry . " and t5.id =" . $params ['id_search_shop'];
+		}
+		if ($params ['id_search_user'] != '') {
+			$qry = $qry . " and t2.user_id =" . $params ['id_search_user'];
+		}
 		
-		$qry = $qry . "order by t1.re_date desc";
+		$qry = $qry . " order by t1.re_date desc";
 		//		echo $qry;
 		$this->processListReturn($qry);
 	}
@@ -504,6 +513,7 @@ class ExportService {
 		, "quantity" => "Đã mua"
 		, "re_qty" => "Trả lại"
 		, "export_price" => "Giá bán"
+		, "shop" => "shop"
 		, "buydate,export_facture_code" => "Ngày mua,buydatedis"
 		, "date" => "Ngày trả,istoday" );
 	}
@@ -692,7 +702,18 @@ class ExportService {
 	}
 	
 	function getSearchParameters() {
-		return array ('isAdminField' => $_REQUEST ['isAdminField'], 'search_customer_name' => $_REQUEST ['search_customer_name'], 'search_product_code' => $_REQUEST ['search_product_code'], 'search_price_from' => $_REQUEST ['search_price_from'], 'search_price_to' => $_REQUEST ['search_price_to'], 'search_customer_tel' => $_REQUEST ['search_customer_tel'], 'search_product_name' => $_REQUEST ['search_product_name'], 'search_date_from' => $_REQUEST ['search_date_from'], 'search_date_to' => $_REQUEST ['search_date_to'], 'id_search_shop' => $_REQUEST ['id_search_shop'], 'default_nbr_days_load_export' => $_REQUEST ['default_nbr_days_load_export'], 'id_search_user' => $_REQUEST ['id_search_user'] );
+		return array ('isAdminField' => $_REQUEST ['isAdminField'], 
+		'search_customer_name' => $_REQUEST ['search_customer_name'], 
+		'search_product_code' => $_REQUEST ['search_product_code'], 
+		'search_price_from' => $_REQUEST ['search_price_from'], 
+		'search_price_to' => $_REQUEST ['search_price_to'], 
+		'search_customer_tel' => $_REQUEST ['search_customer_tel'], 
+		'search_product_name' => $_REQUEST ['search_product_name'], 
+		'search_date_from' => $_REQUEST ['search_date_from'], 
+		'search_date_to' => $_REQUEST ['search_date_to'], 
+		'id_search_shop' => $_REQUEST ['id_search_shop'], 
+		'default_nbr_days_load_export' => $_REQUEST ['default_nbr_days_load_export'], 
+		'id_search_user' => $_REQUEST ['id_search_user'] );
 	}
 	function updateProductLink($product_code, $link) {
 		$datetime = date ( 'Y-m-d H:i:s' );
