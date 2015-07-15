@@ -36,7 +36,7 @@ $(document).ready(function(){
 	<th width="8%">SL</th>
 	<th width="8%">Giá gốc</th>
 	<th width="8%">Giá bán</th>
-	<th width="8%">Sale</th>
+	<th width="5%">Sale</th>
 	<th width="8%">Hủy</th>
 </tr>
 <?php
@@ -59,7 +59,7 @@ for($i = 1; $i <= $_SESSION ['export_number_row']; $i ++) {
 <input style="text-align: center;" type="number" class="number50" size="2"	id="exportprice_<?php echo $i;?>" maxlength="4" autocomplete="off" onkeypress="validateNum(event);" onkeyup="calculateExportForm();"/>
 </td>
 <td>
-<input style="text-align: center;" type="number" class="number50" size="2"	
+<input style="text-align: center;" type="number" class="number30" size="2"	
 id="salebyproduct_<?php echo $i;?>" 
 onkeypress="saleExportLine('<?php echo $i;?>');" 
 onkeyup="saleExportLine('<?php echo $i;?>');" 
