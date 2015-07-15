@@ -1562,6 +1562,7 @@ function updateCheckBoxIfIsboss() {
 		$('#customer_reserve_more_label').html($('#customer_reserve_more').val());
 		$('#customer_give_label').html($('#customer_give').val());
 		$('#give_customer').val(0);
+		$('#give_customer_label').html('0');
 		$("#noteForEmployee").show();
 		$("#noteForEmployee").html('Không phải nhập gì, chỉ cần lưu vào máy!');
 		$("#isBossLabel").css('background-color','yellow');
@@ -1578,6 +1579,7 @@ function updateCheckBoxIfIsboss() {
 function calculateGiveCustomer() {
 	$('#give_customer').val(
 			$('#customer_give').val() - $('#final_total').html());
+	$('#give_customer_label').html($('#give_customer').val());
 }
 function dbclickCustomerGive() {
 	$('#customer_give').val(parseInt($('#final_total').html()));
