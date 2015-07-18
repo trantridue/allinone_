@@ -1722,7 +1722,7 @@ $(document).ready(
 									+ ui.item.bonus_used + "</li></ul>");
 					$("#customer_bonus").html(ui.item.bonus);
 					$("#isBoss").prop('checked', ui.item.isboss);
-					if(ui.item.debt !=0) {
+					if(ui.item.debt > 0) {
 						$("#saveExportBtn").val('Lưu (Khách Có Nợ)');
 						$("#saveExportBtn").css('background-color','rgb(55, 223, 114)');
 					}

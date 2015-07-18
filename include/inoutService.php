@@ -156,33 +156,34 @@ class InoutService {
 				1 => "In",
 				2 => "Out",
 		);
-		
 		$this->commonService->generateJSDatatableComplex ( $result, inoutdatatable, 4, 'desc', $array_total );
 		$this->commonService->generateJqueryDatatable ( $result, inoutdatatable, $this->buildArrayParameter() );
 	}
 	function buildArrayParameter() {
-		if($this->commonService->isAdmin())
-		return array (
-				"amount" => "Amount",
-				"in" => "hidden_field",
-				"out" => "hidden_field",
-				"description" => "Description",
-				"date" => "Date",
-				"id,description,date,shop_id,user_id,amount,type" => "Edit",
-				"id,deletemoney_inout" => "Delete",
-				"user" => "User",
-				"shop" => "Shop"
-		);
-		else 
-		return array (
-				"amount" => "Amount",
-				"in" => "In",
-				"out" => "Out",
-				"description" => "Description",
-				"date" => "Date",
-				"user" => "User",
-				"shop" => "Shop"
-		);
+		session_start();
+		if($this->commonService->isAdmin()){
+			return array (
+					"amount" => "Amount",
+					"in" => "hidden_field",
+					"out" => "hidden_field",
+					"description" => "Description",
+					"date" => "Date",
+					"id,description,date,shop_id,user_id,amount,type" => "Edit",
+					"id,deletemoney_inout" => "Delete",
+					"user" => "User",
+					"shop" => "Shop"
+			);
+		} else { 
+			return array (
+					"amount" => "Amount",
+					"in" => "In",
+					"out" => "Out",
+					"description" => "Description",
+					"date" => "Date",
+					"user" => "User",
+					"shop" => "Shop"
+			);
+		}
 	}
 	function getInputParameters() {
 		return array (
