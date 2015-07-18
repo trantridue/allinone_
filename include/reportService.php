@@ -82,7 +82,7 @@ class ReportService {
                         }
                       ],
                 series: [";
-		$str = $str . $this->genDataExport ( $datefrom, $dateto, $charttype, $charttime, $nbrShop, $id_shop ) . "]
+		$str = $str . $this->genDataExport ( $datefrom, $dateto, $charttype, $charttime, $nbrShop, $id_shop, $params['issimplechart'] ) . "]
             });
         });";
 		echo $str;
@@ -163,13 +163,13 @@ class ReportService {
         });";
 		echo $str;
 	}
-	function genDataExport($datefrom, $dateto, $charttype, $charttime, $nbrShop, $id_shop) {
+	function genDataExport($datefrom, $dateto, $charttype, $charttime, $nbrShop, $id_shop,$issimplemode) {
 		$returnStr = "";
 		if ($id_shop != '') {
-			$returnStr = $returnStr . $this->generateDataByShop ( $datefrom, $dateto, $charttype, $charttime, $id_shop );
+			$returnStr = $returnStr . $this->generateDataByShop ( $datefrom, $dateto, $charttype, $charttime, $id_shop, $issimplemode );
 		} else {
 			for($i = 0; $i <= $nbrShop; $i ++) {
-				$returnStr = $returnStr . $this->generateDataByShop ( $datefrom, $dateto, $charttype, $charttime, $i );
+				$returnStr = $returnStr . $this->generateDataByShop ( $datefrom, $dateto, $charttype, $charttime, $i, $issimplemode );
 			}
 		}
 		return substr ( $returnStr, 0, - 1 );
@@ -219,10 +219,6 @@ function generateCustomer($datefrom, $dateto, $charttype, $charttime, $shop_id, 
 				.$this->getChartDataOfQuery($qryTotalOldCustomer,$charttype,'OLD CUS')
 ;
 				
-//		if($issimplemode != 'false'){
-//			$str = $str . $this->getChartDataOfQuery($qrySpend,$charttype,'Chi tiêu')
-//						.$this->getChartDataOfQuery($qryInteret,$charttype,'Lợi nhuận');
-//		} 
 		return $str;
 	
 	}
@@ -261,13 +257,14 @@ function generateCustomer($datefrom, $dateto, $charttype, $charttime, $shop_id, 
 			       AND Date_format(t2.date, '%Y-%m-%d') BETWEEN '" . $datefrom . "' and '" . $dateto . "'
 			GROUP  BY Date_format(t2.date, '" . $charttime . "')";
 		$str = 	$this->getChartDataOfQuery($qryProperty,$charttype,'Tài sản')
-				.$this->getChartDataOfQuery($qryFund,$charttype,'Quỹ')
+				;
+				
+		if($issimplemode == 'true'){
+			$str = $str . $this->getChartDataOfQuery($qrySpend,$charttype,'Chi tiêu')
+						.$this->getChartDataOfQuery($qryInteret,$charttype,'Lợi nhuận')
+						.$this->getChartDataOfQuery($qryFund,$charttype,'Quỹ')
 				.$this->getChartDataOfQuery($qryLoan,$charttype,'Loan')
 				.$this->getChartDataOfQuery($qryStore,$charttype,'Kho hàng');
-				
-		if($issimplemode != 'false'){
-			$str = $str . $this->getChartDataOfQuery($qrySpend,$charttype,'Chi tiêu')
-						.$this->getChartDataOfQuery($qryInteret,$charttype,'Lợi nhuận');
 		} 
 		return $str;
 	
@@ -281,7 +278,7 @@ function generateCustomer($datefrom, $dateto, $charttype, $charttime, $shop_id, 
 		$str = $str . "]},";
 		return $str;
 	}
-	function generateDataByShop($datefrom, $dateto, $charttype, $charttime, $shop_id) {
+	function generateDataByShop($datefrom, $dateto, $charttype, $charttime, $shop_id, $issimplemode) {
 		$qry = "";
 		$str = "";
 		$qry1 = "";
@@ -393,7 +390,11 @@ function generateCustomer($datefrom, $dateto, $charttype, $charttime, $shop_id, 
 				$str4 = $str4 . "['" . $rows4 ['date'] . "'," . $rows4 ['total'] . "],";
 			}
 			$str4 = $str4 . "]},";
-			return $str . $str1 . $str2 . $str3 . $str4;
+			if($issimplemode == 'true'){
+				return $str . $str1 . $str2 . $str3 . $str4;
+			} else {
+				return $str . $str1 . $str2 ;
+			}
 		} else {
 			return $str . $str1;
 		}

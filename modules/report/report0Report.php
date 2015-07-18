@@ -1,7 +1,7 @@
 <?php
 $isAjax = $_REQUEST ['isAjax'];
 $nbrShop = 0;
-if($_REQUEST['issimplechart']=='false') $nbrShop = 3;
+if($_REQUEST['issimplechart']=='true') $nbrShop = 3;
 if ($isAjax == 'true') {
 	require_once ("../../include/constant.php");
 	require_once ("../../include/reportService.php");
