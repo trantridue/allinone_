@@ -1407,6 +1407,7 @@ function validateExportForm() {
 		return showNote('Phải nhập đúng số điện thoại của khách!');
 	}
 	if(parseInt($('#customer_give').val()) ==0 && parseInt($('#give_customer').val())>0 && $('#total_facture').html()=='0') {
+		if($('#isAdminField').val() == '')
 		return showNote('Không trả lại tiền cho khách!');
 	}
 	// Validate date export
