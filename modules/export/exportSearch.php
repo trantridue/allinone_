@@ -9,8 +9,8 @@
 <td><input type="text" id="search_product_code" maxlength="12" size="12" class="productcode"></td>
 <td align="right">Giá bán : </td>
 <td>
-<input type="text" id="search_price_from" maxlength="6" size="4" autocomplete="off"  onkeypress="validateNum(event);"/>
-<input type="text" id="search_price_to" maxlength="6" size="4" autocomplete="off"  onkeypress="validateNum(event);"/>
+<input type="number" id="search_price_from" maxlength="6" class="number50" autocomplete="off"  onkeypress="validateNum(event);"/>
+<input type="number" id="search_price_to" maxlength="6" class="number50" autocomplete="off"  onkeypress="validateNum(event);"/>
 </td>
 </tr>
 <tr>
@@ -27,6 +27,17 @@
 <td align="right">Nhân viên : </td>
 <td><?php $commonService->printDropDownListFromTable( 'user', 'search_user');?></td>
 <td><input type="text" id="search_date_to" class="datetimefield"></td>
+</tr>
+<tr>
+<td align="right">Sale : </td>
+<td>
+<input type="number" id="search_sale_from" maxlength="6" class="number50" autocomplete="off"  onkeypress="validateNum(event);"/>
+<input type="number" id="search_sale_to" maxlength="6" class="number50" autocomplete="off"  onkeypress="validateNum(event);"/>
+</td>
+<td align="right"></td>
+<td></td>
+<td align="right"></td>
+<td></td>
 </tr>
 </table>
 </form>

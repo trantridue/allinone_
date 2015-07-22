@@ -626,10 +626,16 @@ class ExportService {
 		and t5.id = t2.shop_id ";
 		
 		if ($params ['search_price_from'] != '') {
-			$qry = $qry . " and t1.export_price >= '" . $params ['search_price_from'] . "'";
+			$qry = $qry . " and t1.export_price >= " . $params ['search_price_from'];
 		}
 		if ($params ['search_price_to'] != '') {
-			$qry = $qry . " and t1.export_price <= '" . $params ['search_price_to'] . "'";
+			$qry = $qry . " and t1.export_price <= " . $params ['search_price_to'];
+		}
+		if ($params ['search_sale_from'] != '') {
+			$qry = $qry . " and ( 1 - t1.export_price / t3.export_price ) * 100 >= " . $params ['search_sale_from'];
+		}
+		if ($params ['search_sale_to'] != '') {
+			$qry = $qry . " and ( 1 - t1.export_price / t3.export_price ) * 100 <= " . $params ['search_sale_to'];
 		}
 		if ($params ['search_date_from'] != '') {
 			$qry = $qry . " and t2.date >= '" . $params ['search_date_from'] . "'";
@@ -655,7 +661,7 @@ class ExportService {
 		if ($params ['id_search_user'] != '') {
 			$qry = $qry . " and t6.id = '" . $params ['id_search_user'] . "'";
 		}
-		//		echo $qry;
+//				echo $qry;
 		if ($_REQUEST ['isAdminField'] != '1') {
 			echo "<div style='text-align:center;background-color:pink;padding-bottom:5px;font-weight:bold;font-style:italic;'>" . "(Bạn chỉ xem được các sản phầm đã bán từ tối đa " . $params ['default_nbr_days_load_export'] . " ngày gần đây!)</div>";
 			$qry = $qry . " and datediff(now(),t2.date) < " . $params ['default_nbr_days_load_export'];
@@ -707,6 +713,8 @@ class ExportService {
 		'search_product_code' => $_REQUEST ['search_product_code'], 
 		'search_price_from' => $_REQUEST ['search_price_from'], 
 		'search_price_to' => $_REQUEST ['search_price_to'], 
+		'search_sale_from' => $_REQUEST ['search_sale_from'], 
+		'search_sale_to' => $_REQUEST ['search_sale_to'], 
 		'search_customer_tel' => $_REQUEST ['search_customer_tel'], 
 		'search_product_name' => $_REQUEST ['search_product_name'], 
 		'search_date_from' => $_REQUEST ['search_date_from'], 
