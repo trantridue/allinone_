@@ -583,6 +583,8 @@ class ExportService {
 		session_start ();
 		$isAdminField = 'default';
 		$qry = "SELECT t1.id,t1.product_code,t1.quantity,t1.export_price,t1.re_qty,t3.description,
+		(select sum(quantity*export_price) from export_facture_product where export_facture_code = t1.export_facture_code) as total_facture,
+    (select sum(tt.quantity*(select export_price from product where code = tt.product_code)) from export_facture_product tt where tt.export_facture_code = t1.export_facture_code) as total_facture_origine,
 		format((1-t1.export_price/t3.export_price)*100,2) as salepercent,t2.customer_id, if((t1.quantity-t1.re_qty) >0,'','disabled') as checkbox,
 		((select ifnull(sum(quantity),0) from product_import where product_code = t3.code) - 
 (select ifnull(sum(quantity),0) from product_return where product_code = t3.code) -
@@ -610,6 +612,8 @@ class ExportService {
 	function listExport($params) {
 		$isAdminField = $params ['isAdminField'];
 		$qry = "SELECT t1.id,t1.product_code,t1.quantity,t1.export_price,t1.re_qty,t3.description,
+		(select sum(quantity*export_price) from export_facture_product where export_facture_code = t1.export_facture_code) as total_facture,
+    (select sum(tt.quantity*(select export_price from product where code = tt.product_code)) from export_facture_product tt where tt.export_facture_code = t1.export_facture_code) as total_facture_origine,
 		format((1-t1.export_price/t3.export_price)*100,2) as salepercent,t2.customer_id, if((t1.quantity-t1.re_qty) >0,'','disabled') as checkbox,
 		((select ifnull(sum(quantity),0) from product_import where product_code = t3.code) - 
 (select ifnull(sum(quantity),0) from product_return where product_code = t3.code) -
@@ -675,17 +679,94 @@ class ExportService {
 	function getExportListArrayColumn($isAdminField) {
 		if ($isAdminField == 'default') {
 			if ($this->commonService->isAdmin ()) {
-				return array ("checkbox" => "RE", "qtyre" => "&nbsp;&nbsp;", "product_code" => "Code,product_code,link,stock", "product_name" => "Tên hàng", "customer,customer_tel,customer_id" => "Khách,customer", "quantity" => "SL&nbsp;&nbsp;", "re_qty" => "RQ&nbsp;&nbsp;", "export_price,price_origine,salepercent" => "PRI&nbsp;&nbsp;&nbsp;&nbsp;,export_price", "export_price*quantity" => "complex", "export_price*re_qty" => "complex", "export_facture_code" => "MÃ_HÓA_ĐƠN", "shop,export_facture_code" => "Shop&nbsp;&nbsp;,shop", "date,username" => "Time,time", "id,deleteExportFacture,export_facture_code" => "Delete", "customer_id" => "hidden_label", "customer" => "hidden_label", "customer_tel" => "hidden_label" );
+				return array ("checkbox" => "RE", 
+				"qtyre" => "&nbsp;&nbsp;", 
+				"product_code" => "Code,product_code,link,stock", 
+				"product_name" => "Tên hàng", 
+				"customer,customer_tel,customer_id" => "Khách,customer", 
+				"quantity" => "SL&nbsp;&nbsp;", 
+				"re_qty" => "RQ&nbsp;&nbsp;", 
+				"export_price,price_origine,salepercent" => "PRI&nbsp;&nbsp;&nbsp;&nbsp;,export_price", 
+				"export_price*quantity" => "complex", 
+				"export_price*re_qty" => "complex", 
+				"total_facture,total_facture_origine,salepercent" => "MÃ_HÓA_ĐƠN,export_facture_code", 
+				"shop,export_facture_code" => "Shop&nbsp;&nbsp;,shop", 
+				"date,username" => "Time,time", 
+				"id,deleteExportFacture,export_facture_code" => "Delete", 
+				"customer_id" => "hidden_label", 
+				"customer" => "hidden_label", 
+				"customer_tel" => "hidden_label" );
 			} else {
-				return array ("checkbox" => "RE", "qtyre" => "&nbsp;&nbsp;", "product_code" => "Code,product_code,link,stock", "product_name" => "Tên hàng", "customer,customer_tel,customer_id" => "Khách,customer", "quantity" => "SL&nbsp;&nbsp;", "re_qty" => "RQ&nbsp;&nbsp;", "export_price,price_origine,salepercent" => "PRI&nbsp;&nbsp;&nbsp;&nbsp;,export_price", "export_price*quantity" => "complex", "export_price*re_qty" => "complex", "export_facture_code" => "MÃ_HÓA_ĐƠN", "shop" => "Shop&nbsp;&nbsp;", "date,username" => "Time,time", "customer_id" => "hidden_label", "customer" => "hidden_label", "customer_tel" => "hidden_label" );
+				return array ("checkbox" => "RE", 
+				"qtyre" => "&nbsp;&nbsp;", 
+				"product_code" => "Code,product_code,link,stock", 
+				"product_name" => "Tên hàng", 
+				"customer,customer_tel,customer_id" => "Khách,customer", 
+				"quantity" => "SL&nbsp;&nbsp;", 
+				"re_qty" => "RQ&nbsp;&nbsp;", 
+				"export_price,price_origine,salepercent" => "PRI&nbsp;&nbsp;&nbsp;&nbsp;,export_price", 
+				"export_price*quantity" => "complex", 
+				"export_price*re_qty" => "complex", 
+				"total_facture,total_facture_origine,salepercent" => "MÃ_HÓA_ĐƠN,export_facture_code", 
+				 "shop" => "Shop&nbsp;&nbsp;", 
+				 "date,username" => "Time,time", 
+				 "customer_id" => "hidden_label", 
+				 "customer" => "hidden_label", 
+				 "customer_tel" => "hidden_label" );
 			}
 		} else if ($isAdminField == '1') {
-			return array ("checkbox" => "RE", "qtyre" => "&nbsp;&nbsp;", "product_code" => "Code,product_code,link,stock", "product_name" => "Tên hàng", "customer,customer_tel,customer_id" => "Khách,customer", "quantity" => "SL&nbsp;&nbsp;", "re_qty" => "RQ&nbsp;&nbsp;", "export_price,price_origine,salepercent" => "PRI&nbsp;&nbsp;&nbsp;&nbsp;,export_price", "export_price*quantity" => "complex", "export_price*re_qty" => "complex", "export_facture_code" => "MÃ_HÓA_ĐƠN", "shop,export_facture_code" => "Shop&nbsp;&nbsp;,shop", "date,username" => "Time,time", "id,deleteExportFacture,export_facture_code" => "Delete", "customer_id" => "hidden_label", "customer" => "hidden_label", "customer_tel" => "hidden_label" );
+			return array ("checkbox" => "RE", 
+			"qtyre" => "&nbsp;&nbsp;", 
+			"product_code" => "Code,product_code,link,stock", 
+			"product_name" => "Tên hàng", 
+			"customer,customer_tel,customer_id" => "Khách,customer",
+			 "quantity" => "SL&nbsp;&nbsp;", 
+			 "re_qty" => "RQ&nbsp;&nbsp;", 
+			 "export_price,price_origine,salepercent" => "PRI&nbsp;&nbsp;&nbsp;&nbsp;,export_price",
+			 "export_price*quantity" => "complex",
+			 "export_price*re_qty" => "complex", 
+			"total_facture,total_facture_origine,salepercent" => "MÃ_HÓA_ĐƠN,export_facture_code", 
+			 "shop,export_facture_code" => "Shop&nbsp;&nbsp;,shop",
+			 "date,username" => "Time,time",
+			 "id,deleteExportFacture,export_facture_code" => "Delete",
+			"customer_id" => "hidden_label", 
+			"customer" => "hidden_label",
+			 "customer_tel" => "hidden_label" );
 		} else {
 			if ($this->commonService->isAdmin ()) {
-				return array ("checkbox" => "RE", "qtyre" => "&nbsp;&nbsp;", "product_code" => "Code,product_code,link,stock", "product_name" => "Tên hàng", "customer,customer_tel,customer_id" => "Khách,customer", "quantity" => "SL&nbsp;&nbsp;", "re_qty" => "RQ&nbsp;&nbsp;", "export_price,price_origine,salepercent" => "PRI&nbsp;&nbsp;&nbsp;&nbsp;,export_price", "export_price*quantity" => "complex", "export_price*re_qty" => "complex", "export_facture_code" => "MÃ_HÓA_ĐƠN", "shop,export_facture_code" => "Shop&nbsp;&nbsp;,shop", "date,username" => "Time,time", "id,deleteExportFacture,export_facture_code" => "Delete", "customer_id" => "hidden_label", "customer" => "hidden_label", "customer_tel" => "hidden_label" );
+				return array ("checkbox" => "RE", 
+				"qtyre" => "&nbsp;&nbsp;", 
+				"product_code" => "Code,product_code,link,stock",
+				 "product_name" => "Tên hàng", 
+				 "customer,customer_tel,customer_id" => "Khách,customer", 
+				 "quantity" => "SL&nbsp;&nbsp;",
+				 "re_qty" => "RQ&nbsp;&nbsp;",
+				 "export_price,price_origine,salepercent" => "PRI&nbsp;&nbsp;&nbsp;&nbsp;,export_price",
+				 "export_price*quantity" => "complex",
+				 "export_price*re_qty" => "complex", 
+				"total_facture,total_facture_origine,salepercent" => "MÃ_HÓA_ĐƠN,export_facture_code", 
+				 "shop,export_facture_code" => "Shop&nbsp;&nbsp;,shop", 
+				 "date,username" => "Time,time", 
+				 "id,deleteExportFacture,export_facture_code" => "Delete", 
+				 "customer_id" => "hidden_label",
+				 "customer" => "hidden_label", 
+				 "customer_tel" => "hidden_label" );
 			} else {
-				return array ("checkbox" => "RE", "qtyre" => "&nbsp;&nbsp;", "product_code" => "Code,product_code,link,stock", "product_name" => "Tên hàng", "customer,customer_tel,customer_id" => "Khách,customer", "quantity" => "SL&nbsp;&nbsp;", "re_qty" => "RQ&nbsp;&nbsp;", "export_price,price_origine,salepercent" => "PRI&nbsp;&nbsp;&nbsp;&nbsp;,export_price", "export_price*quantity" => "complex", "export_price*re_qty" => "complex", "export_facture_code" => "MÃ_HÓA_ĐƠN", "shop" => "Shop&nbsp;&nbsp;", "date,username" => "Time,time", "customer_id" => "hidden_label", "customer" => "hidden_label", "customer_tel" => "hidden_label" );
+				return array ("checkbox" => "RE",
+				 "qtyre" => "&nbsp;&nbsp;", 
+				 "product_code" => "Code,product_code,link,stock",
+				 "product_name" => "Tên hàng", 
+				 "customer,customer_tel,customer_id" => "Khách,customer", 
+				 "quantity" => "SL&nbsp;&nbsp;", "re_qty" => "RQ&nbsp;&nbsp;", 
+				 "export_price,price_origine,salepercent" => "PRI&nbsp;&nbsp;&nbsp;&nbsp;,export_price", 
+				 "export_price*quantity" => "complex",
+				 "export_price*re_qty" => "complex",
+				 "total_facture,total_facture_origine,salepercent" => "MÃ_HÓA_ĐƠN,export_facture_code", 
+				 "shop" => "Shop&nbsp;&nbsp;",
+				 "date,username" => "Time,time",
+				 "customer_id" => "hidden_label",
+				 "customer" => "hidden_label",
+				 "customer_tel" => "hidden_label" );
 			}
 		}
 	}

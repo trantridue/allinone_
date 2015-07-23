@@ -28,7 +28,6 @@
 <td><?php $commonService->printDropDownListFromTable( 'user', 'search_user');?></td>
 <td><input type="text" id="search_date_to" class="datetimefield"></td>
 </tr>
-<?php if($commonService->isAdmin()){?>
 <tr>
 <td align="right">Sale : </td>
 <td>
@@ -40,6 +39,5 @@
 <td align="right"></td>
 <td></td>
 </tr>
-<?php }?>
 </table>
 </form>
