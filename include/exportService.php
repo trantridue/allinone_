@@ -676,100 +676,28 @@ class ExportService {
 	function getExportListArrayTotal() {
 		return $array_total = array (5 => "Q", 6 => "RE", 8 => "T", 9 => "TRE" );
 	}
-	function getExportListArrayColumn($isAdminField) {
-		if ($isAdminField == 'default') {
-			if ($this->commonService->isAdmin ()) {
-				return array ("checkbox" => "RE", 
-				"qtyre" => "&nbsp;&nbsp;", 
-				"product_code" => "Code,product_code,link,stock", 
-				"product_name" => "Tên hàng", 
-				"customer,customer_tel,customer_id" => "Khách,customer", 
-				"quantity" => "SL&nbsp;&nbsp;", 
-				"re_qty" => "RQ&nbsp;&nbsp;", 
-				"export_price,price_origine,salepercent" => "PRI&nbsp;&nbsp;&nbsp;&nbsp;,export_price", 
-				"export_price*quantity" => "complex", 
-				"export_price*re_qty" => "complex", 
-				"total_facture,total_facture_origine,salepercent" => "MÃ_HÓA_ĐƠN,export_facture_code", 
-				"shop,export_facture_code" => "Shop&nbsp;&nbsp;,shop", 
-				"date,username" => "Time,time", 
-				"id,deleteExportFacture,export_facture_code" => "Delete", 
-				"customer_id" => "hidden_label", 
-				"customer" => "hidden_label", 
-				"customer_tel" => "hidden_label" );
-			} else {
-				return array ("checkbox" => "RE", 
-				"qtyre" => "&nbsp;&nbsp;", 
-				"product_code" => "Code,product_code,link,stock", 
-				"product_name" => "Tên hàng", 
-				"customer,customer_tel,customer_id" => "Khách,customer", 
-				"quantity" => "SL&nbsp;&nbsp;", 
-				"re_qty" => "RQ&nbsp;&nbsp;", 
-				"export_price,price_origine,salepercent" => "PRI&nbsp;&nbsp;&nbsp;&nbsp;,export_price", 
-				"export_price*quantity" => "complex", 
-				"export_price*re_qty" => "complex", 
-				"total_facture,total_facture_origine,salepercent" => "MÃ_HÓA_ĐƠN,export_facture_code", 
-				 "shop" => "Shop&nbsp;&nbsp;", 
-				 "date,username" => "Time,time", 
-				 "customer_id" => "hidden_label", 
-				 "customer" => "hidden_label", 
-				 "customer_tel" => "hidden_label" );
-			}
-		} else if ($isAdminField == '1') {
-			return array ("checkbox" => "RE", 
-			"qtyre" => "&nbsp;&nbsp;", 
-			"product_code" => "Code,product_code,link,stock", 
-			"product_name" => "Tên hàng", 
-			"customer,customer_tel,customer_id" => "Khách,customer",
-			 "quantity" => "SL&nbsp;&nbsp;", 
-			 "re_qty" => "RQ&nbsp;&nbsp;", 
-			 "export_price,price_origine,salepercent" => "PRI&nbsp;&nbsp;&nbsp;&nbsp;,export_price",
-			 "export_price*quantity" => "complex",
-			 "export_price*re_qty" => "complex", 
-			"total_facture,total_facture_origine,salepercent" => "MÃ_HÓA_ĐƠN,export_facture_code", 
-			 "shop,export_facture_code" => "Shop&nbsp;&nbsp;,shop",
-			 "date,username" => "Time,time",
-			 "id,deleteExportFacture,export_facture_code" => "Delete",
-			"customer_id" => "hidden_label", 
-			"customer" => "hidden_label",
-			 "customer_tel" => "hidden_label" );
-		} else {
-			if ($this->commonService->isAdmin ()) {
-				return array ("checkbox" => "RE", 
-				"qtyre" => "&nbsp;&nbsp;", 
-				"product_code" => "Code,product_code,link,stock",
-				 "product_name" => "Tên hàng", 
-				 "customer,customer_tel,customer_id" => "Khách,customer", 
-				 "quantity" => "SL&nbsp;&nbsp;",
-				 "re_qty" => "RQ&nbsp;&nbsp;",
-				 "export_price,price_origine,salepercent" => "PRI&nbsp;&nbsp;&nbsp;&nbsp;,export_price",
-				 "export_price*quantity" => "complex",
-				 "export_price*re_qty" => "complex", 
-				"total_facture,total_facture_origine,salepercent" => "MÃ_HÓA_ĐƠN,export_facture_code", 
-				 "shop,export_facture_code" => "Shop&nbsp;&nbsp;,shop", 
-				 "date,username" => "Time,time", 
-				 "id,deleteExportFacture,export_facture_code" => "Delete", 
-				 "customer_id" => "hidden_label",
-				 "customer" => "hidden_label", 
-				 "customer_tel" => "hidden_label" );
-			} else {
-				return array ("checkbox" => "RE",
-				 "qtyre" => "&nbsp;&nbsp;", 
-				 "product_code" => "Code,product_code,link,stock",
-				 "product_name" => "Tên hàng", 
-				 "customer,customer_tel,customer_id" => "Khách,customer", 
-				 "quantity" => "SL&nbsp;&nbsp;", "re_qty" => "RQ&nbsp;&nbsp;", 
-				 "export_price,price_origine,salepercent" => "PRI&nbsp;&nbsp;&nbsp;&nbsp;,export_price", 
-				 "export_price*quantity" => "complex",
-				 "export_price*re_qty" => "complex",
-				 "total_facture,total_facture_origine,salepercent" => "MÃ_HÓA_ĐƠN,export_facture_code", 
-				 "shop" => "Shop&nbsp;&nbsp;",
-				 "date,username" => "Time,time",
-				 "customer_id" => "hidden_label",
-				 "customer" => "hidden_label",
-				 "customer_tel" => "hidden_label" );
-			}
-		}
-	}
+function getExportListArrayColumn($isAdminField) {
+	$exportArray =  array ("checkbox" => "RE", 
+		"qtyre" => "&nbsp;&nbsp;", 
+		"product_code" => "Code,product_code,link,stock", 
+		"product_name" => "Tên hàng", 
+		"customer,customer_tel,customer_id" => "Khách,customer", 
+		"quantity" => "SL&nbsp;&nbsp;", 
+		"re_qty" => "RQ&nbsp;&nbsp;", 
+		"export_price,price_origine,salepercent" => "PRI&nbsp;&nbsp;&nbsp;&nbsp;,export_price", 
+		"export_price*quantity" => "complex", 
+		"export_price*re_qty" => "complex", 
+		"total_facture,total_facture_origine,salepercent" => "MÃ_HÓA_ĐƠN,export_facture_code", 
+		 "shop" => "Shop&nbsp;&nbsp;", 
+		 "date,username" => "Time,time", 
+		 "customer_id" => "hidden_label", 
+		 "customer" => "hidden_label", 
+		 "customer_tel" => "hidden_label" );
+	if (($isAdminField == 'default' && $this->commonService->isAdmin ()) || $isAdminField == '1') {
+		$exportArray["id,deleteExportFacture,export_facture_code"] = "Delete";
+	} 
+	return $exportArray;
+}
 	function showAllCashToday() {
 		$date = date ( 'Y-m-d' );
 		echo "CASH 1:<span style='background-color:yellow;'> " . $this->getCashByShop ( 1, $date, $date );
