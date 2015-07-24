@@ -7,7 +7,9 @@
 	onclick="toggleDivShowBtnStatus('exportReturn',this);">
 <input type="button" value="HỎI HÀNG" class="menu_btn_sub"
 	onclick="toggleDivShowBtnStatus('exportOrderList',this);">
-<input type="reset" value="RESET" class="menu_btn_sub"
+<input type="button" value="MÁY TÍNH" class="menu_btn_sub"
+	onclick="toggleDivShowBtnStatus('exportCalculator',this);">
+<input type="reset" value="RESET" class="menu_btn_sub" style="display:none;"
 	onclick="$('#search_date_from').val(getDateResetSearch());">
 <input type="button" value="TÌM KIẾM" class="menu_btn_sub" style="background-color: violet;"
 	onclick="searchExportFull('true');">

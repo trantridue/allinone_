@@ -15,6 +15,7 @@ if (!$commonService->isMobile ()){
 <div id="exportRight">
 	<div id="exportSearch"><?php include 'exportSearch.php';?></div>
 	<div id="exportButtonRight"><?php include 'exportButtonRight.php';?></div>
+	<div id="exportCalculator" style="display: none;"><?php include 'exportCalculator.php';?></div>
 	<div id="exportDebt" style="display: none;"><?php include 'exportDebt.php';?></div>
 	<div id="exportReservation" style="display: none;"><?php include 'exportReservation.php';?></div>
 	<div id="exportReturn" style="display: none;"><?php include 'exportReturn.php';?></div>
