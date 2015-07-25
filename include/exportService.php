@@ -606,7 +606,7 @@ class ExportService {
 	function processExportQuery($qry, $isAdminField) {
 		$result = mysql_query ( $qry, $this->connection );
 		$resulttmp = mysql_query ( $qry, $this->connection );
-		$this->commonService->generateJSDatatableComplexExport ( $result, exportproductdatatable, 10, 'desc', $this->getExportListArrayTotal () );
+		$this->commonService->generateJSDatatableComplexExport ( $result, exportproductdatatable, 12, 'desc', $this->getExportListArrayTotal () );
 		$this->commonService->generateJqueryDatatableExport ( $result, exportproductdatatable, $this->getExportListArrayColumn ( $isAdminField ) );
 	}
 	function listExport($params) {
@@ -677,7 +677,8 @@ class ExportService {
 		return $array_total = array (5 => "Q", 6 => "RE", 8 => "T", 9 => "TRE" );
 	}
 function getExportListArrayColumn($isAdminField) {
-	$exportArray =  array ("checkbox" => "RE", 
+	$exportArray =  array (
+		"checkbox" => "RE", 
 		"qtyre" => "&nbsp;&nbsp;", 
 		"product_code" => "Code,product_code,link,stock", 
 		"product_name" => "Tên hàng", 
