@@ -9,6 +9,6 @@ if ($isAjax == 'true') {
 	$params = $reportService->getReportParameters();
 }
 ?>
-<div id="reportChart2" style="width: 100%; min-height: 60px;">
-<?php $reportService->listExportTrace($params);?>
+<div id="reportChart5" style="width: 100%; min-height: 60px;">
+<?php $reportService->listEfficientProduct($params);?>
 </div>

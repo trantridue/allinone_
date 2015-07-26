@@ -22,6 +22,9 @@ if($commonService->isAdmin()) {?>
 	<input type="button" value="EXPORT TRACE" class="menu_btn_sub"
 	onclick="toggleDivShowBtnStatusAndRefresh('report2',this);">
 	
+	<input type="button" value="EFFICIENT PRODUCT" class="menu_btn_sub"
+	onclick="toggleDivShowBtnStatusAndRefresh('report5',this);">
+	
 	<input type="button" value="PROPERTY" class="menu_btn_sub"
 	onclick="toggleDivShowBtnStatusAndRefresh('report3',this);">
 	
@@ -43,6 +46,9 @@ if($commonService->isAdmin()) {?>
 	</div>
   	<div id="report4" style="display:none;">
 	<?php include 'report4Report.php';?>
+	</div>
+  	<div id="report5" style="display:none;">
+	<?php include 'report5Report.php';?>
 	</div>
    
   </div>

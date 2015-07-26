@@ -741,5 +741,45 @@ function generateCustomer($datefrom, $dateto, $charttype, $charttime, $shop_id, 
 		$this->commonService->generateJSDatatableSimple ( 'export_trace', 12, 'desc' );
 		$this->commonService->generateJqueryDatatable ( $result, 'export_trace', $array_column );
 	}
+	function listEfficientProduct($params) {
+		$datefrom = isset ( $params ['datefrom'] ) ? $params ['datefrom'] : date ( 'Y-m-01' );
+		$dateto = isset ( $params ['dateto'] ) ? $params ['dateto'] : date ( 'Y-m-d' );
+		
+		$qry = "SELECT code,name,diff,saled_qty,if(rate<=0,'saled zero',rate) as rate, date,
+				total_import,total_export,total_cus_return,total_deviation,total_pro_return,
+				if(total_import-total_export+total_cus_return+total_deviation-total_pro_return=0,'Het hang',total_import-total_export+total_cus_return+total_deviation-total_pro_return) as stock
+				FROM   (SELECT Datediff(Now(), t1.date) as diff, t.code, (SELECT Ifnull(Sum(quantity
+				       -re_qty), 0
+				       ) FROM export_facture_product WHERE product_code = t.code) AS saled_qty,
+				       (SELECT
+				       Ifnull(Sum(quantity-re_qty), 0) FROM export_facture_product WHERE
+				       product_code =
+				       t.code)/Datediff(Now(), t1.date)*1000 AS rate,
+				      t.name,t1.date,
+				    (select ifnull(sum(quantity),0) from product_import where product_code = t.code) as total_import,
+				    (select ifnull(sum(quantity),0) from export_facture_product where product_code = t.code) as total_export,
+				    (select ifnull(sum(re_qty),0) from export_facture_product where product_code = t.code) as total_cus_return,
+				    (select ifnull(sum(quantity),0) from product_deviation where product_code = t.code) as total_deviation,
+				    (select ifnull(sum(quantity),0) from product_deviation where product_code = t.code) as total_pro_return
+				        FROM   import_facture t1,
+				               product t
+				        WHERE  t1.code IN (SELECT import_facture_code FROM product_import WHERE
+				       product_code = t.code) GROUP BY t.code) t2
+				ORDER  BY t2.rate DESC, diff asc, total_import asc, code desc";
+	
+		$result = mysql_query ( $qry, $this->connection );
+		$array_column = array (
+		"counter_colum" => "No",
+		"code" => "code",
+		"rate" => "rate",
+		"name" => "name",
+		"diff" => "Diff date",
+		"saled_qty" => "Đã bán",
+		"date" => "date",
+		"stock" => "Kho", 
+		"total_import" => "Tổng nhập");
+		$this->commonService->generateJSDatatableSimple ( 'efficient_product', 0, 'asc' );
+		$this->commonService->generateJqueryDatatable ( $result, 'efficient_product', $array_column );
+	}
 }
 ?>
