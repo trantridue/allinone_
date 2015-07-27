@@ -167,7 +167,6 @@ function updateproductpostaction(data, actionType) {
 	var successMessage = actionType + " product successful";
 	displayMessageServer(data, errorMessage, successMessage, "product");
 	listProduct();
-	
 }
 function productimportpostaction(data, actionType) {
 	$('#serverMessage').show();

@@ -276,7 +276,6 @@ function buildSearchImportCriteria() {
 }
 function listProduct() {
 	var url = "modules/import/listproduct.php?" + buildSearchImportCriteria();
-//	 alert(url);
 	$('#mainListArea').load(url);
 }
 function listProductReload() {
@@ -498,6 +497,7 @@ function buildProductImportCriteria() {
 	var id_edit_season = "&id_edit_season=" + $('#id_edit_season').val();
 	var id_edit_sex = "&id_edit_sex=" + $('#id_edit_sex').val();
 	var id_edit_brand = "&id_edit_brand=" + $('#id_edit_brand').val();
+	var id_edit_brand_name = "&id_edit_brand_name=" + $('#id_edit_brand_name').val();
 	var edit_product_description = "&edit_product_description="
 			+ $('#edit_product_description').val();
 	var edit_export_price = "&edit_export_price="
@@ -514,7 +514,7 @@ function buildProductImportCriteria() {
 	criteriaString = criteriaString + edit_import_facture_code
 			+ edit_import_date + edit_import_description + id_edit_provider
 			+ edit_product_code + edit_product_name + id_edit_category
-			+ id_edit_season + id_edit_sex + id_edit_brand
+			+ id_edit_season + id_edit_sex + id_edit_brand + id_edit_brand_name
 			+ edit_product_description + edit_export_price + edit_sale
 			+ edit_link + edit_id + edit_quantity + edit_deviation
 			+ edit_deadline + edit_import_price;

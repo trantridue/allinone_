@@ -71,7 +71,11 @@
 <td align="right">Sex : </td>
 <td><?php $commonService->printDropDownListFromTableSelected('sex','edit_sex',$sex_id);?></td>
 <td align="right">Brand : </td>
-<td><?php $commonService->printDropDownListFromTableSelected('brand','edit_brand',$brand_id);?></td>
+<td>
+<input id="id_edit_brand_name" type="text" size="10" value="<?php echo $brand_name?>"
+onmouseup="this.select();" 
+onkeyup="$('#id_edit_brand').val('');" onkeypress="$('#id_edit_brand').val('');"/>
+<input id="id_edit_brand" type="hidden" value="<?php echo $brand_id?>"/> </td>
 <td align="right">Product Desc : </td>
 <td><input value="<?php echo $description;?>" name="edit_product_description" id="edit_product_description" title="<?php echo $description;?>"/></td>
 </tr>
@@ -118,6 +122,18 @@ echo "$(function() {
 		changeMonth : true,
 		changeYear : true
 	});
+});";
+echo "$(document).ready(function(){
+	var ac_config_brand_edit = {
+		source: 'autocomplete/completed_import_brand.php',
+		destroy: true,
+		select: function(event, ui){
+			$('#id_edit_brand_name').val(ui.item.code);
+			$('#id_edit_brand').val(ui.item.brand_id);
+		},
+		minLength:1
+	};
+	$('#id_edit_brand_name').autocomplete(ac_config_brand_edit);
 });";
 echo "</script>";
 ?>

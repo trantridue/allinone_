@@ -569,7 +569,7 @@ class ImportService {
 						sex_id=" . $parameterArray ['id_edit_sex'] . ",
 						export_price=" . $parameterArray ['edit_export_price'] . ",
 						sale=" . $parameterArray ['edit_sale'] . ",
-						brand_id=" . $parameterArray ['id_edit_brand'] . "
+						brand_id=" . $this->updateOrInsertBrand($parameterArray ['id_edit_brand_name'],$parameterArray ['id_edit_brand']) . "
 						where code = '" . $parameterArray ['edit_product_code'] . "'";
 		$qry_product_import = "update product_import set 
 						quantity=" . $parameterArray ['edit_quantity'] . ", 
@@ -758,7 +758,15 @@ class ImportService {
 				'edit_deadline' => $_REQUEST ['edit_deadline'], 
 				'edit_import_description' => $_REQUEST ['edit_import_description'], 
 				'id_edit_provider' => $_REQUEST ['id_edit_provider'], 
-				'edit_product_code' => $_REQUEST ['edit_product_code'], 'edit_product_name' => $_REQUEST ['edit_product_name'], 'id_edit_category' => $_REQUEST ['id_edit_category'], 'id_edit_season' => $_REQUEST ['id_edit_season'], 'id_edit_sex' => $_REQUEST ['id_edit_sex'], 'id_edit_brand' => $_REQUEST ['id_edit_brand'], 'edit_product_description' => $_REQUEST ['edit_product_description'], 'edit_export_price' => $_REQUEST ['edit_export_price'], 'edit_sale' => $_REQUEST ['edit_sale'], 'edit_link' => $_REQUEST ['edit_link'], 'edit_id' => $_REQUEST ['edit_id'], 'edit_quantity' => $_REQUEST ['edit_quantity'], 'edit_deviation' => $_REQUEST ['edit_deviation'], 'edit_import_price' => $_REQUEST ['edit_import_price'] );
+				'edit_product_code' => $_REQUEST ['edit_product_code'], 
+				'edit_product_name' => $_REQUEST ['edit_product_name'], 
+				'id_edit_category' => $_REQUEST ['id_edit_category'], 
+				'id_edit_season' => $_REQUEST ['id_edit_season'], 
+				'id_edit_sex' => $_REQUEST ['id_edit_sex'], 
+				'id_edit_brand' => $_REQUEST ['id_edit_brand'], 
+				'id_edit_brand_name' => $_REQUEST ['id_edit_brand_name'], 
+				'edit_product_description' => $_REQUEST ['edit_product_description'], 
+				'edit_export_price' => $_REQUEST ['edit_export_price'], 'edit_sale' => $_REQUEST ['edit_sale'], 'edit_link' => $_REQUEST ['edit_link'], 'edit_id' => $_REQUEST ['edit_id'], 'edit_quantity' => $_REQUEST ['edit_quantity'], 'edit_deviation' => $_REQUEST ['edit_deviation'], 'edit_import_price' => $_REQUEST ['edit_import_price'] );
 		return $parameterArray;
 	}
 	function deleteReturnProduct($id,$product_code) {
