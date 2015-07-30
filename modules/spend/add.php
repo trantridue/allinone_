@@ -21,7 +21,7 @@
 		$commonService->printDropDownListFromTable ( 'fund', 'add_fund_'.$i);
 		?></td>
 		<td><input type="number" class="number50" autocomplete="off" size="4" id="add_amount_<?php echo $i;?>" maxlength="8" onkeypress="validateNum(event);" tabindex="<?php echo $i;?>"/></td>
-		<td><input type="text" autocomplete="off" id="add_description_<?php echo $i;?>" size="40"/> </td>
+		<td><input type="text" autocomplete="off" id="add_description_<?php echo $i;?>"/> </td>
 		<td><input type="text" autocomplete="off" id="add_date_<?php echo $i;?>" class="datefield" value="<?php echo date('Y-m-d');?>"/></td>
 		<td ><?php
 		$commonService->printDropDownListFromTableSelected ( 'user', 'add_user_'.$i,1 );
