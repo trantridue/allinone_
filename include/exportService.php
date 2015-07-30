@@ -689,14 +689,18 @@ function getExportListArrayColumn($isAdminField) {
 		"export_price*quantity" => "complex", 
 		"export_price*re_qty" => "complex", 
 		"total_facture,total_facture_origine,salepercent" => "MÃ_HÓA_ĐƠN,export_facture_code", 
-		 "shop" => "Shop&nbsp;&nbsp;", 
-		 "date,username" => "Time,time", 
 		 "customer_id" => "hidden_label", 
 		 "customer" => "hidden_label", 
 		 "customer_tel" => "hidden_label" );
 	if (($isAdminField == 'default' && $this->commonService->isAdmin ()) || $isAdminField == '1') {
+		$exportArray["shop,export_facture_code"] = "Shop&nbsp;&nbsp;,shop";
+		$exportArray["date,username"] = "Time,time";
 		$exportArray["id,deleteExportFacture,export_facture_code"] = "Delete";
-	} 
+	} else {
+		$exportArray["shop"] = "Shop&nbsp;&nbsp;";
+		$exportArray["date,username"] = "Time,time";
+	}
+	
 	return $exportArray;
 }
 	function showAllCashToday() {
