@@ -747,7 +747,7 @@ function generateCustomer($datefrom, $dateto, $charttype, $charttime, $shop_id, 
 		
 		$qry = "SELECT code,name,diff,saled_qty,if(rate<=0,'saled zero',rate) as rate, date,
 				total_import,total_export,total_cus_return,total_deviation,total_pro_return,
-				if(total_import-total_export+total_cus_return+total_deviation-total_pro_return=0,'Het hang',total_import-total_export+total_cus_return+total_deviation-total_pro_return) as stock
+				if((total_import-total_export+total_cus_return+total_deviation-total_pro_return)=0,'Het hang',(total_import-total_export+total_cus_return+total_deviation-total_pro_return)) as stock
 				FROM   (SELECT Datediff(Now(), t1.date) as diff, t.code, (SELECT Ifnull(Sum(quantity
 				       -re_qty), 0
 				       ) FROM export_facture_product WHERE product_code = t.code) AS saled_qty,
@@ -760,7 +760,7 @@ function generateCustomer($datefrom, $dateto, $charttype, $charttime, $shop_id, 
 				    (select ifnull(sum(quantity),0) from export_facture_product where product_code = t.code) as total_export,
 				    (select ifnull(sum(re_qty),0) from export_facture_product where product_code = t.code) as total_cus_return,
 				    (select ifnull(sum(quantity),0) from product_deviation where product_code = t.code) as total_deviation,
-				    (select ifnull(sum(quantity),0) from product_deviation where product_code = t.code) as total_pro_return
+				    (select ifnull(sum(quantity),0) from product_return where product_code = t.code) as total_pro_return
 				        FROM   import_facture t1,
 				               product t
 				        WHERE  t1.code IN (SELECT import_facture_code FROM product_import WHERE
