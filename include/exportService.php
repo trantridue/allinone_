@@ -606,7 +606,7 @@ class ExportService {
 	function processExportQuery($qry, $isAdminField) {
 		$result = mysql_query ( $qry, $this->connection );
 		$resulttmp = mysql_query ( $qry, $this->connection );
-		$this->commonService->generateJSDatatableComplexExport ( $result, exportproductdatatable, 12, 'desc', $this->getExportListArrayTotal () );
+		$this->commonService->generateJSDatatableComplexExport ( $result, exportproductdatatable, 15, 'desc', $this->getExportListArrayTotal () );
 		$this->commonService->generateJqueryDatatableExport ( $result, exportproductdatatable, $this->getExportListArrayColumn ( $isAdminField ) );
 	}
 	function listExport($params) {
