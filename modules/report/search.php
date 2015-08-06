@@ -113,7 +113,7 @@ function getSearchParamsReport(){
 }
 function toggleDivShowBtnStatusAndRefresh(divid,thisval){
 	toggleDivShowBtnStatusImediatly(divid,thisval);
-	if(divid=='report0' || divid=='report3' || divid=='report4' || divid=='report5') {
+	if(divid=='report0' || divid=='report3' || divid=='report4') {
 		displayChart(divid);
 	}
 }
