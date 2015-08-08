@@ -552,8 +552,8 @@ div#table_list_product_wrapper table.dataTable tbody th,div#table_list_product_w
 }
 
 .toltipimg {
-	width: auto;
-	max-height: 200px;
+	max-height: 300px;
+	max-width: 300px;
 }
 
 .menu_btn_sub_mobile {
