@@ -92,6 +92,7 @@ class ReportService {
 		$dateto = isset ( $params ['dateto'] ) ? $params ['dateto'] : date ( 'Y-m-t' );
 		$charttype = isset ( $params ['charttype'] ) ? $params ['charttype'] : 'spline';
 		$charttime = isset ( $params ['charttime'] ) ? $params ['charttime'] : '%Y-%m-%d';
+		
 		$id_shop = $params ['id_shop'];
 		$str = "$(document).ready(function () {
             $('#" . $chartId . "').jqChart({
@@ -223,9 +224,20 @@ function generateCustomer($datefrom, $dateto, $charttype, $charttime, $shop_id, 
 	
 	}
 	function generateProperty($datefrom, $dateto, $charttype, $charttime, $shop_id, $issimplemode) {
-		$qryProperty = "select avg(t1.amount) as total,Date_format(t1.date, '" . $charttime . "') 
-		as date from  property t1 where t1.date BETWEEN '" . $datefrom . "' and '" . $dateto . "'
-		GROUP  BY Date_format(t1.date, '" . $charttime . "')";
+		
+		$datefrompro = $datefrom;
+		$datetopro = $dateto;
+		
+		if($charttime=='%Y-%m') {
+			$datefrompro = date('Y-m-t', strtotime($datefrom));
+			$datetopro = date('Y-m-t', strtotime($dateto));
+		} else if($charttime=='%Y') {
+			
+		}
+		
+		$qryProperty = "select amount as total, date_format(date,'" . $charttime . "') as date from property where date in
+				(select max(date) from property where date between '" . $datefrom . "' and '" . $dateto . "' 
+				group by date_format(date,'" . $charttime . "')) order by date";
 		
 		$qryFund = "select avg(t1.fund) as total,Date_format(t1.date, '" . $charttime . "') 
 		as date from  property t1 where t1.date BETWEEN '" . $datefrom . "' and '" . $dateto . "'
