@@ -56,7 +56,7 @@ class NewsService {
 	function listNewsDefault() {
 		session_start();
 		$qry = "select t1.id as identification, t1.*, t2.name as shop, t3.name as username,
-				concat(DATE_FORMAT(t1.date,'%m-%d-%Y'),':',DATE_FORMAT(t1.date,'%T')) as displaydate
+				concat(DATE_FORMAT(t1.date,'%Y-%m-%d'),':',DATE_FORMAT(t1.date,'%T')) as displaydate
 			   from news t1, shop t2, `user` t3
 			   where t1.shop_id = t2.id
          and t1.user_id = t3.id order by date desc limit ".$_SESSION['nbr_news_default'];
@@ -66,7 +66,7 @@ class NewsService {
 	}
 	function listNews($parameterArray) {
 		$qry = "select t1.id as identification, t1.*, t2.name as shop, t3.name as username,
-				concat(DATE_FORMAT(t1.date,'%m/%d/%Y'),':',DATE_FORMAT(t1.date,'%T')) as displaydate
+				concat(DATE_FORMAT(t1.date,'%Y-%m-%d'),':',DATE_FORMAT(t1.date,'%T')) as displaydate
 			   from news t1, shop t2, `user` t3
 			   where t1.shop_id = t2.id
          		and t1.user_id = t3.id 
