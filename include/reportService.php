@@ -757,7 +757,7 @@ function generateCustomer($datefrom, $dateto, $charttype, $charttime, $shop_id, 
 		$datefrom = isset ( $params ['datefrom'] ) ? $params ['datefrom'] : date ( 'Y-m-01' );
 		$dateto = isset ( $params ['dateto'] ) ? $params ['dateto'] : date ( 'Y-m-d' );
 		
-		$qry = "SELECT code,name,diff,saled_qty,if(rate<=0,'saled zero',rate) as rate, date,
+		$qry = "SELECT code,name,diff,if(saled_qty=0,'Chưa bán được',saled_qty) as saled_qty,if(rate<=0,'saled zero',rate) as rate, date,
 				total_import,total_export,total_cus_return,total_deviation,total_pro_return,
 				if((total_import-total_export+total_cus_return+total_deviation-total_pro_return)=0,'Het hang',(total_import-total_export+total_cus_return+total_deviation-total_pro_return)) as stock
 				FROM   (SELECT Datediff(Now(), t1.date) as diff, t.code, (SELECT Ifnull(Sum(quantity
