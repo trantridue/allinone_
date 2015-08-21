@@ -132,6 +132,7 @@ $(document).ready(function(){
 				'Có'	: {
 				'class'	: 'blue',
 				'action': function(){
+				validateExportForm();
 				if(customer_tel == '') {
 					return showNote('Khách nợ phải nhập số điện thoại');
 				} else {

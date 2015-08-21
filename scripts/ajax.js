@@ -1386,6 +1386,8 @@ function validateExportForm() {
 	var isBoss = $('#isBoss').is(":checked");
 	var useBonus = $('#useBonus').is(":checked");
 	var byCard = $('#byCard').is(":checked");
+	var online = $('#online').is(":checked");
+	var id_onlinefund = $('#id_onlinefund').val();
 	var customer_debt = $('#customer_debt').html();
 	var customer_reserved = $('#customer_reserved').html();
 	var customer_returned = $('#customer_returned').html();
@@ -1426,7 +1428,22 @@ function validateExportForm() {
 	if(byCard && (give_customer < 0)){
 		return showNote('Thanh toán thẻ thì không nợ!');
 	}
-	
+	// Validate Online not debt
+	if(online && (give_customer < 0)){
+		return showNote('Bán online thì không nợ!');
+	}
+	if(online && byCard) {
+		return showNote('Bán online và thanh toán thẻ không được check đồng thời');
+	}
+	if(online && (id_onlinefund == null || id_onlinefund == '')) {
+		return showNote('Bán online phải chọn quỹ nhận!');
+	}
+	if(online && customer_tel =='') {
+		return showNote('Bán online phải nhập số điện thoại khách!');
+	}
+	if(online && customer_description =='') {
+		return showNote('Bán online phải nhập địa chỉ khách hàng ở phần miêu tả!');
+	}
 	// Validate tel and use bonus
 	if(customer_tel =='' && useBonus){
 		return showNote('Khách dùng điểm thưởng phải nhập số điện thoại');
@@ -1483,7 +1500,10 @@ function getExportProductParameter() {
 	var isBoss = $('#isBoss').is(":checked");
 	var useBonus = $('#useBonus').is(":checked");
 	var byCard = $('#byCard').is(":checked");
+	var online = $('#online').is(":checked");
 	var customer_debt = $('#customer_debt').html();
+	var id_onlinefund = $('#id_onlinefund').val();
+	var id_onlinefund_txt = $('#id_onlinefund option:selected').text();
 	var customer_reserved = $('#customer_reserved').html();
 	var customer_returned = $('#customer_returned').html();
 	var total_facture = $('#total_facture').html();
@@ -1506,6 +1526,9 @@ function getExportProductParameter() {
 	str = str + "&isBoss=" + isBoss;
 	str = str + "&useBonus=" + useBonus;
 	str = str + "&byCard=" + byCard;
+	str = str + "&online=" + online;
+	str = str + "&id_onlinefund=" + id_onlinefund;
+	str = str + "&id_onlinefund_txt=" + id_onlinefund_txt;
 	str = str + "&customer_debt=" + customer_debt;
 	str = str + "&customer_reserved=" + customer_reserved;
 	str = str + "&customer_returned=" + customer_returned;
@@ -1554,6 +1577,7 @@ function updateCheckBoxIfIsboss() {
 	if (isBoss) {
 		$('#useBonus').prop('checked', false);
 		$('#byCard').prop('checked', false);
+		$('#online').prop('checked', false);
 		$('#customer_give').val(parseInt($('#final_total').html()));
 		$('#isBoss').hide();
 		$('#customer_reserve_more').hide();

@@ -108,6 +108,9 @@ class ExportService {
 		$paramsArray ['isBoss'] = $_REQUEST ['isBoss'];
 		$paramsArray ['useBonus'] = $_REQUEST ['useBonus'];
 		$paramsArray ['byCard'] = $_REQUEST ['byCard'];
+		$paramsArray ['online'] = $_REQUEST ['online'];
+		$paramsArray ['id_onlinefund'] = $_REQUEST ['id_onlinefund'];
+		$paramsArray ['id_onlinefund_txt'] = $_REQUEST ['id_onlinefund_txt'];
 		$paramsArray ['customer_debt'] = $_REQUEST ['customer_debt'];
 		$paramsArray ['customer_reserved'] = $_REQUEST ['customer_reserved'];
 		$paramsArray ['customer_returned'] = $_REQUEST ['customer_returned'];
@@ -333,14 +336,23 @@ class ExportService {
 		}
 		// 12. byCard
 		if ($paramsArray ['byCard'] == 'true') {
-			$qryFund = "insert into  fund_change_histo(fund_id,amount,date,description,ratio,user_id) values (8," . ($paramsArray ['customer_paid_amount'] + $paramsArray ['customer_reserve_more']) . ",'" . $datetime . "',concat('Hóa đơn số " . $export_facture_code . "',' " . $paramsArray ['customer_name'] . " thanh toán thẻ ','" . $paramsArray ['customer_description'] . "'),1," . $userid . ")";
+			$qryFund = "insert into  fund_change_histo(fund_id,amount,date,description,ratio,user_id) values (8," . ($paramsArray ['customer_paid_amount'] + $paramsArray ['customer_reserve_more']) . ",'" . $datetime . "',concat('Hóa đơn số " . $export_facture_code . " | ',' " . $paramsArray ['customer_name'] . " | thanh toán thẻ ',' | " . $paramsArray ['customer_description'] . "'),1," . $userid . ")";
 			$flag = $flag && (mysql_query ( $qryFund, $this->connection ) != null);
 			//echo $qryFund;
 			$qryInout = "insert into money_inout(shop_id,user_id,date,amount,description) values (" . $shopid . "," . $userid . ",'" . $datetime . "'," . (0 - $paramsArray ['customer_paid_amount'] - $paramsArray ['customer_reserve_more']) . "
-		 	,concat('Hóa đơn số " . $export_facture_code . "',' " . $paramsArray ['customer_name'] . " thanh toán thẻ ','" . $paramsArray ['customer_description'] . "'))";
+		 	,concat('Hóa đơn số " . $export_facture_code . "| ',' " . $paramsArray ['customer_name'] . " | thanh toán thẻ ',' | " . $paramsArray ['customer_description'] . "'))";
 			$flag = $flag && (mysql_query ( $qryInout, $this->connection ) != null);
 		}
-		
+		// 12.1 online
+		if ($paramsArray ['online'] == 'true') {
+			$qryFund = "insert into  fund_change_histo(fund_id,amount,date,description,ratio,user_id) values (".$paramsArray ['id_onlinefund']."," . ($paramsArray ['customer_paid_amount'] + $paramsArray ['customer_reserve_more']) 
+			. ",'" . $datetime . "',concat('Hóa đơn số " . $export_facture_code . " | ',' " . $paramsArray ['customer_name'] . " | online | ".$paramsArray ['id_onlinefund_txt']." ',' | " . $paramsArray ['customer_description'] . "'),1," . $userid . ")";
+			$flag = $flag && (mysql_query ( $qryFund, $this->connection ) != null);
+			//echo $qryFund;
+			$qryInout = "insert into money_inout(shop_id,user_id,date,amount,description) values (" . $shopid . "," . $userid . ",'" . $datetime . "'," . (0 - $paramsArray ['customer_paid_amount'] - $paramsArray ['customer_reserve_more']) . "
+		 	,concat('Hóa đơn số " . $export_facture_code . " | ',' " . $paramsArray ['customer_name'] . " | online | ".$paramsArray ['id_onlinefund_txt']."',' | " . $paramsArray ['customer_description'] . "'))";
+			$flag = $flag && (mysql_query ( $qryInout, $this->connection ) != null);
+		}
 		//13. isBoss
 		if ($paramsArray ['isBoss'] == 'true') {
 			$qrySpend = "insert into spend(spend_category_id,amount,user_id,description,date,spend_for_id,spend_type_id) values (8
@@ -582,7 +594,7 @@ class ExportService {
 	function listExportDefault() {
 		session_start ();
 		$isAdminField = 'default';
-		$qry = "SELECT t1.id,t1.product_code,t1.quantity,t1.export_price,t1.re_qty,t3.description,
+		$qry = "SELECT t1.id,t1.product_code,t1.quantity,t1.export_price,t1.re_qty,t3.description,t2.description as facdesc,
 		(select sum(quantity*export_price) from export_facture_product where export_facture_code = t1.export_facture_code) as total_facture,
     (select sum(tt.quantity*(select export_price from product where code = tt.product_code)) from export_facture_product tt where tt.export_facture_code = t1.export_facture_code) as total_facture_origine,
 		format((1-t1.export_price/t3.export_price)*100,2) as salepercent,t2.customer_id, if((t1.quantity-t1.re_qty) >0,'','disabled') as checkbox,
@@ -611,7 +623,7 @@ class ExportService {
 	}
 	function listExport($params) {
 		$isAdminField = $params ['isAdminField'];
-		$qry = "SELECT t1.id,t1.product_code,t1.quantity,t1.export_price,t1.re_qty,t3.description,
+		$qry = "SELECT t1.id,t1.product_code,t1.quantity,t1.export_price,t1.re_qty,t3.description,t2.description as facdesc,
 		(select sum(quantity*export_price) from export_facture_product where export_facture_code = t1.export_facture_code) as total_facture,
     (select sum(tt.quantity*(select export_price from product where code = tt.product_code)) from export_facture_product tt where tt.export_facture_code = t1.export_facture_code) as total_facture_origine,
 		format((1-t1.export_price/t3.export_price)*100,2) as salepercent,t2.customer_id, if((t1.quantity-t1.re_qty) >0,'','disabled') as checkbox,
@@ -688,7 +700,7 @@ function getExportListArrayColumn($isAdminField) {
 		"export_price,price_origine,salepercent" => "PRI&nbsp;&nbsp;&nbsp;&nbsp;,export_price", 
 		"export_price*quantity" => "complex", 
 		"export_price*re_qty" => "complex", 
-		"total_facture,total_facture_origine,salepercent" => "MÃ_HÓA_ĐƠN,export_facture_code", 
+		"total_facture,total_facture_origine,salepercent,facdesc" => "MÃ_HÓA_ĐƠN,export_facture_code", 
 		 "customer_id" => "hidden_label", 
 		 "customer" => "hidden_label", 
 		 "customer_tel" => "hidden_label" );

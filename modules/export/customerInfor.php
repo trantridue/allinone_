@@ -18,6 +18,12 @@
 	</span>
 	</td>
 </tr>
+<tr <?php $commonService->displayByAdmin();?>>
+	<td align="right">Online Fund : </td>
+	<td>
+	<?php $commonService->printDropDownListFromTable( 'fund', 'onlinefund');?>
+	</td>
+</tr>
 <tr>
 	<td align="right">Ghi chú : </td>
 	<td><textarea rows="2" cols="40" id="customer_description"></textarea></td>
