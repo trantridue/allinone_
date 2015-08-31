@@ -49,6 +49,7 @@ class ExportService {
 (select ifnull(sum(quantity),0) from product_return where product_code = t1.code) as return_provider,
 (select ifnull(sum(quantity),0) from export_facture_product where product_code = t1.code) as export_qty,
 (select ifnull(sum(re_qty),0) from export_facture_product where product_code = t1.code) as cus_return,
+(select name from brand where id = t1.brand_id) as brand,
 (select ifnull(sum(quantity),0) from product_deviation where product_code = t1.code) as deviation 
 			from product t1		
 		where t1.code like '%" . $term . "%' limit 10";
@@ -58,6 +59,7 @@ class ExportService {
 (select ifnull(sum(quantity),0) from product_return where product_code = t1.code) as return_provider,
 (select ifnull(sum(quantity),0) from export_facture_product where product_code = t1.code) as export_qty,
 (select ifnull(sum(re_qty),0) from export_facture_product where product_code = t1.code) as cus_return,
+(select name from brand where id = t1.brand_id) as brand,
 (select ifnull(sum(quantity),0) from product_deviation where product_code = t1.code) as deviation from product t1		
 		where t1.code like '%" . $term . "%' limit 10";
 		}
@@ -78,7 +80,7 @@ class ExportService {
 			<tr><td colspan='2'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Kho &nbsp;&nbsp;  :" . ($rows ['init_import'] - $rows ['return_provider'] - $rows ['export_qty'] + $rows ['cus_return'] + $rows ['deviation']) . "
 			</tr></table></div>", 
 			detail_emp => "<div style='background-color:pink;max-width:500px;max-height:350px;font-size:12px;'>
-			<span style='color:red;'>" . $rows ['name']. "(<strong>Kho: " . ($rows ['init_import'] - $rows ['return_provider'] - $rows ['export_qty'] + $rows ['cus_return'] + $rows ['deviation']). "</strong>)</span><hr>" . $rows ['description'] . "<table><tr><td><img style='max-width:300px; max-height=300px' src='" . $rows ['link'] . "'></td>
+			<span style='color:red;'>" . $rows ['name']. " - ".$rows ['brand']."(<strong>Kho: " . ($rows ['init_import'] - $rows ['return_provider'] - $rows ['export_qty'] + $rows ['cus_return'] + $rows ['deviation']). "</strong>)</span><hr>" . $rows ['description'] . "<table><tr><td><img style='max-width:300px; max-height=300px' src='" . $rows ['link'] . "'></td>
 			<tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ". "
 			</tr></table></div>", value => $rows ['code'], label => $labelvalue );
 			
