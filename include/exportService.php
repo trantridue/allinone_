@@ -77,8 +77,9 @@ class ExportService {
 			detail => "<div style='background-color:pink; min-width:500px;'><span style='color:red;'>" . $rows ['name'] . "</span><hr>" . $rows ['description'] . "<table><tr><td>" . "<ul><li>  Tổng nhập : " . $rows ['init_import'] . "</li><li> Trả CC    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: " . $rows ['return_provider'] . "</li><li> Đã bán    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: " . $rows ['export_qty'] . "</li><li> Khách Trả &nbsp;: " . $rows ['cus_return'] . "</li><li> Sai số  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  : " . $rows ['deviation'] . "</li></ul></td><td><img style='max-width:280px; max-height=200px' src='" . $rows ['link'] . "'></td>
 			<tr><td colspan='2'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Kho &nbsp;&nbsp;  :" . ($rows ['init_import'] - $rows ['return_provider'] - $rows ['export_qty'] + $rows ['cus_return'] + $rows ['deviation']) . "
 			</tr></table></div>", 
-			detail_emp => "<div style='background-color:pink;max-width:500px;max-height:350px;font-size:12px;'><span style='color:red;'>" . $rows ['name'] . "</span><hr>" . $rows ['description'] . "<table><tr><td><img style='max-width:300px; max-height=300px' src='" . $rows ['link'] . "'></td>
-			<tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Kho &nbsp;&nbsp;  :" . ($rows ['init_import'] - $rows ['return_provider'] - $rows ['export_qty'] + $rows ['cus_return'] + $rows ['deviation']) . "
+			detail_emp => "<div style='background-color:pink;max-width:500px;max-height:350px;font-size:12px;'>
+			<span style='color:red;'>" . $rows ['name']. "(<strong>Kho: " . ($rows ['init_import'] - $rows ['return_provider'] - $rows ['export_qty'] + $rows ['cus_return'] + $rows ['deviation']). "</strong>)</span><hr>" . $rows ['description'] . "<table><tr><td><img style='max-width:300px; max-height=300px' src='" . $rows ['link'] . "'></td>
+			<tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ". "
 			</tr></table></div>", value => $rows ['code'], label => $labelvalue );
 			
 			$jsonArray [] = $element;
