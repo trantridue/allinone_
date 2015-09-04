@@ -108,7 +108,7 @@ class CustomerService {
 		if($params['search_description']!=''){
 			$qry = $qry . " and t.description like '%".$params['search_description']."%'";
 		}
-		$qry = $qry. " order by t.id desc";
+		$qry = $qry. " order by t.id";
 		
 		if($params['efficiency_from']!='' && $params['efficiency_to']!=''){
 			$qry = "select * from (" .$qry . ") x where efficient between '".$params['efficiency_from']."' and '".$params['efficiency_to']."'";
@@ -127,7 +127,7 @@ class CustomerService {
 
 		$counter =0;
 		$personPerGroup = $_SESSION['nbr_customer_by_group_csv'];
-		$counter_groupe = 0;
+		//$counter_groupe = $_SESSION['nbr_group_from'];;
 		
 		$khach_hang = "Khach_Hang_";
 		$blank1 = ",,,,,,,,,,,,,,,,,,,,,,,,,,";
@@ -138,13 +138,13 @@ class CustomerService {
 		$hearder = "Name,Given Name,Additional Name,Family Name,Yomi Name,Given Name Yomi,Additional Name Yomi,Family Name Yomi,Name Prefix,Name Suffix,Initials,Nickname,Short Name,Maiden Name,Birthday,Gender,Location,Billing Information,Directory Server,Mileage,Occupation,Hobby,Sensitivity,Priority,Subject,Notes,Group Membership,E-mail 1 - Type,E-mail 1 - Value,E-mail 2 - Type,E-mail 2 - Value,Phone 1 - Type,Phone 1 - Value,Phone 2 - Type,Phone 2 - Value,Phone 3 - Type,Phone 3 - Value,Phone 4 - Type,Phone 4 - Value,Phone 5 - Type,Phone 5 - Value,Address 1 - Type,Address 1 - Formatted,Address 1 - Street,Address 1 - City,Address 1 - PO Box,Address 1 - Region,Address 1 - Postal Code,Address 1 - Country,Address 1 - Extended Address,Organization 1 - Type,Organization 1 - Name,Organization 1 - Yomi Name,Organization 1 - Title,Organization 1 - Department,Organization 1 - Symbol,Organization 1 - Location,Organization 1 - Job Description,Website 1 - Type,Website 1 - Value\n";
 		file_put_contents($contactFileName, $hearder, FILE_APPEND | LOCK_EX);
 		while ( $rows = mysql_fetch_array ( $result ) ) {
-			if($counter%$personPerGroup==0){
-			   $counter_groupe ++;
+			//if($counter%$personPerGroup==0){
+			   $counter_groupe = floor($rows['id']/$personPerGroup)+1;
 			   if($counter_groupe<10) $counter_groupe_display = '00'.$counter_groupe;
 			   else if($counter_groupe<100) $counter_groupe_display = '0'.$counter_groupe; 
 			   else $counter_groupe_display = $counter_groupe;
-			}
-			$str = $khach_hang.$counter.$blank1.$group.$counter_groupe_display.$blank2.$rows['tel'].$blank3."\n";
+			//}
+			$str = $khach_hang.$rows['id'].$blank1.$group.$counter_groupe_display.$blank2.$rows['tel'].$blank3."\n";
 			$counter ++;
 		
 		file_put_contents($contactFileName, $str , FILE_APPEND | LOCK_EX);
@@ -170,7 +170,7 @@ class CustomerService {
 				       export_facture_product t3
 				WHERE  t1.id = t2.customer_id
 				       AND t2.code = t3.export_facture_code
-				       and t1.tel not like '%aaaaaaa%' group by t1.id) t where 1";
+				       and t1.tel not like '%aaaaaaa%' group by t1.id) t where 1 ";
 		$flag = true;
 		if($params['search_customer_name']!=''){
 			$flag = false;
