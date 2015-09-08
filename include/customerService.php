@@ -144,7 +144,7 @@ class CustomerService {
 			   else if($counter_groupe<100) $counter_groupe_display = '0'.$counter_groupe; 
 			   else $counter_groupe_display = $counter_groupe;
 			//}
-			$str = $khach_hang.$rows['id'].$blank1.$group.$counter_groupe_display.$blank2.$rows['tel'].$blank3."\n";
+			$str = $rows['name']."_".$rows['id'].$blank1.$group.$counter_groupe_display.$blank2.$rows['tel'].$blank3."\n";
 			$counter ++;
 		
 		file_put_contents($contactFileName, $str , FILE_APPEND | LOCK_EX);
