@@ -1,0 +1,37 @@
+.classpath
+.project
+.settings/
+
+/.classpath
+/.project
+/.setting/
+
+/*/.classpath
+/*/.project
+/*/.setting/
+
+/*/*/.classpath
+/*/*/.project
+/*/*/.setting/
+
+# This is a comment
+# Ignore target at the top level
+/target/
+# Ignore child project's targets as well
+/*/target/
+# And any grandchildren ...
+/*/*/target/
+# Or you can do:
+target/
+# which matches 'target' in any sub folder
+*/target/*
+target/
+domain-logic/log/
+/log
+domain-logic/bin/
+domain-logic/.tern-project
+/bin
+/image/cache/*
+/system/cache/cache.*
+system/cache/*
+/csv/*
