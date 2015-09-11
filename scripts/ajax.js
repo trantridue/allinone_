@@ -1481,6 +1481,7 @@ function getCurrentDate_YYYYmmdd(){
 	return strDate;
 }
 function showNote(msg) {
+	$('#saveExportBtn').prop('disabled', false);
 	$('#noteForEmployee').show();
 	$('#noteForEmployee').css('background-color','red');
 	$('#noteForEmployee').css('color','yellow');

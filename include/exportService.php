@@ -236,9 +236,12 @@ class ExportService {
 		} else {
 			$paramsArray ['customer_paid_amount'] = $paramsArray ['customer_give'] - $paramsArray ['give_customer'] - $paramsArray ['customer_reserve_more'] + $paramsArray ['customer_bonus'] + $paramsArray ['customer_reserved'];
 		}
-		
+		$isonline = 'N';
+		if ($paramsArray ['online'] == 'true') {
+			$isonline = 'Y';
+		}
 		//6. Insert export_facture
-		$qryExport_facture = "insert into export_facture(code,customer_id,shop_id,description,date,user_id) values ('" . $export_facture_code . "'," . $customer_id . "," . $shopid . ",'" . $paramsArray ['customer_description'] . "','" . $datetime . "'," . $userid . ")";
+		$qryExport_facture = "insert into export_facture(code,customer_id,shop_id,description,date,user_id,isonline) values ('" . $export_facture_code . "'," . $customer_id . "," . $shopid . ",'" . $paramsArray ['customer_description'] . "','" . $datetime . "'," . $userid . ",'".$isonline."')";
 		
 		//7. Qry export facture trace
 		$qryExport_facture_trace = "insert into export_facture_trace(
