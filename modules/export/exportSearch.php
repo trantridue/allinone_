@@ -34,8 +34,8 @@
 <input type="number" id="search_sale_from" maxlength="6" class="number50" autocomplete="off"  onkeypress="validateNum(event);"/>
 <input type="number" id="search_sale_to" maxlength="6" class="number50" autocomplete="off"  onkeypress="validateNum(event);"/>
 </td>
-<td align="right"></td>
-<td></td>
+<td align="right">Description : </td>
+<td><input type="text" id="search_facture_description" maxlength="12" size="12" class="search_facture_description"></td>
 <td align="right"></td>
 <td></td>
 </tr>
