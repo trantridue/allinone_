@@ -1949,7 +1949,7 @@ function getExportSearchCriteria(issearch) {
 	var search_customer_tel = "&search_customer_tel="
 			+ $('#search_customer_tel').val();
 	var search_facture_description = "&search_facture_description=" + $('#search_facture_description').val();
-
+	var search_online = "&search_online=" + $('#search_online').is(":checked");
 	var search_product_name = "&search_product_name="
 			+ $('#search_product_name').val();
 	var search_date_from = "&search_date_from=" + $('#search_date_from').val();
@@ -1960,7 +1960,7 @@ function getExportSearchCriteria(issearch) {
 	str = str + search_customer_name + search_product_code + search_price_from + search_sale_from + search_sale_to
 			+ search_price_to + search_customer_tel + search_product_name
 			+ search_date_from + search_date_to + id_search_shop
-			+ default_nbr_days_load_export + search_facture_description
+			+ default_nbr_days_load_export + search_facture_description + search_online
 			+ id_search_user + isAdminField;
 	return processUrlStringEncode(str);
 }

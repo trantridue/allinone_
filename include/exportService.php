@@ -646,7 +646,7 @@ class ExportService {
 		and t2.user_id = t6.id
 		and t4.id = t2.customer_id
 		and t5.id = t2.shop_id ";
-		
+//		echo $params ['search_online'];
 		if ($params ['search_price_from'] != '') {
 			$qry = $qry . " and t1.export_price >= " . $params ['search_price_from'];
 		}
@@ -670,6 +670,9 @@ class ExportService {
 		}
 		if ($params ['search_facture_description'] != '') {
 			$qry = $qry . " and t2.description like '%" . $params ['search_facture_description'] . "%'";
+		}
+		if ($params ['search_online'] == 'true') {
+			$qry = $qry . " and t2.isonline = 'Y'";
 		}
 		if ($params ['search_customer_tel'] != '') {
 			$qry = $qry . " and t4.tel like '%" . $params ['search_customer_tel'] . "%'";
@@ -746,6 +749,7 @@ function getExportListArrayColumn($isAdminField) {
 		return array ('isAdminField' => $_REQUEST ['isAdminField'], 
 		'search_customer_name' => $_REQUEST ['search_customer_name'], 
 		'search_facture_description' => $_REQUEST ['search_facture_description'], 
+		'search_online' => $_REQUEST ['search_online'], 
 		'search_product_code' => $_REQUEST ['search_product_code'], 
 		'search_price_from' => $_REQUEST ['search_price_from'], 
 		'search_price_to' => $_REQUEST ['search_price_to'], 
