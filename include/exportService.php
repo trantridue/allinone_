@@ -236,9 +236,12 @@ class ExportService {
 		} else {
 			$paramsArray ['customer_paid_amount'] = $paramsArray ['customer_give'] - $paramsArray ['give_customer'] - $paramsArray ['customer_reserve_more'] + $paramsArray ['customer_bonus'] + $paramsArray ['customer_reserved'];
 		}
-		
+		$isonline = 'N';
+		if ($paramsArray ['online'] == 'true') {
+			$isonline = 'Y';
+		}
 		//6. Insert export_facture
-		$qryExport_facture = "insert into export_facture(code,customer_id,shop_id,description,date,user_id) values ('" . $export_facture_code . "'," . $customer_id . "," . $shopid . ",'" . $paramsArray ['customer_description'] . "','" . $datetime . "'," . $userid . ")";
+		$qryExport_facture = "insert into export_facture(code,customer_id,shop_id,description,date,user_id,isonline) values ('" . $export_facture_code . "'," . $customer_id . "," . $shopid . ",'" . $paramsArray ['customer_description'] . "','" . $datetime . "'," . $userid . ",'".$isonline."')";
 		
 		//7. Qry export facture trace
 		$qryExport_facture_trace = "insert into export_facture_trace(
@@ -643,7 +646,7 @@ class ExportService {
 		and t2.user_id = t6.id
 		and t4.id = t2.customer_id
 		and t5.id = t2.shop_id ";
-		
+//		echo $params ['search_online'];
 		if ($params ['search_price_from'] != '') {
 			$qry = $qry . " and t1.export_price >= " . $params ['search_price_from'];
 		}
@@ -664,6 +667,12 @@ class ExportService {
 		}
 		if ($params ['search_customer_name'] != '') {
 			$qry = $qry . " and t4.name like '%" . $params ['search_customer_name'] . "%'";
+		}
+		if ($params ['search_facture_description'] != '') {
+			$qry = $qry . " and t2.description like '%" . $params ['search_facture_description'] . "%'";
+		}
+		if ($params ['search_online'] == 'true') {
+			$qry = $qry . " and t2.isonline = 'Y'";
 		}
 		if ($params ['search_customer_tel'] != '') {
 			$qry = $qry . " and t4.tel like '%" . $params ['search_customer_tel'] . "%'";
@@ -739,6 +748,8 @@ function getExportListArrayColumn($isAdminField) {
 	function getSearchParameters() {
 		return array ('isAdminField' => $_REQUEST ['isAdminField'], 
 		'search_customer_name' => $_REQUEST ['search_customer_name'], 
+		'search_facture_description' => $_REQUEST ['search_facture_description'], 
+		'search_online' => $_REQUEST ['search_online'], 
 		'search_product_code' => $_REQUEST ['search_product_code'], 
 		'search_price_from' => $_REQUEST ['search_price_from'], 
 		'search_price_to' => $_REQUEST ['search_price_to'], 
