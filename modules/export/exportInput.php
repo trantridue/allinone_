@@ -56,7 +56,8 @@ for($i = 1; $i <= $_SESSION ['export_number_row']; $i ++) {
 <label id="exportpostedprice_<?php echo $i;?>"></label>
 </td>
 <td>
-<input style="text-align: center;" type="number" class="number50" size="2"	id="exportprice_<?php echo $i;?>" maxlength="4" autocomplete="off" onkeypress="validateNum(event);" onkeyup="calculateExportForm();"/>
+<input style="text-align: center;" type="number" class="number50" size="2" onpaste="return false;"
+id="exportprice_<?php echo $i;?>" maxlength="4" autocomplete="off" onkeypress="validateNum(event);" onkeyup="calculateExportForm();"/>
 </td>
 <td>
 <input style="text-align: center;" type="number" class="number30" size="2"	
