@@ -496,7 +496,7 @@ function generateCustomer($datefrom, $dateto, $charttype, $charttime, $shop_id, 
 		FUND :  " . $this->formatNumber ( $amountInFund ) . tab4 . "
 		STORE : " . $this->formatNumber ( $amountInstock ) . tab4 . "
 		DEBT :  " . $this->formatNumber ( $amountDebt ) . tab4 . "
-		PROPERTY :  " . $this->formatNumber ( $amountInFund - $amountImportLoan + $amountInstock + $amountDebt ) . "</strong>";
+		PROPERTY : <span style='background:yellow;'> " . $this->formatNumber ( $amountInFund - $amountImportLoan + $amountInstock + $amountDebt ) . "</span></strong>";
 	}
 	function saveProperty() {
 //		echo date ( 'H' );
