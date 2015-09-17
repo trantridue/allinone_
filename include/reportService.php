@@ -494,7 +494,7 @@ function generateCustomer($datefrom, $dateto, $charttype, $charttime, $shop_id, 
 		KET :" . $this->formatNumber ( $amountInket ) . tab4 . "
 		LOAN :  " . $this->formatNumber ( $amountImportLoan ) . tab4 . "
 		FUND :  " . $this->formatNumber ( $amountInFund ) . tab4 . "
-		STORE : " . $this->formatNumber ( $amountInstock ) . tab4 . "
+		STORE : <span style='background: #1FE209;'> " . $this->formatNumber ( $amountInstock ) . tab4 . "</span>
 		DEBT :  " . $this->formatNumber ( $amountDebt ) . tab4 . "
 		PROPERTY : <span style='background:yellow;'> " . $this->formatNumber ( $amountInFund - $amountImportLoan + $amountInstock + $amountDebt ) . "</span></strong>";
 	}
