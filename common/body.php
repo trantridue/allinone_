@@ -1,4 +1,5 @@
 <div id="serverMessage" style="display: none;"></div>
+<input type="text" class="timefieldnosecond"></input>
 <div id='submenucontent'>
 <?php
 $module = isset ( $_REQUEST ['module'] ) ? $_REQUEST ['module'] : defaultmodule;
@@ -11,6 +12,5 @@ $module = isset ( $_REQUEST ['module'] ) ? $_REQUEST ['module'] : defaultmodule;
 include 'modules/' . $module . '/main.php';
 ?>
 <?php 
-//  include 'test.php';
 ?>
 </div>

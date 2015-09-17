@@ -589,3 +589,9 @@ div#table_list_product_wrapper table.dataTable tbody th,div#table_list_product_w
 #marqueeId marquee table{
 	border-collapse: collapse;
 }
+.timefieldnosecond {
+	width: 50px;
+	font-weight: bold;
+	background: #f5f5f5;
+	color: black;
+}
