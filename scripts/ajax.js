@@ -1440,6 +1440,9 @@ function validateExportForm() {
 	if(online && (id_onlinefund == null || id_onlinefund == '')) {
 		return showNote('Bán online phải chọn quỹ nhận!');
 	}
+	if(!online && (id_onlinefund != '')) {
+		return showNote('Check online check box!');
+	}
 	if(online && customer_tel =='') {
 		return showNote('Bán online phải nhập số điện thoại khách!');
 	}

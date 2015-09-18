@@ -352,7 +352,7 @@ class ExportService {
 		// 12.1 online
 		if ($paramsArray ['online'] == 'true') {
 			$qryFund = "insert into  fund_change_histo(fund_id,amount,date,description,ratio,user_id) values (".$paramsArray ['id_onlinefund']."," . ($paramsArray ['customer_paid_amount'] + $paramsArray ['customer_reserve_more']) 
-			. ",'" . $datetime . "',concat('Hóa đơn số " . $export_facture_code . " | ',' " . $paramsArray ['customer_name'] . " | online | ".$paramsArray ['id_onlinefund_txt']." ',' | " . $paramsArray ['customer_description'] . "'),1," . $userid . ")";
+			. ",'" . $datetime . "',concat('Hóa đơn số " . $export_facture_code . " | ',' " . $paramsArray ['customer_name'] . " | online | ".$paramsArray ['id_onlinefund']." ',' | " . $paramsArray ['customer_description'] . "'),1," . $userid . ")";
 			$flag = $flag && (mysql_query ( $qryFund, $this->connection ) != null);
 			//echo $qryFund;
 			$qryInout = "insert into money_inout(shop_id,user_id,date,amount,description) values (" . $shopid . "," . $userid . ",'" . $datetime . "'," . (0 - $paramsArray ['customer_paid_amount'] - $paramsArray ['customer_reserve_more']) . "
