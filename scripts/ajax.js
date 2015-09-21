@@ -1431,9 +1431,9 @@ function validateExportForm() {
 		return showNote('Thanh toán thẻ thì không nợ!');
 	}
 	// Validate Online not debt
-	if(online && (give_customer < 0)){
-		return showNote('Bán online thì không nợ!');
-	}
+//	if(online && (give_customer < 0)){
+//		return showNote('Bán online thì không nợ!');
+//	}
 	if(online && byCard) {
 		return showNote('Bán online và thanh toán thẻ không được check đồng thời');
 	}
