@@ -6,7 +6,9 @@ $module = isset ( $_REQUEST ['module'] ) ? $_REQUEST ['module'] : defaultmodule;
 <?php
 $arr = array (
 		"search" => "LIST",
-		"add" => "ADD" 
+		"add" => "ADD" ,
+		"trace" => "TRACE TIME" ,
+		"salary" => "SALARY" 
 );
 
 foreach ( $arr as $value => $key ) {
