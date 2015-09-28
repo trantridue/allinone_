@@ -15,3 +15,4 @@ if ($submodule == "search")
 <?php } else {
 	include 'common/errorpage.php';
 }?>
+

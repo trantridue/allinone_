@@ -4,6 +4,9 @@ function resetContinue(){
 }
 
 </script>
+<script>
+window.onbeforeunload = function() { return "You work will be lost."; };
+</script>
 <?php 
 $importService->loadDefaultSeason();
 session_start();
