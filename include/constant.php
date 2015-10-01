@@ -5,7 +5,7 @@ define('timeout', '3600');
 define('hostname', 'localhost');
 define('username', 'zabuzachaule');
 define('password', 'canhd0ngh0ang1');
-define('database', 'zabuzachaule');
+define('database', 'fuheiksj_banhang');
 define('tablename', 'user');
 //String Constant
 define('tab2', '&nbsp;&nbsp;');
