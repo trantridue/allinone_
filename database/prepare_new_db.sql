@@ -16,7 +16,7 @@ delete from provider_paid_fund_change_histo;
 delete from spend;
 delete from product;
 delete from `customer` where id not in (1288);
-#update `customer` set tel = '9999999999';
+update `customer` set tel = '9999999999';
 delete from `user` where phone_number not in ('0979355285','0966807709','01649785255');
 delete from import_facture;
 delete from provider;
