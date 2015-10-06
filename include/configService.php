@@ -66,7 +66,10 @@ class ConfigService {
 		'start_time_backup', 
 		'end_time_backup', 
 		'default_nbr_days_load_import', 
-		'sale_all_taux'
+		'sale_all_taux',
+		'default_id_source_1',
+		'default_id_source_2',
+		'default_id_source_3'
 		);
 		$qry = "select * from configuration";
 		$result = mysql_query ( $qry, $this->connection );

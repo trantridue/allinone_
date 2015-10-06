@@ -1,10 +1,13 @@
 <?php
+ob_start();
+session_start();
 require_once ("../../include/constant.php");
 require_once ("../../include/providerService.php");
 require_once ("../../include/commonService.php");
 $commonService = new CommonService ( );
 $providerService = new ProviderService ( hostname, username, password, database, $commonService );
 ?>
+
 <input type="hidden" value="<?php
 echo $_REQUEST ['id'];
 ?>"
@@ -56,7 +59,7 @@ echo $_REQUEST ['name'];
 		?>
 		</span></td>
 		<td><?php
-		$commonService->printDropDownListFromTableSelected ( 'fund', 'paid_fund_1', default_id_source_1 );
+		$commonService->printDropDownListFromTableSelected ( 'fund', 'paid_fund_1', $_SESSION['default_id_source_1'] );
 		?></td>
 		<td><input type="text" id="paid_amount_1" onclick="this.select();"
 			onkeypress="validateFloat(event);" size="6" maxlength="8" value="0"

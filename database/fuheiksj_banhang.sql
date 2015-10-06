@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 05, 2015 at 10:59 PM
+-- Generation Time: Oct 06, 2015 at 10:35 PM
 -- Server version: 10.0.21-MariaDB
 -- PHP Version: 5.4.31
 
@@ -288,7 +288,7 @@ CREATE TABLE IF NOT EXISTS `fund_change_histo` (
   PRIMARY KEY (`id`),
   KEY `fk_fund_change_histo_fund1_idx` (`fund_id`),
   KEY `fk_fund_change_histo_user1_idx` (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=20 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=25 ;
 
 --
 -- Dumping data for table `fund_change_histo`
@@ -311,7 +311,12 @@ INSERT INTO `fund_change_histo` (`id`, `fund_id`, `amount`, `date`, `description
 (16, 2, -28096, '2015-10-04 22:27:27', 'Trả nợ : Vinh Tuyết | Hóa đơn 28830.', 1, 1),
 (17, 9, -734, '2015-10-04 22:27:27', 'Trả nợ : Vinh Tuyết | Hóa đơn 28830.', 1, 1),
 (18, 2, 30000, '2015-10-05 15:56:40', 'Thêm 30M', 1, 1),
-(19, 2, -480, '2015-10-05 15:57:00', 'See spend : Mua ghế', 1, 2);
+(19, 2, -480, '2015-10-05 15:57:00', 'See spend : Mua ghế', 1, 2),
+(20, 2, -180, '2015-10-06 15:31:58', 'See spend : Sớ đi phủ tây hồ', 1, 2),
+(21, 2, -500, '2015-10-06 15:31:58', 'See spend : Đưa bảo', 1, 2),
+(22, 2, -220, '2015-10-06 15:31:58', 'See spend : Mua lễ đi phủ', 1, 2),
+(23, 2, -30, '2015-10-06 15:31:58', 'See spend : Mua hoa', 1, 2),
+(24, 2, -100, '2015-10-06 15:31:58', 'See spend : Tiền lẻ đi lễ', 1, 2);
 
 -- --------------------------------------------------------
 
@@ -671,7 +676,7 @@ CREATE TABLE IF NOT EXISTS `spend` (
   KEY `fk_spend_user1_idx` (`user_id`),
   KEY `fk_spend_spend_for1_idx` (`spend_for_id`),
   KEY `fk_spend_spend_type1_idx` (`spend_type_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
 
 --
 -- Dumping data for table `spend`
@@ -684,7 +689,12 @@ INSERT INTO `spend` (`id`, `spend_category_id`, `amount`, `user_id`, `descriptio
 (4, 1, 60, 1, 'Tiền ốc vít', '2015-10-01 02:21:35', 2, 1),
 (5, 1, 4000, 1, 'laptop dell', '2015-10-03 11:15:04', 2, 1),
 (6, 1, 2000, 1, 'Mua 100m led lắp cửa hàng', '2015-10-04 13:46:21', 2, 1),
-(7, 1, 480, 2, 'Mua ghế', '2015-10-05 15:57:00', 2, 1);
+(7, 1, 480, 2, 'Mua ghế', '2015-10-05 15:57:00', 2, 1),
+(8, 1, 180, 2, 'Sớ đi phủ tây hồ', '2015-10-06 15:31:58', 2, 1),
+(9, 1, 500, 2, 'Đưa bảo', '2015-10-06 15:31:58', 2, 1),
+(10, 1, 220, 2, 'Mua lễ đi phủ', '2015-10-06 15:31:58', 2, 1),
+(11, 1, 30, 2, 'Mua hoa', '2015-10-06 15:31:58', 2, 1),
+(12, 1, 100, 2, 'Tiền lẻ đi lễ', '2015-10-06 15:31:58', 2, 1);
 
 -- --------------------------------------------------------
 
