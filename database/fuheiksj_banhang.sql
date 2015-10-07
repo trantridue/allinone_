@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 06, 2015 at 10:52 PM
+-- Generation Time: Oct 07, 2015 at 11:23 PM
 -- Server version: 10.0.21-MariaDB
 -- PHP Version: 5.4.31
 
@@ -50,14 +50,15 @@ CREATE TABLE IF NOT EXISTS `category` (
   `name` varchar(45) NOT NULL,
   `description` varchar(245) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `category`
 --
 
 INSERT INTO `category` (`id`, `name`, `description`) VALUES
-(1, 'VAY', NULL);
+(1, 'VAY', NULL),
+(2, 'GIAY', NULL);
 
 -- --------------------------------------------------------
 
@@ -97,7 +98,7 @@ INSERT INTO `configuration` (`id`, `name`, `value`, `label`) VALUES
 (3, 'default_row_product_return', '5', 'NBR ROW IMPORT RETURN'),
 (4, 'default_password', '123456', 'DEFAULT PASSWORD'),
 (5, 'is_sale_for_all', '1', 'SALE ON/OFF'),
-(6, 'default_number_line_spend', '5', 'NBR ROW SPEND'),
+(6, 'default_number_line_spend', '10', 'NBR ROW SPEND'),
 (7, 'listExportDefault_nbr_day_limit', '0', 'NBR DAY EXPORT'),
 (8, 'nbr_day_default_export_returned', '0', 'NBR DAY EXPORT RETURN'),
 (9, 'default_nbr_days_load_export', '10', 'NBR DAY EXPORT DEFAULT'),
@@ -288,7 +289,7 @@ CREATE TABLE IF NOT EXISTS `fund_change_histo` (
   PRIMARY KEY (`id`),
   KEY `fk_fund_change_histo_fund1_idx` (`fund_id`),
   KEY `fk_fund_change_histo_user1_idx` (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=25 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=31 ;
 
 --
 -- Dumping data for table `fund_change_histo`
@@ -316,7 +317,13 @@ INSERT INTO `fund_change_histo` (`id`, `fund_id`, `amount`, `date`, `description
 (21, 2, -500, '2015-10-06 15:31:58', 'See spend : Đưa bảo', 1, 2),
 (22, 2, -220, '2015-10-06 15:31:58', 'See spend : Mua lễ đi phủ', 1, 2),
 (23, 2, -30, '2015-10-06 15:31:58', 'See spend : Mua hoa', 1, 2),
-(24, 2, -100, '2015-10-06 15:31:58', 'See spend : Tiền lẻ đi lễ', 1, 2);
+(24, 2, -100, '2015-10-06 15:31:58', 'See spend : Tiền lẻ đi lễ', 1, 2),
+(25, 2, 30000, '2015-10-07 15:37:45', 'Thêm', 1, 1),
+(26, 2, -500, '2015-10-07 15:39:25', 'See spend : Đưa bảo', 1, 2),
+(27, 2, -105, '2015-10-07 15:39:25', 'See spend : Mua máy tính, sổ bút', 1, 2),
+(28, 2, -200, '2015-10-07 15:39:25', 'See spend : Tiền 2 nhân viên', 1, 2),
+(29, 2, 0, '2015-10-07 15:39:25', 'See spend : ', 1, 1),
+(30, 2, -25, '2015-10-07 15:41:41', 'See spend : Bình nước', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -341,7 +348,9 @@ CREATE TABLE IF NOT EXISTS `import_facture` (
 --
 
 INSERT INTO `import_facture` (`code`, `date`, `description`, `provider_id`, `deadline`, `link`) VALUES
-('20151002_001', '2015-10-02 00:16:07', 'ssss', 1, '2015-10-16 00:16:07', 'img/facture/20151002_001.png');
+('20151002_001', '2015-10-02 00:16:07', 'ssss', 1, '2015-10-16 00:16:07', 'img/facture/20151002_001.png'),
+('20151007_001', '2015-10-07 16:03:20', 'Trả lại 3 đôi', 2, '2015-10-21 16:03:20', 'img/facture/20151007_001.png'),
+('20151007_002', '2015-10-07 16:19:42', 'Nhập về nhà chị châu', 3, '2015-10-21 16:19:42', 'img/facture/20151007_002.png');
 
 -- --------------------------------------------------------
 
@@ -428,7 +437,44 @@ CREATE TABLE IF NOT EXISTS `product` (
 --
 
 INSERT INTO `product` (`code`, `name`, `category_id`, `season_id`, `sex_id`, `export_price`, `description`, `brand_id`, `sale`, `link`) VALUES
-('0001', 'TEST', 1, 4, 1, 500, '', 1, 0, 'img/product/0001.png');
+('0001', 'Giầy nữ cao cấp  16628-6-GNT', 2, 4, 1, 550, '', 1, 0, 'img/product/0001.png'),
+('0002', 'Giầy nữ cao cấp  16201-3-GNT', 1, 4, 1, 500, '', 1, 0, 'img/product/0002.png'),
+('0003', 'Giầy nữ cao cấp  16518-10-GNT', 1, 4, 1, 525, '', 1, 0, 'img/product/0003.png'),
+('0004', 'Giầy nữ cao cấp  A5099-GN', 1, 4, 1, 650, '', 1, 0, 'img/product/0004.png'),
+('0005', 'Giầy nữ cao cấp  102-152-GNT', 1, 4, 1, 525, '', 1, 0, 'img/product/0005.png'),
+('0006', 'Giầy nữ cao cấp  161992-GNH', 1, 4, 1, 600, '', 1, 0, 'img/product/0006.png'),
+('0007', 'Giầy nữ cao cấp  1511518-GNH', 1, 4, 1, 750, '', 1, 0, 'img/product/0007.png'),
+('0008', 'Giầy nữ cao cấp  8553-GND', 1, 4, 1, 650, '', 1, 0, 'img/product/0008.png'),
+('0009', 'Giầy nữ cao cấp  85-2-GLNC', 1, 4, 1, 330, '', 1, 0, 'img/product/0009.png'),
+('0010', 'Giầy nữ VNXK HP 327-GNTT', 1, 4, 1, 325, '', 1, 0, 'img/product/0010.png'),
+('0011', 'Giầy nữ VNXK 876-GNP', 1, 4, 1, 330, '', 1, 0, 'img/product/0011.png'),
+('0012', 'Giầy nữ da miếng HA7116-GNAC', 1, 4, 1, 360, '', 1, 0, 'img/product/0012.png'),
+('0013', 'Giầy nữ da miếng LA-18-GN', 1, 4, 1, 350, '', 1, 0, 'img/product/0013.png'),
+('0014', 'Giầy nữ da miếng QT18-GNLA', 1, 4, 1, 350, '', 1, 0, 'img/product/0014.png'),
+('0015', 'Giầy nữ da miếng QT19-GNLA', 1, 4, 1, 350, '', 1, 0, 'img/product/0015.png'),
+('0016', 'Giầy nữ da miếng LA-19-GN', 1, 4, 1, 350, '', 1, 0, 'img/product/0016.png'),
+('0017', 'Giầy nữ da miếng LA-22-GNLA', 1, 4, 1, 350, '', 1, 0, 'img/product/0017.png'),
+('0018', 'Giầy nữ VNXK 2235-95', 2, 4, 1, 290, '', 1, 0, 'img/product/0018.png'),
+('0019', 'Giầy nữ VNXK 140-908', 2, 4, 1, 295, '', 1, 0, 'img/product/0019.png'),
+('0020', 'Giầy nữ VNXK 1593-GE', 2, 4, 1, 350, '', 1, 0, 'img/product/0020.png'),
+('0022', 'Giầy nữ VNXK D002', 2, 4, 1, 350, '', 1, 0, 'img/product/0022.png'),
+('0023', 'Giầy nữ VNXK D002_4', 2, 4, 1, 360, '', 1, 0, 'img/product/0023.png'),
+('0024', 'Giầy nữ VNXK D002_1', 2, 4, 1, 350, '', 1, 0, 'img/product/0024.png'),
+('0025', 'Giầy nữ VNXK 8174', 2, 4, 1, 350, '', 1, 0, 'img/product/0025.png'),
+('0026', 'Giầy nữ VNXK V0025N-1', 2, 4, 1, 320, '', 1, 0, 'img/product/0026.png'),
+('0027', 'Giầy nữ VNXK KH0025', 2, 4, 1, 295, '', 1, 0, 'img/product/0027.png'),
+('0028', 'Giầy nữ VNXK Bal nhọn', 2, 4, 1, 300, '', 1, 0, 'img/product/0028.png'),
+('0029', 'Giầy nữ VNXK HTP01', 2, 4, 1, 295, '', 1, 0, 'img/product/0029.png'),
+('0030', 'Giầy nữ VNXK 0906N-1', 2, 4, 1, 290, '', 1, 0, 'img/product/0030.png'),
+('0031', 'Giầy nữ VNXK 1068', 2, 4, 1, 360, '', 1, 0, 'img/product/0031.png'),
+('0032', 'Giầy nữ VNXK 1069', 2, 4, 1, 360, '', 1, 0, 'img/product/0032.png'),
+('0033', 'Giầy nữ VNXK 1502N-4', 2, 4, 1, 295, '', 1, 0, 'img/product/0033.png'),
+('0034', 'Giầy nữ VNXK 2235-58', 2, 4, 1, 290, '', 1, 0, 'img/product/0034.png'),
+('0035', 'Giầy nữ VNXK AT14', 2, 4, 1, 320, '', 1, 0, 'img/product/0035.png'),
+('0036', 'Giầy nữ VNXK AT15', 2, 4, 1, 320, '', 1, 0, 'img/product/0036.png'),
+('0037', 'Giầy nữ VNXK AT18', 2, 4, 1, 320, '', 1, 0, 'img/product/0037.png'),
+('0038', 'Giầy nữ VNXK AT107', 2, 4, 1, 320, '', 1, 0, 'img/product/0038.png'),
+('0039', 'Giầy nữ VNXK 190-04', 2, 4, 1, 290, '', 1, 0, 'img/product/0039.png');
 
 -- --------------------------------------------------------
 
@@ -459,7 +505,51 @@ CREATE TABLE IF NOT EXISTS `product_import` (
   PRIMARY KEY (`id`),
   KEY `fk_product_import_product1_idx` (`product_code`),
   KEY `fk_product_import_import_facture1_idx` (`import_facture_code`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=39 ;
+
+--
+-- Dumping data for table `product_import`
+--
+
+INSERT INTO `product_import` (`id`, `product_code`, `import_facture_code`, `quantity`, `import_price`) VALUES
+(1, '0001', '20151007_001', 8, 305),
+(2, '0002', '20151007_001', 10, 291),
+(3, '0003', '20151007_001', 3, 299),
+(4, '0004', '20151007_001', 9, 374),
+(5, '0005', '20151007_001', 5, 304),
+(6, '0006', '20151007_001', 5, 343),
+(7, '0007', '20151007_001', 5, 424),
+(8, '0008', '20151007_001', 5, 365),
+(9, '0009', '20151007_001', 10, 196),
+(10, '0010', '20151007_001', 10, 185),
+(11, '0011', '20151007_001', 10, 190),
+(12, '0012', '20151007_001', 5, 215),
+(13, '0013', '20151007_001', 5, 210),
+(14, '0014', '20151007_001', 5, 210),
+(15, '0015', '20151007_001', 5, 210),
+(16, '0016', '20151007_001', 5, 210),
+(17, '0017', '20151007_001', 5, 210),
+(18, '0018', '20151007_002', 15, 160),
+(19, '0019', '20151007_002', 15, 165),
+(20, '0020', '20151007_002', 10, 205),
+(21, '0039', '20151007_002', 20, 160),
+(22, '0022', '20151007_002', 10, 200),
+(23, '0023', '20151007_002', 15, 210),
+(24, '0024', '20151007_002', 25, 205),
+(25, '0025', '20151007_002', 15, 205),
+(26, '0026', '20151007_002', 10, 170),
+(27, '0027', '20151007_002', 15, 165),
+(28, '0028', '20151007_002', 15, 170),
+(29, '0029', '20151007_002', 10, 165),
+(30, '0030', '20151007_002', 20, 160),
+(31, '0031', '20151007_002', 20, 215),
+(32, '0032', '20151007_002', 15, 225),
+(33, '0033', '20151007_002', 25, 165),
+(34, '0034', '20151007_002', 25, 160),
+(35, '0035', '20151007_002', 15, 170),
+(36, '0036', '20151007_002', 15, 170),
+(37, '0037', '20151007_002', 10, 170),
+(38, '0038', '20151007_002', 10, 170);
 
 -- --------------------------------------------------------
 
@@ -511,7 +601,7 @@ CREATE TABLE IF NOT EXISTS `provider` (
   `description` varchar(245) DEFAULT NULL,
   `date` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `provider`
@@ -519,7 +609,8 @@ CREATE TABLE IF NOT EXISTS `provider` (
 
 INSERT INTO `provider` (`id`, `name`, `tel`, `address`, `description`, `date`) VALUES
 (1, 'Châu', '0966807709', 'Vạn Phúc', 'Vạn phúc', '2015-10-02 07:15:17'),
-(2, 'Vinh Tuyết', '0913077448', 'Hàng Thùng', 'Hàng thùng', '2015-10-04 22:25:52');
+(2, 'Vinh Tuyết', '0913077448', 'Hàng Thùng', 'Hàng thùng', '2015-10-04 22:25:52'),
+(3, 'Dương', '01666082922', 'Cầu Giấy', '', '2015-10-07 23:04:59');
 
 -- --------------------------------------------------------
 
@@ -676,7 +767,7 @@ CREATE TABLE IF NOT EXISTS `spend` (
   KEY `fk_spend_user1_idx` (`user_id`),
   KEY `fk_spend_spend_for1_idx` (`spend_for_id`),
   KEY `fk_spend_spend_type1_idx` (`spend_type_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
 
 --
 -- Dumping data for table `spend`
@@ -694,7 +785,11 @@ INSERT INTO `spend` (`id`, `spend_category_id`, `amount`, `user_id`, `descriptio
 (9, 1, 500, 2, 'Đưa bảo', '2015-10-06 15:31:58', 2, 1),
 (10, 1, 220, 2, 'Mua lễ đi phủ', '2015-10-06 15:31:58', 2, 1),
 (11, 1, 30, 2, 'Mua hoa', '2015-10-06 15:31:58', 2, 1),
-(12, 1, 100, 2, 'Tiền lẻ đi lễ', '2015-10-06 15:31:58', 2, 1);
+(12, 1, 100, 2, 'Tiền lẻ đi lễ', '2015-10-06 15:31:58', 2, 1),
+(13, 1, 500, 2, 'Đưa bảo', '2015-10-07 15:39:25', 2, 1),
+(14, 1, 105, 2, 'Mua máy tính, sổ bút', '2015-10-07 15:39:25', 2, 1),
+(15, 1, 200, 2, 'Tiền 2 nhân viên', '2015-10-07 15:39:25', 2, 1),
+(16, 1, 25, 1, 'Bình nước', '2015-10-07 15:41:41', 2, 1);
 
 -- --------------------------------------------------------
 
