@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 07, 2015 at 11:23 PM
+-- Generation Time: Oct 07, 2015 at 11:47 PM
 -- Server version: 10.0.21-MariaDB
 -- PHP Version: 5.4.31
 
@@ -348,7 +348,6 @@ CREATE TABLE IF NOT EXISTS `import_facture` (
 --
 
 INSERT INTO `import_facture` (`code`, `date`, `description`, `provider_id`, `deadline`, `link`) VALUES
-('20151002_001', '2015-10-02 00:16:07', 'ssss', 1, '2015-10-16 00:16:07', 'img/facture/20151002_001.png'),
 ('20151007_001', '2015-10-07 16:03:20', 'Trả lại 3 đôi', 2, '2015-10-21 16:03:20', 'img/facture/20151007_001.png'),
 ('20151007_002', '2015-10-07 16:19:42', 'Nhập về nhà chị châu', 3, '2015-10-21 16:19:42', 'img/facture/20151007_002.png');
 
@@ -744,8 +743,7 @@ CREATE TABLE IF NOT EXISTS `shop` (
 
 INSERT INTO `shop` (`id`, `name`, `address`, `date`) VALUES
 (1, 'shop1', '19 Vạn phúc Hà Đông Hà Nội', '2015-06-12 22:38:34'),
-(2, 'shop2', 'Số 3 Lê Văn Lương - Vạn Phúc', '2015-06-12 22:38:34'),
-(3, 'shop3', 'Số 5 Lê Văn Lương - Vạn Phúc', '2015-06-12 22:38:34');
+(2, 'shop2', 'Số 3 Lê Văn Lương - Vạn Phúc', '2015-06-12 22:38:34');
 
 -- --------------------------------------------------------
 
