@@ -18,7 +18,7 @@ $commonService = new CommonService ();
 $reportService = new ReportService ( hostname, username, password, database,$commonService );
 $configService = new ConfigService ( hostname, username, password, database,$commonService );
 
-$fgmembersite = new FGMembersite ( hostname, username, password, database, tablename,$configService );
+$fgmembersite = new FGMembersite ( hostname, username, password, database, tablename, $configService );
 $exportService = new ExportService ( hostname, username, password, database,$commonService );
 $importService = new ImportService ( hostname, username, password, database,$commonService );
 $userService = new UserService ( hostname, username, password, database,$commonService );

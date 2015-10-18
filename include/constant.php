@@ -5,8 +5,8 @@ define('timeout', '3600');
 define('hostname', 'localhost');
 define('username', 'zabuzachaule');
 define('password', 'canhd0ngh0ang1');
-define('database', 'fuheiksj_banhang');
-//define('database', 'zabuzachaule');
+//define('database', 'fuheiksj_banhang');
+define('database', 'zabuzachaule');
 define('tablename', 'user');
 //String Constant
 define('tab2', '&nbsp;&nbsp;');
@@ -38,10 +38,10 @@ define('datatable_prefix','table_list_');
 //Default number days for paid
 define('default_nbr_day_paid','14');
 //Paid provider default source
-define('default_id_source_1','1');
+//define('default_id_source_1','1');
 define('default_id_source_2','18');
 define('default_id_source_3','3');
 //default number months load product import
-define('default_nbr_days_load_import','30');
-define('default_nbr_days_load_export','6');
+//define('default_nbr_days_load_import','30');
+//define('default_nbr_days_load_export','6');
 ?>

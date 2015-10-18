@@ -825,7 +825,6 @@ function editmoney_inout(str) {
 }
 function updateSpend() {
 	var urls = 'modules/spend/updatespend.php' + getUpdateSpendInformation();
-	// alert(urls);
 	$.ajax( {
 		url : urls,
 		success : function(data) {

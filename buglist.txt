@@ -1,2 +1,0 @@
-1. bug: xoa duoc san pham da ban
-2. update sale chua hop ly, cần tách riêng sale field
