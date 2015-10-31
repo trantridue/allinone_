@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 29, 2015 at 10:27 PM
+-- Generation Time: Oct 31, 2015 at 11:53 AM
 -- Server version: 10.0.21-MariaDB
 -- PHP Version: 5.4.31
 
@@ -134,7 +134,7 @@ CREATE TABLE IF NOT EXISTS `customer` (
   `created_date` datetime DEFAULT NULL,
   `isboss` varchar(1) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1407 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1409 ;
 
 --
 -- Dumping data for table `customer`
@@ -159,7 +159,7 @@ INSERT INTO `customer` (`id`, `name`, `tel`, `description`, `date`, `created_dat
 (1303, 'Chị Diệu bạn chị Thanh', '123456789', NULL, '2015-10-11 14:57:57', '2015-10-11 14:57:57', '0'),
 (1304, 'Chị Hoa Chi Linh', '123', NULL, '2015-10-11 15:04:53', '2015-10-11 15:04:53', '0'),
 (1305, 'Chị Nguyệt', '0947916133', NULL, '2015-10-11 15:37:59', '2015-10-11 15:37:59', '0'),
-(1306, 'Bạn Nguyễn Duyên', '0985737280', NULL, '2015-10-11 16:45:42', '2015-10-11 16:45:42', '0'),
+(1306, 'Bạn Nguyễn Duyên', '0985737280', 'lỖI HỞ KHE', '2015-10-30 20:04:04', '2015-10-11 16:45:42', '0'),
 (1307, 'Bạn Vũ Thị Thu', '0984369560', NULL, '2015-10-11 17:04:13', '2015-10-11 17:04:13', '0'),
 (1308, 'Chị Thúy', '0968908225', NULL, '2015-10-11 17:28:13', '2015-10-11 17:28:13', '0'),
 (1309, 'Chị Nguyễn Lan Anh', '0979959366', NULL, '2015-10-11 17:46:07', '2015-10-11 17:46:07', '0'),
@@ -259,7 +259,9 @@ INSERT INTO `customer` (`id`, `name`, `tel`, `description`, `date`, `created_dat
 (1403, 'Chị Nguyễn Hằng fb Hang Nguyen fb Bảo', '100', NULL, '2015-10-29 18:14:47', '2015-10-29 18:14:47', '0'),
 (1404, 'Chị Thanh chị Thảo bạn Bảo', '0936442396', NULL, '2015-10-29 18:35:51', '2015-10-29 18:35:51', '0'),
 (1405, 'Bạn Mai fb Má Núm bạn Bảo', '0986552840', NULL, '2015-10-29 18:37:40', '2015-10-29 18:37:40', '0'),
-(1406, 'Anh Tiến', '0919742186', NULL, '2015-10-29 19:02:45', '2015-10-29 19:02:45', '0');
+(1406, 'Anh Tiến', '0919742186', NULL, '2015-10-29 19:02:45', '2015-10-29 19:02:45', '0'),
+(1407, 'Chị Nga fb Thanhnga Nguyen', '0947763585', NULL, '2015-10-30 10:50:50', '2015-10-30 10:50:50', '0'),
+(1408, 'Cô Lê', '0904369717', NULL, '2015-10-30 20:43:45', '2015-10-30 20:43:45', '0');
 
 -- --------------------------------------------------------
 
@@ -507,7 +509,11 @@ INSERT INTO `export_facture` (`code`, `customer_id`, `shop_id`, `description`, `
 ('20151029_005', 1403, 1, 'Fb Hang Nguyen fb Bảo', '2015-10-29 18:14:47', 1, 'N'),
 ('20151029_006', 1404, 1, '', '2015-10-29 18:35:51', 1, 'N'),
 ('20151029_007', 1405, 1, '611 Vũ Tông Phan', '2015-10-29 18:37:40', 1, 'N'),
-('20151029_008', 1406, 1, '', '2015-10-29 19:02:45', 1, 'N');
+('20151029_008', 1406, 1, '', '2015-10-29 19:02:45', 1, 'N'),
+('20151030_001', 1407, 1, '', '2015-10-30 10:50:50', 1, 'N'),
+('20151030_002', 1288, 1, '', '2015-10-30 12:46:21', 1, 'N'),
+('20151030_003', 1306, 1, 'lỖI HỞ KHE', '2015-10-30 20:04:04', 1, 'N'),
+('20151030_004', 1408, 1, '', '2015-10-30 20:43:45', 1, 'N');
 
 -- --------------------------------------------------------
 
@@ -527,7 +533,7 @@ CREATE TABLE IF NOT EXISTS `export_facture_product` (
   PRIMARY KEY (`id`),
   KEY `fk_export_facture_product_product1_idx` (`product_code`),
   KEY `fk_export_facture_product_export_facture1_idx` (`export_facture_code`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=200 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=205 ;
 
 --
 -- Dumping data for table `export_facture_product`
@@ -726,7 +732,12 @@ INSERT INTO `export_facture_product` (`id`, `product_code`, `quantity`, `export_
 (196, '0046', 1, 270, '20151029_005', 0, NULL, NULL),
 (197, '0028', 1, 230, '20151029_006', 0, NULL, NULL),
 (198, '0039', 1, 230, '20151029_007', 0, NULL, NULL),
-(199, '0023', 1, 290, '20151029_008', 0, NULL, NULL);
+(199, '0023', 1, 290, '20151029_008', 0, NULL, NULL),
+(200, '0030', 1, 230, '20151030_001', 0, NULL, NULL),
+(201, '0009', 1, 265, '20151030_001', 0, NULL, NULL),
+(202, '0009', 1, 260, '20151030_002', 0, NULL, NULL),
+(203, '0020', 1, 270, '20151030_003', 0, NULL, NULL),
+(204, '0074', 1, 290, '20151030_004', 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -753,7 +764,7 @@ CREATE TABLE IF NOT EXISTS `export_facture_trace` (
   KEY `fk_export_facture_trace_export_facture1_idx` (`export_facture_code`),
   KEY `fk_export_facture_trace_shop1_idx` (`shop_id`),
   KEY `fk_export_facture_trace_customer1_idx` (`customer_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=178 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=182 ;
 
 --
 -- Dumping data for table `export_facture_trace`
@@ -930,7 +941,11 @@ INSERT INTO `export_facture_trace` (`id`, `export_facture_code`, `total`, `debt`
 (174, '20151029_005', 270, 0, 0, 0, 270, 0, 0, 0, 1, 270, 1403, 100),
 (175, '20151029_006', 230, 0, 0, 0, 500, 270, 0, 0, 1, 230, 1404, 100),
 (176, '20151029_007', 230, 0, 0, 0, 230, 0, 0, 0, 1, 230, 1405, 100),
-(177, '20151029_008', 290, 0, 0, 0, 290, 0, 0, 0, 1, 290, 1406, 100);
+(177, '20151029_008', 290, 0, 0, 0, 290, 0, 0, 0, 1, 290, 1406, 100),
+(178, '20151030_001', 495, 0, 0, 0, 600, 105, 0, 0, 1, 495, 1407, 100),
+(179, '20151030_002', 260, 0, 0, 0, 560, 300, 0, 0, 1, 260, 1288, 100),
+(180, '20151030_003', 270, 0, 0, 0, 500, 230, 0, 0, 1, 270, 1306, 100),
+(181, '20151030_004', 290, 0, 0, 0, 300, 10, 0, 0, 1, 290, 1408, 100);
 
 -- --------------------------------------------------------
 
@@ -975,7 +990,7 @@ CREATE TABLE IF NOT EXISTS `fund_change_histo` (
   PRIMARY KEY (`id`),
   KEY `fk_fund_change_histo_fund1_idx` (`fund_id`),
   KEY `fk_fund_change_histo_user1_idx` (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=103 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=106 ;
 
 --
 -- Dumping data for table `fund_change_histo`
@@ -1071,7 +1086,10 @@ INSERT INTO `fund_change_histo` (`id`, `fund_id`, `amount`, `date`, `description
 (99, 1, 1500, '2015-10-27 10:23:18', 'Tiền bán hàng trong ngày', 1, 3),
 (100, 1, -10000, '2015-10-27 10:24:57', 'Chuyển tiền để Chị Châu thanh toán tiền nhà', 1, 1),
 (101, 9, 10000, '2015-10-27 10:24:57', 'Chuyển tiền để Chị Châu thanh toán tiền nhà', 1, 1),
-(102, 1, 1300, '2015-10-29 10:35:54', 'Tiền bán hàng trong ngày', 1, 3);
+(102, 1, 1300, '2015-10-29 10:35:54', 'Tiền bán hàng trong ngày', 1, 3),
+(103, 1, 2000, '2015-10-29 11:59:53', 'Tiền bán hàng trong ngày', 1, 3),
+(104, 9, -2342, '2015-10-31 09:09:04', 'Tiền bảo nợ chị Châu.', 1, 4),
+(105, 9, -540, '2015-10-31 09:06:14', 'See spend : tiền quảng cáo facebook (HSBC của A Duệ)', 1, 4);
 
 -- --------------------------------------------------------
 
@@ -1145,7 +1163,7 @@ CREATE TABLE IF NOT EXISTS `money_inout` (
   PRIMARY KEY (`id`),
   KEY `fk_money_inout_shop1_idx` (`shop_id`),
   KEY `fk_money_inout_user1_idx` (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=38 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=40 ;
 
 --
 -- Dumping data for table `money_inout`
@@ -1186,7 +1204,9 @@ INSERT INTO `money_inout` (`id`, `shop_id`, `user_id`, `date`, `amount`, `descri
 (34, 1, 3, '2015-10-27 15:44:30', -42, 'Mua đồ thắp hương rằm'),
 (35, 1, 3, '2015-10-28 10:25:26', 561, 'tiền lẻ'),
 (36, 1, 3, '2015-10-29 10:37:16', 520, 'tiền lẻ'),
-(37, 1, 3, '2015-10-29 10:39:30', -17, 'Mua hoa ly ');
+(37, 1, 3, '2015-10-29 10:39:30', -17, 'Mua hoa ly '),
+(38, 1, 3, '2015-10-30 10:57:48', -16, 'Mua táo thắp hương'),
+(39, 1, 3, '2015-10-30 10:58:09', 543, 'tiền lẻ');
 
 -- --------------------------------------------------------
 
@@ -1486,7 +1506,7 @@ CREATE TABLE IF NOT EXISTS `property` (
   `store` float DEFAULT '0',
   `debt` float DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `property`
@@ -1495,7 +1515,9 @@ CREATE TABLE IF NOT EXISTS `property` (
 INSERT INTO `property` (`id`, `date`, `amount`, `ket`, `loan`, `fund`, `store`, `debt`) VALUES
 (1, '2015-10-25', 108608, 12500, 41275, 24827, 124801, 255),
 (2, '2015-10-26', 110455, 14200, 32750, 26502, 116448, 255),
-(3, '2015-10-28', 109825, 15800, 22533, 16945, 115128, 285);
+(3, '2015-10-28', 109825, 15800, 22533, 16945, 115128, 285),
+(4, '2015-10-30', 110290, 8600, 22533, 19745, 112793, 285),
+(5, '2015-10-31', 111328, 10600, 22533, 21745, 111831, 285);
 
 -- --------------------------------------------------------
 
@@ -1695,7 +1717,7 @@ CREATE TABLE IF NOT EXISTS `spend` (
   KEY `fk_spend_user1_idx` (`user_id`),
   KEY `fk_spend_spend_for1_idx` (`spend_for_id`),
   KEY `fk_spend_spend_type1_idx` (`spend_type_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=44 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=45 ;
 
 --
 -- Dumping data for table `spend`
@@ -1742,7 +1764,8 @@ INSERT INTO `spend` (`id`, `spend_category_id`, `amount`, `user_id`, `descriptio
 (39, 1, 25, 3, 'phí ship hàng cho Vũ', '2015-10-20 00:18:08', 2, 1),
 (40, 1, 60, 3, 'mua choi lau', '2015-10-21 22:55:00', 2, 1),
 (41, 1, 20, 3, 'mua banh va hoa thap huong', '2015-10-22 22:35:28', 2, 1),
-(43, 1, 10, 3, 'Mua lựu thắp hương', '2015-10-26 15:52:53', 2, 1);
+(43, 1, 10, 3, 'Mua lựu thắp hương', '2015-10-26 15:52:53', 2, 1),
+(44, 1, 540, 4, 'tiền quảng cáo facebook (HSBC của A Duệ)', '2015-10-31 09:06:14', 2, 1);
 
 -- --------------------------------------------------------
 
