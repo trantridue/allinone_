@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 10, 2015 at 10:25 PM
+-- Generation Time: Nov 10, 2015 at 10:52 PM
 -- Server version: 10.0.21-MariaDB
 -- PHP Version: 5.4.31
 
@@ -1262,7 +1262,7 @@ CREATE TABLE IF NOT EXISTS `fund_change_histo` (
   PRIMARY KEY (`id`),
   KEY `fk_fund_change_histo_fund1_idx` (`fund_id`),
   KEY `fk_fund_change_histo_user1_idx` (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=163 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=164 ;
 
 --
 -- Dumping data for table `fund_change_histo`
@@ -1410,7 +1410,8 @@ INSERT INTO `fund_change_histo` (`id`, `fund_id`, `amount`, `date`, `description
 (159, 14, 115, '2015-11-09 10:52:05', 'tiền bán hàng trong ngày lẻ', 1, 3),
 (160, 14, -12, '2015-11-10 10:54:04', 'See spend : mua táo', 1, 3),
 (161, 9, -495, '2015-11-10 22:12:00', 'See spend : Tiền bảo lấy hàng bên chị châu còn nợ. anh Duệ chốt trả hết nợ này để quản lý khi bảo có lấy hàng bên chị châu ship online và nhận tiền bên bảo', 1, 3),
-(162, 9, -6050, '2015-11-10 22:21:11', 'See spend : Thanh toán tiền biển quảng cáo cho hưởng', 1, 1);
+(162, 9, -6050, '2015-11-10 22:21:11', 'See spend : Thanh toán tiền biển quảng cáo cho hưởng', 1, 1),
+(163, 9, -119, '2015-11-10 22:46:39', 'See spend : Chi phí ship hàng qua vietel bên chị châu. chốt hết 31.10.2015', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -2104,7 +2105,7 @@ CREATE TABLE IF NOT EXISTS `spend` (
   KEY `fk_spend_user1_idx` (`user_id`),
   KEY `fk_spend_spend_for1_idx` (`spend_for_id`),
   KEY `fk_spend_spend_type1_idx` (`spend_type_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=70 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=71 ;
 
 --
 -- Dumping data for table `spend`
@@ -2175,7 +2176,8 @@ INSERT INTO `spend` (`id`, `spend_category_id`, `amount`, `user_id`, `descriptio
 (66, 1, 100, 3, 'nạp thẻ', '2015-11-08 10:27:36', 2, 1),
 (67, 1, 12, 3, 'mua táo', '2015-11-10 10:54:04', 2, 1),
 (68, 1, 495, 3, 'Tiền bảo lấy hàng bên chị châu còn nợ. anh Duệ chốt trả hết nợ này để quản lý khi bảo có lấy hàng bên chị châu ship online và nhận tiền bên bảo', '2015-11-10 22:12:00', 1, 1),
-(69, 1, 6050, 1, 'Thanh toán tiền biển quảng cáo cho hưởng', '2015-11-10 22:21:11', 2, 1);
+(69, 1, 6050, 1, 'Thanh toán tiền biển quảng cáo cho hưởng', '2015-11-10 22:21:11', 2, 1),
+(70, 1, 119, 1, 'Chi phí ship hàng qua vietel bên chị châu. chốt hết 31.10.2015', '2015-11-10 22:46:39', 2, 1);
 
 -- --------------------------------------------------------
 
