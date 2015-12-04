@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 02, 2015 at 10:15 PM
+-- Generation Time: Dec 04, 2015 at 10:36 PM
 -- Server version: 10.0.21-MariaDB
 -- PHP Version: 5.4.31
 
@@ -135,7 +135,7 @@ CREATE TABLE IF NOT EXISTS `customer` (
   `created_date` datetime DEFAULT NULL,
   `isboss` varchar(1) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1506 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1510 ;
 
 --
 -- Dumping data for table `customer`
@@ -359,7 +359,11 @@ INSERT INTO `customer` (`id`, `name`, `tel`, `description`, `date`, `created_dat
 (1502, 'Bạn Uyên ', '0944288062', NULL, '2015-12-02 14:02:26', '2015-12-02 14:02:26', '0'),
 (1503, 'Chị Phạm Diệu Linh', '0989323449', NULL, '2015-12-02 15:34:43', '2015-12-02 15:34:43', '0'),
 (1504, 'Chị Liên', '01655899786', NULL, '2015-12-02 20:18:08', '2015-12-02 20:18:08', '0'),
-(1505, 'Chị Linh', '0965650888', NULL, '2015-12-02 20:38:41', '2015-12-02 20:38:41', '0');
+(1505, 'Chị Linh', '0965650888', NULL, '2015-12-02 20:38:41', '2015-12-02 20:38:41', '0'),
+(1506, 'Chị Sửu chủ nhà', '0943708573', NULL, '2015-12-03 17:46:17', '2015-12-03 17:46:17', '0'),
+(1507, 'Chị Vân Anh khách onl của bảo', '0917517483', NULL, '2015-12-04 11:20:39', '2015-12-04 11:20:39', '0'),
+(1508, 'Chị Hằng', '0974167353', NULL, '2015-12-04 11:50:55', '2015-12-04 11:50:55', '0'),
+(1509, 'Chị Trang', '0948655878', NULL, '2015-12-04 18:14:45', '2015-12-04 18:14:45', '0');
 
 -- --------------------------------------------------------
 
@@ -801,7 +805,12 @@ INSERT INTO `export_facture` (`code`, `customer_id`, `shop_id`, `description`, `
 ('20151202_003', 1503, 1, '', '2015-12-02 15:34:43', 1, 'N'),
 ('20151202_004', 1504, 1, '', '2015-12-02 20:18:08', 1, 'N'),
 ('20151202_005', 1481, 1, '', '2015-12-02 20:25:28', 1, 'N'),
-('20151202_006', 1505, 1, '', '2015-12-02 20:38:41', 1, 'N');
+('20151202_006', 1505, 1, '', '2015-12-02 20:38:41', 1, 'N'),
+('20151203_001', 1506, 1, '', '2015-12-03 17:46:17', 1, 'N'),
+('20151204_001', 1507, 1, '', '2015-12-04 11:20:39', 1, 'N'),
+('20151204_002', 1508, 1, '', '2015-12-04 11:50:55', 1, 'N'),
+('20151204_003', 1288, 1, '', '2015-12-04 12:20:19', 1, 'N'),
+('20151204_004', 1509, 1, '', '2015-12-04 18:14:45', 1, 'N');
 
 -- --------------------------------------------------------
 
@@ -821,7 +830,7 @@ CREATE TABLE IF NOT EXISTS `export_facture_product` (
   PRIMARY KEY (`id`),
   KEY `fk_export_facture_product_product1_idx` (`product_code`),
   KEY `fk_export_facture_product_export_facture1_idx` (`export_facture_code`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=418 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=424 ;
 
 --
 -- Dumping data for table `export_facture_product`
@@ -1235,7 +1244,13 @@ INSERT INTO `export_facture_product` (`id`, `product_code`, `quantity`, `export_
 (414, '0105', 1, 300, '20151202_004', 0, NULL, NULL),
 (415, '0091', 1, 300, '20151202_005', 0, NULL, NULL),
 (416, '0079', 1, 300, '20151202_006', 0, NULL, NULL),
-(417, '0091', 1, 300, '20151202_006', 0, NULL, NULL);
+(417, '0091', 1, 300, '20151202_006', 0, NULL, NULL),
+(418, '0104', 1, 250, '20151203_001', 0, NULL, NULL),
+(419, '0032', 1, 290, '20151203_001', 0, NULL, NULL),
+(420, '0105', 1, 280, '20151204_001', 0, NULL, NULL),
+(421, '0056', 1, 320, '20151204_002', 0, NULL, NULL),
+(422, '0079', 1, 300, '20151204_003', 0, NULL, NULL),
+(423, '0084', 1, 250, '20151204_004', 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1262,7 +1277,7 @@ CREATE TABLE IF NOT EXISTS `export_facture_trace` (
   KEY `fk_export_facture_trace_export_facture1_idx` (`export_facture_code`),
   KEY `fk_export_facture_trace_shop1_idx` (`shop_id`),
   KEY `fk_export_facture_trace_customer1_idx` (`customer_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=361 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=366 ;
 
 --
 -- Dumping data for table `export_facture_trace`
@@ -1619,7 +1634,12 @@ INSERT INTO `export_facture_trace` (`id`, `export_facture_code`, `total`, `debt`
 (357, '20151202_003', 500, 0, 0, 0, 500, 0, 0, 0, 1, 500, 1503, 100),
 (358, '20151202_004', 300, 0, 0, 0, 300, 0, 0, 0, 1, 300, 1504, 100),
 (359, '20151202_005', 300, 0, 0, 0, 300, 0, 0, 0, 1, 300, 1481, 100),
-(360, '20151202_006', 600, 0, 0, 0, 600, 0, 0, 0, 1, 600, 1505, 100);
+(360, '20151202_006', 600, 0, 0, 0, 600, 0, 0, 0, 1, 600, 1505, 100),
+(361, '20151203_001', 540, 0, 0, 0, 540, 0, 0, 0, 1, 540, 1506, 100),
+(362, '20151204_001', 280, 0, 0, 0, 300, 20, 0, 0, 1, 280, 1507, 100),
+(363, '20151204_002', 320, 0, 0, 0, 520, 200, 0, 0, 1, 320, 1508, 100),
+(364, '20151204_003', 300, 0, 0, 0, 500, 200, 0, 0, 1, 300, 1288, 100),
+(365, '20151204_004', 250, 0, 0, 0, 300, 50, 0, 0, 1, 250, 1509, 100);
 
 -- --------------------------------------------------------
 
@@ -1667,7 +1687,7 @@ CREATE TABLE IF NOT EXISTS `fund_change_histo` (
   PRIMARY KEY (`id`),
   KEY `fk_fund_change_histo_fund1_idx` (`fund_id`),
   KEY `fk_fund_change_histo_user1_idx` (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=266 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=272 ;
 
 --
 -- Dumping data for table `fund_change_histo`
@@ -1910,7 +1930,13 @@ INSERT INTO `fund_change_histo` (`id`, `fund_id`, `amount`, `date`, `description
 (262, 14, -20, '2015-12-01 12:56:04', 'See spend : Mua hoa, chè thắp hương ', 1, 3),
 (263, 1, 500, '2015-12-01 12:52:21', 'tiền bán hàng trong ngày', 1, 3),
 (264, 14, -275, '2015-12-02 12:53:14', 'See spend : Mua sách cho ch ', 1, 3),
-(265, 14, -25, '2015-12-02 12:53:32', 'See spend : Mua bánh thắp hương ', 1, 3);
+(265, 14, -25, '2015-12-02 12:53:32', 'See spend : Mua bánh thắp hương ', 1, 3),
+(266, 1, 2500, '2015-12-02 22:53:18', 'tiền bán hàng trong ngày', 1, 3),
+(267, 1, -1000, '2015-12-03 22:43:44', 'Anh Minh rút', 1, 1),
+(268, 2, 1000, '2015-12-03 22:43:44', 'Anh Minh rút', 1, 1),
+(269, 1, 500, '2015-12-03 22:45:41', 'tiền bán hàng trong ngày', 1, 3),
+(270, 1, -2000, '2015-12-04 22:33:34', 'Anh Minh rút tiền', 1, 1),
+(271, 2, 2000, '2015-12-04 22:33:34', 'Anh Minh rút tiền', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -1964,7 +1990,9 @@ INSERT INTO `import_facture` (`code`, `date`, `description`, `provider_id`, `dea
 ('20151123_004', '2015-11-23 21:18:47', 'Chị Châu chuyển hàng từ dưới nhà Chị Châu lên', 3, '2015-12-07 21:18:47', 'img/facture/20151123_004.png'),
 ('20151128_001', '2015-11-28 19:49:21', 'Bảo nhận hàng, chưa thanh toán tiền', 4, '2015-12-12 19:49:21', 'img/facture/20151128_001.png'),
 ('20151128_002', '2015-11-28 19:51:08', 'Chị Châu nhập hàng', 7, '2015-12-12 19:51:08', 'img/facture/20151128_002.png'),
-('20151130_001', '2015-11-30 21:46:21', 'Lấy 1 đôi dưới anh Duệ (2662)', 3, '2015-12-14 21:46:21', 'img/facture/20151130_001.png');
+('20151130_001', '2015-11-30 21:46:21', 'Lấy 1 đôi dưới anh Duệ (2662)', 3, '2015-12-14 21:46:21', 'img/facture/20151130_001.png'),
+('20151204_001', '2015-12-04 11:21:55', 'Lấy dưới nhà chị Châu 1 đôi cho khách đặt', 3, '2015-12-18 11:21:55', 'img/facture/20151204_001.png'),
+('20151204_002', '2015-12-04 20:41:16', 'lấy bên chị châu 1 đôi', 7, '2015-12-18 20:41:16', 'img/facture/20151204_002.png');
 
 -- --------------------------------------------------------
 
@@ -2002,7 +2030,7 @@ CREATE TABLE IF NOT EXISTS `money_inout` (
   PRIMARY KEY (`id`),
   KEY `fk_money_inout_shop1_idx` (`shop_id`),
   KEY `fk_money_inout_user1_idx` (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=96 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=98 ;
 
 --
 -- Dumping data for table `money_inout`
@@ -2099,7 +2127,9 @@ INSERT INTO `money_inout` (`id`, `shop_id`, `user_id`, `date`, `amount`, `descri
 (92, 1, 3, '2015-11-29 23:27:59', 725, 'tiền lẻ'),
 (93, 1, 3, '2015-11-30 22:05:29', 575, 'tiền lẻ'),
 (94, 1, 3, '2015-12-01 22:18:06', 745, 'tiền lẻ'),
-(95, 1, 3, '2015-12-02 12:52:55', 535, 'tiền lẻ');
+(95, 1, 3, '2015-12-02 12:52:55', 535, 'tiền lẻ'),
+(96, 1, 3, '2015-12-03 22:54:18', 525, 'tiền lẻ'),
+(97, 1, 3, '2015-12-04 22:46:11', 565, 'tiền lẻ');
 
 -- --------------------------------------------------------
 
@@ -2296,7 +2326,7 @@ CREATE TABLE IF NOT EXISTS `product_import` (
   PRIMARY KEY (`id`),
   KEY `fk_product_import_product1_idx` (`product_code`),
   KEY `fk_product_import_import_facture1_idx` (`import_facture_code`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=121 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=123 ;
 
 --
 -- Dumping data for table `product_import`
@@ -2422,7 +2452,9 @@ INSERT INTO `product_import` (`id`, `product_code`, `import_facture_code`, `quan
 (117, '0104', '20151128_001', 10, 170),
 (118, '0105', '20151128_002', 15, 170),
 (119, '0081', '20151128_002', 15, 170),
-(120, '0085', '20151130_001', 1, 165);
+(120, '0085', '20151130_001', 1, 165),
+(121, '0090', '20151204_001', 1, 175),
+(122, '0088', '20151204_002', 1, 180);
 
 -- --------------------------------------------------------
 
@@ -2493,7 +2525,7 @@ CREATE TABLE IF NOT EXISTS `property` (
   `store` float DEFAULT '0',
   `debt` float DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=18 ;
 
 --
 -- Dumping data for table `property`
@@ -2515,7 +2547,8 @@ INSERT INTO `property` (`id`, `date`, `amount`, `ket`, `loan`, `fund`, `store`, 
 (13, '2015-11-23', 104715, 12500, 28928, 18764, 114594, 285),
 (14, '2015-11-25', 105600, 7000, 29013, 2404, 131924, 285),
 (15, '2015-11-29', 107339, 6050, 42488, 14234, 135308, 285),
-(16, '2015-11-30', 108525, 7000, 42488, 17184, 133544, 285);
+(16, '2015-11-30', 108525, 7000, 42488, 17184, 133544, 285),
+(17, '2015-12-03', 110588, 7500, 20343, 6369, 124277, 285);
 
 -- --------------------------------------------------------
 
