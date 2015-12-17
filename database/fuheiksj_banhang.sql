@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 16, 2015 at 09:45 PM
+-- Generation Time: Dec 17, 2015 at 02:21 PM
 -- Server version: 10.0.22-MariaDB
 -- PHP Version: 5.4.31
 
@@ -135,7 +135,7 @@ CREATE TABLE IF NOT EXISTS `customer` (
   `created_date` datetime DEFAULT NULL,
   `isboss` varchar(1) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1566 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1567 ;
 
 --
 -- Dumping data for table `customer`
@@ -419,7 +419,8 @@ INSERT INTO `customer` (`id`, `name`, `tel`, `description`, `date`, `created_dat
 (1562, 'Em Thương NV ', '0975448597', '', '2015-12-16 12:51:58', '2015-12-15 23:29:11', '0'),
 (1563, 'Chị Hòa', '01665906888', NULL, '2015-12-16 12:51:36', '2015-12-16 12:51:36', '0'),
 (1564, 'Chị Ngọc', '0987089969', NULL, '2015-12-16 16:06:59', '2015-12-16 16:06:59', '0'),
-(1565, 'Chị Hồng Nhung', '0976219515', NULL, '2015-12-16 18:49:25', '2015-12-16 18:49:25', '0');
+(1565, 'Chị Hồng Nhung', '0976219515', NULL, '2015-12-16 18:49:25', '2015-12-16 18:49:25', '0'),
+(1566, 'Anh Thịnh', '0983626304', NULL, '2015-12-17 13:07:53', '2015-12-17 13:07:53', '0');
 
 -- --------------------------------------------------------
 
@@ -959,7 +960,9 @@ INSERT INTO `export_facture` (`code`, `customer_id`, `shop_id`, `description`, `
 ('20151216_002', 1562, 1, '', '2015-12-16 12:51:58', 1, 'N'),
 ('20151216_003', 1564, 1, '', '2015-12-16 16:06:59', 1, 'N'),
 ('20151216_004', 1533, 1, '', '2015-12-16 18:46:05', 3, 'N'),
-('20151216_005', 1565, 1, '', '2015-12-16 18:49:25', 3, 'N');
+('20151216_005', 1565, 1, '', '2015-12-16 18:49:25', 3, 'N'),
+('20151217_001', 1288, 1, '', '2015-12-17 13:06:42', 1, 'N'),
+('20151217_002', 1566, 1, '', '2015-12-17 13:07:53', 1, 'N');
 
 -- --------------------------------------------------------
 
@@ -979,7 +982,7 @@ CREATE TABLE IF NOT EXISTS `export_facture_product` (
   PRIMARY KEY (`id`),
   KEY `fk_export_facture_product_product1_idx` (`product_code`),
   KEY `fk_export_facture_product_export_facture1_idx` (`export_facture_code`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=531 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=533 ;
 
 --
 -- Dumping data for table `export_facture_product`
@@ -1502,7 +1505,9 @@ INSERT INTO `export_facture_product` (`id`, `product_code`, `quantity`, `export_
 (527, '0096', 1, 260, '20151216_002', 0, NULL, NULL),
 (528, '0005', 1, 470, '20151216_003', 0, NULL, NULL),
 (529, '0097', 1, 220, '20151216_004', 0, NULL, NULL),
-(530, '0039', 1, 245, '20151216_005', 0, NULL, NULL);
+(530, '0039', 1, 245, '20151216_005', 0, NULL, NULL),
+(531, '0085', 1, 280, '20151217_001', 0, NULL, NULL),
+(532, '0010', 1, 290, '20151217_002', 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1529,7 +1534,7 @@ CREATE TABLE IF NOT EXISTS `export_facture_trace` (
   KEY `fk_export_facture_trace_export_facture1_idx` (`export_facture_code`),
   KEY `fk_export_facture_trace_shop1_idx` (`shop_id`),
   KEY `fk_export_facture_trace_customer1_idx` (`customer_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=459 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=461 ;
 
 --
 -- Dumping data for table `export_facture_trace`
@@ -1980,7 +1985,9 @@ INSERT INTO `export_facture_trace` (`id`, `export_facture_code`, `total`, `debt`
 (455, '20151216_002', 260, 0, 0, 0, 260, 0, 0, 0, 1, 260, 1562, 100),
 (456, '20151216_003', 470, 0, 0, 0, 500, 30, 0, 0, 1, 470, 1564, 100),
 (457, '20151216_004', 220, 0, 0, 0, 220, 0, 0, 0, 1, 220, 1533, 100),
-(458, '20151216_005', 245, 0, 0, 0, 245, 0, 0, 0, 1, 245, 1565, 100);
+(458, '20151216_005', 245, 0, 0, 0, 245, 0, 0, 0, 1, 245, 1565, 100),
+(459, '20151217_001', 280, 0, 0, 0, 280, 0, 0, 0, 1, 280, 1288, 100),
+(460, '20151217_002', 290, 0, 0, 0, 290, 0, 0, 0, 1, 290, 1566, 100);
 
 -- --------------------------------------------------------
 
@@ -2028,7 +2035,7 @@ CREATE TABLE IF NOT EXISTS `fund_change_histo` (
   PRIMARY KEY (`id`),
   KEY `fk_fund_change_histo_fund1_idx` (`fund_id`),
   KEY `fk_fund_change_histo_user1_idx` (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=328 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=340 ;
 
 --
 -- Dumping data for table `fund_change_histo`
@@ -2331,7 +2338,15 @@ INSERT INTO `fund_change_histo` (`id`, `fund_id`, `amount`, `date`, `description
 (324, 1, -3300, '2015-12-15 23:20:10', 'See spend : Thanh toán lương cho Em Thương NV _ Chốt 14.12', 1, 3),
 (325, 15, 420, '2015-12-15 23:22:10', 'Hóa đơn số 20151215_008 |  Chị Nguyễn Hằng fb Hang Nguyen fb Bảo | online | 15  | Tòa nhà 319 63 Lê Văn Lương', 1, 1),
 (326, 1, 2500, '2015-12-15 23:26:51', 'Tiền bán hàng trong ngày', 1, 3),
-(327, 14, 100, '2015-12-15 23:27:07', 'tiền bán hàng trong ngày dư', 1, 3);
+(327, 14, 100, '2015-12-15 23:27:07', 'tiền bán hàng trong ngày dư', 1, 3),
+(328, 14, -20, '2015-12-16 00:34:14', 'See spend : Mua bánh thắp hương', 1, 3),
+(333, 1, -2000, '2015-12-16 00:35:13', 'Anh Minh rút', 1, 1),
+(334, 2, 2000, '2015-12-16 00:35:13', 'Anh Minh rút', 1, 1),
+(335, 1, -10000, '2015-12-17 00:35:58', 'Trả chị Châu ', 1, 1),
+(336, 9, 10000, '2015-12-17 00:35:58', 'Trả chị Châu ', 1, 1),
+(337, 14, -50, '2015-12-16 00:41:26', 'See spend : Nạp thẻ', 1, 3),
+(338, 1, 2500, '2015-12-16 13:13:16', 'tiền bán hàng trong ngày', 1, 3),
+(339, 1, 200, '2015-12-16 13:13:50', 'tiền bán hàng trong ngày dư', 1, 3);
 
 -- --------------------------------------------------------
 
@@ -2431,7 +2446,7 @@ CREATE TABLE IF NOT EXISTS `money_inout` (
   PRIMARY KEY (`id`),
   KEY `fk_money_inout_shop1_idx` (`shop_id`),
   KEY `fk_money_inout_user1_idx` (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=115 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=116 ;
 
 --
 -- Dumping data for table `money_inout`
@@ -2546,7 +2561,8 @@ INSERT INTO `money_inout` (`id`, `shop_id`, `user_id`, `date`, `amount`, `descri
 (110, 1, 3, '2015-12-14 23:21:56', 645, 'tiền lẻ'),
 (111, 1, 3, '2015-12-15 23:01:20', 575, 'tiền lẻ'),
 (113, 1, 1, '2015-12-15 23:22:10', -420, 'Hóa đơn số 20151215_008 |  Chị Nguyễn Hằng fb Hang Nguyen fb Bảo | online | VIETINBANK BAO | Tòa nhà 319 63 Lê Văn Lương'),
-(114, 1, 3, '2015-12-16 23:27:50', 545, 'tiền lẻ');
+(114, 1, 3, '2015-12-16 23:27:50', 545, 'tiền lẻ'),
+(115, 1, 3, '2015-12-17 13:15:41', 585, 'tiền lẻ');
 
 -- --------------------------------------------------------
 
@@ -2964,7 +2980,7 @@ CREATE TABLE IF NOT EXISTS `property` (
   `store` float DEFAULT '0',
   `debt` float DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=25 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=26 ;
 
 --
 -- Dumping data for table `property`
@@ -2994,7 +3010,8 @@ INSERT INTO `property` (`id`, `date`, `amount`, `ket`, `loan`, `fund`, `store`, 
 (21, '2015-12-10', 100116, 4500, 19913, -21, 119765, 285),
 (22, '2015-12-11', 100570, 6500, 29243, 2264, 127264, 285),
 (23, '2015-12-13', 102219, 11500, 29038, 7041, 123931, 285),
-(24, '2015-12-16', 104515, 17100, 29953, 14026, 120157, 285);
+(24, '2015-12-16', 104515, 17100, 29953, 14026, 120157, 285),
+(25, '2015-12-17', 103506, 17100, 29953, 14026, 119148, 285);
 
 -- --------------------------------------------------------
 
@@ -3239,7 +3256,7 @@ CREATE TABLE IF NOT EXISTS `spend` (
   KEY `fk_spend_user1_idx` (`user_id`),
   KEY `fk_spend_spend_for1_idx` (`spend_for_id`),
   KEY `fk_spend_spend_type1_idx` (`spend_type_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=117 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=119 ;
 
 --
 -- Dumping data for table `spend`
@@ -3356,7 +3373,9 @@ INSERT INTO `spend` (`id`, `spend_category_id`, `amount`, `user_id`, `descriptio
 (113, 1, 300, 3, 'Ứng trước lương cho Thương', '2015-12-14 22:53:22', 2, 1),
 (114, 1, 70, 1, 'Mua hoa ly và bánh thắp hương', '2015-12-14 22:55:35', 2, 1),
 (115, 1, 50, 3, 'Mua đồ thắp hương', '2015-12-15 23:14:40', 2, 1),
-(116, 1, 3300, 3, 'Thanh toán lương cho Em Thương NV _ Chốt 14.12', '2015-12-15 23:20:10', 2, 1);
+(116, 1, 3300, 3, 'Thanh toán lương cho Em Thương NV _ Chốt 14.12', '2015-12-15 23:20:10', 2, 1),
+(117, 1, 20, 3, 'Mua bánh thắp hương', '2015-12-17 00:33:04', 2, 1),
+(118, 1, 50, 3, 'Nạp thẻ', '2015-12-16 00:41:26', 2, 1);
 
 -- --------------------------------------------------------
 
