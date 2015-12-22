@@ -44,39 +44,38 @@ class ExportService {
 		$isSaleAll = $_SESSION ['is_sale_for_all'];
 		$saleAllTaux = $_SESSION ['sale_all_taux'];
 		if ($isSaleAll == '1') {
-			$qry = "select t1.*,t1.export_price * (100-" . $saleAllTaux . ")/100 as price,". $saleAllTaux." as sale ,". "
-			(select ifnull(sum(quantity),0) from product_import where product_code = t1.code) as init_import,
-(select ifnull(sum(quantity),0) from product_return where product_code = t1.code) as return_provider,
-(select ifnull(sum(quantity),0) from export_facture_product where product_code = t1.code) as export_qty,
-(select ifnull(sum(re_qty),0) from export_facture_product where product_code = t1.code) as cus_return,
-(select name from brand where id = t1.brand_id) as brand,
-(select ifnull(sum(quantity),0) from product_deviation where product_code = t1.code) as deviation 
-			from product t1		
-		where t1.code like '%" . $term . "%' limit 10";
+			$qry = "select t1.*,t1.export_price * (100-" . $saleAllTaux . ")/100 as price,". $saleAllTaux." as sale ,";
 		} else {
-			$qry = "select t1.*,t1.export_price * (100-t1.sale)/100 as price,sale,
-			(select ifnull(sum(quantity),0) from product_import where product_code = t1.code) as init_import,
-(select ifnull(sum(quantity),0) from product_return where product_code = t1.code) as return_provider,
-(select ifnull(sum(quantity),0) from export_facture_product where product_code = t1.code) as export_qty,
-(select ifnull(sum(re_qty),0) from export_facture_product where product_code = t1.code) as cus_return,
-(select name from brand where id = t1.brand_id) as brand,
-(select ifnull(sum(quantity),0) from product_deviation where product_code = t1.code) as deviation from product t1		
-		where t1.code like '%" . $term . "%' limit 10";
+			$qry = "select t1.*,t1.export_price * (100-t1.sale)/100 as price,sale,";
 		}
-		
+		$suf_qry = "(select ifnull(sum(quantity),0) from product_import where product_code = t1.code) as init_import,
+					(select ifnull(sum(quantity),0) from product_return where product_code = t1.code) as return_provider,
+					(select ifnull(sum(quantity),0) from export_facture_product where product_code = t1.code) as export_qty,
+					(select ifnull(sum(re_qty),0) from export_facture_product where product_code = t1.code) as cus_return,
+					(select name from brand where id = t1.brand_id) as brand,
+					(SELECT t2.name FROM provider t2, import_facture t3, product_import t4
+						where t1.code = t4.product_code
+						and t4.import_facture_code = t3.code
+						and t3.provider_id = t2.id limit 1) as provider,
+					(select ifnull(sum(quantity),0) from product_deviation where product_code = t1.code) as deviation 
+					from product t1		
+					where t1.code like '%" . $term . "%' limit 10";
+		$qry = $qry . $suf_qry;
 		$result = mysql_query ( $qry, $this->connection );
 		
 		$jsonArray = array ();
 		
 		while ( $rows = mysql_fetch_array ( $result ) ) {
-			$labelvalue = "Code : " . $rows ['code'] . ",Name :" . $rows ['name'] . ", Trong kho :" . ($rows ['init_import'] - $rows ['return_provider'] - $rows ['export_qty'] + $rows ['cus_return'] + $rows ['deviation']);
+			$labelvalue = "Code : " . $rows ['code'] . ",Name :" . $rows ['name'] . ", Trong kho :" . ($rows ['init_import'] - $rows ['return_provider'] - $rows ['export_qty'] + $rows ['cus_return'] + $rows ['deviation']).", CC: ".$rows ['provider'];
 			$element = array (code => $rows ['code'], 
 			name => $rows ['name'], 
 			posted_price => $rows ['export_price'], 
 			stock => ($rows ['init_import'] - $rows ['return_provider'] - $rows ['export_qty'] + $rows ['cus_return'] + $rows ['deviation']), 
 			price => $rows ['price'], 
 			sale => $rows ['sale'], 
-			detail => "<div style='background-color:pink; min-width:500px;'><span style='color:red;'>" . $rows ['name'] . "</span><hr>" . $rows ['description'] . "<table><tr><td>" . "<ul><li>  Tổng nhập : " . $rows ['init_import'] . "</li><li> Trả CC    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: " . $rows ['return_provider'] . "</li><li> Đã bán    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: " . $rows ['export_qty'] . "</li><li> Khách Trả &nbsp;: " . $rows ['cus_return'] . "</li><li> Sai số  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  : " . $rows ['deviation'] . "</li></ul></td><td><img style='max-width:280px; max-height=200px' src='" . $rows ['link'] . "'></td>
+			detail => "<div style='background-color:pink; min-width:500px;'><span style='color:red;'>" . $rows ['name'] . "</span><hr>" . $rows ['description'] . "<table><tr><td>" . "<ul><li>  Tổng nhập : " . $rows ['init_import'] . "</li>
+			<li> Trả CC    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: " . $rows ['return_provider'] . "</li>
+			<li> Đã bán    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: " . $rows ['export_qty'] . "</li><li> Khách Trả &nbsp;: " . $rows ['cus_return'] . "</li><li> Sai số  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  : " . $rows ['deviation'] . "</li></ul></td><td><img style='max-width:280px; max-height=200px' src='" . $rows ['link'] . "'></td>
 			<tr><td colspan='2'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Kho &nbsp;&nbsp;  :" . ($rows ['init_import'] - $rows ['return_provider'] - $rows ['export_qty'] + $rows ['cus_return'] + $rows ['deviation']) . "
 			</tr></table></div>", 
 			detail_emp => "<div style='background-color:pink;max-width:500px;max-height:350px;font-size:12px;'>
