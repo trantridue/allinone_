@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:3306
--- Generation Time: Dec 28, 2015 at 10:37 PM
+-- Generation Time: Dec 29, 2015 at 10:20 PM
 -- Server version: 10.0.23-MariaDB
 -- PHP Version: 5.4.31
 
@@ -3448,7 +3448,7 @@ CREATE TABLE IF NOT EXISTS `property` (
   `store` float DEFAULT '0',
   `debt` float DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=28 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=29 ;
 
 --
 -- Dumping data for table `property`
@@ -3481,7 +3481,8 @@ INSERT INTO `property` (`id`, `date`, `amount`, `ket`, `loan`, `fund`, `store`, 
 (24, '2015-12-16', 104515, 17100, 29953, 14026, 120157, 285),
 (25, '2015-12-17', 103506, 17100, 29953, 14026, 119148, 285),
 (26, '2015-12-18', 104521, 7000, 29953, 16171, 118018, 285),
-(27, '2015-12-26', 99624, 10100, 27048, -4016, 128848, 1840);
+(27, '2015-12-26', 99624, 10100, 27048, -4016, 128848, 1840),
+(28, '2015-12-29', 100888, 16200, 27048, -4882, 130978, 1840);
 
 -- --------------------------------------------------------
 
