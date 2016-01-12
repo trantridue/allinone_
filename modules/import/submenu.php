@@ -9,12 +9,15 @@ $arr = array (
 		"add" => "ADD"
 		 
 );
-
-foreach ( $arr as $value => $key ) {
-	if ($value == $submodule) {
-		echo "<input type='button' value='" . $key . "' class='menu_btn_sub active_btn_sub' onclick='goToPage(\"".$module."&submenu=" . $value . "\");' />";
-	} else {
-		echo "<input type='button' value='" . $key . "' class='menu_btn_sub' onclick='goToPage(\"".$module."&submenu=" . $value . "\");' />";
+if($commonService->isAdmin()){
+	foreach ( $arr as $value => $key ) {
+		if ($value == $submodule) {
+			echo "<input type='button' value='" . $key . "' class='menu_btn_sub active_btn_sub' onclick='goToPage(\"".$module."&submenu=" . $value . "\");' />";
+		} else {
+			echo "<input type='button' value='" . $key . "' class='menu_btn_sub' onclick='goToPage(\"".$module."&submenu=" . $value . "\");' />";
+		}
 	}
+} else {
+	
 }
 ?>

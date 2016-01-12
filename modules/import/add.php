@@ -16,8 +16,9 @@ session_start();
 	
 	<table class="searchcriteriatable">
 	<input type="hidden" name="continueImport" id="continueImport"	value="false" />
+	<?php if($commonService->isAdmin()) {?>
 	<tr>
-		<td align="right">FACTURE CODE </td>
+		<td align="right">FACTURE CODE : </td>
 		<td><input onkeydown="resetContinue();"
 		name="import_facture_code" id="import_facture_code"
 		value="<?php echo $importService->getImportFactureCode();?>" /></td>
@@ -43,15 +44,45 @@ session_start();
 		<td colspan="3"><input type="text" maxlength="3" size="6" onkeypress="validateNum(event);" name="number_day_paid" autocomplete="off"> </td>
 		
 	</tr>
+	<?php } else { ?>
+		<tr>
+		<td align="right">Mã Hóa Đơn : </td>
+		<td><input onkeydown="resetContinue();" type="hidden"
+		name="import_facture_code" id="import_facture_code"
+		value="<?php echo $importService->getImportFactureCode();?>" /><?php echo $importService->getImportFactureCode();?></td>
+		<td align="right"> </td>
+		<td><input name="provider_name" onkeypress="resetProviderId();" type="hidden"
+		id="provider_name" /><input type="hidden" name="provider_id"
+		id="provider_id" value="1"/></td>
+		<td align="right"> </td>
+		<td><input name="season" type="hidden"
+		id="season" value="<?php echo $_SESSION['default_season_name'];?>" /><input
+		name="season_id" id="season_id" type="hidden"
+		value="<?php echo $_SESSION['default_season_id'];?>" /><?php echo tab4;?>
+	<?php $rowNum = $_SESSION ['import_number_row'];?></td>
+		<td align="right"></td>
+		<td><input name="sale" type="hidden" id="sale" size="3" maxlength="2" onkeypress="validateNum(event);"/></td>
+	</tr>
+	<tr>
+		<td align="right">DESCRIPTION </td>
+		<td><textarea name="description" id="description" cols="40" rows="3"></textarea></td>
+		<td align="right"></td>
+		<td><input type="hidden" maxlength="3" size="6" class="datefield" autocomplete="off" name="deadline"> </td>
+		<td align="right"></td>
+		<td colspan="3"><input type="hidden" maxlength="3" size="6" onkeypress="validateNum(event);" name="number_day_paid" autocomplete="off"> </td>
+		
+	</tr>
+	<?php }?>
 	<tr>
 		<td><input type="submit" value="IMPORT" class="menu_btn_sub"> </td>
-		<td colspan="7"><input id="total_facture" value="0.00" onkeypress="validateNon(event);"/> </td>
+		<td colspan="7"><input id="total_facture" value="0.00" onkeypress="validateNon(event);" type="hidden"/> </td>
 	</tr>
 	</table>
 		<hr>
 	<table  class="searchcriteriatable"
 		style="border-collapse: collapse;">
 		<tbody>
+		<?php if($commonService->isAdmin()) {?>
 			<tr style="text-align: center; font-weight: bold;">
 				<td width="8%">Code</td>
 				<td>Name</td>
@@ -63,6 +94,15 @@ session_start();
 				<td width="8%">Brand</td>
 				<td>Description</td>
 			</tr>       
+			<?php } else {?>
+			<tr style="text-align: center; font-weight: bold;">
+				<td width="10%">Mã hàng</td>
+				<td>Name</td>
+				<td width="5%">Số lượng</td>
+				<td width="5%">Giá bán</td>
+				<td colspan="5">Miêu tả </td>
+			</tr>
+			<?php }?>
     <?php for ($i=1;$i<=$rowNum;$i++) { ?>
     <tr>
 				<td><input name="code_<?php echo $i;?>" id="code_<?php echo $i;?>" onkeypress="resetExisted('<?php echo $i;?>');"
@@ -76,8 +116,9 @@ session_start();
 				onkeyup="calculateImportFacture();" onkeypress="validateFloat(event);"
 					autocomplete="off" size="5" maxlength="4" /></td>
 				<td><input name="post_<?php echo $i;?>" id="post_<?php echo $i;?>" onkeypress="validateFloat(event);"  tabindex="<?php echo $i + $rowNum*3;?>"
-				maxlength="6"
+				maxlength="6" onkeyup="updateImportPrice(<?php echo $i;?>);"
 					autocomplete="off" size="5" /></td>
+					<?php if($commonService->isAdmin()) {?>
 				<td><input name="impr_<?php echo $i;?>" id="impr_<?php echo $i;?>" onkeyup="calculateImportFacture();" tabindex="<?php echo $i + $rowNum*4;?>" 
 				onkeypress="validateFloat(event);"  maxlength="6"
 					autocomplete="off" size="5" /></td>
@@ -95,6 +136,24 @@ session_start();
 					<input type="hidden" name="brand_id_<?php echo $i;?>"
 					id="brand_id_<?php echo $i;?>" value="1" />
 					</td>
+					<?php } else {?>
+					<td><input type="hidden" name="impr_<?php echo $i;?>" id="impr_<?php echo $i;?>" onkeyup="calculateImportFacture();" tabindex="<?php echo $i + $rowNum*4;?>" 
+				onkeypress="validateFloat(event);"  maxlength="6"
+					autocomplete="off" size="5" /></td>
+				<td>
+					<input type="hidden" name="sex_value_<?php echo $i;?>"
+					id="sex_value_<?php echo $i;?>" value="1" /></td>
+				<td><input type="hidden" name="category_<?php echo $i;?>" onkeypress="resetCategoryId('<?php echo $i;?>');"  tabindex="<?php echo $i + $rowNum*6;?>"
+					id="category_<?php echo $i;?>" autocomplete="off" size="10" value="VAY"/>
+					<input type="hidden" name="category_id_<?php echo $i;?>"
+					id="category_id_<?php echo $i;?>" value="1" />
+					</td>
+				<td><input type="hidden" name="brand_<?php echo $i;?>" value="MADEVN" onkeypress="resetBrandId('<?php echo $i;?>');"  tabindex="<?php echo $i + $rowNum*7;?>"
+					id="brand_<?php echo $i;?>" autocomplete="off" size="10"/>
+					<input type="hidden" name="brand_id_<?php echo $i;?>"
+					id="brand_id_<?php echo $i;?>" value="1" />
+					</td>
+					<?php }?>
 				<td><input name="description_<?php echo $i;?>"  tabindex="<?php echo $i + $rowNum*8;?>"
 					id="description_<?php echo $i;?>" autocomplete="off" size="40" />
 					
@@ -177,5 +236,8 @@ $(document).ready(function() {
 		$("#brand_<?php echo $i;?>").autocomplete(ac_config_brand_<?php echo $i;?>);
 	});
 	<?php }?>
+	function updateImportPrice(i){
+		$('#impr_'+i).val(Math.round($('#post_'+i).val()/1.7));
+	}
 	</script>
 	

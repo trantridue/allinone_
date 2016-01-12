@@ -1,8 +1,8 @@
-<?php 
-if($commonService->isAdmin()) {?>
+<?php
+$submodule = isset ( $_REQUEST ['submenu'] ) ? $_REQUEST ['submenu'] : defaultsubmodule; 
+if($commonService->isAdmin() || $submodule == 'add' || $submodule == 'addproduct') {?>
 <div id="inputArea">
 <?php
-$submodule = isset ( $_REQUEST ['submenu'] ) ? $_REQUEST ['submenu'] : defaultsubmodule;
 include $submodule . '.php';
 ?>
 </div>
