@@ -190,8 +190,11 @@ class ExportService {
 		$rows = mysql_fetch_array ( $result );
 		if ($rows ['maxexportfacturecode']) {
 			return $this->getNextFactureCodeBydate ( $rows ['maxexportfacturecode'] );
-		} else
+		} else if($date != $this->commonService->getCurrentDateYYYYMMDD ()){
+			return substr($date,0,4).substr($date,5,2).substr($date,8,2)."_001";
+		} else {
 			return $this->commonService->getCurrentDateYYYYMMDD () . "_001";
+		}
 	}
 	function getExportFactureCode() {
 		$query = "select max(code) as maxexportfacturecode from export_facture limit 1";
