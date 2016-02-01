@@ -1,8 +1,8 @@
-<?php
-$submodule = isset ( $_REQUEST ['submenu'] ) ? $_REQUEST ['submenu'] : defaultsubmodule; 
-if($commonService->isAdmin() || $submodule == 'add' || $submodule == 'addproduct') {?>
+<?php 
+if($commonService->isAdmin()) {?>
 <div id="inputArea">
 <?php
+$submodule = isset ( $_REQUEST ['submenu'] ) ? $_REQUEST ['submenu'] : defaultsubmodule;
 include $submodule . '.php';
 ?>
 </div>
@@ -15,4 +15,3 @@ if ($submodule == "search")
 <?php } else {
 	include 'common/errorpage.php';
 }?>
-

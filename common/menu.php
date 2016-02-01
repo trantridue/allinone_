@@ -36,6 +36,5 @@ foreach ( $arr as $value => $key ) {
 	}
 }
 if(!$commonService->isAdmin())
-	echo "<input type='button' value='NHẬP HÀNG' class='menu_btn' onclick='goToPage(\"import&submenu=add\");' /><br>";
 	echo "<div style='background-color: violet; margin-top:10px;height:30px;padding:13px 0 0 13px;font-weight:bold;'> MAX CODE : ".$importService->currentMaxProductCode(0)."</div>";
 ?>
