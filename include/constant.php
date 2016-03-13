@@ -3,11 +3,11 @@
 define('timeout', '3600');
 //DB configuration
 define('hostname', 'localhost');
-//define('username', 'zabuzachaule');
+//define('username', 'fuheiksj_zabuza');
 define('username', 'root');
-//define('password', 'canhd0ngh0ang1');
+//define('password', 'Abc123!@');
 define('password', '123456');
-//define('database', 'fuheiksj_banhang');
+//define('database', 'fuheiksj_zabuza');
 define('database', 'zabuzachaule');
 define('tablename', 'user');
 //String Constant
