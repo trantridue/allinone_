@@ -8,7 +8,7 @@ define('username', 'root');
 //define('password', 'Abc123!@');
 define('password', '123456');
 //define('database', 'fuheiksj_zabuza');
-define('database', 'zabuzachaule');
+define('database', 'fuheiksj_zabuza');
 define('tablename', 'user');
 //String Constant
 define('tab2', '&nbsp;&nbsp;');
