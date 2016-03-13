@@ -170,12 +170,13 @@ class FundService {
 		$array_total = array (
 				1 => "Total"
 		);
-		$this->commonService->generateJSDatatableComplex ( $result, spenddatatable, 3, 'desc', $array_total );
+		$this->commonService->generateJSDatatableComplex ( $result, spenddatatable, 4, 'desc', $array_total );
 		$this->commonService->generateJqueryDatatable ( $result, spenddatatable, $this->buildArrayParameter() );
 	}
 	function buildArrayParameter() {
 		return array (
-				"name" => "Fund",
+				"id" => "Id",
+				"name" => "Fund Name",
 				"total" => "hidden_field",
 				"total_dis" => "Total",
 				"total_abs" => "hidden_field"

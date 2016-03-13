@@ -4,7 +4,7 @@
 	<tr>
 		<td align="right">SOURCE : </td>
 		<td><?php
-		$commonService->printDropDownListFromTable( 'fund', 'exchange_fund_source');
+		$commonService->printDropDownListFromTableSelected( 'fund', 'exchange_fund_source', $_SESSION['defautl_source_fund_id']);
 		?>
 		<input type="text" size="4" maxlength="8" autocomplete="off" onkeypress="validateNum(event)" id="exchange_source_amount"  onkeyup="updateExchangeFundDestAmount();">
 		<input type="text" size="3" maxlength="8" autocomplete="off" onkeypress="validateFloat(event)" id="exchange_source_ratio" value="1" onkeyup="updateExchangeFundDestAmount();">
@@ -13,7 +13,7 @@
 	<tr>
 		<td align="right">DESTINATION :</td>
 		<td><?php
-		$commonService->printDropDownListFromTable( 'fund', 'exchange_fund_destination');		
+		$commonService->printDropDownListFromTableSelected( 'fund', 'exchange_fund_destination',$_SESSION['defautl_dest_fund_id']);		
 		?>
 		<input type="text" size="4" maxlength="8" autocomplete="off" onkeypress="validateNum(event)" id="exchange_destination_amount">
 		<input type="text" size="3" maxlength="8" autocomplete="off" onkeypress="validateFloat(event)" id="exchange_destination_ratio" value="1"  onkeyup="updateExchangeFundDestAmount();">

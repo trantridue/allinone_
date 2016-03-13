@@ -4,8 +4,8 @@
 	<tr>
 		<td align="right">FUND : </td>
 		<td>
-		<input type="hidden" id="id_add_fund"/>
-		<input type="text" id="fund_id_txt" size="11" onkeyup="resetHiddenFundId();">
+		<input type="hidden" id="id_add_fund" value="1"/>
+		<input type="text" id="fund_id_txt" size="11" onkeyup="resetHiddenFundId();" value="KÉT SẮT">
 		<input type="text" class="datefield" id="add_date" value=<?php echo date('Y-m-d');?> />
 		</td>
 	</tr>
@@ -24,7 +24,7 @@
 	</tr>
 	<tr>
 		<td align="right">Description :</td>
-		<td><textarea rows="3" cols="40" id="add_description"></textarea> </td>
+		<td><textarea rows="3" cols="40" id="add_description">Tiền hàng bán trong ngày </textarea> </td>
 	</tr>
 	<tr>
 		<td align="right"></td>
