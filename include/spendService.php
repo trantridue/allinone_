@@ -95,7 +95,7 @@ class SpendService {
 		$counter = 0;
 		$counterFund = 0;
 		for($i=1;$i<=$nbrLine;$i++){
-			if($params['add_amount_'.$i] != 0 ) {
+			if($params['add_amount_'.$i] != 0 && $params['add_amount_'.$i] !='') {
 				$counter++;
 				$qry = $qry. "(".$params['id_add_category_'.$i].","
 								.$params['add_amount_'.$i].","
@@ -105,7 +105,7 @@ class SpendService {
 								.$params['id_add_for_'.$i].","
 								.$params['id_add_type_'.$i]."),";
 			}
-			if($params['id_add_fund_'.$i] != '' ) {
+			if($params['id_add_fund_'.$i] != 0 && $params['add_amount_'.$i] !='') {
 					$counterFund++;
 					$qryFund = $qryFund. "(".$params['id_add_fund_'.$i].","
 									.(0-$params['add_amount_'.$i]).",'See spend : "

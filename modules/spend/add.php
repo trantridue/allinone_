@@ -18,7 +18,7 @@
 	<?php for ($i=1;$i<=$_SESSION['default_number_line_spend'];$i++) {?>
 		<tr>
 		<td ><?php
-		$commonService->printDropDownListFromTable ( 'fund', 'add_fund_'.$i);
+		$commonService->printDropDownListFromTableSelected ( 'fund', 'add_fund_'.$i,$_SESSION['default_fund_id']);
 		?></td>
 		<td><input type="number" class="number50" autocomplete="off" size="4" id="add_amount_<?php echo $i;?>" maxlength="8" onkeypress="validateNum(event);" tabindex="<?php echo $i;?>"/></td>
 		<td><input type="text" autocomplete="off" id="add_description_<?php echo $i;?>"/> </td>
