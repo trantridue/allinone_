@@ -45,7 +45,8 @@ session_start();
 	</tr>
 	<tr>
 		<td><input type="submit" value="IMPORT" class="menu_btn_sub"> </td>
-		<td colspan="7"><input id="total_facture" value="0.00" onkeypress="validateNon(event);"/> </td>
+		<td colspan="7"><input id="total_facture" value="0.00" onkeypress="validateNon(event);"/> 
+		<label for="default_discount_taux">Discount:</label><input type="number" style="width:50px" id="default_discount_taux" value="<?php echo $_SESSION['default_discount_taux'];?>"/> </td>
 	</tr>
 	</table>
 		<hr>
@@ -75,7 +76,8 @@ session_start();
 				<td><input name="qty_<?php echo $i;?>" id="qty_<?php echo $i;?>" tabindex="<?php echo $i + $rowNum*2;?>"
 				onkeyup="calculateImportFacture();" onkeypress="validateFloat(event);"
 					autocomplete="off" size="5" maxlength="4" /></td>
-				<td><input name="post_<?php echo $i;?>" id="post_<?php echo $i;?>" onkeypress="validateFloat(event);"  tabindex="<?php echo $i + $rowNum*3;?>"
+				<td><input name="post_<?php echo $i;?>" id="post_<?php echo $i;?>" onkeyup="updateImportPrice(<?php echo $i;?>);"
+				onkeypress="validateFloat(event);"  tabindex="<?php echo $i + $rowNum*3;?>"
 				maxlength="6"
 					autocomplete="off" size="5" /></td>
 				<td><input name="impr_<?php echo $i;?>" id="impr_<?php echo $i;?>" onkeyup="calculateImportFacture();" tabindex="<?php echo $i + $rowNum*4;?>" 
@@ -177,5 +179,12 @@ $(document).ready(function() {
 		$("#brand_<?php echo $i;?>").autocomplete(ac_config_brand_<?php echo $i;?>);
 	});
 	<?php }?>
+	function updateImportPrice(index) {
+		var discount = $('#default_discount_taux').val();
+		var expr =  $('#post_'+index).val();
+		var impr = Math.floor((100-discount)*expr/100);
+		$('#impr_' + index).val(impr);
+		calculateImportFacture();
+	}
 	</script>
 	
