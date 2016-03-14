@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set("Asia/Bangkok");
 //Timeout server
 define('timeout', '3600');
 //DB configuration
