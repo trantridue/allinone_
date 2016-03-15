@@ -118,6 +118,7 @@ $(document).ready(function(){
 			$("#product_import_qty_<?php echo $i;?>").val(ui.item.qty);
 			$("#remained_<?php echo $i;?>").val(ui.item.qty-ui.item.qtyreturned);
 			$("#provider_name_<?php echo $i;?>").val(ui.item.provider_name);
+			$("#product_return_qty_<?php echo $i;?>").val(1);
 			$("#provider_id_<?php echo $i;?>").val(ui.item.provider_id);
 			$("#product_import_name_<?php echo $i;?>").val(ui.item.name);
 			$("#product_import_price_<?php echo $i;?>").val(ui.item.import_price);
