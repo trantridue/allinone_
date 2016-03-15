@@ -23,6 +23,7 @@ function returnProduct(){
 	var allNotNull = false;
 	var flagRowWrong = true;
 	var returnable = true;
+	var date_return_product = $('#date_return_product').val();
 		
 	for (var i=1;i<=totalRows;i++) {
 		var provider_id = $('#provider_id_'+i).val();
@@ -66,7 +67,7 @@ function returnProduct(){
 		}
 	}
 	if(flagRowWrong && strCode !='' && returnable) {
-		insertReturnProduct(strCode,strQty,strDesc,strProvider,strPrice);
+		insertReturnProduct(strCode,strQty,strDesc,strProvider,strPrice,date_return_product);
 	} 
 	else  {
 // 		$('#serverMessage').show();
@@ -82,11 +83,11 @@ function returnProduct(){
 <?php session_start();?>
 <form id="returnproductForm">
 <div> 
-
-<input type="button" value="SHOW SEARCH" class="menu_btn_sub" onclick="toggleDivShowBtnStatus('listReturnProductArea',this);" style="background-color: violet;"/>
-<input type="button" value="SEARCH" class="menu_btn_sub" onclick="listReturnProduct();"/>
-<input type="reset" value="SHOW TRẢ HÀNG" onclick="toggleDivShowBtnStatus('returnproducttable',this);"  style="background-color: violet;"/>
+<input type="text" id='date_return_product' class='datetimefield'/>
 <input type="button" value="TRẢ" class="menu_btn_sub" onclick="returnProduct();listReturnProduct();"/>
+<input type="button" value="SEARCH" class="menu_btn_sub" onclick="listReturnProduct();"/>
+<input type="button" value="SHOW SEARCH" class="menu_btn_sub" onclick="toggleDivShowBtnStatus('listReturnProductArea',this);" style="background-color: violet;"/>
+<input type="reset" value="SHOW TRẢ HÀNG" onclick="toggleDivShowBtnStatus('returnproducttable',this);"  style="background-color: violet;"/>
 <input type="hidden" name="numberrows" id="numberrows" value="<?php echo $_SESSION['default_row_product_return'];?>"/>
 <?php echo tab4;?> <strong> TOTAL: </strong>
 <input type="text" id="total_return" value="0" style="opacity:100%;" size="8" onkeypress="validateNon(event);"/>

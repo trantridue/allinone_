@@ -297,10 +297,10 @@ function show_product_product_code(str) {
 	var imgUrl = "img/product/"+str.substring(str.indexOf('=')+1, str.indexOf('&'))+".png";
 	window.open(imgUrl,'_blank');
 }
-function insertReturnProduct(codes, quantities, descriptions, providers, prices) {
+function insertReturnProduct(codes, quantities, descriptions, providers, prices,date_return_product) {
 	var returnproduct = 'modules/import/addreturnproduct.php?codes=' + codes
 			+ '&quantities=' + quantities + '&descriptions=' + descriptions + '&prices=' + prices
-			+ '&providers=' + providers;
+			+ '&providers=' + providers + '&date_return_product=' + date_return_product;
 	$.ajax( {
 		url : returnproduct,
 		success : function(data) {
