@@ -168,7 +168,7 @@ class FundService {
 				(select abs(sum(t2.amount*ratio)) from fund_change_histo t2 where t2.fund_id = t1.id) as total_abs from fund t1";
 		$result = mysql_query ( $qry, $this->connection );
 		$array_total = array (
-				1 => "Total"
+				2 => "Total"
 		);
 		$this->commonService->generateJSDatatableComplex ( $result, spenddatatable, 4, 'desc', $array_total );
 		$this->commonService->generateJqueryDatatable ( $result, spenddatatable, $this->buildArrayParameter() );
