@@ -59,7 +59,7 @@ echo $_REQUEST ['name'];
 		?>
 		</span></td>
 		<td><?php
-		$commonService->printDropDownListFromTableSelected ( 'fund', 'paid_fund_1', $_SESSION['default_id_source_1'] );
+		$commonService->printDropDownListFromTableSelected ( 'fund', 'paid_fund_1', default_id_source_1 );
 		?></td>
 		<td><input type="text" id="paid_amount_1" onclick="this.select();"
 			onkeypress="validateFloat(event);" size="6" maxlength="8" value="0"
