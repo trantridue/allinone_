@@ -1,6 +1,6 @@
 <?php
 ob_start();
-session_start();
+//session_start();
 require_once ("../../include/constant.php");
 require_once ("../../include/providerService.php");
 require_once ("../../include/commonService.php");
