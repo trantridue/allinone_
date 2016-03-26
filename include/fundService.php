@@ -210,9 +210,10 @@ class FundService {
 		);
 	}
 	function listFundHistoDefault() {
-		$dateBeforeSomeDays = $this->commonService->getDateBeforeSomeDays (default_nbr_days_load_import);
+		//$dateBeforeSomeDays = $this->commonService->getDateBeforeSomeDays ($_SESSION['import_number_row']);
+		$firstDayOfCurrentMonth = date('Y-m').'-01';
 		$qry = "select (t1.amount*t1.ratio) as total,t1.*,t2.name as username,t3.name as fundname, format(t1.amount*t1.ratio,0) as amount_dis from fund_change_histo t1,user t2,fund t3 where 
-				t1.fund_id = t3.id and t1.user_id = t2.id and date >= '".$dateBeforeSomeDays."'";
+				t1.fund_id = t3.id and t1.user_id = t2.id and date >= '".$firstDayOfCurrentMonth."'";
 				
 		$result = mysql_query ( $qry, $this->connection );
 		$array_total = array (
