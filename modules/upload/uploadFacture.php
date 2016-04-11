@@ -39,8 +39,8 @@ if ($uploadOk == 0) {
     echo "<a href='../../login-home.php'>Home page</a>";
 // if everything is ok, try to upload file
 } else {
-	$max_width = $_SESSION['max_width_upload_img']*3;
-	$max_height = $_SESSION['max_height_upload_img']*3;
+	$max_width = $_SESSION['max_width_upload_img'];
+	$max_height = $_SESSION['max_height_upload_img'];
 	$quality = $_SESSION['upload_img_quality'];
     if (move_uploaded_file($_FILES["fileToUploadFacture"]["tmp_name"], $_FILES["fileToUploadFacture"]["tmp_name"]."tmp")) {
 		GenerateThumbnail($_FILES["fileToUploadFacture"]["tmp_name"]."tmp",$target_file_uploaded,$max_width,$max_height,$quality);
