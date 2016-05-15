@@ -25,13 +25,13 @@
 
 #main_page_menu {
 	float: left;
-	width: 10%;
-	min-height: 530px;
+	width: 100%;
+	/*min-height: 530px;*/
 }
 
 #main_page_content {
 	float: right;
-	width: 90%;
+	width: 100%;
 	min-height: 600px;
 	background-color: white;
 }
@@ -66,9 +66,9 @@
 }
 
 .menu_btn {
-	width: 100%;
+	width: 8%;
 	height: 35px;
-	margin-top: 10px;
+	margin-top: 5px;
 	font-weight: bold;
 }
 

@@ -30,11 +30,11 @@ $arr = array (
 }
 foreach ( $arr as $value => $key ) {
 	if ($value == $module) {
-		echo "<input type='button' value='" . $key . "' class='menu_btn active_btn' onclick='goToPage(\"" . $value . "&submenu=search\");' /><br>";
+		echo "<input type='button' value='" . $key . "' class='menu_btn active_btn' onclick='goToPage(\"" . $value . "&submenu=search\");' />";
 	} else {
-		echo "<input type='button' value='" . $key . "' class='menu_btn' onclick='goToPage(\"" . $value . "&submenu=search\");' /><br>";
+		echo "<input type='button' value='" . $key . "' class='menu_btn' onclick='goToPage(\"" . $value . "&submenu=search\");' />";
 	}
 }
 if(!$commonService->isAdmin())
-	echo "<div style='background-color: violet; margin-top:10px;height:30px;padding:13px 0 0 13px;font-weight:bold;'> MAX CODE : ".$importService->currentMaxProductCode(0)."</div>";
+	echo "<div style='background-color: violet;float:right; margin-top:10px;height:30px;padding:13px 0 0 13px;font-weight:bold;'> MAX CODE : ".$importService->currentMaxProductCode(0)."</div>";
 ?>
