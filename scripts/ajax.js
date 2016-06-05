@@ -1788,12 +1788,13 @@ function updateCusIdWhenChangeTel() {
 	calculateExportForm();
 }
 function updatePriceProduct() {
+var nbrow = parseInt($('#export_number_row').val());
 	if ($('#salefacture').val() < 0) {
 		$('#salefacture').val('0');
 	} else if ($('#salefacture').val() > 100) {
 		$('#salefacture').val('100');
 	}
-	for ( var i = 1; i <= 10; i++) {
+	for ( var i = 1; i <= nbrow; i++) {
 		if ($('#productcode_' + i).val() != '') {
 			$('#exportprice_' + i).val(
 					Math.round(parseInt($('#exportpostedprice_' + i).html())
