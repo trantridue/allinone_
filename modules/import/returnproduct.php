@@ -134,13 +134,11 @@ $(document).ready(function(){
 });
 </script>
 <tr>
-<td><input type="text" size="6" id="product_code_<?php echo $i;?>" name="product_code_<?php echo $i;?>" tabindex="<?php
-	echo $i + $rowNum * 1;
-	?>"></td>
+<td><input type="text" size="6" id="product_code_<?php echo $i;?>" name="product_code_<?php echo $i;?>" tabindex="<?php	echo $i + $rowNum * 1;?>"></td>
 <td><input type="number" style="width:35px;" id="product_return_qty_<?php echo $i;?>" name="product_return_qty_<?php echo $i;?>" onkeyup="calculateReturnProduct();" 
-onclick="calculateReturnProduct();"></td>
-<td><input type="text" size="6" id="product_import_price_<?php echo $i;?>" name="product_import_price_<?php echo $i;?>" onkeypress="validateNon(event);"></td>
-<td><input type="text" size="30" id="description_return_<?php echo $i;?>" name="description_return_<?php echo $i;?>"></td>
+onclick="calculateReturnProduct();" tabindex="<?php	echo $i + $rowNum * 2;?>"></td>
+<td><input type="text" size="6" id="product_import_price_<?php echo $i;?>" tabindex="<?php	echo $i + $rowNum * 3;?>" name="product_import_price_<?php echo $i;?>" onkeypress="validateNon(event);"></td>
+<td><input type="text" size="30" id="description_return_<?php echo $i;?>" tabindex="<?php	echo $i + $rowNum * 4;?>" name="description_return_<?php echo $i;?>"></td>
 <td><input type="text" size="6" class="transparentText" id="product_import_qty_<?php echo $i;?>" name="product_import_qty_<?php echo $i;?>" onkeypress="validateNon(event);"></td>
 <td><input type="text" size="6" class="transparentText" id="qtyreturned_<?php echo $i;?>" name="qtyreturned_<?php echo $i;?>" onkeypress="validateNon(event);"></td>
 <td><input type="text" size="6" class="transparentText" id="remained_<?php echo $i;?>" name="remained_<?php echo $i;?>" onkeypress="validateNon(event);"></td>
