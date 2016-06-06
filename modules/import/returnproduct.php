@@ -108,7 +108,8 @@ function returnProduct(){
 </tr>
 
 <?php
-for($i = 1; $i <= $_SESSION['default_row_product_return']; $i ++) {
+$rowNum = $_SESSION['default_row_product_return'];
+for($i = 1; $i <= $rowNum; $i ++) {
 	?>
 <script type="text/javascript">
 $(document).ready(function(){
@@ -133,7 +134,9 @@ $(document).ready(function(){
 });
 </script>
 <tr>
-<td><input type="text" size="6" id="product_code_<?php echo $i;?>" name="product_code_<?php echo $i;?>"></td>
+<td><input type="text" size="6" id="product_code_<?php echo $i;?>" name="product_code_<?php echo $i;?>" tabindex="<?php
+	echo $i + $rowNum * 1;
+	?>"></td>
 <td><input type="number" style="width:35px;" id="product_return_qty_<?php echo $i;?>" name="product_return_qty_<?php echo $i;?>" onkeyup="calculateReturnProduct();" 
 onclick="calculateReturnProduct();"></td>
 <td><input type="text" size="6" id="product_import_price_<?php echo $i;?>" name="product_import_price_<?php echo $i;?>" onkeypress="validateNon(event);"></td>
