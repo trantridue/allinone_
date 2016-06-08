@@ -84,8 +84,8 @@ function returnProduct(){
 <form id="returnproductForm">
 <div> 
 <input type="text" id='date_return_product' class='datetimefield'/>
-<input type="button" value="TRẢ" class="menu_btn_sub" onclick="returnProduct();listReturnProduct();"/>
-<input type="button" value="SEARCH" class="menu_btn_sub" onclick="listReturnProduct();"/>
+<input type="button" value="TRẢ" class="menu_btn_sub" onclick="returnProduct();listReturnProduct('true');"/>
+<input type="button" value="SEARCH" class="menu_btn_sub" onclick="listReturnProduct('false');"/>
 <input type="button" value="SHOW SEARCH" class="menu_btn_sub" onclick="toggleDivShowBtnStatus('listReturnProductArea',this);" style="background-color: violet;"/>
 <input type="reset" value="SHOW TRẢ HÀNG" onclick="toggleDivShowBtnStatus('returnproducttable',this);"  style="background-color: violet;"/>
 <input type="hidden" name="numberrows" id="numberrows" value="<?php echo $_SESSION['default_row_product_return'];?>"/>
