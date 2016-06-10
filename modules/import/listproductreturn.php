@@ -9,10 +9,8 @@ if ($isdefault == "false") {
 	$commonService = new CommonService ();
 	$importService = new ImportService ( hostname, username, password, database, $commonService );
 	$parameterArray = $importService->getInputSearchParameters();
-//	$importService->listProductReturn( $parameterArray );
+	$importService->listProductReturn( $parameterArray );
 } else {
-//	$importService->listProductReturnDefault();
-// 	$importService->test();
+	$importService->listProductReturnDefault();
 }
-$importService->listProductReturn( $parameterArray );
 ?>

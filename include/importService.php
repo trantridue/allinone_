@@ -668,6 +668,37 @@ class ImportService {
 		$this->commonService->generateJSDatatableComplex ( $result, 'productreturn', 7, 'desc', $this->getArrayTotalReturn () );
 		$this->commonService->generateJqueryDatatable ( $result, 'productreturn', $this->getArrayColumnReturn () );
 	}
+function listProductReturnDefault() {
+		$qry = "SELECT t1.*, 
+		       date_format(t1.date,'%Y-%m-%d') as date, 
+		       t3.NAME   AS provider_name, 
+		       t2.NAME   AS product_name,
+		       t3.tel, 
+		       t2.export_price,
+		       (SELECT import_price 
+		        FROM   product_import 
+		        WHERE  product_code = t1.product_code 
+		               AND id = (SELECT Max(id) 
+		                         FROM   product_import 
+		                         WHERE  product_code = t1.product_code)) AS import_price 
+		FROM   product_return t1, 
+		       product t2, 
+		       provider t3, 
+		       category t4, 
+		       brand t5, 
+		       season t6 
+		WHERE  t1.product_code = t2.code 
+		       AND t1.provider_id = t3.id 
+		       AND t2.category_id = t4.id 
+		       AND t2.brand_id = t5.id 
+		       AND t2.season_id = t6.id 
+		       AND now() < DATE_ADD(t1.date,INTERVAL 30 DAY)";
+	
+		$result = mysql_query ( $qry, $this->connection );
+		//		echo $qry;
+		$this->commonService->generateJSDatatableComplex ( $result, 'productreturn', 7, 'desc', $this->getArrayTotalReturn () );
+		$this->commonService->generateJqueryDatatable ( $result, 'productreturn', $this->getArrayColumnReturn () );
+	}
 	function getArrayTotalReturn() {
 		return array (2 => "Số lượng", 3 => "Amount" );
 	}
