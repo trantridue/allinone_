@@ -983,13 +983,12 @@ function addFund() {
 	if (validateAddFund()) {
 		saveAddFund();
 	}
-}
+}function addAbsent() {	if (validateAddAbsent()) {		saveAddAbsent();	}}function saveAddAbsent() {		var urls = 'modules/user/saveAbsent.php' + getAbsentInformation();	$.ajax( {		url : urls,		success : function(data) {		if (data == 'success') {			operationSuccess();			reloadTraceList();//			$('#fundAddFormId')[0].reset();		} else {			operationError();		}	}	});	}
 function saveAddFund() {
 	var urls = 'modules/fund/saveAdd.php' + getFundAddInformation();
 	$.ajax( {
 		url : urls,
 		success : function(data) {
-//		alert(data);
 		if (data == 'success') {
 			operationSuccess();
 			reloadFundList();
@@ -1073,15 +1072,10 @@ function isFactureInforBlank(){
 	($('#customer_give').val()=='' || $('#customer_give').val()=='0') &&
 	($('#total_facture').html()=='' || $('#total_facture').html()=='0') &&
 	($('#give_customer').val()=='' || $('#give_customer').val()=='0');
-}
+}function validateAddAbsent() {	var flag = true;	if ($('#id_list_user').val() == '' || $('#id_list_user').val() == null) {		$('#id_list_user').addClass('errorField');		flag = false;	} else {		$('#id_add_user').removeClass('errorField');	}	return flag;}
 function validateAddFund() {
 	var flag = true;
-	// if($('#id_add_fund').val()=='' || $('#id_add_fund').val()==null) {
-	// $('#id_add_fund').addClass('errorField');
-	// flag = false;
-	// } else {
-	// $('#id_add_fund').removeClass('errorField');
-	// }
+
 	if ($('#id_add_user').val() == '' || $('#id_add_user').val() == null) {
 		$('#id_add_user').addClass('errorField');
 		flag = false;
@@ -1172,7 +1166,7 @@ function getFundAddInformation() {
 	params = params + "&add_ratio" + "=" + $('#add_ratio').val();
 	params = params + "&add_description" + "=" + $('#add_description').val();
 	return processUrlStringEncode(params);
-}
+}function getAbsentInformation() {	var params = '';	params = params + "?id_add_fund" + "=" + $('#id_add_fund').val();	params = params + "&fund_id_txt" + "=" + $('#fund_id_txt').val();	params = params + "&id_add_user" + "=" + $('#id_add_user').val();	params = params + "&add_date" + "=" + $('#add_date').val();	params = params + "&add_amount" + "=" + $('#add_amount').val();	params = params + "&add_ratio" + "=" + $('#add_ratio').val();	params = params + "&add_description" + "=" + $('#add_description').val();	return processUrlStringEncode(params);}
 function getCustomerInformation() {
 	var params = '';
 	params = params + "?editid" + "=" + $('#editid').val();
