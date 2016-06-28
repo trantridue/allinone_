@@ -3,8 +3,8 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:3306
--- Generation Time: Jun 24, 2016 at 08:29 AM
--- Server version: 10.0.25-MariaDB
+-- Generation Time: Jun 27, 2016 at 10:53 PM
+-- Server version: 10.0.26-MariaDB
 -- PHP Version: 5.4.31
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -2326,7 +2326,11 @@ INSERT INTO `export_facture` (`code`, `customer_id`, `shop_id`, `description`, `
 ('20160620_001', 2086, 1, '', '2016-06-20 17:39:56', 1, 'N'),
 ('20160621_001', 2087, 1, '', '2016-06-21 18:19:33', 1, 'N'),
 ('20160621_002', 2088, 1, '', '2016-06-21 18:51:29', 1, 'N'),
-('20160623_001', 2074, 1, '', '2016-06-23 12:51:37', 1, 'N');
+('20160623_001', 2074, 1, '', '2016-06-23 12:51:37', 1, 'N'),
+('20160627_001', 1288, 1, '', '2016-06-27 15:55:50', 1, 'N'),
+('20160627_002', 1288, 1, '', '2016-06-27 15:57:26', 1, 'N'),
+('20160627_003', 1288, 1, '', '2016-06-27 15:57:43', 1, 'N'),
+('20160627_004', 1288, 1, '', '2016-06-27 18:03:47', 1, 'N');
 
 -- --------------------------------------------------------
 
@@ -2346,7 +2350,7 @@ CREATE TABLE IF NOT EXISTS `export_facture_product` (
   PRIMARY KEY (`id`),
   KEY `fk_export_facture_product_product1_idx` (`product_code`),
   KEY `fk_export_facture_product_export_facture1_idx` (`export_facture_code`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1616 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1621 ;
 
 --
 -- Dumping data for table `export_facture_product`
@@ -3898,7 +3902,12 @@ INSERT INTO `export_facture_product` (`id`, `product_code`, `quantity`, `export_
 (1612, '0158', 1, 260, '20160621_002', 0, NULL, NULL),
 (1613, '0272', 1, 230, '20160623_001', 0, NULL, NULL),
 (1614, '0243', 1, 325, '20160623_001', 0, NULL, NULL),
-(1615, '0215', 1, 265, '20160623_001', 0, NULL, NULL);
+(1615, '0215', 1, 265, '20160623_001', 0, NULL, NULL),
+(1616, '0224', 1, 130, '20160627_001', 0, NULL, NULL),
+(1617, '0156', 1, 245, '20160627_002', 0, NULL, NULL),
+(1618, '0205', 1, 255, '20160627_002', 0, NULL, NULL),
+(1619, '0278', 1, 280, '20160627_003', 0, NULL, NULL),
+(1620, '0162', 1, 300, '20160627_004', 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -3925,7 +3934,7 @@ CREATE TABLE IF NOT EXISTS `export_facture_trace` (
   KEY `fk_export_facture_trace_export_facture1_idx` (`export_facture_code`),
   KEY `fk_export_facture_trace_shop1_idx` (`shop_id`),
   KEY `fk_export_facture_trace_customer1_idx` (`customer_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1327 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1331 ;
 
 --
 -- Dumping data for table `export_facture_trace`
@@ -5202,7 +5211,11 @@ INSERT INTO `export_facture_trace` (`id`, `export_facture_code`, `total`, `debt`
 (1323, '20160620_001', 250, 0, 0, 0, 250, 0, 0, 0, 1, 250, 2086, 100),
 (1324, '20160621_001', 280, 0, 0, 0, 280, 0, 0, 0, 1, 280, 2087, 100),
 (1325, '20160621_002', 1180, 0, 0, 0, 1200, 20, 0, 0, 1, 1180, 2088, 100),
-(1326, '20160623_001', 820, 0, 0, 0, 1000, 180, 0, 0, 1, 820, 2074, 100);
+(1326, '20160623_001', 820, 0, 0, 0, 1000, 180, 0, 0, 1, 820, 2074, 100),
+(1327, '20160627_001', 130, 0, 0, 0, 130, 0, 0, 0, 1, 130, 1288, 100),
+(1328, '20160627_002', 500, 0, 0, 0, 500, 0, 0, 0, 1, 500, 1288, 100),
+(1329, '20160627_003', 280, 0, 0, 0, 280, 0, 0, 0, 1, 280, 1288, 100),
+(1330, '20160627_004', 300, 0, 0, 0, 300, 0, 0, 0, 1, 300, 1288, 100);
 
 -- --------------------------------------------------------
 
@@ -5253,7 +5266,7 @@ CREATE TABLE IF NOT EXISTS `fund_change_histo` (
   PRIMARY KEY (`id`),
   KEY `fk_fund_change_histo_fund1_idx` (`fund_id`),
   KEY `fk_fund_change_histo_user1_idx` (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1007 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1012 ;
 
 --
 -- Dumping data for table `fund_change_histo`
@@ -6172,7 +6185,12 @@ INSERT INTO `fund_change_histo` (`id`, `fund_id`, `amount`, `date`, `description
 (1003, 1, -400, '2016-06-21 19:10:41', 'See spend : Đóng tiền phí quản lý Nam Cường tháng 6', 1, 3),
 (1004, 14, -25, '2016-06-21 19:11:57', 'See spend : Ship hàng cho em Hường ', 1, 3),
 (1005, 14, -89, '2016-06-22 19:12:19', 'See spend : Mua hoa ly và quả thắp hương ', 1, 3),
-(1006, 9, 3411, '2016-06-23 21:06:38', 'Trả nợ : Chị Châu | Lô trả ngay22.6', 1, 1);
+(1006, 9, 3411, '2016-06-23 21:06:38', 'Trả nợ : Chị Châu | Lô trả ngay22.6', 1, 1),
+(1007, 1, -420, '2016-06-27 16:04:45', 'See spend : Tiền điện Dương Nội ', 1, 3),
+(1008, 1, -110, '2016-06-27 16:04:59', 'See spend : Tiền ap Dương Nội ', 1, 3),
+(1009, 1, -120, '2016-06-27 16:05:33', 'See spend : Tiền nước Dương Nội ', 1, 3),
+(1010, 1, -2475, '2016-06-27 16:29:25', 'Trả nợ : E Kiên  | Thanh toán luôn khi nhập hàng ', 1, 1),
+(1011, 14, -35, '2016-06-27 16:33:26', 'See spend : mua chuối thắp hương ', 1, 3);
 
 -- --------------------------------------------------------
 
@@ -6341,7 +6359,9 @@ INSERT INTO `import_facture` (`code`, `date`, `description`, `provider_id`, `dea
 ('20160614_001', '2016-06-14 21:11:51', 'Nhập hàng ngày 13.6, có thể trả hàng trong 1 tuần, thanh toán hóa đơn sau 1 tuần', 10, '2016-06-28 21:11:51', 'img/facture/20160614_001.png'),
 ('20160614_002', '2016-06-14 21:44:42', 'Lấy dưới chị Châu cho khách', 6, '2016-06-28 21:44:42', 'img/facture/20160614_002.png'),
 ('20160617_001', '2016-06-17 18:20:18', 'Lấy cho khách', 6, '2016-07-01 18:20:18', 'img/facture/20160617_001.png'),
-('20160621_001', '2016-06-21 16:36:27', 'lấy dưới chị châu', 6, '2016-07-05 16:36:27', 'img/facture/20160621_001.png');
+('20160621_001', '2016-06-21 16:36:27', 'lấy dưới chị châu', 6, '2016-07-05 16:36:27', 'img/facture/20160621_001.png'),
+('20160627_001', '2016-06-27 16:12:09', 'Nhập hàng từ ngày 17.6', 7, '2016-07-11 16:12:09', 'img/facture/20160627_001.png'),
+('20160627_002', '2016-06-27 16:28:30', 'Nhập hàng lần đầu thanh toán luôn', 11, '2016-07-11 16:28:30', 'img/facture/20160627_002.png');
 
 -- --------------------------------------------------------
 
@@ -6379,7 +6399,7 @@ CREATE TABLE IF NOT EXISTS `money_inout` (
   PRIMARY KEY (`id`),
   KEY `fk_money_inout_shop1_idx` (`shop_id`),
   KEY `fk_money_inout_user1_idx` (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=316 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=317 ;
 
 --
 -- Dumping data for table `money_inout`
@@ -6681,7 +6701,8 @@ INSERT INTO `money_inout` (`id`, `shop_id`, `user_id`, `date`, `amount`, `descri
 (312, 1, 3, '2016-06-20 21:53:00', 575, 'tiền lẻ'),
 (313, 1, 3, '2016-06-21 16:49:49', 825, 'tiền hôm qua để lại '),
 (314, 1, 3, '2016-06-22 19:06:30', 585, 'tiền lẻ'),
-(315, 1, 3, '2016-06-23 12:56:55', 585, 'tiền lẻ');
+(315, 1, 3, '2016-06-23 12:56:55', 585, 'tiền lẻ'),
+(316, 1, 3, '2016-06-27 16:02:29', 250, 'tiền lẻ ');
 
 -- --------------------------------------------------------
 
@@ -7038,7 +7059,8 @@ INSERT INTO `product` (`code`, `name`, `category_id`, `season_id`, `sex_id`, `ex
 ('0279', 'Giày da bóng gót trụ 7p Uni', 1, 2, 1, 320, '', 1, 0, 'img/product/0279.png'),
 ('0280', 'Giày da bóng cắt laze tim 7p Morris 3244', 1, 2, 1, 320, '', 1, 0, 'img/product/0280.png'),
 ('0281', 'Áo phông nam puma cổ tàu body 3239', 1, 2, 1, 200, '', 1, 0, 'img/product/0281.png'),
-('0282', 'Áo sơ mi nam Zara cộc tay 3231', 1, 2, 1, 295, '', 1, 0, 'img/product/0282.png');
+('0282', 'Áo sơ mi nam Zara cộc tay 3231', 1, 2, 1, 295, '', 1, 0, 'img/product/0282.png'),
+('0283', 'Giày da lộn họa tiết Zara', 1, 2, 1, 295, '', 1, 0, 'img/product/0283.png');
 
 -- --------------------------------------------------------
 
@@ -7087,7 +7109,7 @@ CREATE TABLE IF NOT EXISTS `product_import` (
   PRIMARY KEY (`id`),
   KEY `fk_product_import_product1_idx` (`product_code`),
   KEY `fk_product_import_import_facture1_idx` (`import_facture_code`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=446 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=448 ;
 
 --
 -- Dumping data for table `product_import`
@@ -7522,7 +7544,9 @@ INSERT INTO `product_import` (`id`, `product_code`, `import_facture_code`, `quan
 (442, '0277', '20160621_001', 2, 165),
 (443, '0234', '20160621_001', 1, 135),
 (444, '0271', '20160621_001', 1, 75),
-(445, '0192', '20160621_001', 1, 165);
+(445, '0192', '20160621_001', 1, 165),
+(446, '0280', '20160627_001', 10, 175),
+(447, '0283', '20160627_002', 15, 165);
 
 -- --------------------------------------------------------
 
@@ -7540,7 +7564,7 @@ CREATE TABLE IF NOT EXISTS `product_return` (
   `return_price` float NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `fk_product_return_provider1_idx` (`provider_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=173 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=174 ;
 
 --
 -- Dumping data for table `product_return`
@@ -7705,7 +7729,8 @@ INSERT INTO `product_return` (`id`, `product_code`, `quantity`, `date`, `descrip
 (169, '0198', 1, '2016-06-22 19:04:31', 'Chuyển chị Châu ', 6, 120),
 (170, '0176', 1, '2016-06-22 19:05:41', 'Chuyển chị Châu ', 6, 125),
 (171, '0190', 3, '2016-06-22 19:05:41', 'Chuyển chị Châu ', 6, 175),
-(172, '0261', 1, '2016-06-22 19:05:41', 'Chuyển chị Châu ', 6, 150);
+(172, '0261', 1, '2016-06-22 19:05:41', 'Chuyển chị Châu ', 6, 150),
+(173, '0279', 15, '2016-06-27 16:08:55', 'Trả hàng ', 10, 170);
 
 -- --------------------------------------------------------
 
@@ -7811,7 +7836,7 @@ CREATE TABLE IF NOT EXISTS `provider` (
   `description` varchar(245) DEFAULT NULL,
   `date` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
 
 --
 -- Dumping data for table `provider`
@@ -7826,7 +7851,8 @@ INSERT INTO `provider` (`id`, `name`, `tel`, `address`, `description`, `date`) V
 (7, 'Chiến đại mỗ', '0936374347', 'Đại mỗ', 'rẻ', '2015-11-15 20:21:59'),
 (8, 'Chị Thanh', '0466638998', '135 Trần Đại Nghĩa', 'Hàng xả', '2015-12-12 23:26:01'),
 (9, 'Em Tuấn', '1000000000', 'ko biết', '', '2016-03-15 21:00:01'),
-(10, 'Hải Đại Mỗ', '0965326065', 'Đại mỗ', 'Làm thay chiến. Chiến làm riêng', '2016-05-15 22:17:30');
+(10, 'Hải Đại Mỗ', '0965326065', 'Đại mỗ', 'Làm thay chiến. Chiến làm riêng', '2016-05-15 22:17:30'),
+(11, 'E Kiên ', '0987839935', 'Giang Long ', '', '2016-06-27 16:27:01');
 
 -- --------------------------------------------------------
 
@@ -7842,7 +7868,7 @@ CREATE TABLE IF NOT EXISTS `provider_paid` (
   `description` varchar(245) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_provider_paid_provider1_idx` (`provider_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=86 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=87 ;
 
 --
 -- Dumping data for table `provider_paid`
@@ -7930,7 +7956,8 @@ INSERT INTO `provider_paid` (`id`, `provider_id`, `amount`, `date`, `description
 (82, 6, 363, '2016-06-17 22:16:10', '3091:1-3240:2 | 9:363 | 18:0 | 2:0 | '),
 (83, 6, 1718, '2016-06-21 22:25:45', 'Chốt hàng lấy nhập ngày 21 | 9:1718 | 18:0 | 2:0 | '),
 (84, 10, 1700, '2016-06-22 19:09:29', 'Thanh toán hóa đơn nhập 10 đôi mã 0278, 15 đôi mẫu còn lại 0279 sẽ trả lại - Thanh toán ở nhà chị Châu ngày 20.6 | 1:1700 | 18:0 | 2:0 | '),
-(85, 6, -3411, '2016-06-23 21:06:38', 'Lô trả ngay22.6 | 9:-3411 | 18:0 | 2:0 | ');
+(85, 6, -3411, '2016-06-23 21:06:38', 'Lô trả ngay22.6 | 9:-3411 | 18:0 | 2:0 | '),
+(86, 11, 2475, '2016-06-27 16:29:25', 'Thanh toán luôn khi nhập hàng  | 1:2475 | 18:0 | 2:0 | ');
 
 -- --------------------------------------------------------
 
@@ -7945,7 +7972,7 @@ CREATE TABLE IF NOT EXISTS `provider_paid_fund_change_histo` (
   PRIMARY KEY (`id`),
   KEY `fk_provider_paid_fund_change_fund_change_histo1_idx` (`fund_change_histo_id`),
   KEY `fk_provider_paid_fund_change_provider_paid1_idx` (`provider_paid_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=91 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=92 ;
 
 --
 -- Dumping data for table `provider_paid_fund_change_histo`
@@ -8037,7 +8064,8 @@ INSERT INTO `provider_paid_fund_change_histo` (`id`, `fund_change_histo_id`, `pr
 (87, 991, 82),
 (88, 1000, 83),
 (89, 1002, 84),
-(90, 1006, 85);
+(90, 1006, 85),
+(91, 1010, 86);
 
 -- --------------------------------------------------------
 
@@ -8147,7 +8175,7 @@ CREATE TABLE IF NOT EXISTS `spend` (
   KEY `fk_spend_user1_idx` (`user_id`),
   KEY `fk_spend_spend_for1_idx` (`spend_for_id`),
   KEY `fk_spend_spend_type1_idx` (`spend_type_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=365 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=369 ;
 
 --
 -- Dumping data for table `spend`
@@ -8502,7 +8530,11 @@ INSERT INTO `spend` (`id`, `spend_category_id`, `amount`, `user_id`, `descriptio
 (361, 1, 100, 3, 'Mua đồ thắp hương rằm ', '2016-06-19 18:51:07', 2, 1),
 (362, 1, 400, 3, 'Đóng tiền phí quản lý Nam Cường tháng 6', '2016-06-21 19:10:41', 2, 1),
 (363, 1, 25, 3, 'Ship hàng cho em Hường ', '2016-06-21 19:11:57', 2, 1),
-(364, 1, 89, 3, 'Mua hoa ly và quả thắp hương ', '2016-06-22 19:12:19', 2, 1);
+(364, 1, 89, 3, 'Mua hoa ly và quả thắp hương ', '2016-06-22 19:12:19', 2, 1),
+(365, 1, 420, 3, 'Tiền điện Dương Nội ', '2016-06-27 16:04:45', 1, 1),
+(366, 1, 110, 3, 'Tiền ap Dương Nội ', '2016-06-27 16:04:59', 1, 1),
+(367, 1, 120, 3, 'Tiền nước Dương Nội ', '2016-06-27 16:05:33', 1, 1),
+(368, 1, 35, 3, 'mua chuối thắp hương ', '2016-06-27 16:33:26', 2, 1);
 
 -- --------------------------------------------------------
 
