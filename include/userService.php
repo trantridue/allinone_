@@ -112,5 +112,66 @@ class UserService {
 		$result = mysql_query ( $qry, $this->connection );
 		echo "<script>userpostaction('" . $result . "','" . $actionType . "');</script>";
 	}
+	
+function getAbsentParameters() {
+		$paramsArray = array ();
+		
+		$paramsArray ['id_list_user'] = $_REQUEST ['id_list_user'];
+		$paramsArray ['nbrRows'] = $_REQUEST ['nbrRows'];
+		
+		for($i = 1; $i <= $_REQUEST ['nbrRows']; $i ++) {
+			$absentfrom = 'absentfrom_' . $i;
+			$absentto = 'absentto_' . $i;
+			$nbrdays = 'nbrdays_' . $i;
+			$absentfrom_val = $_REQUEST [$absentfrom];
+			$absentto_val = $_REQUEST [$absentto];
+			$nbrdays_val = $_REQUEST [$nbrdays];
+			if ($absentfrom_val != '') {
+				$paramsArray [$absentfrom] = $absentfrom_val;
+				$paramsArray [$absentto] = $absentto_val;
+				$paramsArray [$nbrdays] = $nbrdays_val;
+			}
+		}
+		return $paramsArray;
+	}
+function saveAbsent($paramsArray) {
+		session_start ();
+		mysql_query ( "BEGIN" );
+		$flag = true;
+		$userid=$paramsArray ['id_list_user'];
+		$today = date ( 'Y-m-d' );
+		
+		//insert absent
+		$qry_insert_absent = "insert into user_absent_history (user_id,requested_date,`from`,`to`,nbr_working_day, description) values ";
+		$nbrRowExportReal = 0;
+		for($i = 1; $i <= $paramsArray ['nbrRows']; $i ++) {
+			if ($paramsArray ['absentfrom_' . $i] != '') {
+				$nbrRowExportReal ++;
+				$qry_insert_absent = $qry_insert_absent . "(" . $userid . ",'" . $today . "','" . $paramsArray ['absentfrom_' . $i] . "','" . $paramsArray ['absentto_' . $i] . "'
+				," . $paramsArray ['nbrdays_' . $i] . "
+				,'sssss'),";
+			}
+		}
+		
+		
+		// insert db******************************************************/
+		$qry_insert_absent = substr ( $qry_insert_absent, 0, - 1 );
+		
+		if ($nbrRowExportReal > 0) {
+			$flag = $flag && (mysql_query ( $qry_insert_absent, $this->connection ) != null);
+		}
+//	echo $qry_insert_absent;
+		$this->commitOrRollback ( $flag );
+		echo "success";
+	}
+	function commitOrRollback($flag) {
+		if ($flag == false) {
+			echo mysql_error ( $this->connection );
+			mysql_query ( "ROLLBACK" );
+			echo "error";
+		} else {
+			mysql_query ( "COMMIT" );
+		}
+	}
 }
 ?>

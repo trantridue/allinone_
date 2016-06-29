@@ -983,7 +983,7 @@ function addFund() {
 	if (validateAddFund()) {
 		saveAddFund();
 	}
-}function addAbsent() {	if (validateAddAbsent()) {		saveAddAbsent();	}}function saveAddAbsent() {		var urls = 'modules/user/saveAbsent.php' + getAbsentInformation();	$.ajax( {		url : urls,		success : function(data) {		if (data == 'success') {			operationSuccess();			reloadTraceList();//			$('#fundAddFormId')[0].reset();		} else {			operationError();		}	}	});	}
+}function addAbsent() {	if (validateAddAbsent()) {		saveAddAbsent();	}}function saveAddAbsent() {		var urls = 'modules/user/saveAbsent.php' + getAbsentInformation();	$.ajax( {		url : urls,		success : function(data) {//		alert(data);//		$('#nbrdays_2').val(data);		if (data == 'success') {						operationSuccess();			//reloadTraceList();//			$('#fundAddFormId')[0].reset();		} else {			operationError();		}	}	});	}
 function saveAddFund() {
 	var urls = 'modules/fund/saveAdd.php' + getFundAddInformation();
 	$.ajax( {
@@ -1166,7 +1166,7 @@ function getFundAddInformation() {
 	params = params + "&add_ratio" + "=" + $('#add_ratio').val();
 	params = params + "&add_description" + "=" + $('#add_description').val();
 	return processUrlStringEncode(params);
-}function getAbsentInformation() {	var params = '';	params = params + "?id_add_fund" + "=" + $('#id_add_fund').val();	params = params + "&fund_id_txt" + "=" + $('#fund_id_txt').val();	params = params + "&id_add_user" + "=" + $('#id_add_user').val();	params = params + "&add_date" + "=" + $('#add_date').val();	params = params + "&add_amount" + "=" + $('#add_amount').val();	params = params + "&add_ratio" + "=" + $('#add_ratio').val();	params = params + "&add_description" + "=" + $('#add_description').val();	return processUrlStringEncode(params);}
+}function getAbsentInformation() {	var params = "?id_list_user" + "=" + $('#id_list_user').val();	var nbrRows = $('#nbrRows').val();	params = params + "&nbrRows" + "=" + nbrRows;	for(var i=1;i<=nbrRows;i++) {		params = params + "&absentfrom_" + i + "=" + $('#absentfrom_' + i).val();		params = params + "&absentto_" + i + "=" + $('#absentto_' + i).val();		params = params + "&nbrdays_" + i + "=" + $('#nbrdays_' + i).val();	}//	alert(params);	return processUrlStringEncode(params);}
 function getCustomerInformation() {
 	var params = '';
 	params = params + "?editid" + "=" + $('#editid').val();

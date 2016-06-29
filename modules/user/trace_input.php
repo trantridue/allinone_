@@ -1,3 +1,4 @@
+<input type="hidden" id="nbrRows" value="<?php echo 5;?>"/>
 <table>
 	<tr>
 	<td>User</td>
@@ -15,6 +16,7 @@
 		<td>To</td>
 		<td style="text-align: left;"><input type="text" class="datefield"
 			id="absentto_<?php echo $i;?>"></input></td>
+			
 			<td ><input type="text" class="number50"
 			id="nbrdays_<?php echo $i;?>"></input></td>
 	</tr>
