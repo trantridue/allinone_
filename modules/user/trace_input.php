@@ -1,4 +1,4 @@
-<input type="hidden" id="nbrRows" value="<?php echo 5;?>"/>
+<input type="hidden" id="nbrRows" value="<?php session_start(); echo $_SESSION['nbr_row_absent'];?>"/>
 <table>
 	<tr>
 	<td>User</td>
@@ -8,7 +8,7 @@
 			onclick="toggleDiv('trace_input');toggleDiv('trace_search');"
 			value="GO TO SEARCH" class="menu_btn_sub"></input></td>
 	</tr>
-	<?php for  ($i=1;$i<=5;$i++) {?>
+	<?php for  ($i=1;$i<= $_SESSION['nbr_row_absent'];$i++) {?>
 	<tr>
 		<td>From</td>
 		<td style="text-align: left;"><input type="text" class="datefield"
@@ -17,7 +17,7 @@
 		<td style="text-align: left;"><input type="text" class="datefield"
 			id="absentto_<?php echo $i;?>"></input></td>
 			
-			<td ><input type="text" class="number50"
+			<td ><input type="number" class="number50"
 			id="nbrdays_<?php echo $i;?>"></input></td>
 	</tr>
 	<?php } ?>

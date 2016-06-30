@@ -8,7 +8,12 @@ include $submodule . '.php';
 </div>
 <hr>
 <div id="listArea">
-<?php include 'list.php'?>
+<?php 
+	if ($submodule == 'trace') {
+		include 'trace_list.php';
+	} else {
+		include 'list.php';
+	}?>
 </div>
 
 <?php } else {
