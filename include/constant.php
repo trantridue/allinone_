@@ -21,6 +21,7 @@ define('defaultmodule','export');
 define('defaultsubmodule','search');
 //datatableid
 define('userdatatable','user');
+define('userabsenthistorydatatable','user_absent_history');
 define('customerdebtdatatable','customer_debt');
 define('customerorderdatatable','customer_order');
 define('exportproductdatatable','export_facture_product');

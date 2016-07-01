@@ -7,7 +7,7 @@ class UserService {
 	var $connection;
 	var $commonService;
 	function UserService($hostname, $username, $password, $database, $commonService) {
-	// -----Initialization -------
+		// -----Initialization -------
 		$this->InitDB ( $hostname, $username, $password, $database );
 		$this->commonService = $commonService;
 	}
@@ -39,7 +39,7 @@ class UserService {
 		$this->HandleError ( $err . "\r\n mysqlerror:" . mysql_error () );
 	}
 	//
-	function listUser($username,$name,$user_mail,$user_tel,$user_status_hidden,$user_description) {
+	function listUser($username, $name, $user_mail, $user_tel, $user_status_hidden, $user_description) {
 		$qry = "SELECT t1.*, t2.name as shopname FROM user t1 LEFT JOIN shop t2 ON t1.shop_id=t2.id where 
 		t1.username like '%" . $username . "%'" . "and 
 		t1.email like '%" . $user_mail . "%'" . "and 
@@ -48,20 +48,7 @@ class UserService {
 		t1.phone_number like '%" . $user_tel . "%'" . "and 
 		t1.name like '%" . $name . "%'";
 		$result = mysql_query ( $qry, $this->connection );
-		$array_column = array (
-				"username" => "User Name",
-				"id,name,email,phone_number,description,shop_id,status,start_date,end_date" => "Edit",
-				"name" => "Name",
-				"email" => "Mail",
-				"phone_number" => "Tel",
-				"shopname" => "Shop",
-				"description" => "Description",
-				"status" => "Status",
-				"start_date,end_date" => "Start date,start_date",
-				"id,deleteuser" => "Delete",
-				"password" => "hidden_field",
-				"shop_id*id" => "complex" 
-		);
+		$array_column = array ("username" => "User Name", "id,name,email,phone_number,description,shop_id,status,start_date,end_date" => "Edit", "name" => "Name", "email" => "Mail", "phone_number" => "Tel", "shopname" => "Shop", "description" => "Description", "status" => "Status", "start_date,end_date" => "Start date,start_date", "id,deleteuser" => "Delete", "password" => "hidden_field", "shop_id*id" => "complex" );
 		$this->commonService->generateJSDatatableSimple ( userdatatable, 7, 'asc' );
 		$this->commonService->generateJqueryDatatable ( $result, userdatatable, $array_column );
 	}
@@ -70,9 +57,8 @@ class UserService {
 		$qry = "delete from user where id = " . $userid;
 		echo mysql_query ( $qry, $this->connection );
 	}
-	function updateUser($user_id, $user_name, $user_email,
-	 $user_phone_number, $user_description, $user_password, $shop_dropdown_user, $status_value,$start_date) {
-	 	session_start ();
+	function updateUser($user_id, $user_name, $user_email, $user_phone_number, $user_description, $user_password, $shop_dropdown_user, $status_value, $start_date) {
+		session_start ();
 		mysql_query ( "BEGIN" );
 		$new_password = md5 ( $user_password );
 		$qry = "";
@@ -80,24 +66,24 @@ class UserService {
 		if ($user_password != null && $user_password != '') {
 			$qry = "update user set name='" . $user_name . "', email = '" . $user_email . "', phone_number = '" . $user_phone_number . "'
 				,description='" . $user_description . "',password='" . $new_password . "',shop_id=" . $shop_dropdown_user . ",
-				status='" . $status_value . "',end_date='".$date."',start_date='".$start_date."'  where id = " . $user_id;
+				status='" . $status_value . "',end_date='" . $date . "',start_date='" . $start_date . "'  where id = " . $user_id;
 		} else {
 			$qry = "update user set name='" . $user_name . "', email = '" . $user_email . "', phone_number = '" . $user_phone_number . "'
 				,description='" . $user_description . "',shop_id=" . $shop_dropdown_user . ",
-				status='" . $status_value . "',end_date='".$date."',start_date='".$start_date."'  where id = " . $user_id;
+				status='" . $status_value . "',end_date='" . $date . "',start_date='" . $start_date . "'  where id = " . $user_id;
 		}
-//		echo $qry;
-		 if(mysql_query ( $qry, $this->connection ) != null){
+		//		echo $qry;
+		if (mysql_query ( $qry, $this->connection ) != null) {
 			mysql_query ( "COMMIT" );
 			$_SESSION ['id_of_shop'] = $shop_dropdown_user;
 			echo 'success';
-		}else {
+		} else {
 			mysql_query ( "ROLLBACK" );
 			echo 'error';
 		}
 	}
 	function addUser($user_username, $user_name, $user_email, $user_phone_number, $user_description, $user_password, $shop_dropdown_user, $status_value) {
-		session_start();
+		session_start ();
 		$actionType = 'insert';
 		$new_password = '';
 		$date = date ( 'Y-m-d H:i:s' );
@@ -105,7 +91,7 @@ class UserService {
 		if ($user_password != null && $user_password != '') {
 			$new_password = md5 ( $user_password );
 		} else {
-			$new_password = md5 ( $_SESSION['default_password'] );
+			$new_password = md5 ( $_SESSION ['default_password'] );
 		}
 		$qry = "insert into user(username,name,email,phone_number,shop_id,password,confirmcode,status,start_date,description) values ('" . $user_username . "',
 				'" . $user_name . "','" . $user_email . "','" . $user_phone_number . "'," . $shop_dropdown_user . ",'" . $new_password . "','y','" . $status_value . "','" . $date . "','" . $user_description . "')";
@@ -113,7 +99,7 @@ class UserService {
 		echo "<script>userpostaction('" . $result . "','" . $actionType . "');</script>";
 	}
 	
-function getAbsentParameters() {
+	function getAbsentParameters() {
 		$paramsArray = array ();
 		
 		$paramsArray ['id_list_user'] = $_REQUEST ['id_list_user'];
@@ -134,11 +120,11 @@ function getAbsentParameters() {
 		}
 		return $paramsArray;
 	}
-function saveAbsent($paramsArray) {
+	function saveAbsent($paramsArray) {
 		session_start ();
 		mysql_query ( "BEGIN" );
 		$flag = true;
-		$userid=$paramsArray ['id_list_user'];
+		$userid = $paramsArray ['id_list_user'];
 		$today = date ( 'Y-m-d' );
 		
 		//insert absent
@@ -153,14 +139,13 @@ function saveAbsent($paramsArray) {
 			}
 		}
 		
-		
 		// insert db******************************************************/
 		$qry_insert_absent = substr ( $qry_insert_absent, 0, - 1 );
 		
 		if ($nbrRowExportReal > 0) {
 			$flag = $flag && (mysql_query ( $qry_insert_absent, $this->connection ) != null);
 		}
-//	echo $qry_insert_absent;
+		//	echo $qry_insert_absent;
 		$this->commitOrRollback ( $flag );
 		echo "success";
 	}
@@ -173,5 +158,27 @@ function saveAbsent($paramsArray) {
 			mysql_query ( "COMMIT" );
 		}
 	}
+	function listAbsent($params) {
+		echo "listAbsent ";
+	}
+	function listAbsentDefault() {
+		$qry = "select t1.*, t2.* from user t1, user_absent_history t2 where t1.id = t2.user_id";
+		$result = mysql_query ( $qry, $this->connection );
+		$array_column = array (
+				"name" => "Name", 
+				"requested_date" => "date request", 
+				"from" => "from", 
+				"to" => "to", 
+				"nbr_working_day" => "nbrs days", 
+				"description" => "description", 
+				"id,name,email,phone_number,description,shop_id,status,start_date,end_date" => "Edit",  
+				"id,deleteuserabsenthistory" => "Delete");
+		$this->commonService->generateJSDatatableSimple ( userabsenthistorydatatable, 1, 'desc' );
+		$this->commonService->generateJqueryDatatable ( $result, userabsenthistorydatatable, $array_column );
+	}
+	function getSearchAbsentParams() {
+		return null;
+	}
+	
 }
 ?>
