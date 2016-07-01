@@ -125,7 +125,7 @@ class UserService {
 		mysql_query ( "BEGIN" );
 		$flag = true;
 		$userid = $paramsArray ['id_list_user'];
-		$today = date ( 'Y-m-d' );
+		$today = date ( 'Y-m-d H:m:s' );
 		
 		//insert absent
 		$qry_insert_absent = "insert into user_absent_history (user_id,requested_date,`from`,`to`,nbr_working_day, description) values ";
@@ -171,7 +171,7 @@ class UserService {
 				"to" => "to", 
 				"nbr_working_day" => "nbrs days", 
 				"description" => "description", 
-				"id,name,email,phone_number,description,shop_id,status,start_date,end_date" => "Edit",  
+				"id,requested_date,from,to,description,nbr_working_day" => "Edit",  
 				"id,deleteuserabsenthistory" => "Delete");
 		$this->commonService->generateJSDatatableSimple ( userabsenthistorydatatable, 1, 'desc' );
 		$this->commonService->generateJqueryDatatable ( $result, userabsenthistorydatatable, $array_column );

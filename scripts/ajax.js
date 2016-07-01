@@ -57,9 +57,13 @@ function deleteuser(userid) {
 			}
 		});
 }
-function edituser(str) {
+function edituser(str) {	
+	var inputUrl = processUrlString(str);	
+	var url = 'modules/user/edituser.php?' + inputUrl;	
+	$('#inputArea').load(url);	
+}function edituser_absent_history(str) {
 	var inputUrl = processUrlString(str);
-	var url = 'modules/user/edituser.php?' + inputUrl;
+	var url = 'modules/user/edituserabsenthistory.php?' + inputUrl;
 	$('#inputArea').load(url);
 }
 function changeStatusUser() {
