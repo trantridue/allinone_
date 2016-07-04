@@ -4,7 +4,8 @@
 	<td>User</td>
 		<td colspan="4"><?php
 		$commonService->printDropDownListFromTable ( 'user', 'list_user' );
-		?><input type="button"
+		?> <textarea id="description" value="Ly do" onfocus="if (this.value == this.defaultValue) this.value = ''" onblur="if (this.value == '') this.value = this.defaultValue" rows="2" cols="40">ly do</textarea>
+		<input type="button"
 			onclick="toggleDiv('trace_input');toggleDiv('trace_search');"
 			value="GO TO SEARCH" class="menu_btn_sub"></input></td>
 	</tr>

@@ -297,7 +297,7 @@ function show_product_import_facture_code(str) {
 	window.open(imgUrl,'_blank');
 }
 function show_product_product_code(str) {
-//	$('#suplementaryListArea').html(url);
+// $('#suplementaryListArea').html(url);
 	var imgUrl = "img/product/"+str.substring(str.indexOf('=')+1, str.indexOf('&'))+".png";
 	window.open(imgUrl,'_blank');
 }
@@ -473,7 +473,7 @@ function deletecustomer(customerid) {
 }
 function updateProduct() {
 	var updateproduct = 'modules/import/updateproductimport.php?' + buildProductImportCriteria();
-//	 alert(buildProductImportCriteria());
+// alert(buildProductImportCriteria());
 	$.ajax( {
 		url : updateproduct,
 		success : function(data) {
@@ -987,7 +987,7 @@ function addFund() {
 	if (validateAddFund()) {
 		saveAddFund();
 	}
-}function addAbsent() {	if (validateAddAbsent()) {		saveAddAbsent();	}}function saveAddAbsent() {		var urls = 'modules/user/saveAbsent.php' + getAbsentInformation();	$.ajax( {		url : urls,		success : function(data) {//		alert(data);//		$('#nbrdays_2').val(data);		if (data == 'success') {						operationSuccess();			//reloadTraceList();//			$('#fundAddFormId')[0].reset();		} else {			operationError();		}	}	});	}
+}function addAbsent() {		if (validateAddAbsent()) {				saveAddAbsent();			}	}function updateAbsent() {// if (validateAddAbsent()) {		saveUpdateAbsent();// }}function saveAddAbsent() {		var urls = 'modules/user/saveAbsent.php' + getAbsentInformation();		$.ajax( {				url : urls,				success : function(data) {// alert(data);// $('#nbrdays_2').val(data);		if (data == 'success') {						operationSuccess();						// reloadTraceList();			// $('#fundAddFormId')[0].reset();					} else {						operationError();					}			}		});	}function saveUpdateAbsent() {		var urls = 'modules/user/saveUpdateAbsent.php' + getUpdateAbsentInformation();	$.ajax( {		url : urls,		success : function(data) {		if (data == 'success') {			operationSuccess();		} else {			operationError();		}	}	});}
 function saveAddFund() {
 	var urls = 'modules/fund/saveAdd.php' + getFundAddInformation();
 	$.ajax( {
@@ -1005,7 +1005,7 @@ function saveAddFund() {
 }
 function addOrUpdateCustomer() {
 	var urls = 'modules/customer/addcustomer.php' + getCustomerInformation();
-//	if(validateEditCustomerForm()){
+// if(validateEditCustomerForm()){
 	$.ajax( {
 		url : urls,
 		success : function(data) {
@@ -1018,7 +1018,7 @@ function addOrUpdateCustomer() {
 			}
 		}
 	});
-//	}
+// }
 }
 function saveExchange() {
 	var urls = 'modules/fund/saveExchange.php' + getFundExchangeInformation();
@@ -1170,7 +1170,7 @@ function getFundAddInformation() {
 	params = params + "&add_ratio" + "=" + $('#add_ratio').val();
 	params = params + "&add_description" + "=" + $('#add_description').val();
 	return processUrlStringEncode(params);
-}function getAbsentInformation() {	var params = "?id_list_user" + "=" + $('#id_list_user').val();	var nbrRows = $('#nbrRows').val();	params = params + "&nbrRows" + "=" + nbrRows;	for(var i=1;i<=nbrRows;i++) {		params = params + "&absentfrom_" + i + "=" + $('#absentfrom_' + i).val();		params = params + "&absentto_" + i + "=" + $('#absentto_' + i).val();		params = params + "&nbrdays_" + i + "=" + $('#nbrdays_' + i).val();	}//	alert(params);	return processUrlStringEncode(params);}
+}function getAbsentInformation() {		var params = "?id_list_user" + "=" + $('#id_list_user').val();	var nbrRows = $('#nbrRows').val();	params = params + "&nbrRows" + "=" + nbrRows;	params = params + "&description" + "=" + $('#description').val();		for(var i=1;i<=nbrRows;i++) {		params = params + "&absentfrom_" + i + "=" + $('#absentfrom_' + i).val();		params = params + "&absentto_" + i + "=" + $('#absentto_' + i).val();		params = params + "&nbrdays_" + i + "=" + $('#nbrdays_' + i).val();	}	return processUrlStringEncode(params);	}function getUpdateAbsentInformation() {	var params = "?id_list_user_update" + "=" + $('#id_list_user_update').val();	params = params + "&description_update" + "=" + $('#description_update').val();	params = params + "&absentfrom" + "=" + $('#absentfrom').val();	params = params + "&absentto" +"=" + $('#absentto').val();	params = params + "&requested_date" +"=" + $('#requested_date').val();	params = params + "&nbrdays" +"=" + $('#nbrdays').val();	params = params + "&id" +"=" + $('#id').val();		return processUrlStringEncode(params);}
 function getCustomerInformation() {
 	var params = '';
 	params = params + "?editid" + "=" + $('#editid').val();
@@ -1400,7 +1400,7 @@ function validateExportForm() {
 	var listProductReturnId = $('#listProductReturnId').val();
 	var listProductReturnQty = $('#listProductReturnQty').val();
 	
-	//Validate on return
+	// Validate on return
 	if($('#customer_tel_flag').val() =='false') {
 		return showNote('Không được chọn sản phẩm của nhiều khách hàng trả cùng lúc!');
 	}
@@ -1428,9 +1428,9 @@ function validateExportForm() {
 		return showNote('Thanh toán thẻ thì không nợ!');
 	}
 	// Validate Online not debt
-//	if(online && (give_customer < 0)){
-//		return showNote('Bán online thì không nợ!');
-//	}
+// if(online && (give_customer < 0)){
+// return showNote('Bán online thì không nợ!');
+// }
 	if(online && byCard) {
 		return showNote('Bán online và thanh toán thẻ không được check đồng thời');
 	}
@@ -2002,9 +2002,9 @@ function validateField(fieldname,min,max){
 function show_export_facture_product_product_code(parameter){
 	var desc=encodeURIComponent($('#customer_description').val());
 	var urls = 'modules/export/updateLinkOnly.php?' + parameter + '&link=' + desc;
-//	alert(urls);
+// alert(urls);
 	if((desc != '') && (desc != 'undefined')) {
-//		alert($('#customer_description').val());
+// alert($('#customer_description').val());
 		$.ajax( {
 			url : urls,
 			success : function(data) {
@@ -2021,7 +2021,7 @@ function show_export_facture_product_product_code(parameter){
 }
 function show_export_facture_product_shop(parameter){
 	var urls = 'modules/export/changeshop.php?' + parameter + '&newshopid=' + encodeURIComponent($('#id_search_shop').val());
-//	alert(urls);
+// alert(urls);
 	$.ajax( {
 		url : urls,
 		success : function(data) {

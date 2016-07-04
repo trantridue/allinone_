@@ -103,6 +103,7 @@ class UserService {
 		$paramsArray = array ();
 		
 		$paramsArray ['id_list_user'] = $_REQUEST ['id_list_user'];
+		$paramsArray ['description'] = $_REQUEST ['description'];
 		$paramsArray ['nbrRows'] = $_REQUEST ['nbrRows'];
 		
 		for($i = 1; $i <= $_REQUEST ['nbrRows']; $i ++) {
@@ -135,7 +136,7 @@ class UserService {
 				$nbrRowExportReal ++;
 				$qry_insert_absent = $qry_insert_absent . "(" . $userid . ",'" . $today . "','" . $paramsArray ['absentfrom_' . $i] . "','" . $paramsArray ['absentto_' . $i] . "'
 				," . $paramsArray ['nbrdays_' . $i] . "
-				,'sssss'),";
+				,'".$paramsArray ['description']."'),";
 			}
 		}
 		
