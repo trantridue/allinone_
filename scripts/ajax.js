@@ -987,7 +987,7 @@ function addFund() {
 	if (validateAddFund()) {
 		saveAddFund();
 	}
-}function addAbsent() {		if (validateAddAbsent()) {				saveAddAbsent();			}	}function updateAbsent() {// if (validateAddAbsent()) {		saveUpdateAbsent();// }}function saveAddAbsent() {		var urls = 'modules/user/saveAbsent.php' + getAbsentInformation();		$.ajax( {				url : urls,				success : function(data) {// alert(data);// $('#nbrdays_2').val(data);		if (data == 'success') {						operationSuccess();						// reloadTraceList();			// $('#fundAddFormId')[0].reset();					} else {						operationError();					}			}		});	}function saveUpdateAbsent() {		var urls = 'modules/user/saveUpdateAbsent.php' + getUpdateAbsentInformation();	$.ajax( {		url : urls,		success : function(data) {		alert(data);		if (data == 'success') {			operationSuccess();		} else {			operationError();		}	}	});}
+}function addAbsent() {		if (validateAddAbsent()) {				saveAddAbsent();			}	}function updateAbsent() {// if (validateAddAbsent()) {		saveUpdateAbsent();// }}function saveAddAbsent() {		var urls = 'modules/user/saveAbsent.php' + getAbsentInformation();		$.ajax( {				url : urls,				success : function(data) {// alert(data);// $('#nbrdays_2').val(data);		if (data == 'success') {						operationSuccess();						// reloadTraceList();			// $('#fundAddFormId')[0].reset();					} else {						operationError();					}			}		});	}function saveUpdateAbsent() {		var urls = 'modules/user/saveUpdateAbsent.php' + getUpdateAbsentInformation();	$.ajax( {		url : urls,		success : function(data) {		if (data == 'success') {			operationSuccess();			reloadListAbsent('true');		} else {			operationError();		}	}	});}
 function saveAddFund() {
 	var urls = 'modules/fund/saveAdd.php' + getFundAddInformation();
 	$.ajax( {
@@ -1320,7 +1320,7 @@ function deletereturnprovider(id,product_code) {
 function reloadFundList() {
 	$('#listFund').load('modules/fund/listFund.php?isdefault=false');
 	listHistoFund('true');
-}
+}function reloadListAbsent(isDefault) {	$('#listArea').load('modules/user/trace_list.php?isdefault='+ isDefault);}
 function updateFund() {
 	var urls = 'modules/fund/updatefundhisto.php' + getUpdateFundInformation();
 	$.ajax( {

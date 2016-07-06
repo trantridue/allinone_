@@ -1,14 +1,23 @@
 <?php
-
 $isdefault = $_REQUEST ['isdefault'];
-if ($isdefault == "false") {
+$isfirst = $_REQUEST ['isfirst'];
+if($isfirst='') {
+	require_once ("./include/constant.php");
+	require_once ("./include/userService.php");
+	require_once ("./include/commonService.php");
+} else {
 	require_once ("../../include/constant.php");
 	require_once ("../../include/userService.php");
 	require_once ("../../include/commonService.php");
-	$commonService = new CommonService ();
-	$params = $userService->getSearchAbsentParams();
-	$userService = new UserService ( hostname, username, password, database, $commonService );
-	$userService->listAbsent ($params);
 }
-$userService->listAbsentDefault ();
+$commonService = new CommonService ();
+$params = $userService->getSearchAbsentParams();
+$userService = new UserService ( hostname, username, password, database, $commonService );
+
+if ($isdefault == "false") {
+	$userService->listAbsent ($params);
+} else {
+	$userService->listAbsentDefault ();	
+}
+
 ?>
