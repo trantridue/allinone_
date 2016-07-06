@@ -16,9 +16,9 @@ $userService = new UserService ( hostname, username, password, database, $common
 	<input type="text" id="requested_date" class="datetimefield" value="<?php echo $_REQUEST['requested_date'];?>"/>
 	<input type="text" id="absentfrom" class="datefield" value="<?php echo $_REQUEST['from'];?>"/>
 	<input type="text" id="absentto" class="datefield" value="<?php echo $_REQUEST['to'];?>"/>
-	<input type="hidden" id="id" class="number50" value="<?php echo $_REQUEST['id'];?>"/>
+	<input type="hidden" id="id"  value="<?php echo $_REQUEST['id'];?>"/>
 	<input type="text" id="description_update" value="<?php echo $_REQUEST['description'];?>"/>
-	<input type="number" id="nbrdays" value="<?php echo $_REQUEST['description'];?>"/>
+	<input type="number" id="nbr_working_day" value="<?php echo $_REQUEST['nbr_working_day'];?>" class="number50"/>
 	<input type="button"
 			onclick="toggleDiv('trace_input');toggleDiv('trace_edit');"
 			value="GO TO ADD" class="menu_btn_sub"></input>

@@ -99,6 +99,19 @@ class UserService {
 		echo "<script>userpostaction('" . $result . "','" . $actionType . "');</script>";
 	}
 	
+	function getUpdateAbsentParameters() {
+		$paramsArray = array ();
+		
+		$paramsArray ['id_list_user_update'] = $_REQUEST ['id_list_user_update'];
+		$paramsArray ['requested_date'] = $_REQUEST ['requested_date'];
+		$paramsArray ['absentfrom'] = $_REQUEST ['absentfrom'];
+		$paramsArray ['description_update'] = $_REQUEST ['description_update'];
+		$paramsArray ['absentto'] = $_REQUEST ['absentto'];
+		$paramsArray ['id'] = $_REQUEST ['id'];
+		$paramsArray ['nbr_working_day'] = $_REQUEST ['nbr_working_day'];
+		
+		return $paramsArray;
+	}
 	function getAbsentParameters() {
 		$paramsArray = array ();
 		
@@ -121,7 +134,27 @@ class UserService {
 		}
 		return $paramsArray;
 	}
-	function saveAbsent($paramsArray) {
+	function updateAbsent($paramsArray) {
+		session_start ();
+		mysql_query ( "BEGIN" );
+		$flag = true;
+		$userid = $paramsArray ['id_list_user_update'];
+		
+		//update absent
+		$qry_update_absent = "update user_absent_history set " 
+		."user_id = " .$paramsArray ['id_list_user_update']
+		.", requested_date = '".$paramsArray ['requested_date']."'"
+		.", `from` = '". $paramsArray ['absentfrom']."'"
+		.", `to` = '". $paramsArray ['absentto']."'"
+		.", nbr_working_day = ". $paramsArray ['nbr_working_day']
+		.", description = '". $paramsArray ['description_update']."'"
+		." where id = ". $paramsArray ['id'];
+//		echo $qry_update_absent;
+		$flag = $flag && (mysql_query ( $qry_update_absent, $this->connection ) != null);
+		$this->commitOrRollback ( $flag );
+		echo "success";
+	}
+function saveAbsent($paramsArray) {
 		session_start ();
 		mysql_query ( "BEGIN" );
 		$flag = true;

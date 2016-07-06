@@ -4,6 +4,6 @@
 	require_once ("../../include/commonService.php");
 	$commonService = new CommonService ();
 	$userService = new UserService ( hostname, username, password, database, $commonService );
-	$params = $userService->getAbsentParameters();
-	$userService->saveAbsent($params);
+	$params = $userService->getUpdateAbsentParameters();
+	$userService->updateAbsent($params);
 ?>
