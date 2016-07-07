@@ -52,7 +52,9 @@ CREATE TABLE IF NOT EXISTS `zkpmolfu_banhang`.`user_absent_history` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+insert into configuration (name, `value`, `label`) value ('nbr_row_absent',3,'nbr_row_absent');
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
