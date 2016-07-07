@@ -1320,7 +1320,7 @@ function deletereturnprovider(id,product_code) {
 function reloadFundList() {
 	$('#listFund').load('modules/fund/listFund.php?isdefault=false');
 	listHistoFund('true');
-}function reloadListAbsent(isDefault) {	$('#listArea').load('modules/user/trace_list.php?isdefault='+ isDefault);}
+}function reloadListAbsent(isDefault) {	$('#listArea').load('modules/user/trace_list.php?isAjax=yes&isdefault='+ isDefault);}
 function updateFund() {
 	var urls = 'modules/fund/updatefundhisto.php' + getUpdateFundInformation();
 	$.ajax( {

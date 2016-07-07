@@ -211,7 +211,7 @@ function saveAbsent($paramsArray) {
 		$this->commonService->generateJqueryDatatable ( $result, userabsenthistorydatatable, $array_column );
 	}
 	function getSearchAbsentParams() {
-		return null;
+		return array ();
 	}
 	
 }
