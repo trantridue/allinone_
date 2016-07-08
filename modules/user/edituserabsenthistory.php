@@ -8,7 +8,9 @@ $userService = new UserService ( hostname, username, password, database, $common
 <div id="trace_input"  style="display:none;">
 <?php include 'trace_input.php';?>
 </div>
-			
+<div id="trace_search" style="display:none;">
+<?php include 'trace_search.php';?>
+</div>			
 <div id="trace_edit">
 <?php
 		$commonService->printDropDownListFromTableSelected ( 'user', 'list_user_update',$_REQUEST['id']);

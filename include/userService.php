@@ -196,18 +196,19 @@ function saveAbsent($paramsArray) {
 		echo "listAbsent ";
 	}
 	function listAbsentDefault() {
-		$qry = "select t1.*, t2.* from user t1, user_absent_history t2 where t1.id = t2.user_id";
+		$qry = "select t2.*, t1.* from user t1, user_absent_history t2 where t1.id = t2.user_id";
 		$result = mysql_query ( $qry, $this->connection );
 		$array_column = array (
-				"name" => "Name", 
-				"requested_date" => "date request", 
-				"from" => "from", 
-				"to" => "to", 
-				"nbr_working_day" => "nbrs days", 
-				"description" => "description", 
+				"name" => "Nhan Vien", 
+				"requested_date" => "Ngay nhap", 
+				"from" => "Nghi tu", 
+				"to" => "Den ngay", 
+				"nbr_working_day" => "So ngay nghi", 
+				"description" => "Ly do", 
 				"id,requested_date,from,to,description,nbr_working_day" => "Edit",  
 				"id,deleteuserabsenthistory" => "Delete");
-		$this->commonService->generateJSDatatableSimple ( userabsenthistorydatatable, 1, 'desc' );
+		$array_total = array (4 => "NBR DAYS" );
+		$this->commonService->generateJSDatatableComplex ($result, userabsenthistorydatatable, 1, 'desc', $array_total);
 		$this->commonService->generateJqueryDatatable ( $result, userabsenthistorydatatable, $array_column );
 	}
 	function getSearchAbsentParams() {

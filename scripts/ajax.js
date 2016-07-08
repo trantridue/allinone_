@@ -2049,3 +2049,4 @@ function updateUser(){
 		}
 	});
 }
+function searchAbsent(formid) {	var str = "?isAjax=yes&isdefault=false";	$("form#"+formid+" :input").each(function(){		 var input = $(this); 		 if(input.attr('type') != 'button') {			 str = str + "&" + input.attr('id') + "=" + input.val();		 } else {//			 alert('button : ' + input.val());		 }		});	alert(str);}
