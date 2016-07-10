@@ -142,7 +142,7 @@ class UserService {
 		
 		//update absent
 		$qry_update_absent = "update user_absent_history set " 
-		."user_id = " .$paramsArray ['id_list_user_update']
+		."user_id = " .$userid
 		.", requested_date = '".$paramsArray ['requested_date']."'"
 		.", `from` = '". $paramsArray ['absentfrom']."'"
 		.", `to` = '". $paramsArray ['absentto']."'"
@@ -193,10 +193,47 @@ function saveAbsent($paramsArray) {
 		}
 	}
 	function listAbsent($params) {
-		echo "listAbsent ";
+		$qry = "select t2.*, t1.name from user t1, user_absent_history t2 where t1.id = t2.user_id ";
+		if($params['request_from'] != '') {
+			$qry .= "and t2.requested_date >= '".$params['request_from']."' ";
+		}
+		if($params['request_to'] != '') {
+			$qry .= "and t2.requested_date <= '".$params['request_to']."' ";
+		}
+		if($params['id_list_user_search'] != '') {
+			$qry .= "and t1.id = ".$params['id_list_user_search']." ";
+		}
+		
+		if($params['nbr_days_from'] != '') {
+			$qry .= "and t2.nbr_working_day >= ".$params['nbr_days_from']." ";
+		}
+		if($params['nbr_days_to'] != '') {
+			$qry .= "and t2.nbr_working_day <= ".$params['nbr_days_to']." ";
+		}
+		if($params['start_absent_from'] != '') {
+			$qry .= "and t2.`from` >= '".$params['start_absent_from']."' ";
+		}
+		if($params['start_absent_to'] != '') {
+			$qry .= "and t2.`from` <= '".$params['start_absent_to']."' ";
+		}
+		
+//		echo $qry;
+		$result = mysql_query ( $qry, $this->connection );
+		$array_column = array (
+				"name" => "Nhan Vien", 
+				"requested_date" => "Ngay nhap", 
+				"from" => "Nghi tu", 
+				"to" => "Den ngay", 
+				"nbr_working_day" => "So ngay nghi", 
+				"description" => "Ly do", 
+				"id,requested_date,from,to,description,nbr_working_day" => "Edit",  
+				"id,deleteuserabsenthistory" => "Delete");
+		$array_total = array (4 => "NBR DAYS" );
+		$this->commonService->generateJSDatatableComplex ($result, userabsenthistorydatatable, 1, 'desc', $array_total);
+		$this->commonService->generateJqueryDatatable ( $result, userabsenthistorydatatable, $array_column );
 	}
 	function listAbsentDefault() {
-		$qry = "select t2.*, t1.* from user t1, user_absent_history t2 where t1.id = t2.user_id";
+		$qry = "select t2.*, t1.name from user t1, user_absent_history t2 where t1.id = t2.user_id";
 		$result = mysql_query ( $qry, $this->connection );
 		$array_column = array (
 				"name" => "Nhan Vien", 

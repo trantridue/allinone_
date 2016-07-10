@@ -1,7 +1,6 @@
 <?php
 $isdefault = $_REQUEST ['isdefault'];
 $isAjax = $_REQUEST ['isAjax'];
-echo $isAjax;
 if($isAjax == '') {
 	require_once ("./include/constant.php");
 	require_once ("./include/userService.php");
@@ -16,9 +15,8 @@ $userService = new UserService ( hostname, username, password, database, $common
 $params = $userService->getSearchAbsentParams();
 
 if ($isdefault == "false") {
-	$userService->listAbsent ($params);
+	$userService->listAbsent ($_GET);
 } else {
 	$userService->listAbsentDefault ();	
 }
-
 ?>
