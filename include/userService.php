@@ -217,6 +217,15 @@ function saveAbsent($paramsArray) {
 			$qry .= "and t2.`from` <= '".$params['start_absent_to']."' ";
 		}
 		
+		if($params['end_absent_from'] != '') {
+			$qry .= "and t2.`to` >= '".$params['end_absent_from']."' ";
+		}
+		if($params['end_absent_to'] != '') {
+			$qry .= "and t2.`to` <= '".$params['end_absent_to']."' ";
+		}
+		if($params['absent_description'] != '') {
+			$qry .= "and t2.`description` like '%".$params['absent_description']."%' ";
+		}
 //		echo $qry;
 		$result = mysql_query ( $qry, $this->connection );
 		$array_column = array (
