@@ -105,7 +105,6 @@ $(document).ready(
 		function() {
 			$('.deleteIcon').click(
 					function() {
-						var elem = $(this).closest('.item');
 						var elemtxt = $(this).find(
 								'input[type=hidden],textarea,select').filter(
 								':hidden:first').val();

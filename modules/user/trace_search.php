@@ -1,3 +1,7 @@
+<div class='titlecss'>
+SEARCH ABSENT USER
+</div>
+<br>
 <form id="seach_absent_criteria">
 <table>
 	<tr>
@@ -23,10 +27,10 @@
 		<td><input type="text" style="width: 100px;" id="absent_description"></td>
 	</tr>
 	<tr>
-		<td colspan="2"><input type="button"
+		<td colspan="6"><input type="button"
 	onclick="toggleDiv('trace_input');toggleDiv('trace_search');"
-	value="GO TO ADD" class="menu_btn_sub"></input></td>
-	<td colspan="4"><input type="button" value="SEARCH" class="menu_btn_sub" onclick="searchAbsent('seach_absent_criteria');"></td>
+	value="GO TO ADD" class="menu_btn_sub"></input>
+	<input type="button" value="SEARCH" class="menu_btn_sub" onclick="searchAbsent('seach_absent_criteria');"></td>
 	</tr>
 </table>
 </form>

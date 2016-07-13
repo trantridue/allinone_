@@ -141,20 +141,13 @@ class UserService {
 		$userid = $paramsArray ['id_list_user_update'];
 		
 		//update absent
-		$qry_update_absent = "update user_absent_history set " 
-		."user_id = " .$userid
-		.", requested_date = '".$paramsArray ['requested_date']."'"
-		.", `from` = '". $paramsArray ['absentfrom']."'"
-		.", `to` = '". $paramsArray ['absentto']."'"
-		.", nbr_working_day = ". $paramsArray ['nbr_working_day']
-		.", description = '". $paramsArray ['description_update']."'"
-		." where id = ". $paramsArray ['id'];
-//		echo $qry_update_absent;
+		$qry_update_absent = "update user_absent_history set " . "user_id = " . $userid . ", requested_date = '" . $paramsArray ['requested_date'] . "'" . ", `from` = '" . $paramsArray ['absentfrom'] . "'" . ", `to` = '" . $paramsArray ['absentto'] . "'" . ", nbr_working_day = " . $paramsArray ['nbr_working_day'] . ", description = '" . $paramsArray ['description_update'] . "'" . " where id = " . $paramsArray ['id'];
+		//		echo $qry_update_absent;
 		$flag = $flag && (mysql_query ( $qry_update_absent, $this->connection ) != null);
 		$this->commitOrRollback ( $flag );
 		echo "success";
 	}
-function saveAbsent($paramsArray) {
+	function saveAbsent($paramsArray) {
 		session_start ();
 		mysql_query ( "BEGIN" );
 		$flag = true;
@@ -169,7 +162,7 @@ function saveAbsent($paramsArray) {
 				$nbrRowExportReal ++;
 				$qry_insert_absent = $qry_insert_absent . "(" . $userid . ",'" . $today . "','" . $paramsArray ['absentfrom_' . $i] . "','" . $paramsArray ['absentto_' . $i] . "'
 				," . $paramsArray ['nbrdays_' . $i] . "
-				,'".$paramsArray ['description']."'),";
+				,'" . $paramsArray ['description'] . "'),";
 			}
 		}
 		
@@ -194,72 +187,66 @@ function saveAbsent($paramsArray) {
 	}
 	function listAbsent($params) {
 		$qry = "select t2.*, t1.name from user t1, user_absent_history t2 where t1.id = t2.user_id ";
-		if($params['request_from'] != '') {
-			$qry .= "and t2.requested_date >= '".$params['request_from']."' ";
+		if ($params ['request_from'] != '') {
+			$qry .= "and t2.requested_date >= '" . $params ['request_from'] . "' ";
 		}
-		if($params['request_to'] != '') {
-			$qry .= "and t2.requested_date <= '".$params['request_to']."' ";
+		if ($params ['request_to'] != '') {
+			$qry .= "and t2.requested_date <= '" . $params ['request_to'] . "' ";
 		}
-		if($params['id_list_user_search'] != '') {
-			$qry .= "and t1.id = ".$params['id_list_user_search']." ";
-		}
-		
-		if($params['nbr_days_from'] != '') {
-			$qry .= "and t2.nbr_working_day >= ".$params['nbr_days_from']." ";
-		}
-		if($params['nbr_days_to'] != '') {
-			$qry .= "and t2.nbr_working_day <= ".$params['nbr_days_to']." ";
-		}
-		if($params['start_absent_from'] != '') {
-			$qry .= "and t2.`from` >= '".$params['start_absent_from']."' ";
-		}
-		if($params['start_absent_to'] != '') {
-			$qry .= "and t2.`from` <= '".$params['start_absent_to']."' ";
+		if ($params ['id_list_user_search'] != '') {
+			$qry .= "and t1.id = " . $params ['id_list_user_search'] . " ";
 		}
 		
-		if($params['end_absent_from'] != '') {
-			$qry .= "and t2.`to` >= '".$params['end_absent_from']."' ";
+		if ($params ['nbr_days_from'] != '') {
+			$qry .= "and t2.nbr_working_day >= " . $params ['nbr_days_from'] . " ";
 		}
-		if($params['end_absent_to'] != '') {
-			$qry .= "and t2.`to` <= '".$params['end_absent_to']."' ";
+		if ($params ['nbr_days_to'] != '') {
+			$qry .= "and t2.nbr_working_day <= " . $params ['nbr_days_to'] . " ";
 		}
-		if($params['absent_description'] != '') {
-			$qry .= "and t2.`description` like '%".$params['absent_description']."%' ";
+		if ($params ['start_absent_from'] != '') {
+			$qry .= "and t2.`from` >= '" . $params ['start_absent_from'] . "' ";
 		}
-//		echo $qry;
+		if ($params ['start_absent_to'] != '') {
+			$qry .= "and t2.`from` <= '" . $params ['start_absent_to'] . "' ";
+		}
+		
+		if ($params ['end_absent_from'] != '') {
+			$qry .= "and t2.`to` >= '" . $params ['end_absent_from'] . "' ";
+		}
+		if ($params ['end_absent_to'] != '') {
+			$qry .= "and t2.`to` <= '" . $params ['end_absent_to'] . "' ";
+		}
+		if ($params ['absent_description'] != '') {
+			$qry .= "and t2.`description` like '%" . $params ['absent_description'] . "%' ";
+		}
+		//		echo $qry;
 		$result = mysql_query ( $qry, $this->connection );
-		$array_column = array (
-				"name" => "Nhan Vien", 
-				"requested_date" => "Ngay nhap", 
-				"from" => "Nghi tu", 
-				"to" => "Den ngay", 
-				"nbr_working_day" => "So ngay nghi", 
-				"description" => "Ly do", 
-				"id,requested_date,from,to,description,nbr_working_day" => "Edit",  
-				"id,deleteuserabsenthistory" => "Delete");
+		$array_column = array ("name" => "Nhan Vien", "requested_date" => "Ngay nhap", "from" => "Nghi tu", "to" => "Den ngay", "nbr_working_day" => "So ngay nghi", "description" => "Ly do", "id,requested_date,from,to,description,nbr_working_day" => "Edit", "id,deleteuserabsenthistory" => "Delete" );
 		$array_total = array (4 => "NBR DAYS" );
-		$this->commonService->generateJSDatatableComplex ($result, userabsenthistorydatatable, 1, 'desc', $array_total);
+		$this->commonService->generateJSDatatableComplex ( $result, userabsenthistorydatatable, 1, 'desc', $array_total );
 		$this->commonService->generateJqueryDatatable ( $result, userabsenthistorydatatable, $array_column );
 	}
 	function listAbsentDefault() {
 		$qry = "select t2.*, t1.name from user t1, user_absent_history t2 where t1.id = t2.user_id";
 		$result = mysql_query ( $qry, $this->connection );
-		$array_column = array (
-				"name" => "Nhan Vien", 
-				"requested_date" => "Ngay nhap", 
-				"from" => "Nghi tu", 
-				"to" => "Den ngay", 
-				"nbr_working_day" => "So ngay nghi", 
-				"description" => "Ly do", 
-				"id,requested_date,from,to,description,nbr_working_day" => "Edit",  
-				"id,deleteuserabsenthistory" => "Delete");
+		$array_column = array ("name" => "Nhan Vien", "requested_date" => "Ngay nhap", "from" => "Nghi tu", "to" => "Den ngay", "nbr_working_day" => "So ngay nghi", "description" => "Ly do", "id,requested_date,from,to,description,nbr_working_day" => "Edit", "id,deleteuserabsenthistory" => "Delete" );
 		$array_total = array (4 => "NBR DAYS" );
-		$this->commonService->generateJSDatatableComplex ($result, userabsenthistorydatatable, 1, 'desc', $array_total);
+		$this->commonService->generateJSDatatableComplex ( $result, userabsenthistorydatatable, 1, 'desc', $array_total );
 		$this->commonService->generateJqueryDatatable ( $result, userabsenthistorydatatable, $array_column );
 	}
 	function getSearchAbsentParams() {
 		return array ();
 	}
-	
+	function deleteAbsent($id) {
+		
+		mysql_query ( "BEGIN" );
+		
+		$flag = true;
+		$qry = "delete from user_absent_history where id = " . $id;
+		$flag = $flag && mysql_query ( $qry, $this->connection );
+		
+		$this->commitOrRollback ( $flag );
+		echo "success";
+	}
 }
 ?>
