@@ -327,15 +327,20 @@ class ImportService {
 		return $jsonArray;
 	}
 	function getJsonProductCodeReturn($term) {
-		$qry = "select (select sum(quantity) from product_return where product_code = t1.product_code) as qtyreturned, t1.product_code, sum(t1.quantity) as qty,t4.name as provider_name, t2.code as import_facture_code, t2.provider_id,t3.name,t1.import_price 
+		$qry = "select (select sum(quantity) from product_return where product_code = t1.product_code) as qtyreturned, 
+				t1.product_code, sum(t1.quantity) as qty,t4.name as provider_name, t2.code as import_facture_code, 
+				t2.provider_id,t3.name,t1.import_price 
 				from product_import t1, import_facture t2, product t3, provider t4
 				 where t4.id = t2.provider_id and t1.import_facture_code = t2.code and t3.code = t1.product_code and t1.product_code like '%" . $term . "%' group by t1.product_code limit 10";
 		$result = mysql_query ( $qry, $this->connection );
 		$jsonArray = array ();
 		
 		while ( $rows = mysql_fetch_array ( $result ) ) {
-			$labelvalue = $rows ['product_code'] . " : Đã trả lại: " . ($rows ['qtyreturned'] ? $rows ['qtyreturned'] : '0') . " : " . $rows ['name'];
-			$element = array (code => $rows ['product_code'], qty => $rows ['qty'], facture => $rows ['import_facture_code'], provider_name => $rows ['provider_name'], provider_id => $rows ['provider_id'], provider_id => $rows ['provider_id'], qtyreturned => $rows ['qtyreturned'] ? $rows ['qtyreturned'] : '0', import_price => $rows ['import_price'], name => $rows ['name'], value => $rows ['product_code'], label => $labelvalue );
+			$labelvalue = $rows ['product_code'] 
+			. " : Đã trả lại: " . ($rows ['qtyreturned'] ? $rows ['qtyreturned'] : '0') 
+			. " : " . $rows ['name'];
+			$element = array (code => $rows ['product_code'], qty => $rows ['qty'], facture => $rows ['import_facture_code'], provider_name => $rows ['provider_name'], 
+			provider_id => $rows ['provider_id'], provider_id => $rows ['provider_id'], qtyreturned => $rows ['qtyreturned'] ? $rows ['qtyreturned'] : '0', import_price => $rows ['import_price'], name => $rows ['name'], value => $rows ['product_code'], label => $labelvalue );
 			
 			$jsonArray [] = $element;
 		}

@@ -132,6 +132,21 @@ $(document).ready(function(){
 	};
 	$("#product_code_<?php echo $i;?>").autocomplete(ac_config_product_code_return_<?php echo $i;?>);
 });
+
+$(document).ready(function() {
+	var ac_config_provider_name_<?php echo $i;?> = {
+		source : "autocomplete/completed_import_provider_name.php",
+		select : function(event, ui) {
+			$("#provider_name_<?php echo $i;?>").val(ui.item.code);
+			$("#provider_id_<?php echo $i;?>").val(ui.item.provider_id);
+		},
+		minLength : 1
+	};
+	$("#provider_name_<?php echo $i;?>").autocomplete(ac_config_provider_name_<?php echo $i;?>);
+});
+$(document).ready(function() {
+    $("#provider_name_<?php echo $i;?>").focus(function() { $(this).select(); } );
+});
 </script>
 <tr>
 <td><input type="text" size="6" id="product_code_<?php echo $i;?>" name="product_code_<?php echo $i;?>" tabindex="<?php	echo $i + $rowNum * 1;?>"></td>
@@ -143,7 +158,7 @@ onclick="calculateReturnProduct();" tabindex="<?php	echo $i + $rowNum * 2;?>"></
 <td><input type="text" size="6" class="transparentText" id="qtyreturned_<?php echo $i;?>" name="qtyreturned_<?php echo $i;?>" onkeypress="validateNon(event);"></td>
 <td><input type="text" size="6" class="transparentText" id="remained_<?php echo $i;?>" name="remained_<?php echo $i;?>" onkeypress="validateNon(event);"></td>
 <td><input type="text" size="30" class="transparentText" id="product_import_name_<?php echo $i;?>" name="product_import_name_<?php echo $i;?>" onkeypress="validateNon(event);"></td>
-<td><input type="text" class="transparentText" id="provider_name_<?php echo $i;?>" name="provider_name_<?php echo $i;?>" onkeypress="validateNon(event);">
+<td><input type="text" id="provider_name_<?php echo $i;?>" name="provider_name_<?php echo $i;?>">
 <input type="hidden" id="provider_id_<?php echo $i;?>" name="provider_id_<?php echo $i;?>"></td>
 </tr>
 <?php }?>
