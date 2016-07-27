@@ -57,11 +57,12 @@ function deleteuser(userid) {
 			}
 		});
 }
-function edituser(str) {	
-	var inputUrl = processUrlString(str);	
-	var url = 'modules/user/edituser.php?' + inputUrl;	
-	$('#inputArea').load(url);	
-}function edituser_absent_history(str) {
+function edituser(str) {
+	var inputUrl = processUrlString(str);
+	var url = 'modules/user/edituser.php?' + inputUrl;
+	$('#inputArea').load(url);
+}
+function edituser_absent_history(str) {
 	var inputUrl = processUrlString(str);
 	var url = 'modules/user/edituserabsenthistory.php?' + inputUrl;
 	$('#inputArea').load(url);
@@ -297,7 +298,7 @@ function show_product_import_facture_code(str) {
 	window.open(imgUrl,'_blank');
 }
 function show_product_product_code(str) {
-// $('#suplementaryListArea').html(url);
+//	$('#suplementaryListArea').html(url);
 	var imgUrl = "img/product/"+str.substring(str.indexOf('=')+1, str.indexOf('&'))+".png";
 	window.open(imgUrl,'_blank');
 }
@@ -473,7 +474,7 @@ function deletecustomer(customerid) {
 }
 function updateProduct() {
 	var updateproduct = 'modules/import/updateproductimport.php?' + buildProductImportCriteria();
-// alert(buildProductImportCriteria());
+//	 alert(buildProductImportCriteria());
 	$.ajax( {
 		url : updateproduct,
 		success : function(data) {
@@ -987,7 +988,72 @@ function addFund() {
 	if (validateAddFund()) {
 		saveAddFund();
 	}
-}function addAbsent() {		if (validateAddAbsent()) {				saveAddAbsent();			}	}function updateAbsent() {// if (validateAddAbsent()) {		saveUpdateAbsent();// }}function saveAddAbsent() {		var urls = 'modules/user/saveAbsent.php' + getAbsentInformation();		$.ajax( {				url : urls,				success : function(data) {// alert(data);// $('#nbrdays_2').val(data);		if (data == 'success') {						operationSuccess();						reloadListAbsent('true');			// $('#fundAddFormId')[0].reset();					} else {						operationError();					}			}		});	}function saveUpdateAbsent() {		var urls = 'modules/user/saveUpdateAbsent.php' + getUpdateAbsentInformation();//	alert(urls);	$.ajax( {		url : urls,		success : function(data) {//		$('#listArea').html(data);		if (data == 'success') {			operationSuccess();			reloadListAbsent('true');		} else {			operationError();		}	}	});}
+}
+function addAbsent() {
+	
+	if (validateAddAbsent()) {
+		
+		saveAddAbsent();
+		
+	}
+	
+}
+function updateAbsent() {
+
+// if (validateAddAbsent()) {
+
+		saveUpdateAbsent();
+
+// }
+
+}
+function saveAddAbsent() {
+	
+	var urls = 'modules/user/saveAbsent.php' + getAbsentInformation();
+	
+	$.ajax( {
+		
+		url : urls,
+		
+		success : function(data) {
+// alert(data);
+// $('#nbrdays_2').val(data);
+		if (data == 'success') {
+			
+			operationSuccess();
+			
+			reloadListAbsent('true');
+			
+// $('#fundAddFormId')[0].reset();
+			
+		} else {
+			
+			operationError();
+			
+		}
+		
+	}
+	
+	});
+	
+}
+function saveUpdateAbsent() {
+	
+	var urls = 'modules/user/saveUpdateAbsent.php' + getUpdateAbsentInformation();
+//	alert(urls);
+	$.ajax( {
+		url : urls,
+		success : function(data) {
+//		$('#listArea').html(data);
+		if (data == 'success') {
+			operationSuccess();
+			reloadListAbsent('true');
+		} else {
+			operationError();
+		}
+	}
+	});
+}
 function saveAddFund() {
 	var urls = 'modules/fund/saveAdd.php' + getFundAddInformation();
 	$.ajax( {
@@ -1005,7 +1071,7 @@ function saveAddFund() {
 }
 function addOrUpdateCustomer() {
 	var urls = 'modules/customer/addcustomer.php' + getCustomerInformation();
-// if(validateEditCustomerForm()){
+//	if(validateEditCustomerForm()){
 	$.ajax( {
 		url : urls,
 		success : function(data) {
@@ -1018,7 +1084,7 @@ function addOrUpdateCustomer() {
 			}
 		}
 	});
-// }
+//	}
 }
 function saveExchange() {
 	var urls = 'modules/fund/saveExchange.php' + getFundExchangeInformation();
@@ -1076,10 +1142,15 @@ function isFactureInforBlank(){
 	($('#customer_give').val()=='' || $('#customer_give').val()=='0') &&
 	($('#total_facture').html()=='' || $('#total_facture').html()=='0') &&
 	($('#give_customer').val()=='' || $('#give_customer').val()=='0');
-}function validateAddAbsent() {	var flag = true;	if ($('#id_list_user').val() == '' || $('#id_list_user').val() == null) {		$('#id_list_user').addClass('errorField');		flag = false;	} else {		$('#id_add_user').removeClass('errorField');	}	return flag;}
+}
 function validateAddFund() {
 	var flag = true;
-
+	// if($('#id_add_fund').val()=='' || $('#id_add_fund').val()==null) {
+	// $('#id_add_fund').addClass('errorField');
+	// flag = false;
+	// } else {
+	// $('#id_add_fund').removeClass('errorField');
+	// }
 	if ($('#id_add_user').val() == '' || $('#id_add_user').val() == null) {
 		$('#id_add_user').addClass('errorField');
 		flag = false;
@@ -1170,7 +1241,35 @@ function getFundAddInformation() {
 	params = params + "&add_ratio" + "=" + $('#add_ratio').val();
 	params = params + "&add_description" + "=" + $('#add_description').val();
 	return processUrlStringEncode(params);
-}function getAbsentInformation() {		var params = "?id_list_user" + "=" + $('#id_list_user').val();	var nbrRows = $('#nbrRows').val();	params = params + "&nbrRows" + "=" + nbrRows;	params = params + "&description" + "=" + $('#description').val();		for(var i=1;i<=nbrRows;i++) {		params = params + "&absentfrom_" + i + "=" + $('#absentfrom_' + i).val();		params = params + "&absentto_" + i + "=" + $('#absentto_' + i).val();		params = params + "&nbrdays_" + i + "=" + $('#nbrdays_' + i).val();	}	return processUrlStringEncode(params);	}function getUpdateAbsentInformation() {	var params = "?id_list_user_update" + "=" + $('#id_list_user_update').val();	params = params + "&description_update" + "=" + $('#description_update').val();	params = params + "&absentfrom" + "=" + $('#absentfrom').val();	params = params + "&absentto" +"=" + $('#absentto').val();	params = params + "&requested_date" +"=" + $('#requested_date').val();	params = params + "&nbr_working_day" +"=" + $('#nbr_working_day').val();	params = params + "&id" +"=" + $('#id').val();		return processUrlStringEncode(params);}
+}
+function getAbsentInformation() {
+	
+	var params = "?id_list_user" + "=" + $('#id_list_user').val();
+	var nbrRows = $('#nbrRows').val();
+	params = params + "&nbrRows" + "=" + nbrRows;
+	params = params + "&description" + "=" + $('#description').val();
+	
+	for(var i=1;i<=nbrRows;i++) {
+		params = params + "&absentfrom_" + i + "=" + $('#absentfrom_' + i).val();
+		params = params + "&absentto_" + i + "=" + $('#absentto_' + i).val();
+		params = params + "&nbrdays_" + i + "=" + $('#nbrdays_' + i).val();
+	}
+	return processUrlStringEncode(params);
+	
+}
+function getUpdateAbsentInformation() {
+
+	var params = "?id_list_user_update" + "=" + $('#id_list_user_update').val();
+	params = params + "&description_update" + "=" + $('#description_update').val();
+	params = params + "&absentfrom" + "=" + $('#absentfrom').val();
+	params = params + "&absentto" +"=" + $('#absentto').val();
+	params = params + "&requested_date" +"=" + $('#requested_date').val();
+	params = params + "&nbr_working_day" +"=" + $('#nbr_working_day').val();
+	params = params + "&id" +"=" + $('#id').val();
+	
+	return processUrlStringEncode(params);
+
+}
 function getCustomerInformation() {
 	var params = '';
 	params = params + "?editid" + "=" + $('#editid').val();
@@ -1320,7 +1419,12 @@ function deletereturnprovider(id,product_code) {
 function reloadFundList() {
 	$('#listFund').load('modules/fund/listFund.php?isdefault=false');
 	listHistoFund('true');
-}function reloadListAbsent(isDefault) {	$('#listArea').load('modules/user/trace_list.php?isAjax=yes&isdefault='+ isDefault);}
+}
+function reloadListAbsent(isDefault) {
+
+	$('#listArea').load('modules/user/trace_list.php?isAjax=yes&isdefault='+ isDefault);
+
+}
 function updateFund() {
 	var urls = 'modules/fund/updatefundhisto.php' + getUpdateFundInformation();
 	$.ajax( {
@@ -1400,7 +1504,7 @@ function validateExportForm() {
 	var listProductReturnId = $('#listProductReturnId').val();
 	var listProductReturnQty = $('#listProductReturnQty').val();
 	
-	// Validate on return
+	//Validate on return
 	if($('#customer_tel_flag').val() =='false') {
 		return showNote('Không được chọn sản phẩm của nhiều khách hàng trả cùng lúc!');
 	}
@@ -1428,9 +1532,9 @@ function validateExportForm() {
 		return showNote('Thanh toán thẻ thì không nợ!');
 	}
 	// Validate Online not debt
-// if(online && (give_customer < 0)){
-// return showNote('Bán online thì không nợ!');
-// }
+//	if(online && (give_customer < 0)){
+//		return showNote('Bán online thì không nợ!');
+//	}
 	if(online && byCard) {
 		return showNote('Bán online và thanh toán thẻ không được check đồng thời');
 	}
@@ -1786,13 +1890,13 @@ function updateCusIdWhenChangeTel() {
 	calculateExportForm();
 }
 function updatePriceProduct() {
-var nbrow = parseInt($('#export_number_row').val());
+var nbrow1 = parseInt($('#export_number_row').val());
 	if ($('#salefacture').val() < 0) {
 		$('#salefacture').val('0');
 	} else if ($('#salefacture').val() > 100) {
 		$('#salefacture').val('100');
 	}
-	for ( var i = 1; i <= nbrow; i++) {
+	for ( var i = 1; i <= nbrow1; i++) {
 		if ($('#productcode_' + i).val() != '') {
 			$('#exportprice_' + i).val(
 					Math.round(parseInt($('#exportpostedprice_' + i).html())
@@ -2002,9 +2106,9 @@ function validateField(fieldname,min,max){
 function show_export_facture_product_product_code(parameter){
 	var desc=encodeURIComponent($('#customer_description').val());
 	var urls = 'modules/export/updateLinkOnly.php?' + parameter + '&link=' + desc;
-// alert(urls);
+//	alert(urls);
 	if((desc != '') && (desc != 'undefined')) {
-// alert($('#customer_description').val());
+//		alert($('#customer_description').val());
 		$.ajax( {
 			url : urls,
 			success : function(data) {
@@ -2021,7 +2125,7 @@ function show_export_facture_product_product_code(parameter){
 }
 function show_export_facture_product_shop(parameter){
 	var urls = 'modules/export/changeshop.php?' + parameter + '&newshopid=' + encodeURIComponent($('#id_search_shop').val());
-// alert(urls);
+//	alert(urls);
 	$.ajax( {
 		url : urls,
 		success : function(data) {
@@ -2049,4 +2153,61 @@ function updateUser(){
 		}
 	});
 }
-function searchAbsent(formid) {	var str = "?isAjax=yes&isdefault=false";	$("form#"+formid+" :input").each(function(){		 var input = $(this); 		 if(input.attr('type') != 'button') {			 str = str + "&" + input.attr('id') + "=" + input.val();		 } else {//			 alert('button : ' + input.val());		 }		});	$('#listArea').load('modules/user/trace_list.php' + processUrlStringEncode(str));}function deleteuserabsenthistory(id) {	var deleteabsent = 'modules/user/deleteabsent.php?id=' + id;	$.ajax( {		url : deleteabsent,		success : function(data) {		if (data == 'success') {			operationSuccess();			reloadListAbsent('true');		} else {			operationError();		}		}	});}
+
+function validateAddAbsent() {
+
+	var flag = true;
+
+
+	if ($('#id_list_user').val() == '' || $('#id_list_user').val() == null) {
+
+		$('#id_list_user').addClass('errorField');
+
+		flag = false;
+
+	} else {
+
+		$('#id_add_user').removeClass('errorField');
+
+	}
+
+	return flag;
+
+}
+function searchAbsent(formid) {
+	var str = "?isAjax=yes&isdefault=false";
+	$("form#"+formid+" :input").each(function(){
+		 var input = $(this); 
+		 if(input.attr('type') != 'button') {
+			 str = str + "&" + input.attr('id') + "=" + input.val();
+		 } else {
+//			 alert('button : ' + input.val());
+		 }
+		});
+	$('#listArea').load('modules/user/trace_list.php' + processUrlStringEncode(str));
+}
+function deleteuserabsenthistory(id) {
+	var deleteabsent = 'modules/user/deleteabsent.php?id=' + id;
+
+	$.ajax( {
+
+		url : deleteabsent,
+
+		success : function(data) {
+
+		if (data == 'success') {
+
+			operationSuccess();
+
+			reloadListAbsent('true');
+
+		} else {
+
+			operationError();
+
+		}
+
+		}
+
+	});
+}
