@@ -1,6 +1,6 @@
 <?php
 $isdefault = $_REQUEST ['isdefault'];
-$isSearch = $_REQUEST ['issearch'];
+$isAjax = $_REQUEST ['isAjax'];
 if ($isdefault == "false") {
 	require_once ("../../include/constant.php");
 	require_once ("../../include/customerService.php");
@@ -8,7 +8,7 @@ if ($isdefault == "false") {
 	$commonService = new CommonService ();
 	$customerService = new CustomerService ( hostname, username, password, database, $commonService );
 	$parameterArray = $customerService->getSearchParameters();
-	if($isSearch == 'true') {
+	if($isAjax == 'yes') {
 		$customerService->listCustomer ( $parameterArray );
 	} else {
 		$customerService->listCustomerDefault ();

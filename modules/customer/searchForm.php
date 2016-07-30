@@ -1,6 +1,6 @@
 <h4>SEARCH CUSTOMER FORM</h4>
 <hr>
-<form>
+<form id='search_customer_criteria_form'>
 <table width="100%" class="edittable">
 	<tr>
 		<td align="right"><label for="search_customer_name">Customer name :</label></td>
@@ -39,7 +39,7 @@
 		<td colspan="2" align="center"><input type="reset" value="RESET"
 			class="menu_btn_sub" /> <input type="button" name="search_btn"
 			class="menu_btn_sub" value="SEARCH"
-			onclick="javascript:listCustomer('true');"><input type="button" 
+			onclick="javascript:listCustomer('search_customer_criteria_form');"><input type="button" 
 			class="menu_btn_sub" value="EXPORT CSV"
 			onclick="exportCustomerCsv();"></td>
 		<td></td>
