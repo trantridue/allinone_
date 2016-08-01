@@ -98,5 +98,11 @@ class ConfigService {
 			echo 'error';
 		}
 	}
+	function listProductNoImage($params) {
+		echo "listProductNoImage";
+	}
+	function listProductNoImageDefault() {
+		echo "listProductNoImageDefault";
+	}
 }
 ?>
