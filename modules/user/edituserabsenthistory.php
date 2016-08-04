@@ -13,7 +13,7 @@ $userService = new UserService ( hostname, username, password, database, $common
 </div>			
 <div id="trace_edit">
 <?php
-		$commonService->printDropDownListFromTableSelected ( 'user', 'list_user_update',$_REQUEST['id']);
+		$commonService->printDropDownListFromTableSelected ( 'user', 'list_user_update',$_REQUEST['user_id']);
 		?>
 	<input type="text" id="requested_date" class="datetimefield" value="<?php echo $_REQUEST['requested_date'];?>"/>
 	<input type="text" id="absentfrom" class="datefield" value="<?php echo $_REQUEST['from'];?>"/>

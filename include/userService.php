@@ -221,7 +221,7 @@ class UserService {
 		}
 		//		echo $qry;
 		$result = mysql_query ( $qry, $this->connection );
-		$array_column = array ("name" => "Nhan Vien", "requested_date" => "Ngay nhap", "from" => "Nghi tu", "to" => "Den ngay", "nbr_working_day" => "So ngay nghi", "description" => "Ly do", "id,requested_date,from,to,description,nbr_working_day" => "Edit", "id,deleteuserabsenthistory" => "Delete" );
+		$array_column = array ("name" => "Nhan Vien", "requested_date" => "Ngay nhap", "from" => "Nghi tu", "to" => "Den ngay", "nbr_working_day" => "So ngay nghi", "description" => "Ly do", "id,requested_date,from,to,description,nbr_working_day,user_id" => "Edit", "id,deleteuserabsenthistory" => "Delete" );
 		$array_total = array (4 => "NBR DAYS" );
 		$this->commonService->generateJSDatatableComplex ( $result, userabsenthistorydatatable, 1, 'desc', $array_total );
 		$this->commonService->generateJqueryDatatable ( $result, userabsenthistorydatatable, $array_column );
@@ -229,7 +229,7 @@ class UserService {
 	function listAbsentDefault() {
 		$qry = "select t2.*, t1.name from user t1, user_absent_history t2 where t1.id = t2.user_id";
 		$result = mysql_query ( $qry, $this->connection );
-		$array_column = array ("name" => "Nhan Vien", "requested_date" => "Ngay nhap", "from" => "Nghi tu", "to" => "Den ngay", "nbr_working_day" => "So ngay nghi", "description" => "Ly do", "id,requested_date,from,to,description,nbr_working_day" => "Edit", "id,deleteuserabsenthistory" => "Delete" );
+		$array_column = array ("name" => "Nhan Vien", "requested_date" => "Ngay nhap", "from" => "Nghi tu", "to" => "Den ngay", "nbr_working_day" => "So ngay nghi", "description" => "Ly do", "id,requested_date,from,to,description,nbr_working_day,user_id" => "Edit", "id,deleteuserabsenthistory" => "Delete" );
 		$array_total = array (4 => "NBR DAYS" );
 		$this->commonService->generateJSDatatableComplex ( $result, userabsenthistorydatatable, 1, 'desc', $array_total );
 		$this->commonService->generateJqueryDatatable ( $result, userabsenthistorydatatable, $array_column );
