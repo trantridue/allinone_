@@ -26,3 +26,16 @@ function calculatePaid() {
 	paid = parseInt($('#paid_remain_update').html()) - $("#paid_remaining").val() - $("#paid_amount_2").val() - $("#paid_amount_3").val();
 	$("#paid_amount_1").val(paid.toFixed(0).replace(/\d(?=(\d{3})+\.)/g, '$&,'));
 }
+
+function calculateSpend() {
+	var total = 0;
+	var totalRow = parseInt($("#default_number_line_spend").val());
+	for (var i = 1; i < totalRow; i++) {
+		var amount = ($("#add_amount_"+i).val() == "") ? 0
+				: parseInt($("#add_amount_" + i).val());
+		if (amount !=0){
+			total = total + amount;
+		}
+	}
+	$("#total_spend").text(total.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'));
+}

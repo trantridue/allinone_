@@ -1,16 +1,20 @@
 <script type="text/javascript">
 function calculateReturnProduct() {
 	var total = 0;
+	var total_qty = 0;
 	var totalRow = parseInt($("#numberrows").val());
 	for (var i = 1; i < totalRow; i++) {
 		var qty = ($("#product_return_qty_"+i).val() == "") ? 0
 				: parseInt($("#product_return_qty_" + i).val());
 		var impr = ($("#product_import_price_"+i).val() == "") ? 0 : parseFloat($("#product_import_price_" + i)
 				.val());
-		if (impr && qty)
+		if (impr && qty){
 			total = total + qty * impr;
+			total_qty = total_qty + qty;
+		}
 	}
-	$("#total_return").val(total.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'));
+	$("#total_return").text(total.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'));
+	$("#total_return_qty").text(total_qty.toFixed(0).replace(/\d(?=(\d{3})+\.)/g, '$&,'));
 }
 function returnProduct(){
 	var totalRows = $('#numberrows').val();
@@ -89,8 +93,11 @@ function returnProduct(){
 <input type="button" value="SHOW SEARCH" class="menu_btn_sub" onclick="toggleDivShowBtnStatus('listReturnProductArea',this);" style="background-color: violet;"/>
 <input type="reset" value="SHOW TRẢ HÀNG" onclick="toggleDivShowBtnStatus('returnproducttable',this);"  style="background-color: violet;"/>
 <input type="hidden" name="numberrows" id="numberrows" value="<?php echo $_SESSION['default_row_product_return'];?>"/>
-<?php echo tab4;?> <strong> TOTAL: </strong>
-<input type="text" id="total_return" value="0" style="opacity:100%;" size="8" onkeypress="validateNon(event);"/>
+ <strong> TỔNG TIỀN: 
+<label id="total_return" style="background: violet; font-size: 12pt;">0</label> 
+<?php echo tab4;?> SỐ LƯỢNG: 
+<label id="total_return_qty"  style="background: yellow; font-size: 12pt;">0</label>
+</strong>
 </div>
 <div id="returnproducttable">
 <hr>

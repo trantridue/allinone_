@@ -1,6 +1,6 @@
 <?php session_start();?>
 <form id="addSpendFormId">
-<h3>ADD SPEND</h3>
+<h3>ADD SPEND <?php echo tab16;?><label id="total_spend" style="background: yellow; font-size: 12pt;">0</label></h3>
 <table class="addcriteriatable" style="text-align: center;">
 	<input type="hidden" id="default_number_line_spend" value ="<?php echo $_SESSION['default_number_line_spend'];?>"/>
 	<thead>
@@ -20,7 +20,8 @@
 		<td ><?php
 		$commonService->printDropDownListFromTableSelected ( 'fund', 'add_fund_'.$i,$_SESSION['default_fund_id']);
 		?></td>
-		<td><input type="number" class="number50" autocomplete="off" size="4" id="add_amount_<?php echo $i;?>" maxlength="8" onkeypress="validateNum(event);" tabindex="<?php echo $i;?>"/></td>
+		<td><input type="number" class="number50" autocomplete="off" size="4" id="add_amount_<?php echo $i;?>" 
+		maxlength="8" onkeypress="validateNum(event);" tabindex="<?php echo $i;?>" onkeyup="calculateSpend();"/></td>
 		<td><input type="text" autocomplete="off" id="add_description_<?php echo $i;?>"/> </td>
 		<td><input type="text" autocomplete="off" id="add_date_<?php echo $i;?>" class="datefield" value="<?php echo date('Y-m-d');?>"/></td>
 		<td ><?php
