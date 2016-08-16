@@ -155,6 +155,16 @@ $(document).ready(function() {
 	$("#provider_name").autocomplete(ac_config_provider_name);
 });
 $(document).ready(function() {
+	var ac_config_product_code = {
+		source : "autocomplete/completed_import_products_code.php",
+		select : function(event, ui) {
+			$(".product_code").val(ui.item.code);
+		},
+		minLength : 1
+	};
+	$(".product_code").autocomplete(ac_config_product_code);
+});
+$(document).ready(function() {
 	var ac_config_provider_name1 = {
 		source : "autocomplete/completed_import_provider_name.php",
 		select : function(event, ui) {

@@ -99,10 +99,78 @@ class ConfigService {
 		}
 	}
 	function listProductNoImage($params) {
-		echo "listProductNoImage";
+		$qry = $this->initSqlForListProductNotCapturedImage();
+		if($params['date_from'] !='') {
+			$qry = $qry . " and t3.date >= '". $params['date_from']."' ";
+		}
+		if($params['date_to'] !='') {
+			$qry = $qry . " and t3.date <= '". $params['date_to']."' ";
+		}
+		if($params['product_code_from'] !='') {
+			$qry = $qry . " and t1.code >= '". $params['product_code_from']."' ";
+		}
+		if($params['product_code_to'] !='') {
+			$qry = $qry . " and t1.code <= '". $params['product_code_to']."' ";
+		}
+		if($params['provider_name'] !='') {
+			$qry = $qry . " and t4.name like '%". $params['provider_name']."%' ";
+		}
+		$qry = $qry . " and t1.code not in ".$this->getProductCaptured(true)." group by t1.code ";
+		$this->processListProductNotCapturedImage($qry);
 	}
+	
 	function listProductNoImageDefault() {
-		echo "listProductNoImageDefault";
+		session_start();
+		$dateBeforeSomeDays = $this->commonService->getDateBeforeSomeDays ( $_SESSION ['default_nbr_day_check_image'] );
+		$qry = $this->initSqlForListProductNotCapturedImage();
+		$qry = $qry . " and t3.date >= '".$dateBeforeSomeDays."' and t1.code not in ".$this->getProductCaptured(false)." group by t1.code ";
+		$this->processListProductNotCapturedImage($qry);		
+	}
+	function initSqlForListProductNotCapturedImage(){
+		
+		$qry = "select t2.import_facture_code,t3.date,t4.name as provider, t1.*, "
+		."((select ifnull(sum(quantity),0) from product_import where product_code = t1.code) - "
+	  	."(select ifnull(sum(quantity),0) from product_return where product_code = t1.code) - "
+	  	."(select ifnull(sum(quantity),0) from export_facture_product where product_code = t1.code) + "
+        ."(select ifnull(sum(re_qty),0) from export_facture_product where product_code = t1.code) + "
+      	."(select ifnull(sum(quantity),0) from product_deviation where product_code = t1.code) ) as stock "
+		."from product t1 , product_import t2, import_facture t3, provider t4 "
+		."where t1.code = t2.product_code and t2.import_facture_code = t3.code and t4.id =t3.provider_id ";
+		return $qry;
+	}
+	
+	function processListProductNotCapturedImage($qry){
+//		echo $qry;
+		$result = mysql_query ( $qry, $this->connection );
+		$array_column = array (
+			"code" => "Mã hàng"
+			,"stock" => "Trong kho còn"
+			,"name" => "Tên hàng"
+			,"date" => "Ngày nhập"
+			,"import_facture_code" => "Mã hóa đơn");
+
+		if($this->commonService->isAdmin()) {
+			$array_column['provider'] = 'Nhà Cung Cấp';
+		}
+		
+		$this->commonService->generateJSDatatableSimple ( productdatatable, 1, 'desc' );
+		$this->commonService->generateJqueryDatatable ( $result, productdatatable,$array_column );
+	}
+	function getProductCaptured($isAjax) {
+		session_start();
+		$str = "('";
+		if($isAjax) {
+			$filelist = glob("../../img/product/*.png");
+		} else {
+			$filelist = glob("./img/product/*.png");
+		}
+		foreach ($filelist as $value) {
+			$start =  strrpos($value,'/',-1);
+			$end =  strrpos($value,'.',-1);
+			$str = $str. substr($value,$start+1,$end-$start-1)."','";
+		}
+		$len = strlen ($str);
+		return substr($str,0,$len-2).")";
 	}
 }
 ?>
