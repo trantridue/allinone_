@@ -115,7 +115,7 @@ class ConfigService {
 		if($params['provider_name'] !='') {
 			$qry = $qry . " and t4.name like '%". $params['provider_name']."%' ";
 		}
-		$qry = $qry . " and t1.code not in ".$this->getProductCaptured(true)." group by t1.code ";
+		$qry = $qry . " and t1.code not in ".$this->getProductCaptured(true)." group by t1.code ) tt where tt.stock >0 ";
 		$this->processListProductNotCapturedImage($qry);
 	}
 	
@@ -123,12 +123,12 @@ class ConfigService {
 		session_start();
 		$dateBeforeSomeDays = $this->commonService->getDateBeforeSomeDays ( $_SESSION ['default_nbr_day_check_image'] );
 		$qry = $this->initSqlForListProductNotCapturedImage();
-		$qry = $qry . " and t3.date >= '".$dateBeforeSomeDays."' and t1.code not in ".$this->getProductCaptured(false)." group by t1.code ";
+		$qry = $qry . " and t3.date >= '".$dateBeforeSomeDays."' and t1.code not in ".$this->getProductCaptured(false)." group by t1.code) tt where tt.stock >0 ";
 		$this->processListProductNotCapturedImage($qry);		
 	}
 	function initSqlForListProductNotCapturedImage(){
 		
-		$qry = "select t2.import_facture_code,t3.date,t4.name as provider, t1.*, "
+		$qry = "select tt.* from (select t2.import_facture_code,t3.date,t4.name as provider, t1.*, "
 		."((select ifnull(sum(quantity),0) from product_import where product_code = t1.code) - "
 	  	."(select ifnull(sum(quantity),0) from product_return where product_code = t1.code) - "
 	  	."(select ifnull(sum(quantity),0) from export_facture_product where product_code = t1.code) + "
