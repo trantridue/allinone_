@@ -2,7 +2,15 @@
 function resetContinue(){ 
 	$("#continueImport").val(false);
 }
-
+function updateAllImportPrice(nbrRow) {
+	var discount = $('#default_discount_taux').val();
+	for(var index = 1; index <=nbrRow;index++) {
+		var expr =  $('#post_'+index).val();
+		var impr = Math.floor((100-discount)*expr/100);
+		$('#impr_' + index).val(impr);
+	}
+	calculateImportFacture();
+}
 </script>
 <script>
 window.onbeforeunload = function() { return "You work will be lost."; };
@@ -13,7 +21,6 @@ session_start();
 ?>
 <form method="post" action="?module=import&submenu=addproduct"
 	onsubmit="return validateImportForm();">
-	
 	<table class="searchcriteriatable">
 	<input type="hidden" name="continueImport" id="continueImport"	value="false" />
 	<tr>
@@ -46,7 +53,10 @@ session_start();
 	<tr>
 		<td><input type="submit" value="IMPORT" class="menu_btn_sub"> </td>
 		<td colspan="7"><input id="total_facture" value="0.00" onkeypress="validateNon(event);"/> 
-		<label for="default_discount_taux">Discount:</label><input type="number" style="width:50px" id="default_discount_taux" value="<?php echo $_SESSION['default_discount_taux'];?>"/> </td>
+		<label for="default_discount_taux">Discount:</label>
+		<input type="number" style="width:50px" id="default_discount_taux" value="<?php echo $_SESSION['default_discount_taux'];?>" 
+		onkeyup="updateAllImportPrice(<?php echo $_SESSION ['import_number_row'];?>);"/>
+		 </td>
 	</tr>
 	</table>
 		<hr>
