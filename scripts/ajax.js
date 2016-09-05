@@ -1986,133 +1986,45 @@ function addFund() {
 }
 
 function addAbsent() {
-
-	
-
 	if (validateAddAbsent()) {
-
-		
-
 		saveAddAbsent();
-
-		
-
 	}
-
-	
-
 }
 
 function updateAbsent() {
-
-
-
 // if (validateAddAbsent()) {
-
-
-
 		saveUpdateAbsent();
-
-
-
 // }
-
-
-
 }
 
 function saveAddAbsent() {
-
-	
-
 	var urls = 'modules/user/saveAbsent.php' + getAbsentInformation();
-
-	
-
 	$.ajax( {
-
-		
-
-		url : urls,
-
-		
-
-		success : function(data) {
-
-// alert(data);
-
-// $('#nbrdays_2').val(data);
-
+		url : urls,		success : function(data) {
 		if (data == 'success') {
-
-			
-
 			operationSuccess();
-
-			
-
 			reloadListAbsent('true');
-
-			
-
-// $('#fundAddFormId')[0].reset();
-
-			
-
 		} else {
-
-			
-
 			operationError();
-
-			
-
 		}
-
-		
-
 	}
-
-	
-
 	});
-
-	
 
 }
 
 function saveUpdateAbsent() {
-
-	
-
 	var urls = 'modules/user/saveUpdateAbsent.php' + getUpdateAbsentInformation();
-
-//	alert(urls);
-
 	$.ajax( {
-
 		url : urls,
-
 		success : function(data) {
-
-//		$('#listArea').html(data);
-
 		if (data == 'success') {
-
 			operationSuccess();
-
 			reloadListAbsent('true');
-
 		} else {
-
 			operationError();
-
 		}
-
 	}
-
 	});
-
 }
 
 function saveAddFund() {
@@ -4039,110 +3951,46 @@ function resetHiddenFundId() {
 
 }
 
-function searchExportFull(issearch) {
+function searchExportFull(formid) {
 
-	searchExport(issearch, 'exportList', 'exportList');
+	searchExport(formid, 'exportList', 'exportList');
 
 	
 
 	if ($('#exportReturn').css('display') != "none") {
 
-		searchExport(issearch, 'exportReturn', 'exportReturn');
+		searchExport(formid, 'exportReturn', 'exportReturn');
 
 	}
 
 	if ($('#exportOrderList').css('display') != "none") {
 
-		searchExport(issearch, 'exportOrderList', 'exportOrderList');
+		searchExport(formid, 'exportOrderList', 'exportOrderList');
 
 	}
 
 	if ($('#exportDebt').css('display') != "none") {
 
-		searchExport(issearch, 'exportDebt', 'exportDebt');	
+		searchExport(formid, 'exportDebt', 'exportDebt');	
 
 	}
 
 }
 
-function searchExport(issearch, divid, filename) {
+function searchExport(formid, divid, filename) {
 
 	var url = "modules/export/" + filename + ".php"
 
-			+ getExportSearchCriteria(issearch);
+			+ getExportSearchCriteria(formid);
 
-// alert(url);
-
-// alert(divid);
+ alert(url);
 
 	$('#' + divid).load(url);
 
 }
 
-function getExportSearchCriteria(issearch) {
-
-
-
-	var str = "?issearch=" + issearch + "&isdefault=false";
-
-	var isAdminField = "&isAdminField=" + $('#isAdminField').val();
-
-	var search_customer_name = "&search_customer_name="
-
-			+ $('#search_customer_name').val();
-
-	var search_product_code = "&search_product_code="
-
-			+ $('#search_product_code').val();
-
-	var search_price_from = "&search_price_from="
-
-		+ $('#search_price_from').val();
-
-	var search_price_to = "&search_price_to=" + $('#search_price_to').val();
-
-	var search_sale_from = "&search_sale_from="
-
-			+ $('#search_sale_from').val();
-
-	var search_sale_to = "&search_sale_to=" + $('#search_sale_to').val();
-
-	var default_nbr_days_load_export = "&default_nbr_days_load_export=" + $('#default_nbr_days_load_export').val();
-
-	var search_customer_tel = "&search_customer_tel="
-
-			+ $('#search_customer_tel').val();
-
-	var search_facture_description = "&search_facture_description=" + $('#search_facture_description').val();
-
-	var search_online = "&search_online=" + $('#search_online').is(":checked");
-
-	var search_product_name = "&search_product_name="
-
-			+ $('#search_product_name').val();
-
-	var search_date_from = "&search_date_from=" + $('#search_date_from').val();
-
-	var search_date_to = "&search_date_to=" + $('#search_date_to').val();
-
-	var id_search_shop = "&id_search_shop=" + $('#id_search_shop').val();
-
-	var id_search_user = "&id_search_user=" + $('#id_search_user').val();
-
-
-
-	str = str + search_customer_name + search_product_code + search_price_from + search_sale_from + search_sale_to
-
-			+ search_price_to + search_customer_tel + search_product_name
-
-			+ search_date_from + search_date_to + id_search_shop
-
-			+ default_nbr_days_load_export + search_facture_description + search_online
-
-			+ id_search_user + isAdminField;
-
-	return processUrlStringEncode(str);
-
+function getExportSearchCriteria(formid) {
+	return getUrlStringByFormId(formid) + "&issearch=true&isAdminField="+$('#isAdminField').val();
 }
 
 function reloadParams() {
@@ -4356,20 +4204,22 @@ function validateAddAbsent() {
 }
 
 function searchAbsent(formid) {
-
+	$('#listArea').load('modules/user/trace_list.php' + getUrlStringByFormId(formid));
+}
+function getUrlStringByFormId(formid) {
 	var str = "?isAjax=yes&isdefault=false";
 
 	$("form#"+formid+" :input").each(function(){
 		 var input = $(this); 
-		 if(input.attr('type') != 'button') {
+		 if (input.attr('type') == 'checkbox') {
+			 var idfield = input.attr('id');
+			 str = str + "&" + idfield + "=" + $('#'+idfield).is(":checked");
+		 } else if(input.attr('type') != 'button') {
 			 str = str + "&" + input.attr('id') + "=" + input.val();
-		 } 
+		 }
 		});
-
-	$('#listArea').load('modules/user/trace_list.php' + processUrlStringEncode(str));
-
+	return processUrlStringEncode(str);
 }
-
 function deleteuserabsenthistory(id) {
 
 	var deleteabsent = 'modules/user/deleteabsent.php?id=' + id;
@@ -4386,15 +4236,7 @@ function deleteuserabsenthistory(id) {
 	});
 }
 function searchProductNotCaptured (formid) {
-	var str = "?isAjax=yes&isdefault=false";
-
-	$("form#"+formid+" :input").each(function(){
-		 var input = $(this); 
-		 if(input.attr('type') != 'button') {
-			 str = str + "&" + input.attr('id') + "=" + input.val();
-		 } 
-		});
-	$('#listArea').load('modules/upload/listProductNotCaptured.php' + processUrlStringEncode(str));
+	$('#listArea').load('modules/upload/listProductNotCaptured.php' + getUrlStringByFormId(formid));
 }
 $(document).ready(function() {
 	var ac_config_product_code = {

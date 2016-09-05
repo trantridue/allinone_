@@ -1,12 +1,11 @@
-
+<input type="button" value="TÌM KIẾM" class="menu_btn_sub" style="background-color: violet;"
+	onclick="searchExportFull('exportSearchCriteria');">
 <input type="button" value="KHÁCH NỢ" class="menu_btn_sub"
 	onclick="toggleDivShowBtnStatus('exportDebt',this);">
 <input type="button" value="ĐÃ ĐẶT TIỀN" class="menu_btn_sub"
 	onclick="toggleDivShowBtnStatus('exportReservation',this);">
 <input type="button" value="TRẢ HÀNG" class="menu_btn_sub"
 	onclick="toggleDivShowBtnStatus('exportReturn',this);">
-<input type="button" value="TÌM KIẾM" class="menu_btn_sub" style="background-color: violet;"
-	onclick="searchExportFull('true');">
 <input type="button" value="HỎI HÀNG" class="menu_btn_sub"
 	onclick="toggleDivShowBtnStatus('exportOrderList',this);">
 <input type="button" value="MÁY TÍNH" class="menu_btn_sub"
