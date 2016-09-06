@@ -6,8 +6,10 @@ function updateAllImportPrice(nbrRow) {
 	var discount = $('#default_discount_taux').val();
 	for(var index = 1; index <=nbrRow;index++) {
 		var expr =  $('#post_'+index).val();
-		var impr = Math.floor((100-discount)*expr/100);
-		$('#impr_' + index).val(impr);
+		if($('#post_'+index).val() != '' && $('#post_'+index).val() != null) {
+			var impr = Math.floor((100-discount)*expr/100);
+			$('#impr_' + index).val(impr);
+		}
 	}
 	calculateImportFacture();
 }
