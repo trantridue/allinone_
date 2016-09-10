@@ -746,25 +746,6 @@ function getExportListArrayColumn($isAdminField) {
 		$cash = $_SESSION ['init_money'] + $this->commonService->getAmountResult ( $qryFacture ) + $this->commonService->getAmountResult ( $qryInout );
 		return number_format ( $cash, 0, '.', ',' );
 	}
-	
-	function getSearchParameters() {
-		return array ('isAdminField' => $_REQUEST ['isAdminField'], 
-		'search_customer_name' => $_REQUEST ['search_customer_name'], 
-		'search_facture_description' => $_REQUEST ['search_facture_description'], 
-		'search_online' => $_REQUEST ['search_online'], 
-		'search_product_code' => $_REQUEST ['search_product_code'], 
-		'search_price_from' => $_REQUEST ['search_price_from'], 
-		'search_price_to' => $_REQUEST ['search_price_to'], 
-		'search_sale_from' => $_REQUEST ['search_sale_from'], 
-		'search_sale_to' => $_REQUEST ['search_sale_to'], 
-		'search_customer_tel' => $_REQUEST ['search_customer_tel'], 
-		'search_product_name' => $_REQUEST ['search_product_name'], 
-		'search_date_from' => $_REQUEST ['search_date_from'], 
-		'search_date_to' => $_REQUEST ['search_date_to'], 
-		'id_search_shop' => $_REQUEST ['id_search_shop'], 
-		'default_nbr_days_load_export' => $_REQUEST ['default_nbr_days_load_export'], 
-		'id_search_user' => $_REQUEST ['id_search_user'] );
-	}
 	function updateProductLink($product_code, $link) {
 		$datetime = date ( 'Y-m-d H:i:s' );
 		mysql_query ( "BEGIN" );

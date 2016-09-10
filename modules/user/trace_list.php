@@ -12,8 +12,6 @@ if($isAjax == '') {
 }
 $commonService = new CommonService ();
 $userService = new UserService ( hostname, username, password, database, $commonService );
-$params = $userService->getSearchAbsentParams();
-
 if ($isdefault == "false") {
 	$userService->listAbsent ($_GET);
 } else {

@@ -3955,36 +3955,21 @@ function searchExportFull(formid) {
 
 	searchExport(formid, 'exportList', 'exportList');
 
-	
-
 	if ($('#exportReturn').css('display') != "none") {
-
 		searchExport(formid, 'exportReturn', 'exportReturn');
-
 	}
-
 	if ($('#exportOrderList').css('display') != "none") {
-
 		searchExport(formid, 'exportOrderList', 'exportOrderList');
-
 	}
-
 	if ($('#exportDebt').css('display') != "none") {
-
 		searchExport(formid, 'exportDebt', 'exportDebt');	
-
 	}
-
 }
 
 function searchExport(formid, divid, filename) {
 
 	var url = "modules/export/" + filename + ".php"
-
 			+ getExportSearchCriteria(formid);
-
- alert(url);
-
 	$('#' + divid).load(url);
 
 }

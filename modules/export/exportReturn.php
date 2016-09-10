@@ -10,9 +10,8 @@ if ($isdefault == "false") {
 	
 	$commonService = new CommonService ();
 	$exportService = new ExportService ( hostname, username, password, database, $commonService );
-	$parameterArray = $exportService->getSearchParameters ();
 	if($isSearch == 'true') {
-		$exportService->listReturn ( $parameterArray );
+		$exportService->listReturn ( $_GET );
 	} else {
 		$exportService->listReturnDefault ();
 	}
