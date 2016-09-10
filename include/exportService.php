@@ -98,50 +98,6 @@ class ExportService {
 		$paramsArray ['order_description'] = $_REQUEST ['order_description'];
 		return $paramsArray;
 	}
-	function getExportParameters() {
-		$paramsArray = array ();
-		
-		$paramsArray ['customer_tel'] = $_REQUEST ['customer_tel'];
-		$paramsArray ['customer_id'] = $_REQUEST ['customer_id'];
-		$paramsArray ['customer_name'] = $_REQUEST ['customer_name'];
-		$paramsArray ['export_date'] = $_REQUEST ['export_date'];
-		$paramsArray ['id_export_shop'] = $_REQUEST ['id_export_shop'];
-		$paramsArray ['customer_description'] = $_REQUEST ['customer_description'];
-		$paramsArray ['isBoss'] = $_REQUEST ['isBoss'];
-		$paramsArray ['useBonus'] = $_REQUEST ['useBonus'];
-		$paramsArray ['byCard'] = $_REQUEST ['byCard'];
-		$paramsArray ['online'] = $_REQUEST ['online'];
-		$paramsArray ['id_onlinefund'] = $_REQUEST ['id_onlinefund'];
-		$paramsArray ['id_onlinefund_txt'] = $_REQUEST ['id_onlinefund_txt'];
-		$paramsArray ['customer_debt'] = $_REQUEST ['customer_debt'];
-		$paramsArray ['customer_reserved'] = $_REQUEST ['customer_reserved'];
-		$paramsArray ['customer_returned'] = $_REQUEST ['customer_returned'];
-		$paramsArray ['total_facture'] = $_REQUEST ['total_facture'];
-		$paramsArray ['customer_bonus'] = $_REQUEST ['customer_bonus'];
-		$paramsArray ['final_total'] = $_REQUEST ['final_total'];
-		$paramsArray ['customer_reserve_more'] = $_REQUEST ['customer_reserve_more'];
-		$paramsArray ['customer_give'] = $_REQUEST ['customer_give'];
-		$paramsArray ['give_customer'] = $_REQUEST ['give_customer'];
-		$paramsArray ['id_search_user'] = $_REQUEST ['id_search_user'];
-		$paramsArray ['export_number_row'] = $_REQUEST ['export_number_row'];
-		$paramsArray ['listProductReturnQty'] = $_REQUEST ['listProductReturnQty'];
-		$paramsArray ['listProductReturnId'] = $_REQUEST ['listProductReturnId'];
-		$paramsArray ['customer_tel_guess'] = $_REQUEST ['customer_tel_guess'];
-		for($i = 1; $i <= $_REQUEST ['export_number_row']; $i ++) {
-			$code_field = 'productcode_' . $i;
-			$qty_field = 'quantity_' . $i;
-			$price_field = 'exportprice_' . $i;
-			$code_val = $_REQUEST [$code_field];
-			$qty_val = $_REQUEST [$qty_field];
-			$price_val = $_REQUEST [$price_field];
-			if ($code_val != '') {
-				$paramsArray [$code_field] = $code_val;
-				$paramsArray [$qty_field] = $qty_val;
-				$paramsArray [$price_field] = $price_val;
-			}
-		}
-		return $paramsArray;
-	}
 	function saveOrder($paramsArray) {
 		session_start ();
 		mysql_query ( "BEGIN" );
