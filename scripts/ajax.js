@@ -2201,8 +2201,7 @@ function isFactureInforBlank(){
 
 	($('#total_facture').html()=='' || $('#total_facture').html()=='0') &&
 
-	($('#give_customer').val()=='' || $('#give_customer').val()=='0');
-
+	($('#give_customer').val()=='' || $('#give_customer').val()=='0')
 }
 
 function validateAddFund() {
@@ -3971,7 +3970,7 @@ function searchExport(formid, divid, filename) {
 }
 
 function getExportSearchCriteria(formid) {
-	return getUrlStringByFormId(formid) + "&issearch=true&isAdminField="+$('#isAdminField').val();
+	return getUrlStringByFormId(formid) + "&issearch=true";
 }
 
 function reloadParams() {
@@ -4188,7 +4187,7 @@ function searchAbsent(formid) {
 	$('#listArea').load('modules/user/trace_list.php' + getUrlStringByFormId(formid));
 }
 function getUrlStringByFormId(formid) {
-	var str = "?isAjax=yes&isdefault=false";
+	var str = "?isAjax=yes&isdefault=false&isAdminField="+$('#isAdminField').val();
 
 	$("form#"+formid+" :input").each(function(){
 		 var input = $(this); 

@@ -87,17 +87,6 @@ class ExportService {
 		}
 		return $jsonArray;
 	}
-	function getOrderParameters() {
-		$paramsArray = array ();
-		$paramsArray ['customer_tel'] = $_REQUEST ['customer_tel'];
-		$paramsArray ['customer_name'] = $_REQUEST ['customer_name'];
-		$paramsArray ['order_product_code'] = $_REQUEST ['order_product_code'];
-		$paramsArray ['order_size'] = $_REQUEST ['order_size'];
-		$paramsArray ['order_qty'] = $_REQUEST ['order_qty'];
-		$paramsArray ['order_color'] = $_REQUEST ['order_color'];
-		$paramsArray ['order_description'] = $_REQUEST ['order_description'];
-		return $paramsArray;
-	}
 	function saveOrder($paramsArray) {
 		session_start ();
 		mysql_query ( "BEGIN" );
@@ -647,8 +636,7 @@ class ExportService {
 		if ($params ['id_search_user'] != '') {
 			$qry = $qry . " and t6.id = '" . $params ['id_search_user'] . "'";
 		}
-//				echo $qry;
-		if ($_REQUEST ['isAdminField'] != '1') {
+		if ($params ['isAdminField'] != '1') {
 			echo "<div style='text-align:center;background-color:pink;padding-bottom:5px;font-weight:bold;font-style:italic;'>" . "(Bạn chỉ xem được các sản phầm đã bán từ tối đa " . $params ['default_nbr_days_load_export'] . " ngày gần đây!)</div>";
 			$qry = $qry . " and datediff(now(),t2.date) < " . $params ['default_nbr_days_load_export'];
 		}

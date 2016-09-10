@@ -8,8 +8,6 @@
 	onclick="toggleDivShowBtnStatus('exportReturn',this);">
 <input type="button" value="HỎI HÀNG" class="menu_btn_sub"
 	onclick="toggleDivShowBtnStatus('exportOrderList',this);">
-<input type="button" value="MÁY TÍNH" class="menu_btn_sub"
-	onclick="toggleDivShowBtnStatus('exportCalculator',this);$('.shiftkeydown').select();">
 <input type="reset" value="RESET" class="menu_btn_sub" style="display:none;"
 	onclick="$('#search_date_from').val(getDateResetSearch());">
 	<input type="hidden" id="date_before_some_day" value="<?php echo $commonService->getDateTimeBeforeSomeDaysExport();?>"></input>
