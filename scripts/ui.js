@@ -98,7 +98,6 @@ function toggleImportSearchCriteria() {
 	toggleDiv('export_quantity_to');
 	toggleDiv('remain_quantity_to');
 	$('#isadvancedsearch').val($('#isadvancedsearch').val() == 'false');
-	// alert($('#isadvancedsearch').val());
 }
 
 $(document).ready(

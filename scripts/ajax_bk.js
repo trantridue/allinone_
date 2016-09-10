@@ -1355,7 +1355,6 @@ function saveExport() {
 	$('#saveExportBtn').prop('disabled', true);
 	if(validateExportForm()) {
 	var urls = 'modules/export/saveExport.php' + getExportProductParameter();
-// alert(urls);
 	$.ajax( {
 		url : urls,
 		success : function(data) {

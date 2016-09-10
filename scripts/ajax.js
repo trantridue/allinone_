@@ -2831,17 +2831,13 @@ function saveExport() {
 
 	if(validateExportForm()) {
 
-	var urls = 'modules/export/saveExport.php' + getExportProductParameter();
-
-// alert(urls);
-
+	var urls = 'modules/export/saveExport.php' + getUrlStringByFormId("exportLeftForm");
+	
 	$.ajax( {
 
 		url : urls,
 
 		success : function(data) {
-
-		$("#exportSearch").html(data);
 
 			if (data == 'success') {
 
@@ -4203,6 +4199,14 @@ function getUrlStringByFormId(formid) {
 			 str = str + "&" + input.attr('id') + "=" + input.val();
 		 }
 		});
+
+	if(formid=='exportLeftForm') {
+		str = str + "&total_facture=" + $('#total_facture').html();
+		str = str + "&customer_debt=" + $('#customer_debt').html();
+		str = str + "&customer_reserved=" + $('#customer_reserved').html();
+		str = str + "&customer_returned=" + $('#customer_returned').html();
+		str = str + "&customer_bonus=" + $('#customer_bonus').html();
+	}
 	return processUrlStringEncode(str);
 }
 function deleteuserabsenthistory(id) {

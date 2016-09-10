@@ -4,12 +4,14 @@ session_start();
 if (!$commonService->isMobile ()){ 
 ?>
 <div id="exportLeft">
+<form id="exportLeftForm">
 	<div id="exportCustomerInformation"><?php include 'customerInfor.php';?></div>
 	<div id="exportCustomerOrder" style="display: none;"><?php include 'customerOrder.php';?></div>
 	<hr>
 	<div id="exportFactureInformation"><?php include 'factureInfor.php';?></div>
 	<div id="exportInputProduct"><?php include 'exportInput.php';?></div>
 	<div id="marqueeId"><?php include 'marquee.php';?></div>
+</form>
 </div>
 
 <div id="exportRight">
