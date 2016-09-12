@@ -63,33 +63,37 @@ function processUrlStringEncode(str) {
 /* USER MODULE */
 
 function listUser() {
-
+	
 	var isdefault = "false";
-
+	
 	var username = $('#user_username').val();
-
+	
 	var name = $('#user_name').val();
-
+	
 	var user_mail = $('#user_mail').val();
-
+	
 	var user_tel = $('#user_tel').val();
-
+	
 	var user_status_hidden = $('#user_status_hidden').val();
-
+	
 	var user_description = $('#user_description').val();
-
+	
 	var url = "modules/user/list.php" + "?isdefault=" + isdefault
-
-			+ "&user_tel=" + user_tel + "&user_mail=" + user_mail
-
-			+ "&username=" + username + "&user_status_hidden="
-
-			+ user_status_hidden + "&name=" + encodeURIComponent(name)
-
-			+ "&user_description=" + encodeURIComponent(user_description);
-
+	
+	+ "&user_tel=" + user_tel + "&user_mail=" + user_mail
+	
+	+ "&username=" + username + "&user_status_hidden="
+	
+	+ user_status_hidden + "&name=" + encodeURIComponent(name)
+	
+	+ "&user_description=" + encodeURIComponent(user_description);
+	
 	$('#listArea').load(url);
-
+	
+}
+function listUserDefault() {
+	var url = "modules/user/list.php?isdefault=true";
+	$('#listArea').load(url);
 }
 
 
@@ -2861,7 +2865,39 @@ function saveExport() {
 	}
 
 }
+function validateEditUserForm() {
+	var flag = true;
+	var emailReg = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	var userNameReg = /^[a-z0-9_-]{3,15}$/;
+	var nameReg = /^(?!\s*$).+$/;
+	var phoneReg = /^[0-9]{9,12}$/;
 
+	var flag1 = validateField(userNameReg, 'user_username');
+	var flag2 = validateField(emailReg, 'user_email');
+	var flag3 = validateField(nameReg, 'user_name');
+	var flag4 = validateField(phoneReg, 'user_phone_number');
+	var flag5 = validatePassword('user_password', 'retype_user_password');
+
+	return flag && flag1 && flag2 && flag3 && flag4 && flag5;
+};
+function addUser() {
+		
+	var urls = 'modules/user/adduser.php' + getUrlStringByFormId("adduserForm");
+	alert(urls);
+	$.ajax( {
+
+		url : urls,
+
+		success : function(data) {
+			if (data == 'success') {
+				operationSuccess();
+				listUserDefault();
+			} else {
+				operationError();
+			}
+		}
+	});
+}
 function validateExportForm() {
 
 	var flag = true;

@@ -1,4 +1,4 @@
-<form action="?module=user&submenu=adduser" method="post" onsubmit="return validateEditUserForm();">
+<form id="adduserForm">
 	<input type="hidden" name="user_id" value="<?php echo $_REQUEST['id'];?>" />
 	<table width="100%" class="searchcriteriatable">
 		<tr>
@@ -14,7 +14,7 @@
 			<td><input autocomplete="off" type="text" name="user_phone_number" id="user_phone_number"
 				value="<?php echo $_REQUEST['phone_number'];?>" /></td>
 			<td style="text-align: right;">Description :</td>
-			<td><input autocomplete="off" type="text" name="user_description"
+			<td><input autocomplete="off" type="text" name="user_description" id="user_description"
 				value="<?php echo $_REQUEST['description'];?>" /></td>
 		</tr>
 		<tr>
@@ -39,7 +39,7 @@
 		<tr>
 			<td style="text-align: right;">Username :</td>
 			<td><input autocomplete="off" type="text" name="user_username" id="user_username"/></td>
-			<td style="text-align: right;"><input type="submit"
+			<td style="text-align: right;"><input type="button" onclick="addUser();"
 				value="SAVE USER"></td>
 			<td></td>
 		</tr>

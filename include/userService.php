@@ -82,21 +82,23 @@ class UserService {
 			echo 'error';
 		}
 	}
-	function addUser($user_username, $user_name, $user_email, $user_phone_number, $user_description, $user_password, $shop_dropdown_user, $status_value) {
+	function addUser($params) {
 		session_start ();
-		$actionType = 'insert';
+		mysql_query ( "BEGIN" );
+		$flag = true;
 		$new_password = '';
 		$date = date ( 'Y-m-d H:i:s' );
 		$qry = "";
-		if ($user_password != null && $user_password != '') {
-			$new_password = md5 ( $user_password );
+		if ($params['new_password'] != null && $params['new_password'] != '') {
+			$new_password = md5 ( $params['new_password'] );
 		} else {
 			$new_password = md5 ( $_SESSION ['default_password'] );
 		}
-		$qry = "insert into user(username,name,email,phone_number,shop_id,password,confirmcode,status,start_date,description) values ('" . $user_username . "',
-				'" . $user_name . "','" . $user_email . "','" . $user_phone_number . "'," . $shop_dropdown_user . ",'" . $new_password . "','y','" . $status_value . "','" . $date . "','" . $user_description . "')";
-		$result = mysql_query ( $qry, $this->connection );
-		echo "<script>userpostaction('" . $result . "','" . $actionType . "');</script>";
+		$qry = "insert into user(username,name,email,phone_number,shop_id,password,confirmcode,status,start_date,description) values ('" . $params['user_username'] . "',
+				'" . $params['user_name'] . "','" . $params['user_email'] . "','" . $params['user_phone_number'] . "'," . $params['id_shop_dropdown_user'] . ",'" . $new_password . "','y','" . $params['user_status_hidden'] . "','" . $date . "','" . $params['user_description'] . "')";
+		$flag = $flag && (mysql_query ( $qry, $this->connection ) != null);
+		$this->commitOrRollback ( $flag );
+		echo "success";
 	}
 	
 	function getUpdateAbsentParameters() {

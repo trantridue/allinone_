@@ -69,21 +69,7 @@ function userpostaction(data, actionType) {
 
 	displayMessageServer(data, errorMessage, successMessage, "user");
 }
-function validateEditUserForm() {
-	var flag = true;
-	var emailReg = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-	var userNameReg = /^[a-z0-9_-]{3,15}$/;
-	var nameReg = /^(?!\s*$).+$/;
-	var phoneReg = /^[0-9]{9,12}$/;
 
-	var flag1 = validateField(userNameReg, 'user_username');
-	var flag2 = validateField(emailReg, 'user_email');
-	var flag3 = validateField(nameReg, 'user_name');
-	var flag4 = validateField(phoneReg, 'user_phone_number');
-	var flag5 = validatePassword('user_password', 'retype_user_password');
-
-	return flag && flag1 && flag2 && flag3 && flag4 && flag5;
-};
 
 /* IMPORT MODULE */
 function validateImportForm() {
