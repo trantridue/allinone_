@@ -601,3 +601,8 @@ div#table_list_product_wrapper table.dataTable tbody th,div#table_list_product_w
 table label {
 	font-weight: bold;
 }
+.exportclass {
+	top:850px;
+	font-size:130pt;
+	position:absolute;
+}
