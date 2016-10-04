@@ -171,3 +171,4 @@ $(document)
 $(function() {
 	$("#tabs").tabs();
 });
+

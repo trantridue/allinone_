@@ -38,6 +38,63 @@ $_SESSION ['expire1'] = $_SESSION ['start1'] + $_SESSION ['timeout'];
 <script src="scripts/ajax.js"></script>
 <script src="scripts/calculator.js"></script>
 <script src="scripts/jquery.confirm.js"></script>
+<script type="text/javascript">
+            $(function () {
+                var cancelKeypress = false;
+                // Need to cancel event (only applies to IE)
+                if ( "onhelp" in window ) {
+                    // (jQuery cannot bind "onhelp" event)
+                    window.onhelp = function () {
+                        return false;
+                    };
+                }
+                $(document).keydown(function ( evt ) {
+                    // F1 pressed
+                    if ( evt.keyCode === 220 ) {
+                        if ( window.event ) {
+                            // Write back to IE's event object
+                            window.event.keyCode = 0;
+                        }
+                        cancelKeypress = true;
+                        $("#saveExportBtn" ).focus();
+                        $("#saveExportBtn" ).select();
+                        return false;
+                    }
+					// F2 pressed
+                    if ( evt.keyCode === 113 ) {
+                        if ( window.event ) {
+                            // Write back to IE's event object
+                            window.event.keyCode = 0;
+                        }
+                        cancelKeypress = true;
+
+                        // Trigger custom help here
+                        $("#customer_tel").select();
+
+                        return false;
+                    }
+					// F3 pressed
+                    if ( evt.keyCode === 112 ) {
+                        if ( window.event ) {
+                            // Write back to IE's event object
+                            window.event.keyCode = 0;
+                        }
+                        cancelKeypress = true;
+
+                        // Trigger custom help here
+						$("#productcode_1").focus();
+                        return false;
+                    }
+                });
+                // Needed for Opera (as in Andy E's answer)
+                $(document).keypress(function ( evt ) {
+                    if ( cancelKeypress ) {
+                        cancelKeypress = false; // Only this keypress
+                        return false;
+                    }
+                });
+            });
+        </script>
 <link rel="stylesheet" type="text/css" href="style/jquery.confirm.css" />
 </head>
 <body>
