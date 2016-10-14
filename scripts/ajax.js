@@ -838,7 +838,7 @@ function listCustomer(formid) {
 			 str = str + "&" + input.attr('id') + "=" + input.val();
 		 } 
 		});
-	alert("modules/customer/list.php" + str);
+//	alert("modules/customer/list.php" + str);
 	$('#listArea').load("modules/customer/list.php" + str);
 
 }

@@ -182,19 +182,19 @@ class CustomerService {
 		}
 		if($params['create_date_from']!=''){
 			$flag = false;
-			$qry = $qry . " and t.created_date >= '".$params['create_date_from']."'";
+			$qry = $qry . " and date(t.created_date) >= '".$params['create_date_from']."'";
 		}
 		if($params['create_date_to']!=''){
 			$flag = false;
-			$qry = $qry . " and t.created_date <= '".$params['create_date_to']."'";
+			$qry = $qry . " and date(t.created_date) <= '".$params['create_date_to']."'";
 		}
 		if($params['update_date_from']!=''){
 			$flag = false;
-			$qry = $qry . " and t.date >= '".$params['update_date_from']."'";
+			$qry = $qry . " and date(t.date) >= '".$params['update_date_from']."'";
 		}
 		if($params['update_date_to']!=''){
 			$flag = false;
-			$qry = $qry . " and t.date <= '".$params['update_date_to']."'";
+			$qry = $qry . " and date(t.date) <= '".$params['update_date_to']."'";
 		}
 		if($params['total_amount_from']!=''){
 			$flag = false;
@@ -321,21 +321,7 @@ class CustomerService {
 		}
 		return $jsonArray;
 	}
-function getSearchParameters(){
-			return array (
-			'search_customer_name' 		=> $_REQUEST['search_customer_name'],
-			'search_customer_tel' 		=> $_REQUEST['search_customer_tel'],
-			'create_date_from' 			=> $_REQUEST['create_date_from'],
-			'create_date_to' 			=> $_REQUEST['create_date_to'],
-			'update_date_to' 			=> $_REQUEST['update_date_to'],
-			'update_date_from' 			=> $_REQUEST['update_date_from'],
-			'total_amount_from' 		=> $_REQUEST['total_amount_from'],
-			'total_amount_to' 			=> $_REQUEST['total_amount_to'],
-			'efficiency_from' 		=> $_REQUEST['efficiency_from'],
-			'efficiency_to' 		=> $_REQUEST['efficiency_to'],
-			'search_description' 		=> $_REQUEST['search_description']
-		);
-	}
+
 function getCustomerParameters(){
 			return array (
 			'editid' 		=> $_REQUEST['editid'],
