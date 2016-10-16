@@ -57,7 +57,7 @@ session_start();
 		<td colspan="7"><input id="total_facture" value="0.00" onkeypress="validateNon(event);"/> 
 		<label for="default_discount_taux">Discount:</label>
 		<input type="number" style="width:50px" id="default_discount_taux" value="<?php echo $_SESSION['default_discount_taux'];?>" 
-		onkeyup="updateAllImportPrice(<?php echo $_SESSION ['import_number_row'];?>);"/>
+		onchange="updateAllImportPrice(<?php echo $_SESSION ['import_number_row'];?>);"/>
 		 </td>
 	</tr>
 	</table>
@@ -85,16 +85,16 @@ session_start();
 					id="isExisted_<?php echo $i;?>" value="false" /></td>
 				<td><input class="product_name" name="name_<?php echo $i;?>" tabindex="<?php echo $i + $rowNum*1;?>"
 					id="name_<?php echo $i;?>" autocomplete="off" size="40" /></td>
-				<td><input name="qty_<?php echo $i;?>" id="qty_<?php echo $i;?>" tabindex="<?php echo $i + $rowNum*2;?>"
-				onkeyup="calculateImportFacture();" onkeypress="validateFloat(event);"
-					autocomplete="off" size="5" maxlength="4" /></td>
-				<td><input name="post_<?php echo $i;?>" id="post_<?php echo $i;?>" onkeyup="updateImportPrice(<?php echo $i;?>);"
+				<td><input type="number" name="qty_<?php echo $i;?>" id="qty_<?php echo $i;?>" tabindex="<?php echo $i + $rowNum*2;?>"
+				onchange="calculateImportFacture();" onkeypress="validateFloat(event);"
+					autocomplete="off" class="number50"/></td>
+				<td><input name="post_<?php echo $i;?>" id="post_<?php echo $i;?>"
+				onchange="updateImportPrice(<?php echo $i;?>);"
 				onkeypress="validateFloat(event);"  tabindex="<?php echo $i + $rowNum*3;?>"
-				maxlength="6"
-					autocomplete="off" size="5" /></td>
-				<td><input name="impr_<?php echo $i;?>" id="impr_<?php echo $i;?>" onkeyup="calculateImportFacture();" tabindex="<?php echo $i + $rowNum*4;?>" 
-				onkeypress="validateFloat(event);"  maxlength="6"
-					autocomplete="off" size="5" /></td>
+					autocomplete="off" type="number" class="number50"/></td>
+				<td><input name="impr_<?php echo $i;?>" id="impr_<?php echo $i;?>" onchange="calculateImportFacture();" tabindex="<?php echo $i + $rowNum*4;?>" 
+				onkeypress="validateFloat(event);" type="number" class="number50"
+					autocomplete="off"  /></td>
 				<td><div id="sex_<?php echo $i;?>" name="sex_<?php echo $i;?>"  tabindex="<?php echo $i + $rowNum*5;?>"
 						class="sex_woman" onclick="changeSex('<?php echo $i;?>');">WOMAN</div>
 					<input type="hidden" name="sex_value_<?php echo $i;?>"
