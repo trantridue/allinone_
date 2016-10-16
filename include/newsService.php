@@ -112,10 +112,12 @@ class NewsService {
 		} else {
 			return array (
 					"identification" => "ID",
+					"new_status" => "Status",
 					"description" => "Description",
 					"username" => "Name",
 					"shop" => "Shop",
-					"displaydate" => "Date"
+					"displaydate" => "Ngày tạo",
+					"reviewdate" => "Ngày xem"
 			);
 		}
 	}
