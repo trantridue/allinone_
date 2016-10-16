@@ -524,7 +524,12 @@ class ExportService {
 		$this->commonService->generateJqueryDatatable ( $result, customerorderdatatable, $this->getArrayColummOrder () );
 	}
 	function getArrayColummOrder() {
-		$array_column1 = array ("id,customer_name,customer_tel,date,status,new_description" => "Name,customer_name", "product_code" => "Pro. Name,product_name", "quantity" => "SL", "size" => "Size", "color" => "Màu", "diff,date" => "Days,diff", "order_status" => "Status" );
+		$array_column1 = array ("id,customer_name,customer_tel,date,status,new_description" => "Name,customer_name", 
+		"product_code" => "Pro. Name,product_name", 
+		"quantity" => "SL", "size" => "Size", 
+		"color" => "Màu", 
+		"diff,date" => "Days,diff", 
+		"order_status" => "Status" );
 		return $array_column1;
 	}
 	function updateOrderStatus($id, $status) {

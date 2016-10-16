@@ -60,9 +60,7 @@ class NewsService {
 			   from news t1, shop t2, `user` t3
 			   where t1.shop_id = t2.id
          and t1.user_id = t3.id order by date desc limit ".$_SESSION['nbr_news_default'];
-		$result = mysql_query ( $qry, $this->connection );
-		$this->commonService->generateJSDatatableSimple ( newsdatatable, 0, 'desc' );
-		$this->commonService->generateJqueryDatatable ( $result, newsdatatable, $this->buildArrayParameter() );
+		$this->processListNews($qry);
 	}
 	function listNews($parameterArray) {
 		$qry = "select t1.status as new_status, t1.id as identification, t1.*, t2.name as shop, t3.name as username,
@@ -73,8 +71,12 @@ class NewsService {
          		and t1.user_id = t3.id 
 				and t1.description like '%" . $parameterArray ['search_news_description'] . "%'
 				order by date desc";
+		$this->processListNews($qry);
+	}
+	function processListNews($qry) {
 		$result = mysql_query ( $qry, $this->connection );
-		$this->commonService->generateJSDatatableSimple ( newsdatatable, 0, 'desc' );
+		$array_total = array (0 => "Quantity" );
+		$this->commonService->generateJSDatatableComplex ( $result, newsdatatable, 0, 'desc', $array_total);
 		$this->commonService->generateJqueryDatatable ( $result, newsdatatable, $this->buildArrayParameter() );
 	}
 	function latestNews(){
@@ -100,24 +102,22 @@ class NewsService {
 		if($this->commonService->isAdmin()){
 			return array (
 					"identification" => "ID",
-					"new_status" => "Status",
+					"new_status" => "Trạng thái",
 					"id,description,date,shop,username,shop_id,user_id" => "Edit",
-					"description" => "Description",
-					"username" => "Name",
-					"shop" => "Shop",
-					"displaydate" => "Ngày tạo",
-					"reviewdate" => "Ngày xem",
+					"description" => "Ghi chú",
+					"id,username,status" => "Nhân viên,username",
+					"shop" => "Cửa hàng",
+					"displaydate,reviewdate" => "Ngày tạo,displaydate",
 					"id,deletenews" => "Delete"
 			);
 		} else {
 			return array (
 					"identification" => "ID",
-					"new_status" => "Status",
-					"description" => "Description",
-					"username" => "Name",
-					"shop" => "Shop",
-					"displaydate" => "Ngày tạo",
-					"reviewdate" => "Ngày xem"
+					"new_status" => "Trạng thái",
+					"description" => "Ghi chú",
+					"username" => "Nhân viên",
+					"shop" => "Cửa hàng",
+					"displaydate,reviewdate" => "Ngày tạo,displaydate"
 			);
 		}
 	}
@@ -130,6 +130,23 @@ class NewsService {
 	function deleteNews($newsid) {
 		$qry = "delete from news where id = " . $newsid;
 		echo mysql_query ( $qry, $this->connection );
+	}
+	function updateNewStatus($id, $status) {
+		if ($status == 'Y') {
+			$status = 'N';
+		} else {
+			$status = 'Y';
+		}
+		session_start ();
+		mysql_query ( "BEGIN" );
+		$qry = "update news set status = '" . $status . "', update_date =now() where id =" . $id;
+		if (mysql_query ( $qry, $this->connection ) != null) {
+			mysql_query ( "COMMIT" );
+			echo 'success';
+		} else {
+			mysql_query ( "ROLLBACK" );
+			echo 'error';
+		}
 	}
 }
 ?>

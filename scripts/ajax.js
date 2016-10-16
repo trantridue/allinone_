@@ -3793,6 +3793,33 @@ function show_customer_order_id(str) {
 	});
 
 }
+function show_news_id(str) {
+
+	var urls = 'modules/news/processnew.php?' + str;
+
+	// alert(urls);
+
+	$.ajax( {
+
+		url : urls,
+
+		success : function(data) {
+
+			if (data == 'success') {
+
+				listNews('false');
+
+			} else {
+
+				operationError();
+
+			}
+
+		}
+
+	});
+
+}
 
 function changeStatusFor(i) {
 
