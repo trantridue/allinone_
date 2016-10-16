@@ -1081,16 +1081,11 @@ function addNews() {
 
 		success : function(data) {
 
-			if (data != null) {
-
+		if (data != null) {
 				listNews('false');
-
 				$('#news_description').val('');
-
 			} else
-
 				alert('error created news!');
-
 			$('#addNewsAreaId').load('modules/news/add.php');
 
 		}
@@ -1102,7 +1097,7 @@ function addNews() {
 function listNews(issearch) {
 
 	var listnewsurl = 'modules/news/list.php' + buildSearchNewsCriteria(issearch);
-
+	alert(listnewsurl);
 	$('#listNewsAreaId').load(listnewsurl);
 
 }

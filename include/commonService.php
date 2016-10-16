@@ -210,7 +210,7 @@ class CommonService {
 						} else {
 							echo "<td style='color:red;font-weight:bold'> NOT BOSS </td>";
 						}
-					} else if ($value == 'order_status' || $value == 'reservation_status') {
+					} else if ($value == 'order_status' || $value == 'reservation_status' || $value=='new_status') {
 						if ($rows [$value] == 'Y') {
 							echo "<td style='background-color:green;font-weight:bold'> Xử lý xong </td>";
 						} else {

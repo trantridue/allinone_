@@ -46,16 +46,16 @@ class NewsService {
 		$shop_id = $_SESSION ['id_of_shop'];
 		$qry = "";
 		if ($id == null)
-			$qry = "insert into news(description,date,shop_id,user_id) values ('" . $description . "',
-				'" . $date . "'," . $shop_id . "," . $user_id . ")";
+			$qry = "insert into news(description,date,shop_id,user_id, status) values ('" . $description . "',
+				'" . $date . "'," . $shop_id . "," . $user_id . ",'N')";
 		else
 			$qry = "update news set description='" . $description . "', date ='" . $date . "' where id = " . $id;
-		
-		echo mysql_query ( $qry, $this->connection );
+		echo $qry;
+		//echo mysql_query ( $qry, $this->connection );
 	}
 	function listNewsDefault() {
 		session_start();
-		$qry = "select t1.id as identification, t1.*, t2.name as shop, t3.name as username,
+		$qry = "select t1.status as new_status, t1.id as identification, t1.*, t2.name as shop, t3.name as username,
 				concat(DATE_FORMAT(t1.date,'%Y-%m-%d'),':',DATE_FORMAT(t1.date,'%T')) as displaydate
 			   from news t1, shop t2, `user` t3
 			   where t1.shop_id = t2.id
@@ -65,7 +65,7 @@ class NewsService {
 		$this->commonService->generateJqueryDatatable ( $result, newsdatatable, $this->buildArrayParameter() );
 	}
 	function listNews($parameterArray) {
-		$qry = "select t1.id as identification, t1.*, t2.name as shop, t3.name as username,
+		$qry = "select t1.status as new_status, t1.id as identification, t1.*, t2.name as shop, t3.name as username,
 				concat(DATE_FORMAT(t1.date,'%Y-%m-%d'),':',DATE_FORMAT(t1.date,'%T')) as displaydate
 			   from news t1, shop t2, `user` t3
 			   where t1.shop_id = t2.id
@@ -99,6 +99,7 @@ class NewsService {
 		if($this->commonService->isAdmin()){
 			return array (
 					"identification" => "ID",
+					"new_status" => "new_status",
 					"description" => "Description",
 					"username" => "Name",
 					"shop" => "Shop",
