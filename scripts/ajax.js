@@ -3793,6 +3793,32 @@ function show_customer_order_id(str) {
 	});
 
 }
+
+function show_money_inout_id(str) {
+
+	var urls = 'modules/inout/processinout.php?' + str;
+	
+	$.ajax( {
+
+		url : urls,
+
+		success : function(data) {
+
+			if (data == 'success') {
+
+				listInOut('false');
+
+			} else {
+
+				operationError();
+
+			}
+
+		}
+
+	});
+
+}
 function show_news_id(str) {
 
 	var urls = 'modules/news/processnew.php?' + str;

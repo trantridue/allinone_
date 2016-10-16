@@ -81,7 +81,7 @@ class InoutService {
 	function listInout($parameterArray) {
 		
 		$today = date('Y-m-d');
-		$qry = "select t1.*,if(t1.amount>0,1,2) as `type`,if(t1.amount>0,t1.amount,0) as `in`,if(t1.amount<0,t1.amount,0) as `out`, t2.name as shop,t3.name as user
+		$qry = "select t1.status as inout_status, t1.*,if(t1.amount>0,1,2) as `type`,if(t1.amount>0,t1.amount,0) as `in`,if(t1.amount<0,t1.amount,0) as `out`, t2.name as shop,t3.name as user
 				from
 				money_inout t1,
 				shop t2,
@@ -129,20 +129,11 @@ class InoutService {
 		
 		
 		$qry = $qry. " order by date desc";
-//		echo $qry;
-		$result = mysql_query ( $qry, $this->connection );
-		
-		$array_total = array (
-				0 => "Total",
-				1 => "In",
-				2 => "Out",
-		);
-		$this->commonService->generateJSDatatableComplex ( $result, inoutdatatable, 4, 'desc', $array_total );
-		$this->commonService->generateJqueryDatatable ( $result, inoutdatatable, $this->buildArrayParameter() );
+		$this->procesQuery($qry);
 	}
 	function listInoutDefault() {
 		$today = date('Y-m-d');
-		$qry = "select t1.*,if(t1.amount>0,1,2) as `type`, if(t1.amount>0,t1.amount,0) as `in`,if(t1.amount<0,t1.amount,0) as `out`, t2.name as shop,t3.name as user
+		$qry = "select t1.status as inout_status, t1.*,if(t1.amount>0,1,2) as `type`, if(t1.amount>0,t1.amount,0) as `in`,if(t1.amount<0,t1.amount,0) as `out`, t2.name as shop,t3.name as user
 				from
 				money_inout t1,
 				shop t2,
@@ -150,38 +141,45 @@ class InoutService {
 				where t2.id = t1.shop_id
 				and t3.id = t1.user_id
 				and date_format(t1.date,'%Y-%m-%d') ='".$today."' order by date desc";
+		$this->procesQuery($qry);
+		
+	}
+	function procesQuery($qry) {
 		$result = mysql_query ( $qry, $this->connection );
 		$array_total = array (
-				0 => "Total",
-				1 => "In",
-				2 => "Out",
+				1 => "Total",
+				2 => "In",
+				3 => "Out",
 		);
-		$this->commonService->generateJSDatatableComplex ( $result, inoutdatatable, 4, 'desc', $array_total );
+		$this->commonService->generateJSDatatableComplex ( $result, inoutdatatable, 0, 'desc', $array_total );
 		$this->commonService->generateJqueryDatatable ( $result, inoutdatatable, $this->buildArrayParameter() );
 	}
 	function buildArrayParameter() {
 		session_start();
 		if($this->commonService->isAdmin()){
 			return array (
-					"amount" => "Amount",
+					"date" => "Ngày",
+					"amount" => "Số tiền",
 					"in" => "hidden_field",
 					"out" => "hidden_field",
-					"description" => "Description",
+//					"inout_status" => "Status",
+					"id,amount" => "Nhân viên,user",
+					"shop" => "Cửa hàng",
+					"description" => "Ghi chú",
 					"date" => "Date",
 					"id,description,date,shop_id,user_id,amount,type" => "Edit",
-					"id,deletemoney_inout" => "Delete",
-					"user" => "User",
-					"shop" => "Shop"
+					"id,deletemoney_inout" => "Delete"
+					
 			);
 		} else { 
 			return array (
-					"amount" => "Amount",
-					"in" => "In",
-					"out" => "Out",
-					"description" => "Description",
-					"date" => "Date",
-					"user" => "User",
-					"shop" => "Shop"
+					"date" => "Ngày",
+					"amount" => "Số tiền",
+					"in" => "hidden_field",
+					"out" => "hidden_field",
+					"user" => "Nhân viên",
+					"shop" => "Cửa hàng",
+					"description" => "Ghi chú",
 			);
 		}
 	}
@@ -223,6 +221,18 @@ class InoutService {
 			mysql_query ( "COMMIT" );
 			echo 'success';
 		}else {
+			mysql_query ( "ROLLBACK" );
+			echo 'error';
+		}
+	}
+	function processInout($id, $amount) {
+		session_start ();
+		mysql_query ( "BEGIN" );
+		$qry = "update money_inout set amount = 0, description= concat(description,' : ', '" . $amount . "k') where id =" . $id;
+		if (mysql_query ( $qry, $this->connection ) != null) {
+			mysql_query ( "COMMIT" );
+			echo 'success';
+		} else {
 			mysql_query ( "ROLLBACK" );
 			echo 'error';
 		}
