@@ -49,14 +49,14 @@ class NewsService {
 			$qry = "insert into news(description,date,shop_id,user_id, status) values ('" . $description . "',
 				'" . $date . "'," . $shop_id . "," . $user_id . ",'N')";
 		else
-			$qry = "update news set description='" . $description . "', date ='" . $date . "' where id = " . $id;
-		echo $qry;
-		//echo mysql_query ( $qry, $this->connection );
+			$qry = "update news set description='" . $description . "', update_date ='" . $date . "' where id = " . $id;
+		echo mysql_query ( $qry, $this->connection );
 	}
 	function listNewsDefault() {
 		session_start();
 		$qry = "select t1.status as new_status, t1.id as identification, t1.*, t2.name as shop, t3.name as username,
-				concat(DATE_FORMAT(t1.date,'%Y-%m-%d'),':',DATE_FORMAT(t1.date,'%T')) as displaydate
+				concat(DATE_FORMAT(t1.date,'%Y-%m-%d'),':',DATE_FORMAT(t1.date,'%T')) as displaydate,
+				concat(DATE_FORMAT(t1.update_date,'%Y-%m-%d'),':',DATE_FORMAT(t1.update_date,'%T')) as reviewdate
 			   from news t1, shop t2, `user` t3
 			   where t1.shop_id = t2.id
          and t1.user_id = t3.id order by date desc limit ".$_SESSION['nbr_news_default'];
@@ -66,7 +66,8 @@ class NewsService {
 	}
 	function listNews($parameterArray) {
 		$qry = "select t1.status as new_status, t1.id as identification, t1.*, t2.name as shop, t3.name as username,
-				concat(DATE_FORMAT(t1.date,'%Y-%m-%d'),':',DATE_FORMAT(t1.date,'%T')) as displaydate
+				concat(DATE_FORMAT(t1.date,'%Y-%m-%d'),':',DATE_FORMAT(t1.date,'%T')) as displaydate,
+				concat(DATE_FORMAT(t1.update_date,'%Y-%m-%d'),':',DATE_FORMAT(t1.update_date,'%T')) as reviewdate
 			   from news t1, shop t2, `user` t3
 			   where t1.shop_id = t2.id
          		and t1.user_id = t3.id 
@@ -79,7 +80,7 @@ class NewsService {
 	function latestNews(){
 		$count = 0;
 		$qry = "select t1.*, t2.name as shop, t3.name as username,
-				date_format(t1.date,'%Y-%m-%d') as datedisplay
+				date_format(t1.date,'%Y-%m-%d') as datedisplay, 
 			   from news t1, shop t2, `user` t3
 			   where t1.shop_id = t2.id
          		and t1.user_id = t3.id 
@@ -99,12 +100,13 @@ class NewsService {
 		if($this->commonService->isAdmin()){
 			return array (
 					"identification" => "ID",
-					"new_status" => "new_status",
+					"new_status" => "Status",
+					"id,description,date,shop,username,shop_id,user_id" => "Edit",
 					"description" => "Description",
 					"username" => "Name",
 					"shop" => "Shop",
-					"displaydate" => "Date",
-					"id,description,date,shop,username,shop_id,user_id" => "Edit",
+					"displaydate" => "Ngày tạo",
+					"reviewdate" => "Ngày xem",
 					"id,deletenews" => "Delete"
 			);
 		} else {

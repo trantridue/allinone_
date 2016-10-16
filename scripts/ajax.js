@@ -1097,7 +1097,6 @@ function addNews() {
 function listNews(issearch) {
 
 	var listnewsurl = 'modules/news/list.php' + buildSearchNewsCriteria(issearch);
-	alert(listnewsurl);
 	$('#listNewsAreaId').load(listnewsurl);
 
 }
