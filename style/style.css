@@ -602,7 +602,8 @@ table label {
 	font-weight: bold;
 }
 .exportclass {
-	top:850px;
+	top:1250px;
 	font-size:130pt;
 	position:absolute;
+	color: #DDD;
 }
