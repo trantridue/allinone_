@@ -78,16 +78,23 @@ class InoutService {
 			echo 'error';
 		}
 	}
-	function listInout($parameterArray) {
-		
-		$today = date('Y-m-d');
-		$qry = "select t1.status as inout_status, t1.*,if(t1.amount>0,1,2) as `type`,if(t1.amount>0,t1.amount,0) as `in`,if(t1.amount<0,t1.amount,0) as `out`, t2.name as shop,t3.name as user
+	function initQry() {
+		return $qry = "select t1.status as inout_status, t1.*,
+		if(t1.amount>0,1,2) as `type`,
+		if(t1.amount>0,t1.amount,0) as `in`,
+		if(t1.amount<0,t1.amount,0) as `out`, 
+		t2.name as shop,t3.name as user,
+		if(t1.amount<>0,t1.description,concat(t1.description, ': Số tiền : ', t1.old_amount))
+		 as descript
 				from
 				money_inout t1,
 				shop t2,
 				user t3
 				where t2.id = t1.shop_id
 				and t3.id = t1.user_id";
+	}
+	function listInout($parameterArray) {
+		$qry = $this->initQry();
 		
 		if($parameterArray['id_search_type'] == 1) {
 			if($parameterArray['search_amount_from'] != '' )
@@ -132,15 +139,7 @@ class InoutService {
 		$this->procesQuery($qry);
 	}
 	function listInoutDefault() {
-		$today = date('Y-m-d');
-		$qry = "select t1.status as inout_status, t1.*,if(t1.amount>0,1,2) as `type`, if(t1.amount>0,t1.amount,0) as `in`,if(t1.amount<0,t1.amount,0) as `out`, t2.name as shop,t3.name as user
-				from
-				money_inout t1,
-				shop t2,
-				user t3
-				where t2.id = t1.shop_id
-				and t3.id = t1.user_id
-				and date_format(t1.date,'%Y-%m-%d') ='".$today."' order by date desc";
+		$qry = $this->initQry() . " and date_format(t1.date,'%Y-%m-%d') ='".date('Y-m-d')."' order by date desc";
 		$this->procesQuery($qry);
 		
 	}
@@ -162,10 +161,9 @@ class InoutService {
 					"amount" => "Số tiền",
 					"in" => "hidden_field",
 					"out" => "hidden_field",
-//					"inout_status" => "Status",
 					"id,amount" => "Nhân viên,user",
 					"shop" => "Cửa hàng",
-					"description" => "Ghi chú",
+					"descript" => "Ghi chú",
 					"date" => "Date",
 					"id,description,date,shop_id,user_id,amount,type" => "Edit",
 					"id,deletemoney_inout" => "Delete"
@@ -179,7 +177,7 @@ class InoutService {
 					"out" => "hidden_field",
 					"user" => "Nhân viên",
 					"shop" => "Cửa hàng",
-					"description" => "Ghi chú",
+					"descript" => "Ghi chú",
 			);
 		}
 	}
@@ -228,7 +226,12 @@ class InoutService {
 	function processInout($id, $amount) {
 		session_start ();
 		mysql_query ( "BEGIN" );
-		$qry = "update money_inout set amount = 0, description= concat(description,' : ', '" . $amount . "k') where id =" . $id;
+		$qry = "";
+		if($amount == 0) {
+			$qry = "update money_inout set amount = old_amount, old_amount = 0 where id =" . $id;
+		} else {
+			$qry = "update money_inout set old_amount =" . $amount . ", amount = 0 where id =" . $id;
+		}
 		if (mysql_query ( $qry, $this->connection ) != null) {
 			mysql_query ( "COMMIT" );
 			echo 'success';
