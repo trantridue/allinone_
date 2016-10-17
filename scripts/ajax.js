@@ -2827,9 +2827,7 @@ function saveExport() {
 	$('#saveExportBtn').prop('disabled', true);
 
 	if(validateExportForm()) {
-
-	var urls = 'modules/export/saveExport.php' + getUrlStringByFormId("exportLeftForm");
-	
+	var urls = 'modules/export/saveExport.php' + getExportProductParameter();
 	$.ajax( {
 
 		url : urls,
@@ -3132,7 +3130,7 @@ function showNote(msg) {
 
 function getExportProductParameter() {
 
-	var str = '';
+	var str = "?isAjax=yes&isdefault=false&isAdminField="+$('#isAdminField').val();;
 
 	var export_number_row = parseInt($('#export_number_row').val());
 
