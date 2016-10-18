@@ -2825,9 +2825,8 @@ function getUpdateFundInformation() {
 function saveExport() {
 
 	$('#saveExportBtn').prop('disabled', true);
-
-	if(validateExportForm()) {
-	var urls = 'modules/export/saveExport.php' + getExportProductParameter();
+	if(validateExportForm()) { 
+	var urls = 'modules/export/saveExport.php' + getUrlStringByFormId('exportLeftForm');
 	$.ajax( {
 
 		url : urls,
@@ -4286,6 +4285,14 @@ function getUrlStringByFormId(formid) {
 		str = str + "&customer_reserved=" + $('#customer_reserved').html();
 		str = str + "&customer_returned=" + $('#customer_returned').html();
 		str = str + "&customer_bonus=" + $('#customer_bonus').html();
+		
+		str = str + "&id_onlinefund=" + $('#id_onlinefund').val();
+		str = str + "&customer_tel_guess=" + $('#customer_tel_guess').val();
+		str = str + "&final_total=" + $('#final_total').html();
+		str = str + "&id_onlinefund_txt=" +  $('#id_onlinefund option:selected').text();
+		str = str + "&id_search_user=" + $('#id_search_user').val();
+		str = str + "&listProductReturnId=" + $('#listProductReturnId').val();
+		str = str + "&listProductReturnQty=" + $('#listProductReturnQty').val();
 	}
 	return processUrlStringEncode(str);
 }
