@@ -35,7 +35,7 @@ $_SESSION ['expire1'] = $_SESSION ['start1'] + $_SESSION ['timeout'];
 <link rel="stylesheet" href="style/jquery.datetimepicker.css">
 <link rel="stylesheet" href="style/jquery-ui.css">
 <script src="scripts/jquery-ui.js"></script>
-<script src="scripts/ajax.js"></script>
+<script src="scripts/ajax.js?rd=20161019"></script>
 <script src="scripts/calculator.js"></script>
 <script src="scripts/jquery.confirm.js"></script>
 <script type="text/javascript">
