@@ -139,7 +139,7 @@ class InoutService {
 		$this->procesQuery($qry);
 	}
 	function listInoutDefault() {
-		$qry = $this->initQry() . " and date_format(t1.date,'%Y-%m-%d') >= '".date('Y-m-d',strtotime('-1 days'))."' order by date desc";
+		$qry = $this->initQry() . " and date_format(t1.date,'%Y-%m-%d') >= '".date('Y-m-d',strtotime('-0 days'))."' order by date desc";
 		$this->procesQuery($qry);
 		
 	}
