@@ -329,7 +329,7 @@ class CustomerService {
 			,ifnull((select sum(amount) from export_facture_trace where customer_id = t1.id),0) as paid
 			,ifnull((select sum(amount) from customer_reservation_histo where customer_id = t1.id and status='N'),0) as reserved
 			,ifnull((select sum(bonus_used*bonus_ratio) from export_facture_trace where customer_id = t1.id ),0) as bonus_used
-			 FROM `customer` t1 where t1.name like '%" . $term . "' limit 10) ta";
+			 FROM `customer` t1 where t1.name like '%" . $term . "%' limit 10) ta";
 		$result = mysql_query ( $qry, $this->connection );
 		$jsonArray = array ();
 		
