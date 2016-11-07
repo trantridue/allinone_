@@ -3669,6 +3669,60 @@ $(document).ready(
 
 		});
 
+$(document).ready(
+
+		function() {
+
+			var ac_config_export_customer_name = {
+
+				source : "autocomplete/completed_export_customer_name.php",
+
+				select : function(event, ui) {
+
+					$("#customer_tel").val(ui.item.tel);
+
+					$("#customer_id").val(ui.item.id);
+
+					$("#customer_name").val(ui.item.name);
+
+					$("#customer_debt").html(ui.item.debt);
+
+					$("#customer_reserved").html(ui.item.reserved);
+
+					$("#customer_bonus_td").prop(
+
+							'title',
+
+							"<ul><li>Tổng : " + ui.item.totalbuy
+
+									+ "</li><br><li>Điểm Đã Dùng : "
+
+									+ ui.item.bonus_used + "</li></ul>");
+
+					$("#customer_bonus").html(ui.item.bonus);
+
+					$("#isBoss").prop('checked', ui.item.isboss);
+
+					if(ui.item.debt > 0) {
+
+						$("#saveExportBtn").val('Lưu (Khách Có Nợ)');
+
+						$("#saveExportBtn").css('background-color','rgb(55, 223, 114)');
+
+					}
+
+					calculateExportForm();
+
+				},
+
+				minLength : 1
+
+			};
+
+			$("#customer_name").autocomplete(ac_config_export_customer_name);
+
+		});
+
 $(document).ready(function() {
 
 	var ac_config_fund = {

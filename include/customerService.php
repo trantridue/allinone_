@@ -322,6 +322,44 @@ class CustomerService {
 		return $jsonArray;
 	}
 
+	function getJsonCustomerName($term) {
+		session_start();
+		$qry = "select ta.*,(ta.totalbuy - ta.paid) as debt,floor((ta.totalbuy-ta.bonus_used)/".$_SESSION['bonus_ratio'].") as bonus from (SELECT t1.isboss,t1.tel,t1.name,t1.id
+			,ifnull((select sum((quantity-re_qty)*export_price) from export_facture_product where export_facture_code in (select code from export_facture where customer_id=t1.id)),0) totalbuy
+			,ifnull((select sum(amount) from export_facture_trace where customer_id = t1.id),0) as paid
+			,ifnull((select sum(amount) from customer_reservation_histo where customer_id = t1.id and status='N'),0) as reserved
+			,ifnull((select sum(bonus_used*bonus_ratio) from export_facture_trace where customer_id = t1.id ),0) as bonus_used
+			 FROM `customer` t1 where t1.name like '%" . $term . "' limit 10) ta";
+		$result = mysql_query ( $qry, $this->connection );
+		$jsonArray = array ();
+		
+		while ( $rows = mysql_fetch_array ( $result ) ) {
+			$labelvalue = $rows ['name']." : " . $rows ['tel']
+			. ", ID: " . $rows ['id']
+			.", totalbuy:".$rows['totalbuy']
+// 			.", paid:".$rows['paid']
+// 			.", reserved:".$rows['reserved']
+// 			.", debt:".$rows['debt']
+//			.", returned:".$rows['returned']
+// 			.", bonus:".$rows['bonus']
+//			.", isBoss:".(($rows['isboss']==1)?'true':'false')
+;
+			$element = array (value => $rows ['name'], 
+					tel => $rows ['tel'],
+					totalbuy => $rows ['totalbuy'],
+					debt => $rows ['debt'],
+					reserved => $rows ['reserved'],
+					bonus_used => $rows ['bonus_used'],
+					bonus => $rows ['bonus'],
+					isboss => (($rows['isboss']==1)?true:false), 
+					id => $rows ['id'], 
+					label => $labelvalue );
+			
+			$jsonArray [] = $element;
+		}
+		return $jsonArray;
+	}
+	
 function getCustomerParameters(){
 			return array (
 			'editid' 		=> $_REQUEST['editid'],
