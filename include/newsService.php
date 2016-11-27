@@ -76,7 +76,7 @@ class NewsService {
 	function processListNews($qry) {
 		$result = mysql_query ( $qry, $this->connection );
 		$array_total = array (0 => "Quantity" );
-		$this->commonService->generateJSDatatableComplex ( $result, newsdatatable, 0, 'desc', $array_total);
+		$this->commonService->generateJSDatatableComplex ( $result, newsdatatable, 1, 'asc', $array_total);
 		$this->commonService->generateJqueryDatatable ( $result, newsdatatable, $this->buildArrayParameter() );
 	}
 	function latestNews(){
