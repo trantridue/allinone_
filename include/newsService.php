@@ -103,9 +103,9 @@ class NewsService {
 			return array (
 					"identification" => "ID",
 					"new_status" => "Trạng thái",
+					"id,username,status" => "Nhân viên,username",
 					"id,description,date,shop,username,shop_id,user_id" => "Edit",
 					"description" => "Ghi chú",
-					"id,username,status" => "Nhân viên,username",
 					"shop" => "Cửa hàng",
 					"displaydate,reviewdate" => "Ngày tạo,displaydate",
 					"id,deletenews" => "Delete"
