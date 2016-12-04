@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:3306
--- Generation Time: Dec 01, 2016 at 09:26 PM
+-- Generation Time: Dec 04, 2016 at 10:51 PM
 -- Server version: 10.0.28-MariaDB
 -- PHP Version: 5.6.20
 
@@ -141,7 +141,7 @@ CREATE TABLE IF NOT EXISTS `customer` (
   `created_date` datetime DEFAULT NULL,
   `isboss` varchar(1) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2323 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2325 ;
 
 --
 -- Dumping data for table `customer`
@@ -270,7 +270,7 @@ INSERT INTO `customer` (`id`, `name`, `tel`, `description`, `date`, `created_dat
 (1407, 'Chị Nga fb Thanhnga Nguyen', '0947763585', NULL, '2015-10-30 10:50:50', '2015-10-30 10:50:50', '0'),
 (1408, 'Cô Lê', '0904369717', '', '2015-12-09 20:56:24', '2015-10-30 20:43:45', '0'),
 (1409, 'Chị Thoa', '0966580589', NULL, '2015-10-31 20:00:08', '2015-10-31 20:00:08', '0'),
-(1410, 'Chị Đỗ Thuần Phương khách onl của Bảo', '0902263626', '', '2016-11-28 17:43:31', '2015-11-01 11:20:41', '0'),
+(1410, 'Chị Đỗ Thuần Phương khách onl của Bảo', '0902263626', '', '2016-12-02 21:25:18', '2015-11-01 11:20:41', '0'),
 (1411, 'Em Nguyễn Thị Bích Thảo khách onl của Bảo', '01648613490', 'Phòng công anh xã xuân quang 3, huyện đồng xuân, tỉnh phú yên ', '2016-10-24 10:16:16', '2015-11-01 11:29:37', '0'),
 (1412, 'Bạn Hồng Hạnh fb Hong Hanh Nguyen fb Bảo', '0987483934', NULL, '2015-11-01 14:10:12', '2015-11-01 14:10:12', '0'),
 (1413, 'Chị Giang', '0917399982', NULL, '2015-11-03 19:20:13', '2015-11-03 19:20:13', '0'),
@@ -333,7 +333,7 @@ INSERT INTO `customer` (`id`, `name`, `tel`, `description`, `date`, `created_dat
 (1470, 'Em Phương', '01685444001', NULL, '2015-11-21 18:54:53', '2015-11-21 18:54:53', '0'),
 (1471, 'Chị Lan', '0968072666', '', '2016-11-29 13:52:32', '2015-11-21 18:55:22', '0'),
 (1472, 'Chị Oanh', '0989032164', NULL, '2015-11-21 18:56:36', '2015-11-21 18:56:36', '0'),
-(1473, 'Bạn Hằng khách onl của Bảo', '0961861298', '', '2016-06-14 21:21:02', '2015-11-21 19:04:38', '0'),
+(1473, 'Bạn Hằng khách onl của Bảo', '0961861298', '', '2016-12-02 20:42:04', '2015-11-21 19:04:38', '0'),
 (1474, 'Chị My', '0988330988', NULL, '2015-11-21 20:11:00', '2015-11-21 20:11:00', '0'),
 (1475, 'Chị Minh', '0948656068', NULL, '2015-11-22 13:29:38', '2015-11-22 13:29:38', '0'),
 (1476, 'Chị Khách ', '0975659696', NULL, '2015-11-22 20:46:05', '2015-11-22 20:46:05', '0'),
@@ -880,7 +880,7 @@ INSERT INTO `customer` (`id`, `name`, `tel`, `description`, `date`, `created_dat
 (2016, 'Bạn vân ', '0979354640', NULL, '2016-05-10 17:15:53', '2016-05-10 17:15:53', '0'),
 (2017, 'Chị Phương ', '0936997716', NULL, '2016-05-11 17:34:34', '2016-05-11 17:34:34', '0'),
 (2018, 'Bạn Oanh ', '0979074393', NULL, '2016-05-11 21:37:54', '2016-05-11 21:37:54', '0'),
-(2019, 'CTV chị Ngọc Linh khách onl', '01688998855', '', '2016-11-22 22:27:24', '2016-05-12 21:36:25', '0'),
+(2019, 'CTV chị Ngọc Linh khách onl', '01688998855', '', '2016-12-02 21:09:30', '2016-05-12 21:36:25', '0'),
 (2020, 'chị Thu ', '01276091985', NULL, '2016-05-13 18:02:22', '2016-05-13 18:02:22', '0'),
 (2021, 'Bạn Uyên ', '01676899559', NULL, '2016-05-13 18:40:32', '2016-05-13 18:40:32', '0'),
 (2022, 'Hòa bạn Bảo ', '1', NULL, '2016-05-13 21:30:54', '2016-05-13 21:30:54', '0'),
@@ -923,7 +923,7 @@ INSERT INTO `customer` (`id`, `name`, `tel`, `description`, `date`, `created_dat
 (2059, 'Chị Điệp ', '0982139625', NULL, '2016-06-03 18:46:42', '2016-06-03 18:46:42', '0'),
 (2060, 'Chị Nhung ', '0987240690', '', '2016-07-26 19:16:03', '2016-06-04 18:20:12', '0'),
 (2061, 'Lê Thị Thu Trinh khách onl của Bảo ', '01663036340', NULL, '2016-06-04 18:41:35', '2016-06-04 18:41:35', '0'),
-(2062, 'Bạn Lan', '0982531602', '', '2016-09-15 19:36:57', '2016-06-04 20:25:51', '0'),
+(2062, 'Bạn Lan', '0982531602', '', '2016-12-03 19:26:01', '2016-06-04 20:25:51', '0'),
 (2063, 'Em Vân bạn Bảo ', '01676793796', '', '2016-08-30 17:05:39', '2016-06-04 21:03:24', '0'),
 (2064, 'Hiền bạn Bảo ', '01686680137', '', '2016-07-22 18:02:59', '2016-06-05 17:10:00', '0'),
 (2065, 'Chị Phụng ', '0989793607', NULL, '2016-06-05 17:13:44', '2016-06-05 17:13:44', '0'),
@@ -1160,7 +1160,7 @@ INSERT INTO `customer` (`id`, `name`, `tel`, `description`, `date`, `created_dat
 (2296, 'E Thảo kh onl ', '01656280062', NULL, '2016-11-06 16:31:33', '2016-11-06 16:31:33', '0'),
 (2297, 'Chị Thủy ', '0983831126', NULL, '2016-11-06 19:15:28', '2016-11-06 19:15:28', '0'),
 (2298, 'Chị Đô Nga kh onl ', '01653550911', NULL, '2016-11-07 13:16:33', '2016-11-07 13:16:33', '0'),
-(2299, 'Chị Dung TMV HOÀI ANH hàng xóm', '0983194838', '', '2016-11-26 19:29:47', '2016-11-07 13:19:56', '0'),
+(2299, 'Chị Dung TMV HOÀI ANH hàng xóm', '0983194838', '', '2016-12-02 21:35:03', '2016-11-07 13:19:56', '0'),
 (2300, 'Chị Hậu ', '0903090484', NULL, '2016-11-07 17:34:24', '2016-11-07 17:34:24', '0'),
 (2301, 'B Vu Thanh Hằng nơ 14A Định Công ', '0981522269', '', '2016-11-19 22:35:22', '2016-11-08 13:22:53', '0'),
 (2302, 'Chị Hà ', '0982830822', NULL, '2016-11-08 17:22:59', '2016-11-08 17:22:59', '0'),
@@ -1183,7 +1183,9 @@ INSERT INTO `customer` (`id`, `name`, `tel`, `description`, `date`, `created_dat
 (2319, 'Hòa bạn Bảo ', '9876543210', NULL, '2016-11-26 19:20:38', '2016-11-26 19:20:38', '0'),
 (2320, 'Anh Nguyên ', '0975853433', NULL, '2016-11-27 21:07:57', '2016-11-27 21:07:57', '0'),
 (2321, 'Chị Trang ', '0972251990', NULL, '2016-11-27 21:13:29', '2016-11-27 21:13:29', '0'),
-(2322, 'Đỗ Thị Thanh Hà', '01656160170', NULL, '2016-12-01 18:26:21', '2016-12-01 18:26:21', '0');
+(2322, 'Đỗ Thị Thanh Hà', '01656160170', NULL, '2016-12-01 18:26:21', '2016-12-01 18:26:21', '0'),
+(2323, 'Chị Hòa ', '0904905884', NULL, '2016-12-02 21:02:52', '2016-12-02 21:02:52', '0'),
+(2324, 'Nv E Thảo ', '01672028689', NULL, '2016-12-02 21:24:37', '2016-12-02 21:24:37', '0');
 
 -- --------------------------------------------------------
 
@@ -1270,7 +1272,7 @@ INSERT INTO `customer_reservation_histo` (`id`, `customer_id`, `description`, `a
 (4, 1692, '', '50', 'Y', '2016-01-16 22:57:42', '2016-01-19 14:03:26', '20160116_004', '20160119_001'),
 (5, 2247, '', '50', 'Y', '2016-10-05 17:45:08', '2016-10-06 18:08:02', '20161005_002', '20161006_001'),
 (6, 2009, 'Chị Dung ck vào tk agri của anh Duệ ', '170', 'Y', '2016-11-21 21:46:44', '2016-11-28 17:46:58', '20161121_003', '20161128_005'),
-(7, 2019, '', '25', 'N', '2016-11-22 22:27:24', NULL, '20161122_005', NULL),
+(7, 2019, '', '25', 'Y', '2016-11-22 22:27:24', '2016-12-02 21:09:30', '20161122_005', '20161202_004'),
 (8, 2319, '', '30', 'N', '2016-11-26 19:20:38', NULL, '20161126_004', NULL);
 
 -- --------------------------------------------------------
@@ -3127,7 +3129,16 @@ INSERT INTO `export_facture` (`code`, `customer_id`, `shop_id`, `description`, `
 ('20161201_001', 2259, 1, 'Xóm Gai, Bảo Tháp, Kim Hoa, Mê Linh, Hà Nội ', '2016-12-01 18:22:45', 1, 'Y'),
 ('20161201_002', 2322, 1, 'Số nhà 63 phố Tân Thanh, thị trấn Triệu Sơn, Triệu Sơn, Thanh Hóa ', '2016-12-01 18:26:21', 1, 'Y'),
 ('20161201_003', 2291, 1, '', '2016-12-01 18:31:22', 1, 'N'),
-('20161201_004', 2053, 1, '', '2016-12-01 18:33:56', 1, 'N');
+('20161201_004', 2053, 1, '', '2016-12-01 18:33:56', 1, 'N'),
+('20161202_001', 1288, 1, '', '2016-12-02 20:38:10', 1, 'N'),
+('20161202_002', 1473, 1, '', '2016-12-02 20:42:04', 1, 'N'),
+('20161202_003', 2323, 1, '', '2016-12-02 21:02:52', 1, 'N'),
+('20161202_004', 2019, 1, '', '2016-12-02 21:09:30', 1, 'N'),
+('20161202_005', 2324, 1, '', '2016-12-02 21:24:37', 1, 'N'),
+('20161202_006', 1410, 1, '', '2016-12-02 21:25:18', 1, 'N'),
+('20161202_007', 2299, 1, '', '2016-12-02 21:35:03', 1, 'N'),
+('20161203_001', 1288, 1, '', '2016-12-03 19:23:37', 1, 'N'),
+('20161203_002', 2062, 1, '', '2016-12-03 19:26:01', 1, 'N');
 
 -- --------------------------------------------------------
 
@@ -3147,7 +3158,7 @@ CREATE TABLE IF NOT EXISTS `export_facture_product` (
   PRIMARY KEY (`id`),
   KEY `fk_export_facture_product_product1_idx` (`product_code`),
   KEY `fk_export_facture_product_export_facture1_idx` (`export_facture_code`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2347 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2356 ;
 
 --
 -- Dumping data for table `export_facture_product`
@@ -5356,7 +5367,7 @@ INSERT INTO `export_facture_product` (`id`, `product_code`, `quantity`, `export_
 (2317, '0356', 1, 475, '20161126_004', 0, NULL, NULL),
 (2318, '0359', 1, 240, '20161126_004', 0, NULL, NULL),
 (2319, '0305', 1, 280, '20161126_004', 0, NULL, NULL),
-(2320, '0372', 1, 230, '20161126_005', 0, NULL, NULL),
+(2320, '0372', 1, 230, '20161126_005', 1, '2016-12-02 21:35:03', ''),
 (2321, '0373', 1, 270, '20161126_005', 0, NULL, NULL),
 (2322, '0357', 1, 330, '20161127_001', 0, NULL, NULL),
 (2323, '0348', 1, 270, '20161127_002', 0, NULL, NULL),
@@ -5382,7 +5393,16 @@ INSERT INTO `export_facture_product` (`id`, `product_code`, `quantity`, `export_
 (2343, '0329', 1, 230, '20161201_003', 0, NULL, NULL),
 (2344, '0346', 1, 185, '20161201_004', 0, NULL, NULL),
 (2345, '0299', 1, 190, '20161201_004', 0, NULL, NULL),
-(2346, '0372', 1, 205, '20161201_004', 0, NULL, NULL);
+(2346, '0372', 1, 205, '20161201_004', 0, NULL, NULL),
+(2347, '0374', 1, 550, '20161202_001', 0, NULL, NULL),
+(2348, '0324', 1, 235, '20161202_002', 0, NULL, NULL),
+(2349, '0380', 1, 520, '20161202_003', 0, NULL, NULL),
+(2350, '0378', 1, 225, '20161202_004', 0, NULL, NULL),
+(2351, '0364', 1, 220, '20161202_005', 0, NULL, NULL),
+(2352, '0382', 1, 270, '20161202_007', 0, NULL, NULL),
+(2353, '0346', 1, 205, '20161202_007', 0, NULL, NULL),
+(2354, '0356', 1, 500, '20161203_001', 0, NULL, NULL),
+(2355, '0247', 1, 380, '20161203_002', 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -5409,7 +5429,7 @@ CREATE TABLE IF NOT EXISTS `export_facture_trace` (
   KEY `fk_export_facture_trace_export_facture1_idx` (`export_facture_code`),
   KEY `fk_export_facture_trace_shop1_idx` (`shop_id`),
   KEY `fk_export_facture_trace_customer1_idx` (`customer_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1914 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1923 ;
 
 --
 -- Dumping data for table `export_facture_trace`
@@ -7244,7 +7264,16 @@ INSERT INTO `export_facture_trace` (`id`, `export_facture_code`, `total`, `debt`
 (1910, '20161201_001', 495, 0, 0, 0, 495, 0, 0, 0, 1, 495, 2259, 100),
 (1911, '20161201_002', 580, 0, 0, 0, 580, 0, 0, 0, 1, 580, 2322, 100),
 (1912, '20161201_003', 845, 0, 0, 0, 845, 0, 0, 0, 1, 845, 2291, 100),
-(1913, '20161201_004', 580, 220, 0, 0, 800, 0, 0, 0, 1, 800, 2053, 100);
+(1913, '20161201_004', 580, 220, 0, 0, 800, 0, 0, 0, 1, 800, 2053, 100),
+(1914, '20161202_001', 550, 0, 0, 0, 550, 0, 0, 0, 1, 550, 1288, 100),
+(1915, '20161202_002', 235, 0, 0, 0, 235, 0, 0, 0, 1, 235, 1473, 100),
+(1916, '20161202_003', 520, 0, 0, 0, 520, 0, 0, 0, 1, 520, 2323, 100),
+(1917, '20161202_004', 225, 0, 25, 0, 200, 0, 0, 0, 1, 225, 2019, 100),
+(1918, '20161202_005', 220, 0, 0, 0, 0, -220, 0, 0, 1, 0, 2324, 100),
+(1919, '20161202_006', 0, 550, 0, 0, 550, 0, 0, 0, 1, 550, 1410, 100),
+(1920, '20161202_007', 475, 500, 0, 0, 0, -745, 0, 230, 1, 0, 2299, 100),
+(1921, '20161203_001', 500, 0, 0, 0, 500, 0, 0, 0, 1, 500, 1288, 100),
+(1922, '20161203_002', 380, 0, 0, 0, 350, -30, 0, 0, 1, 350, 2062, 100);
 
 -- --------------------------------------------------------
 
@@ -7296,7 +7325,7 @@ CREATE TABLE IF NOT EXISTS `fund_change_histo` (
   PRIMARY KEY (`id`),
   KEY `fk_fund_change_histo_fund1_idx` (`fund_id`),
   KEY `fk_fund_change_histo_user1_idx` (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1454 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1458 ;
 
 --
 -- Dumping data for table `fund_change_histo`
@@ -8639,7 +8668,11 @@ INSERT INTO `fund_change_histo` (`id`, `fund_id`, `amount`, `date`, `description
 (1450, 1, 1000, '2016-11-29 18:35:36', 'Tiền hàng bán trong ngày ', 1, 3),
 (1451, 14, -66, '2016-12-01 18:36:18', 'See spend : Phí ship hàng cho chị thu Lê và chị Đỗ Thanh Hà Triệu Sơn ', 1, 3),
 (1452, 1, -700, '2016-12-01 18:42:39', 'See spend : Ứng lương cho em Huyền NV ', 1, 3),
-(1453, 9, -810, '2016-12-01 20:11:31', 'Trả nợ : Chị Châu | Chốt đúng ngày', 1, 1);
+(1453, 9, -810, '2016-12-01 20:11:31', 'Trả nợ : Chị Châu | Chốt đúng ngày', 1, 1),
+(1454, 1, 1500, '2016-12-01 21:15:41', 'Tiền hàng bán trong ngày ', 1, 3),
+(1455, 1, 2000, '2016-12-02 19:26:40', 'Tiền hàng bán trong ngày ', 1, 3),
+(1456, 14, -100, '2016-12-03 19:28:52', 'See spend : mua hồng thăp hương n', 1, 3),
+(1457, 9, -1375, '2016-12-04 22:46:29', 'Trả nợ : Chị Châu | Chốt hết ngày 03.12', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -8902,7 +8935,9 @@ INSERT INTO `import_facture` (`code`, `date`, `description`, `provider_id`, `dea
 ('20161128_001', '2016-11-28 17:55:57', 'Lấy trả hàng nợ khách', 3, '2016-12-12 17:55:57', 'img/facture/20161128_001.png'),
 ('20161128_002', '2016-11-28 17:58:07', 'lấy ship khách', 6, '2016-12-12 17:58:07', 'img/facture/20161128_002.png'),
 ('20161129_002', '2016-12-01 20:04:10', 'Anh Dương mang hàng sang ngày 29.11', 3, '2016-12-15 20:04:10', 'img/facture/20161129_002.png'),
-('20161201_001', '2016-12-01 20:02:34', 'lấy ship kh', 6, '2016-12-15 20:02:34', 'img/facture/20161201_001.png');
+('20161201_001', '2016-12-01 20:02:34', 'lấy ship kh', 6, '2016-12-15 20:02:34', 'img/facture/20161201_001.png'),
+('20161202_001', '2016-12-02 20:37:59', 'Lấy ship kh', 6, '2016-12-16 20:37:59', 'img/facture/20161202_001.png'),
+('20161203_001', '2016-12-03 19:23:25', 'Lấy ang lên GN', 6, '2016-12-17 19:23:25', 'img/facture/20161203_001.png');
 
 -- --------------------------------------------------------
 
@@ -8940,7 +8975,7 @@ CREATE TABLE IF NOT EXISTS `money_inout` (
   PRIMARY KEY (`id`),
   KEY `fk_money_inout_shop1_idx` (`shop_id`),
   KEY `fk_money_inout_user1_idx` (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=543 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=545 ;
 
 --
 -- Dumping data for table `money_inout`
@@ -9448,7 +9483,9 @@ INSERT INTO `money_inout` (`id`, `shop_id`, `user_id`, `date`, `amount`, `descri
 (539, 1, 3, '2016-11-29 13:53:27', 575, 'tiền lẻ'),
 (540, 1, 1, '2016-12-01 18:22:45', -495, 'Hóa đơn số 20161201_001 |  Chị Nguyên Thị Thu Lê  | online | COD bưu điện  | Xóm Gai, Bảo Tháp, Kim Hoa, Mê Linh, Hà Nội '),
 (541, 1, 1, '2016-12-01 18:26:21', -580, 'Hóa đơn số 20161201_002 |  Đỗ Thị Thanh Hà | online | COD bưu điện  | Số nhà 63 phố Tân Thanh, thị trấn Triệu Sơn, Triệu Sơn, Thanh Hóa '),
-(542, 1, 3, '2016-12-01 18:35:52', 455, 'chuyển từ 29.11 sang ');
+(542, 1, 3, '2016-12-01 18:35:52', 455, 'chuyển từ 29.11 sang '),
+(543, 1, 3, '2016-12-02 21:16:01', 600, 'tiền lẻ'),
+(544, 1, 3, '2016-12-03 19:26:50', 655, 'tiền lẻ');
 
 -- --------------------------------------------------------
 
@@ -9902,7 +9939,9 @@ INSERT INTO `product` (`code`, `name`, `category_id`, `season_id`, `sex_id`, `ex
 ('0377', 'Bộ nỉ nam trơn 3453', 1, 4, 1, 400, '', 1, 0, 'img/product/0377.png'),
 ('0378', 'Giày bệt da bò nơ to hơn nơ cũ', 1, 4, 1, 330, '', 1, 0, 'img/product/0378.png'),
 ('0379', 'Áo len lông cừu cổ lọ caro chìm 3549', 1, 4, 1, 310, '', 1, 0, 'img/product/0379.png'),
-('0380', 'Bốt da lộn pha da thạt 6p', 1, 4, 1, 595, '', 1, 0, 'img/product/0380.png');
+('0380', 'Bốt da lộn pha da thạt 6p', 1, 4, 1, 595, '', 1, 0, 'img/product/0380.png'),
+('0381', 'Giầy bệt da thật bổ sung sie 3552', 1, 4, 1, 350, '', 1, 0, 'img/product/0381.png'),
+('0382', 'Áo len lông cừu thêu hình hươu 3548', 1, 4, 1, 320, '', 1, 0, 'img/product/0382.png');
 
 -- --------------------------------------------------------
 
@@ -9951,7 +9990,7 @@ CREATE TABLE IF NOT EXISTS `product_import` (
   PRIMARY KEY (`id`),
   KEY `fk_product_import_product1_idx` (`product_code`),
   KEY `fk_product_import_import_facture1_idx` (`import_facture_code`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=623 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=628 ;
 
 --
 -- Dumping data for table `product_import`
@@ -10561,7 +10600,12 @@ INSERT INTO `product_import` (`id`, `product_code`, `import_facture_code`, `quan
 (619, '0365', '20161128_002', 1, 170),
 (620, '0356', '20161201_001', 2, 270),
 (621, '0374', '20161201_001', 1, 270),
-(622, '0380', '20161129_002', 15, 320);
+(622, '0380', '20161129_002', 15, 320),
+(623, '0374', '20161202_001', 1, 270),
+(624, '0310', '20161202_001', 1, 200),
+(625, '0381', '20161202_001', 1, 190),
+(626, '0382', '20161202_001', 1, 175),
+(627, '0356', '20161203_001', 2, 270);
 
 -- --------------------------------------------------------
 
@@ -11002,7 +11046,7 @@ CREATE TABLE IF NOT EXISTS `provider_paid` (
   `description` varchar(245) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_provider_paid_provider1_idx` (`provider_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=128 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=129 ;
 
 --
 -- Dumping data for table `provider_paid`
@@ -11132,7 +11176,8 @@ INSERT INTO `provider_paid` (`id`, `provider_id`, `amount`, `date`, `description
 (124, 6, 9569, '2016-11-27 23:25:30', 'Chốt hàng ngày 27.11.2016 | 9:9569 | 18:0 | 2:0 | '),
 (125, 3, 3000, '2016-11-28 17:55:03', 'Thanh toán bớt cho anh dương  | 1:3000 | 18:0 | 2:0 | '),
 (126, 6, 339, '2016-11-28 22:42:04', 'Chốt ngày 28.11 | 9:339 | 18:0 | 2:0 | '),
-(127, 6, 810, '2016-12-01 20:11:31', 'Chốt đúng ngày | 9:810 | 18:0 | 2:0 | ');
+(127, 6, 810, '2016-12-01 20:11:31', 'Chốt đúng ngày | 9:810 | 18:0 | 2:0 | '),
+(128, 6, 1375, '2016-12-04 22:46:29', 'Chốt hết ngày 03.12 | 9:1375 | 18:0 | 2:0 | ');
 
 -- --------------------------------------------------------
 
@@ -11147,7 +11192,7 @@ CREATE TABLE IF NOT EXISTS `provider_paid_fund_change_histo` (
   PRIMARY KEY (`id`),
   KEY `fk_provider_paid_fund_change_fund_change_histo1_idx` (`fund_change_histo_id`),
   KEY `fk_provider_paid_fund_change_provider_paid1_idx` (`provider_paid_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=133 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=134 ;
 
 --
 -- Dumping data for table `provider_paid_fund_change_histo`
@@ -11281,7 +11326,8 @@ INSERT INTO `provider_paid_fund_change_histo` (`id`, `fund_change_histo_id`, `pr
 (129, 1436, 124),
 (130, 1442, 125),
 (131, 1443, 126),
-(132, 1453, 127);
+(132, 1453, 127),
+(133, 1457, 128);
 
 -- --------------------------------------------------------
 
@@ -11391,7 +11437,7 @@ CREATE TABLE IF NOT EXISTS `spend` (
   KEY `fk_spend_user1_idx` (`user_id`),
   KEY `fk_spend_spend_for1_idx` (`spend_for_id`),
   KEY `fk_spend_spend_type1_idx` (`spend_type_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=495 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=496 ;
 
 --
 -- Dumping data for table `spend`
@@ -11875,7 +11921,8 @@ INSERT INTO `spend` (`id`, `spend_category_id`, `amount`, `user_id`, `descriptio
 (491, 1, 81, 3, 'Phí ship hàng cho chị Ngọc Dung, chị Đỗ Thuần Phương, khách của chị Thanh Mai và váy cho chị Hồi ', '2016-11-28 17:52:35', 2, 1),
 (492, 1, 590, 3, 'Mua lễ thắp hương và đi Bia bà mùng 1', '2016-11-29 21:32:42', 2, 1),
 (493, 1, 66, 3, 'Phí ship hàng cho chị thu Lê và chị Đỗ Thanh Hà Triệu Sơn ', '2016-12-01 18:36:18', 2, 1),
-(494, 1, 700, 3, 'Ứng lương cho em Huyền NV ', '2016-12-01 18:42:39', 2, 1);
+(494, 1, 700, 3, 'Ứng lương cho em Huyền NV ', '2016-12-01 18:42:39', 2, 1),
+(495, 1, 100, 3, 'mua hồng thăp hương n', '2016-12-03 19:28:52', 2, 1);
 
 -- --------------------------------------------------------
 
