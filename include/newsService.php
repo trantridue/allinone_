@@ -56,6 +56,7 @@ class NewsService {
 		session_start();
 		$qry = "select t1.status as new_status, t1.id as identification, t1.*, t2.name as shop, t3.name as username,
 				concat(DATE_FORMAT(t1.date,'%Y-%m-%d'),':',DATE_FORMAT(t1.date,'%T')) as displaydate,
+				DATE_FORMAT(t1.date,'%Y-%m-%d') as shortdate,
 				concat(DATE_FORMAT(t1.update_date,'%Y-%m-%d'),':',DATE_FORMAT(t1.update_date,'%T')) as reviewdate
 			   from news t1, shop t2, `user` t3
 			   where t1.shop_id = t2.id
@@ -65,6 +66,7 @@ class NewsService {
 	function listNews($parameterArray) {
 		$qry = "select t1.status as new_status, t1.id as identification, t1.*, t2.name as shop, t3.name as username,
 				concat(DATE_FORMAT(t1.date,'%Y-%m-%d'),':',DATE_FORMAT(t1.date,'%T')) as displaydate,
+				DATE_FORMAT(t1.date,'%Y-%m-%d') as shortdate,
 				concat(DATE_FORMAT(t1.update_date,'%Y-%m-%d'),':',DATE_FORMAT(t1.update_date,'%T')) as reviewdate
 			   from news t1, shop t2, `user` t3
 			   where t1.shop_id = t2.id
@@ -104,7 +106,7 @@ class NewsService {
 					"identification" => "ID",
 					"new_status" => "Trạng thái",
 					"id,username,status" => "Nhân viên,username",
-					"displaydate,reviewdate" => "Ngày tạo,displaydate",
+					"displaydate,reviewdate" => "Ngày tạo,shortdate",
 					"id,description,date,shop,username,shop_id,user_id" => "Edit",
 					"description" => "Ghi chú",
 					"shop" => "Cửa hàng",
@@ -117,7 +119,7 @@ class NewsService {
 					"description" => "Ghi chú",
 					"username" => "Nhân viên",
 					"shop" => "Cửa hàng",
-					"displaydate,reviewdate" => "Ngày tạo,displaydate"
+					"displaydate,reviewdate" => "Ngày tạo,shortdate"
 			);
 		}
 	}
