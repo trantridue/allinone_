@@ -60,7 +60,7 @@ class NewsService {
 				concat(DATE_FORMAT(t1.update_date,'%Y-%m-%d'),':',DATE_FORMAT(t1.update_date,'%T')) as reviewdate
 			   from news t1, shop t2, `user` t3
 			   where t1.shop_id = t2.id
-         and t1.user_id = t3.id order by date desc limit ".$_SESSION['nbr_news_default'];
+         and t1.user_id = t3.id order by t1.status asc, date desc limit ".$_SESSION['nbr_news_default'];
 		$this->processListNews($qry);
 	}
 	function listNews($parameterArray) {
@@ -72,7 +72,7 @@ class NewsService {
 			   where t1.shop_id = t2.id
          		and t1.user_id = t3.id 
 				and t1.description like '%" . $parameterArray ['search_news_description'] . "%'
-				order by date desc";
+				order by t1.status asc, date desc";
 		$this->processListNews($qry);
 	}
 	function processListNews($qry) {
