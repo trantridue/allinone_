@@ -140,7 +140,7 @@ class ConfigService {
 	}
 	
 	function processListProductNotCapturedImage($qry){
-		echo $qry;
+		//echo $qry;
 		$result = mysql_query ( $qry, $this->connection );
 		$array_column = array (
 			"code" => "Mã hàng"
