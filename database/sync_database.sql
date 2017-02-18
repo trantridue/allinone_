@@ -943,16 +943,6 @@ UPDATE `zkpmolfu_banhang`.`property` SET `id`='1015', `date`='2017-02-18', `amou
 
 /* SYNC TABLE : `stock_all` */
 
-/* SYNC TABLE : `stock_za` */
-
-/* SYNC TABLE : `user` */
-
-/* SYNC TABLE : `user_absent_history` */
-
-/* SYNC TABLE : `user_role` */
-
-/* SYNC TABLE : `user_salary_history` */
-
 
 COMMIT;
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
