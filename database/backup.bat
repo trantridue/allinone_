@@ -1,5 +1,8 @@
-mysqldump --single-transaction -hlocalhost -utest -ptest zkpmolfu_banhang > zkpmolfu_banhang.sql
-cd C:\xampp\htdocs\allinone\database
-git add --all
-git commit -m "auto backup"
-git push
+cd C:\AppServ\www\allinone\database
+plink -ssh -pw RAUE9465jkwh root@103.1.236.134 "sh /root/backup.sh"
+pscp -pw RAUE9465jkwh root@103.1.236.134:/root/zkpmolfu_banhang.sql C:\AppServ\www\allinone\database\
+cd C:\AppServ\www\allinone\database
+"C:\Program Files\Git\bin\git.exe" pull
+"C:\Program Files\Git\bin\git.exe" add C:\AppServ\www\allinone\database\zkpmolfu_banhang.sql
+"C:\Program Files\Git\bin\git.exe" commit -m "auto backup database"
+"C:\Program Files\Git\bin\git.exe" push
