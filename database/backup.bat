@@ -5,3 +5,4 @@ pscp -pw RAUE9465jkwh root@103.1.236.134:/root/zkpmolfu_banhang.sql C:\AppServ\w
 "C:\Program Files\Git\bin\git.exe" add C:\AppServ\www\allinone\database\zkpmolfu_banhang.sql
 "C:\Program Files\Git\bin\git.exe" commit -m "auto backup database from shop 1"
 "C:\Program Files\Git\bin\git.exe" push
+mysql -uroot -p123456 zkpmolfu_banhang < C:\AppServ\www\allinone\database\zkpmolfu_banhang.sql
