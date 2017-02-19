@@ -160,11 +160,11 @@ class ConfigService {
 		session_start();
 		$str = "('";
 		if($isAjax) {
-			//$filelist = glob("../../img/product/*.png");
-			$filelist = glob("/data/www/sale/img/product/*.png");
+			$filelist = glob("../../img/product/*.png");
+			//filelist = glob("/data/www/sale/img/product/*.png");
 		} else {
-			//$filelist = glob("./img/product/*.png");
-			$filelist = glob("/data/www/sale/img/product/*.png");
+			$filelist = glob("./img/product/*.png");
+			//$filelist = glob("/data/www/sale/img/product/*.png");
 		}
 		foreach ($filelist as $value) {
 			$start =  strrpos($value,'/',-1);
