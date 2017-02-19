@@ -21,16 +21,76 @@ SET AUTOCOMMIT = 0;
 
 /* SYNC TABLE : `customer` */
 
+	/*Start of batch : 5 */
+UPDATE `zkpmolfu_banhang`.`customer` SET `id`='4851', `name`='Chị Hương', `tel`='0975813536', `description`='', `date`='2017-02-19 16:15:57', `created_date`='2014-12-24 19:22:49', `isboss`='0'  WHERE (`id` = 4851) ;
+	/*End   of batch : 5 */
+	/*Start of batch : 10 */
+UPDATE `zkpmolfu_banhang`.`customer` SET `id`='8344', `name`='Chị Phượng', `tel`='0966802884', `description`='', `date`='2017-02-19 18:48:06', `created_date`='2017-02-18 20:21:15', `isboss`='0'  WHERE (`id` = 8344) ;
+	/*End   of batch : 10 */
 /* SYNC TABLE : `customer_order` */
 
 /* SYNC TABLE : `customer_reservation_histo` */
 
+	/*Start of batch : 1 */
+UPDATE `zkpmolfu_banhang`.`customer_reservation_histo` SET `id`='121', `customer_id`='8344', `description`='Lấy 2 áo phông, 1 quần sooc', `amount`='200', `status`='Y', `date`='2017-02-18 20:21:15', `complete_date`='2017-02-19 18:48:06', `reserved_facture`='20170218_019', `complete_facture`='20170219_006'  WHERE (`id` = 121) ;
+	/*End   of batch : 1 */
 /* SYNC TABLE : `export_facture` */
 
+	/*Start of batch : 25 */
+INSERT INTO `zkpmolfu_banhang`.`export_facture` VALUES ('20170219_009', '1288', '2', '', '2017-02-19 21:57:13', '1', 'N');
+INSERT INTO `zkpmolfu_banhang`.`export_facture` VALUES ('20170219_007', '1288', '1', '', '2017-02-19 19:44:43', '25', 'N');
+INSERT INTO `zkpmolfu_banhang`.`export_facture` VALUES ('20170219_006', '8344', '1', '', '2017-02-19 18:48:06', '25', 'N');
+INSERT INTO `zkpmolfu_banhang`.`export_facture` VALUES ('20170219_005', '1288', '3', '', '2017-02-19 16:27:28', '24', 'N');
+INSERT INTO `zkpmolfu_banhang`.`export_facture` VALUES ('20170219_004', '4851', '1', '', '2017-02-19 16:15:57', '25', 'N');
+INSERT INTO `zkpmolfu_banhang`.`export_facture` VALUES ('20170219_003', '1288', '1', '', '2017-02-19 14:07:21', '25', 'N');
+INSERT INTO `zkpmolfu_banhang`.`export_facture` VALUES ('20170219_002', '1288', '1', '', '2017-02-19 12:48:20', '25', 'N');
+INSERT INTO `zkpmolfu_banhang`.`export_facture` VALUES ('20170219_001', '1288', '1', '', '2017-02-19 09:11:53', '25', 'N');
+INSERT INTO `zkpmolfu_banhang`.`export_facture` VALUES ('20170219_008', '1288', '2', '', '2017-02-19 21:52:40', '1', 'N');
+	/*End   of batch : 25 */
 /* SYNC TABLE : `export_facture_product` */
 
+	/*Start of batch : 37 */
+INSERT INTO `zkpmolfu_banhang`.`export_facture_product` VALUES ('37052', '3558', '1', '280', '20170219_009', '0', NULL, NULL);
+INSERT INTO `zkpmolfu_banhang`.`export_facture_product` VALUES ('37050', 'CO01', '1', '32', '20170219_008', '0', NULL, NULL);
+INSERT INTO `zkpmolfu_banhang`.`export_facture_product` VALUES ('37049', '3788', '1', '234', '20170219_008', '0', NULL, NULL);
+INSERT INTO `zkpmolfu_banhang`.`export_facture_product` VALUES ('37048', '2892', '1', '117', '20170219_008', '0', NULL, NULL);
+INSERT INTO `zkpmolfu_banhang`.`export_facture_product` VALUES ('37047', '3781', '2', '135', '20170219_008', '0', NULL, NULL);
+INSERT INTO `zkpmolfu_banhang`.`export_facture_product` VALUES ('37046', '3759', '1', '216', '20170219_008', '0', NULL, NULL);
+INSERT INTO `zkpmolfu_banhang`.`export_facture_product` VALUES ('37045', '2848', '1', '135', '20170219_008', '0', NULL, NULL);
+INSERT INTO `zkpmolfu_banhang`.`export_facture_product` VALUES ('37044', '3784', '1', '315', '20170219_008', '0', NULL, NULL);
+INSERT INTO `zkpmolfu_banhang`.`export_facture_product` VALUES ('37043', '2643', '2', '288', '20170219_008', '0', NULL, NULL);
+INSERT INTO `zkpmolfu_banhang`.`export_facture_product` VALUES ('37042', '3487', '2', '135', '20170219_008', '0', NULL, NULL);
+INSERT INTO `zkpmolfu_banhang`.`export_facture_product` VALUES ('37041', '2848', '1', '135', '20170219_007', '0', NULL, NULL);
+INSERT INTO `zkpmolfu_banhang`.`export_facture_product` VALUES ('37040', 'CSP07', '1', '32', '20170219_006', '0', NULL, NULL);
+INSERT INTO `zkpmolfu_banhang`.`export_facture_product` VALUES ('37039', '3781', '2', '135', '20170219_006', '0', NULL, NULL);
+INSERT INTO `zkpmolfu_banhang`.`export_facture_product` VALUES ('37038', '2979', '1', '198', '20170219_006', '0', NULL, NULL);
+INSERT INTO `zkpmolfu_banhang`.`export_facture_product` VALUES ('37037', '3326', '1', '405', '20170219_006', '0', NULL, NULL);
+INSERT INTO `zkpmolfu_banhang`.`export_facture_product` VALUES ('37036', '2666', '1', '315', '20170219_006', '0', NULL, NULL);
+INSERT INTO `zkpmolfu_banhang`.`export_facture_product` VALUES ('37035', '1724', '1', '270', '20170219_005', '0', NULL, NULL);
+INSERT INTO `zkpmolfu_banhang`.`export_facture_product` VALUES ('37034', '2848', '2', '135', '20170219_004', '0', NULL, NULL);
+INSERT INTO `zkpmolfu_banhang`.`export_facture_product` VALUES ('37033', '3789', '1', '215', '20170219_003', '0', NULL, NULL);
+INSERT INTO `zkpmolfu_banhang`.`export_facture_product` VALUES ('37032', '3327', '1', '405', '20170219_002', '0', NULL, NULL);
+INSERT INTO `zkpmolfu_banhang`.`export_facture_product` VALUES ('37031', '3041', '1', '288', '20170219_001', '0', NULL, NULL);
+INSERT INTO `zkpmolfu_banhang`.`export_facture_product` VALUES ('37051', '2848', '1', '135', '20170219_008', '0', NULL, NULL);
+	/*End   of batch : 37 */
+	/*Start of batch : 38 */
+INSERT INTO `zkpmolfu_banhang`.`export_facture_product` VALUES ('37053', '3775', '1', '324', '20170219_009', '0', NULL, NULL);
+	/*End   of batch : 38 */
 /* SYNC TABLE : `export_facture_trace` */
 
+	/*Start of batch : 25 */
+INSERT INTO `zkpmolfu_banhang`.`export_facture_trace` VALUES ('24782', '20170219_008', '2300', '0', '0', '0', '2300', '0', '0', '0', '2', '2300', '1288', '50');
+INSERT INTO `zkpmolfu_banhang`.`export_facture_trace` VALUES ('24780', '20170219_006', '1220', '0', '200', '0', '1050', '30', '0', '0', '1', '1220', '8344', '50');
+INSERT INTO `zkpmolfu_banhang`.`export_facture_trace` VALUES ('24779', '20170219_005', '270', '0', '0', '0', '270', '0', '0', '0', '3', '270', '1288', '50');
+INSERT INTO `zkpmolfu_banhang`.`export_facture_trace` VALUES ('24778', '20170219_004', '270', '0', '0', '0', '270', '0', '0', '0', '1', '270', '4851', '50');
+INSERT INTO `zkpmolfu_banhang`.`export_facture_trace` VALUES ('24777', '20170219_003', '215', '0', '0', '0', '215', '0', '0', '0', '1', '215', '1288', '50');
+INSERT INTO `zkpmolfu_banhang`.`export_facture_trace` VALUES ('24776', '20170219_002', '405', '0', '0', '0', '405', '0', '0', '0', '1', '405', '1288', '50');
+INSERT INTO `zkpmolfu_banhang`.`export_facture_trace` VALUES ('24775', '20170219_001', '288', '0', '0', '0', '288', '0', '0', '0', '1', '288', '1288', '50');
+INSERT INTO `zkpmolfu_banhang`.`export_facture_trace` VALUES ('24781', '20170219_007', '135', '0', '0', '0', '135', '0', '0', '0', '1', '135', '1288', '50');
+	/*End   of batch : 25 */
+	/*Start of batch : 26 */
+INSERT INTO `zkpmolfu_banhang`.`export_facture_trace` VALUES ('24783', '20170219_009', '604', '0', '0', '0', '604', '0', '0', '0', '2', '604', '1288', '50');
+	/*End   of batch : 26 */
 /* SYNC TABLE : `fund` */
 
 /* SYNC TABLE : `fund_change_histo` */
@@ -38,6 +98,16 @@ SET AUTOCOMMIT = 0;
 	/*Start of batch : 1 */
 UPDATE `zkpmolfu_banhang`.`fund_change_histo` SET `id`='377', `fund_id`='14', `amount`='1200000', `date`='2014-09-13 21:36:10', `description`='62.1 m, tự lam giay to', `ratio`='1', `user_id`='1'  WHERE (`id` = 377) ;
 	/*End   of batch : 1 */
+	/*Start of batch : 6 */
+INSERT INTO `zkpmolfu_banhang`.`fund_change_histo` VALUES ('5514', '1', '-350', '2017-02-18 06:54:09', 'Dây đồng hồ', '1', '1');
+INSERT INTO `zkpmolfu_banhang`.`fund_change_histo` VALUES ('5512', '24', '-100', '2017-02-18 06:53:24', 'See spend : Cơm trưa', '1', '1');
+INSERT INTO `zkpmolfu_banhang`.`fund_change_histo` VALUES ('5511', '18', '-25', '2017-02-18 06:53:24', 'See spend : Cafe', '1', '1');
+INSERT INTO `zkpmolfu_banhang`.`fund_change_histo` VALUES ('5510', '1', '7050', '2017-02-18 06:52:03', 'Tiền hàng bán trong ngày ', '1', '1');
+INSERT INTO `zkpmolfu_banhang`.`fund_change_histo` VALUES ('5513', '18', '-330', '2017-02-18 06:53:24', 'See spend : Dây đồng hồ tissot', '1', '1');
+	/*End   of batch : 6 */
+	/*Start of batch : 7 */
+INSERT INTO `zkpmolfu_banhang`.`fund_change_histo` VALUES ('5515', '18', '350', '2017-02-18 06:54:09', 'Dây đồng hồ', '1', '1');
+	/*End   of batch : 7 */
 /* SYNC TABLE : `import_facture` */
 
 /* SYNC TABLE : `inout_type` */
@@ -914,10 +984,11 @@ UPDATE `zkpmolfu_banhang`.`property` SET `id`='1011', `date`='2017-02-14', `amou
 UPDATE `zkpmolfu_banhang`.`property` SET `id`='1012', `date`='2017-02-15', `amount`='2193980', `ket`='7300', `loan`='15120', `fund`='1751360', `store`='454683', `debt`='3055'  WHERE (`id` = 1012) ;
 UPDATE `zkpmolfu_banhang`.`property` SET `id`='1013', `date`='2017-02-16', `amount`='2195030', `ket`='11000', `loan`='38350', `fund`='1754810', `store`='475633', `debt`='2935'  WHERE (`id` = 1013) ;
 UPDATE `zkpmolfu_banhang`.`property` SET `id`='1014', `date`='2017-02-17', `amount`='2158110', `ket`='9200', `loan`='42600', `fund`='1721310', `store`='476457', `debt`='2935'  WHERE (`id` = 1014) ;
+UPDATE `zkpmolfu_banhang`.`property` SET `id`='1015', `date`='2017-02-18', `amount`='2160020', `ket`='7800', `loan`='43770', `fund`='1721290', `store`='479556', `debt`='2935'  WHERE (`id` = 1015) ;
 UPDATE `zkpmolfu_banhang`.`property` SET `id`='1009', `date`='2017-02-11', `amount`='2190650', `ket`='13700', `loan`='15120', `fund`='1740760', `store`='461952', `debt`='3055'  WHERE (`id` = 1009) ;
 	/*End   of batch : 2 */
 	/*Start of batch : 3 */
-UPDATE `zkpmolfu_banhang`.`property` SET `id`='1015', `date`='2017-02-18', `amount`='2160020', `ket`='7800', `loan`='43770', `fund`='1721290', `store`='479556', `debt`='2935'  WHERE (`id` = 1015) ;
+INSERT INTO `zkpmolfu_banhang`.`property` VALUES ('1016', '2017-02-19', '2155760', '-200', '47290', '1713290', '486820', '2935');
 	/*End   of batch : 3 */
 /* SYNC TABLE : `provider` */
 
@@ -935,6 +1006,13 @@ UPDATE `zkpmolfu_banhang`.`property` SET `id`='1015', `date`='2017-02-18', `amou
 
 /* SYNC TABLE : `spend` */
 
+	/*Start of batch : 4 */
+INSERT INTO `zkpmolfu_banhang`.`spend` VALUES ('3108', '1', '100', '1', 'Cơm trưa', '2017-02-18 06:53:24', '1', '1');
+INSERT INTO `zkpmolfu_banhang`.`spend` VALUES ('3107', '1', '25', '1', 'Cafe', '2017-02-18 06:53:24', '1', '1');
+	/*End   of batch : 4 */
+	/*Start of batch : 5 */
+INSERT INTO `zkpmolfu_banhang`.`spend` VALUES ('3109', '1', '330', '1', 'Dây đồng hồ tissot', '2017-02-18 06:53:24', '1', '1');
+	/*End   of batch : 5 */
 /* SYNC TABLE : `spend_category` */
 
 /* SYNC TABLE : `spend_for` */
@@ -942,6 +1020,16 @@ UPDATE `zkpmolfu_banhang`.`property` SET `id`='1015', `date`='2017-02-18', `amou
 /* SYNC TABLE : `spend_type` */
 
 /* SYNC TABLE : `stock_all` */
+
+/* SYNC TABLE : `stock_za` */
+
+/* SYNC TABLE : `user` */
+
+/* SYNC TABLE : `user_absent_history` */
+
+/* SYNC TABLE : `user_role` */
+
+/* SYNC TABLE : `user_salary_history` */
 
 
 COMMIT;
