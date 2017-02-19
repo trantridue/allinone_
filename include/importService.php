@@ -386,7 +386,7 @@ class ImportService {
 		$jsonArray = array ();
 		while ( $rows = mysql_fetch_array ( $result ) ) {
 			$labelvalue = "Code : " . $rows ['code'] . ", name :" . $rows ['name'] . ", Sex: " . (($rows ['sex_id'] == 1) ? "WOMAN" : "MAN");
-			$element = array (code => $rows ['code'], name => $rows ['name'], post => $rows ['export_price'], value => $rows ['code'], label => $labelvalue );
+			$element = array (code => $rows ['code'], value => $rows ['code'], label => $labelvalue );
 			
 			$jsonArray [] = $element;
 		}
