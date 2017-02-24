@@ -5,5 +5,5 @@ pscp -pw RAUE9465jkwh root@103.1.236.134:/root/zkpmolfu_banhang.sql C:\xampp\htd
 cd C:\xampp\htdocs\allinone\database
 git pull
 git add C:\xampp\htdocs\allinone\database\zkpmolfu_banhang.sql
-git commit -m "auto backup database"
+git commit -m "auto backup database from laptop"
 git push
