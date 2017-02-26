@@ -682,7 +682,7 @@ function generateCustomer($datefrom, $dateto, $charttype, $charttime, $shop_id, 
 		return $this->getAmountReport2Zero ( $qry );
 	}
 	function getCashByShop($start_date, $end_date, $shop_id) {
-		session_start ();
+		if(!isset($_SESSION)){  session_start(); }
 		$cash = 0;
 		$qryFacture = "";
 		$qryInout = "";

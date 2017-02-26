@@ -1,4 +1,4 @@
-<?php session_start();?>
+<?php if(!isset($_SESSION)){  session_start(); }?>
 <form id="addInoutFormId">
 <h1>ADD INOUT</h1>
 <table class="addcriteriatable" >

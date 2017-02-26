@@ -66,7 +66,7 @@ class SpendService {
 		return $paramsArray;
 	}
 	function updateSpend($paramsArray){
-		session_start ();
+		if(!isset($_SESSION)){  session_start(); }
 		mysql_query ( "BEGIN" );
 		$timeDate = ' '.date('H:i:s');
 		$qry = "update spend set amount=".$paramsArray['add_amount']
@@ -87,7 +87,7 @@ class SpendService {
 		}
 	}
 	function insertSpends($nbrLine,$params){
-		session_start ();
+		if(!isset($_SESSION)){  session_start(); }
 		mysql_query ( "BEGIN" );
 		$timeDate = ' '.date('H:i:s');
 		$qry = "insert into spend(spend_category_id,amount,user_id,description,date,spend_for_id,spend_type_id) values ";

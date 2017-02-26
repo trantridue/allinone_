@@ -1,4 +1,4 @@
-<?php session_start();?>
+<?php if(!isset($_SESSION)){  session_start(); } ?>
 <form id="addSpendFormId">
 <h3>ADD SPEND <?php echo tab16;?><label id="total_spend" style="background: yellow; font-size: 12pt;">0</label></h3>
 <table class="addcriteriatable" style="text-align: center;">

@@ -40,7 +40,7 @@ class ExportService {
 		$this->HandleError ( $err . "\r\n mysqlerror:" . mysql_error () );
 	}
 	function getJsonProductCode($term) {
-		session_start ();
+		if(!isset($_SESSION)){  session_start(); }
 		$isSaleAll = $_SESSION ['is_sale_for_all'];
 		$saleAllTaux = $_SESSION ['sale_all_taux'];
 		if ($isSaleAll == '1') {
@@ -88,7 +88,7 @@ class ExportService {
 		return $jsonArray;
 	}
 	function saveOrder($paramsArray) {
-		session_start ();
+		if(!isset($_SESSION)){  session_start(); }
 		mysql_query ( "BEGIN" );
 		$qry = "insert into customer_order (customer_tel,customer_name,product_code,color,size,date,description,quantity) values ('" . $paramsArray ['customer_tel'] . "','" . $paramsArray ['customer_name'] . "','" . $paramsArray ['order_product_code'] . "','" . $paramsArray ['order_color'] . "','" . $paramsArray ['order_size'] . "','" . date ( 'Y-m-d H:i:s' ) . "','" . $paramsArray ['order_description'] . "'," . $paramsArray ['order_qty'] . ")";
 		if (mysql_query ( $qry, $this->connection ) != null) {
@@ -100,7 +100,7 @@ class ExportService {
 		}
 	}
 	function deleteExportFacture($export_facture_code) {
-		//		session_start ();
+		//		if(!isset($_SESSION)){  session_start(); }
 		mysql_query ( "BEGIN" );
 		$flag = true;
 		$qrySpend = "delete from spend where description like '%" . $export_facture_code . "%'";
@@ -151,7 +151,7 @@ class ExportService {
 			return $this->commonService->getCurrentDateYYYYMMDD () . "_001";
 	}
 	function saveExport($paramsArray) {
-		session_start ();
+		if(!isset($_SESSION)){  session_start(); }
 		mysql_query ( "BEGIN" );
 		$flag = true;
 		// 1. Get export facture code
@@ -418,7 +418,7 @@ class ExportService {
 		;
 	}
 	function listReturnDefault() {
-		session_start ();
+		if(!isset($_SESSION)){  session_start(); }
 		$qry = "SELECT t1.re_date as date,if(datediff(now(),t1.re_date)=0,'Hôm nay',t1.re_date) as istoday ,t4.link,
 		t3.name,t3.tel,t1.product_code,t4.name as product,t1.quantity,t1.export_price,t2.code,t1.re_qty,t5.name as shop,
 		t1.re_date, t2.date as buydate, date_format(t2.date,'%Y-%m-%d') as buydatedis,t2.code as export_facture_code
@@ -538,7 +538,7 @@ class ExportService {
 		} else {
 			$status = 'Y';
 		}
-		session_start ();
+		if(!isset($_SESSION)){  session_start(); }
 		mysql_query ( "BEGIN" );
 		$qry = "update customer_order set status = '" . $status . "' where id =" . $id;
 		if (mysql_query ( $qry, $this->connection ) != null) {
@@ -550,7 +550,7 @@ class ExportService {
 		}
 	}
 	function listExportDefault() {
-		session_start ();
+		if(!isset($_SESSION)){  session_start(); }
 		$isAdminField = 'default';
 		$qry = "SELECT t1.id,t1.product_code,t1.quantity,t1.export_price,t1.re_qty,t3.description,t2.description as facdesc,
 		(select sum(quantity*export_price) from export_facture_product where export_facture_code = t1.export_facture_code) as total_facture,
@@ -570,7 +570,7 @@ class ExportService {
 		and t4.id = t2.customer_id
 		and t5.id = t2.shop_id
 		and datediff(now(),t2.date) <= " . $_SESSION ['listExportDefault_nbr_day_limit'] . " order by date desc";
-		//		echo $qry;
+				//echo $qry;
 		$this->processExportQuery ( $qry , $isAdminField);
 	}
 	function processExportQuery($qry, $isAdminField) {
@@ -685,7 +685,7 @@ function getExportListArrayColumn($isAdminField) {
 		echo tab4 . "</span>CASH 3: <span style='background-color:violet;'>" . $this->getCashByShop ( 3, $date, $date ) . "</span>";
 	}
 	function getCashByShop($shop_id, $start_date, $end_date) {
-		session_start ();
+		if(!isset($_SESSION)){  session_start(); }
 		$cash = 0;
 		
 		$qryFacture = "select sum(if((give_customer>0),(customer_give - give_customer),customer_give)) as amount

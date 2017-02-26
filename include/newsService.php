@@ -39,7 +39,7 @@ class NewsService {
 		$this->HandleError ( $err . "\r\n mysqlerror:" . mysql_error () );
 	}
 	function inserOrUpdatetNews($description, $id) {
-		session_start ();
+		if(!isset($_SESSION)){  session_start(); }
 		$actionType = 'insert';
 		$date = date ( 'Y-m-d H:i:s' );
 		$user_id = $_SESSION ['id_of_user'];
@@ -53,7 +53,7 @@ class NewsService {
 		echo mysql_query ( $qry, $this->connection );
 	}
 	function listNewsDefault() {
-		session_start();
+		if(!isset($_SESSION)){  session_start(); }
 		$qry = "select t1.status as new_status, t1.id as identification, t1.*, t2.name as shop, t3.name as username,
 				concat(DATE_FORMAT(t1.date,'%Y-%m-%d'),':',DATE_FORMAT(t1.date,'%T')) as displaydate,
 				DATE_FORMAT(t1.date,'%Y-%m-%d') as shortdate,
@@ -100,7 +100,7 @@ class NewsService {
 		echo "</table>";
 	}
 	function buildArrayParameter() {
-		session_start();
+		if(!isset($_SESSION)){  session_start(); }
 		if($this->commonService->isAdmin()){
 			return array (
 					"identification" => "ID",
@@ -139,7 +139,7 @@ class NewsService {
 		} else {
 			$status = 'Y';
 		}
-		session_start ();
+		if(!isset($_SESSION)){  session_start(); }
 		mysql_query ( "BEGIN" );
 		$qry = "update news set status = '" . $status . "', update_date =now() where id =" . $id;
 		if (mysql_query ( $qry, $this->connection ) != null) {

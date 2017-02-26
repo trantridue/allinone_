@@ -58,7 +58,7 @@ class UserService {
 		echo mysql_query ( $qry, $this->connection );
 	}
 	function updateUser($user_id, $user_name, $user_email, $user_phone_number, $user_description, $user_password, $shop_dropdown_user, $status_value, $start_date) {
-		session_start ();
+		if(!isset($_SESSION)){  session_start(); }
 		mysql_query ( "BEGIN" );
 		$new_password = md5 ( $user_password );
 		$qry = "";
@@ -83,7 +83,7 @@ class UserService {
 		}
 	}
 	function addUser($params) {
-		session_start ();
+		if(!isset($_SESSION)){  session_start(); }
 		mysql_query ( "BEGIN" );
 		$flag = true;
 		$new_password = '';
@@ -137,7 +137,7 @@ class UserService {
 		return $paramsArray;
 	}
 	function updateAbsent($paramsArray) {
-		session_start ();
+		if(!isset($_SESSION)){  session_start(); }
 		mysql_query ( "BEGIN" );
 		$flag = true;
 		$userid = $paramsArray ['id_list_user_update'];
@@ -150,7 +150,7 @@ class UserService {
 		echo "success";
 	}
 	function saveAbsent($paramsArray) {
-		session_start ();
+		if(!isset($_SESSION)){  session_start(); }
 		mysql_query ( "BEGIN" );
 		$flag = true;
 		$userid = $paramsArray ['id_list_user'];

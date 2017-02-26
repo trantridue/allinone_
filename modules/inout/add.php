@@ -16,7 +16,7 @@
 		<td><input type="text" autocomplete="off" size="4" id="add_amount" maxlength="8" onkeypress="validateNum(event);"/></td>
 		<td><?php $commonService->printDropDownListFromTable ( 'inout_type', 'add_inout_type');?> </td>
 		<td ><?php
-		session_start();
+		if(!isset($_SESSION)){  session_start(); }
 		$commonService->printDropDownListFromTable ( 'user', 'add_user',$_SESSION ['id_of_user']);
 		?></td>
 		<td>

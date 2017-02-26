@@ -3,7 +3,7 @@ ADD ABSENT USER
 </div>
 <input type="hidden" id="nbrRows"
 	value="<?php
-	session_start ();
+	if(!isset($_SESSION)){  session_start(); }
 	echo $_SESSION ['nbr_row_absent'];
 	?>" />
 <table>

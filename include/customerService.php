@@ -63,7 +63,7 @@ class CustomerService {
 		$this->commonService->generateJqueryDatatable ( $result, customerdatatable, $this->getArrayColumn() );
 	}
 	function exportCsv($params) {
-		session_start();
+		if(!isset($_SESSION)){  session_start(); }
 		$qry = "select *,(t.total-t.paid) as debt,round((t.total/(t.total+t.return_amount))*100,2) as efficient from (SELECT
 				       t1.id,
 				       t1.tel,
@@ -121,7 +121,7 @@ class CustomerService {
 		echo $this->generateCsvFile($result);
 	}
 	function generateCsvFile($result){
-		session_start();
+		if(!isset($_SESSION)){  session_start(); }
 		$contactFileNameReturn = "csv/contact_".date ( 'Y-m-d_H-i-s' ).".csv";
 		$contactFileName = "../../".$contactFileNameReturn;
 
@@ -152,7 +152,7 @@ class CustomerService {
 		return $contactFileNameReturn;
 	}
 	function listCustomer($params) {
-		session_start();
+		if(!isset($_SESSION)){  session_start(); }
 		$qry = "select *,(t.total-t.paid) as debt,round((t.total/(t.total+t.return_amount))*100,2) as efficient from (SELECT
 				       t1.id,
 				       t1.tel,
@@ -285,7 +285,7 @@ class CustomerService {
 		}
 	}
 	function getJsonCustomerTel($term) {
-		session_start();
+		if(!isset($_SESSION)){  session_start(); }
 		$qry = "select ta.*,(ta.totalbuy - ta.paid) as debt,floor((ta.totalbuy-ta.bonus_used)/".$_SESSION['bonus_ratio'].") as bonus from (SELECT t1.isboss,t1.tel,t1.name,t1.id
 			,ifnull((select sum((quantity-re_qty)*export_price) from export_facture_product where export_facture_code in (select code from export_facture where customer_id=t1.id)),0) totalbuy
 			,ifnull((select sum(amount) from export_facture_trace where customer_id = t1.id),0) as paid
@@ -323,7 +323,7 @@ class CustomerService {
 	}
 
 	function getJsonCustomerName($term) {
-		session_start();
+		if(!isset($_SESSION)){  session_start(); }
 		$qry = "select ta.*,(ta.totalbuy - ta.paid) as debt,floor((ta.totalbuy-ta.bonus_used)/".$_SESSION['bonus_ratio'].") as bonus from (SELECT t1.isboss,t1.tel,t1.name,t1.id
 			,ifnull((select sum((quantity-re_qty)*export_price) from export_facture_product where export_facture_code in (select code from export_facture where customer_id=t1.id)),0) totalbuy
 			,ifnull((select sum(amount) from export_facture_trace where customer_id = t1.id),0) as paid

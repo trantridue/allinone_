@@ -1,5 +1,5 @@
 <?php
-session_start();
+if(!isset($_SESSION)){  session_start(); }
 $max_img_size_upload = $_SESSION['max_img_size_upload'];
 $target_dir = "../../img/facture/";
 $target_file = $target_dir . basename($_FILES["fileToUploadFacture"]["name"]);

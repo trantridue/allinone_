@@ -19,7 +19,7 @@ window.onbeforeunload = function() { return "You work will be lost."; };
 </script>
 <?php 
 $importService->loadDefaultSeason();
-session_start();
+if(!isset($_SESSION)){  session_start(); }
 ?>
 <form method="post" action="?module=import&submenu=addproduct"
 	onsubmit="return validateImportForm();">

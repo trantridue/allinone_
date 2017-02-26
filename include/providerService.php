@@ -191,7 +191,7 @@ FROM   (SELECT t1.*,
 		$this->commonService->generateJqueryDatatable ( $result, "paidhisto", $array_column );
 	}
 	function paidMoneyProvider($parameterPaid) {
-		session_start ();
+		if(!isset($_SESSION)){  session_start(); }
 		mysql_query ( "BEGIN" );
 		$amount1 = $parameterPaid ['paid_amount_1'];
 		$amount2 = $parameterPaid ['paid_amount_2'];
@@ -253,7 +253,7 @@ FROM   (SELECT t1.*,
 		}
 	}
 	function paidDelete($parameterPaidDelete) {
-		session_start ();
+		if(!isset($_SESSION)){  session_start(); }
 		mysql_query ( "BEGIN" );
 		
 		$str = true;

@@ -40,7 +40,7 @@ class ConfigService {
 		$this->HandleError ( $err . "\r\n mysqlerror:" . mysql_error () );
 	}
 	function loadConfigParam() {
-		session_start ();
+		if(!isset($_SESSION)){  session_start(); }
 		$qry = "select * from configuration";
 		$result = mysql_query ( $qry, $this->connection );
 		while ( $rows = mysql_fetch_array ( $result ) ) {

@@ -83,7 +83,7 @@ class FundService {
 	
 	
 	function saveExchange($paramsArray){
-		session_start ();
+		if(!isset($_SESSION)){  session_start(); }
 		mysql_query ( "BEGIN" );
 		$timeDate = ' '.date('H:i:s');
 		
@@ -110,7 +110,7 @@ class FundService {
 		}
 	}
 	function updateFund($paramsArray){
-		session_start ();
+		if(!isset($_SESSION)){  session_start(); }
 		mysql_query ( "BEGIN" );
 		$timeDate = ' '.date('H:i:s');
 		
@@ -131,7 +131,7 @@ class FundService {
 		}
 	}
 	function saveAddFund($paramsArray){
-		session_start ();
+		if(!isset($_SESSION)){  session_start(); }
 		mysql_query ( "BEGIN" );
 		$timeDate = ' '.date('H:i:s');
 		

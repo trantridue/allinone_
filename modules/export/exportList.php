@@ -7,8 +7,14 @@
 <input type="hidden" id="customer_tel_guess" value=""/>
 <input type="hidden" id="customer_tel_flag" value="true"/>
 <?php
-$isdefault = $_REQUEST ['isdefault'];
-$isSearch = $_REQUEST ['issearch'];
+
+if(isset($_REQUEST['isdefault'])){
+    $isdefault = $_REQUEST['isdefault'];
+}
+if(isset($_REQUEST['issearch'])){
+    $isSearch = $_REQUEST['issearch'];
+}
+
 if ($isdefault == "false") {
 	require_once ("../../include/constant.php");
 	require_once ("../../include/exportService.php");

@@ -60,7 +60,7 @@ class InoutService {
 		return $paramsArray;
 	}
 	function updateInout($paramsArray){
-		session_start ();
+		if(!isset($_SESSION)){  session_start(); }
 		mysql_query ( "BEGIN" );
 		$timeDate = ' '.date('H:i:s');
 		$amount = ($paramsArray['id_add_type'] == 1) ? $paramsArray['add_amount'] : (0-$paramsArray['add_amount']);
@@ -154,7 +154,7 @@ class InoutService {
 		$this->commonService->generateJqueryDatatable ( $result, inoutdatatable, $this->buildArrayParameter() );
 	}
 	function buildArrayParameter() {
-		session_start();
+		if(!isset($_SESSION)){  session_start(); }
 		if($this->commonService->isAdmin()){
 			return array (
 					"date" => "Ngày",
@@ -203,7 +203,7 @@ class InoutService {
 		}
 	}
 	function insertInout($params){
-		session_start ();
+		if(!isset($_SESSION)){  session_start(); }
 		mysql_query ( "BEGIN" );
 		$timeDate = ' '.date('H:i:s');
 		$date = ($params['add_date'] != '')?$params['add_date'].$timeDate:date('Y-m-d H:i:s');
@@ -224,7 +224,7 @@ class InoutService {
 		}
 	}
 	function processInout($id, $amount) {
-		session_start ();
+		if(!isset($_SESSION)){  session_start(); }
 		mysql_query ( "BEGIN" );
 		$qry = "";
 		if($amount == 0) {

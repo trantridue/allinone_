@@ -84,7 +84,7 @@ function returnProduct(){
 
 </script>
 <hr>
-<?php session_start();?>
+<?php if(!isset($_SESSION)){  session_start(); }?>
 <form id="returnproductForm">
 <div> 
 <input type="text" id='date_return_product' class='datetimefield'/>
