@@ -413,7 +413,7 @@ textarea {
 	width: 150px !important;
 }
 
-#exportLeft {
+.exportLeft {
 	float: left;
 	width: 40%;
 	height: 570px;
@@ -422,7 +422,7 @@ textarea {
 	padding: 5px;
 }
 
-#exportRight {
+.exportRight {
 	float: right;
 	padding: 5px;
 	width: 58%;
@@ -430,7 +430,23 @@ textarea {
 	overflow: auto;
 	background-color: bisque;
 }
+.exportLeftm {
+	float: left;
+	width: 40%;
+	height: 570px;
+	overflow: auto;
+	background-color: pink;
+	padding: 5px;
+}
 
+.exportRightm {
+	float: right;
+	padding: 5px;
+	width: 58%;
+	height: 570px;
+	overflow: auto;
+	background-color: bisque;
+}
 #exportCustomerInformation {
 	background-color: #FFFEE0;
 }
