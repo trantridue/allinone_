@@ -12,6 +12,6 @@ if($commonService->isAdmin()) {?>
 	onsubmit="return validateBlankField('fileNameFacture') && validateBlankField('fileToUploadFacture');">
 Select image to upload: <input type="file" name="fileToUploadFacture"
 	id="fileToUploadFacture"> <input type="text" name="fileNameFacture"
-	id="fileNameFacture" class="importfacturecode"> <input type="submit"
+	id="fileNameFacture" class="importfacturecode" value="<?php echo date('Ymd').'_00';?>"> <input type="submit"
 	value="Upload Image Facture" name="submit"></form>
 	<?php }?>
