@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<job version="11.1">
+<syncjob>
+<fkcheck check="yes" />
+<passwords isencoded="yes" />
+<source>
+<tunnelinfo type="ssh">
+<sshuser>root</sshuser>
+<sshpwd>KaCqopwaG5o1tbs0</sshpwd>
+<sshhost>103.1.236.134</sshhost>
+<sshport>22</sshport>
+<sshispass>1</sshispass>
+<sshprivatekey></sshprivatekey>
+</tunnelinfo>
+<host>localhost</host>
+<user>root</user>
+<pwd>sDGhkRkYmJs4FQ==</pwd>
+<port>3306</port>
+<compressed>1</compressed>
+<cleartext>0</cleartext>
+<ssl>0</ssl>
+<sslauth>0</sslauth>
+<clientkey></clientkey>
+<clientcert></clientcert>
+<cacert></cacert>
+<cipher></cipher>
+<charset></charset>
+<database>zkpmolfu_banhang</database>
+</source>
+<target>
+<host>localhost</host>
+<user>test</user>
+<pwd>OrK5Og==</pwd>
+<port>3306</port>
+<compressed>1</compressed>
+<cleartext>0</cleartext>
+<ssl>0</ssl>
+<sslauth>0</sslauth>
+<clientkey></clientkey>
+<clientcert></clientcert>
+<cacert></cacert>
+<cipher></cipher>
+<charset></charset>
+<database>zkpmolfu_banhang</database>
+</target>
+<tables all="yes" />
+<sync_action type="directsync" />
+<abortonerror abort="yes" />
+<sendreport send="no" /></syncjob>
+</job>
