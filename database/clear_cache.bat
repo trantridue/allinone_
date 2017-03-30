@@ -1,0 +1,1 @@
+plink -ssh -pw RAUE9465jkwh root@103.1.236.134 "sh /root/clear_cache.sh"
