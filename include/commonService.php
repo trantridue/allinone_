@@ -73,7 +73,7 @@ class CommonService {
 			echo "$('#" . datatable_prefix . $datatable_id . "').dataTable(  ";
 			echo "{ ";
 			echo "'destroy': true, 
-						'order': [[ " . $ordercolumn . ", '" . $ordertype . "' ]],scrollY: 280,paging: false, 
+						'order': [[ " . $ordercolumn . ", '" . $ordertype . "' ]],paging: false, 
 						";
 			echo "'footerCallback' : function(row, data, start, end, ";
 			echo "display) { ";
