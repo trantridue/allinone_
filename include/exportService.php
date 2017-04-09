@@ -483,15 +483,17 @@ class ExportService {
 		, "date" => "Ngày trả,istoday" );
 	}
 	function listReservationDefault() {
-		$qry = "SELECT t1.*,t1.status as reservation_status,t2.name,t2.tel FROM `customer_reservation_histo` t1 
-		left join customer t2 on (t2.id = t1.customer_id) order by status asc";
+		$qry = "SELECT ef.shop_id as dat_o_shop,ef1.shop_id as tra_o_shop, ef.code as facture_reserved,ef1.code as facture_complete,
+		t1.*,t1.status as reservation_status,t2.name,t2.tel FROM `customer_reservation_histo` t1 
+		left join customer t2 on (t2.id = t1.customer_id) left join export_facture ef on ef.code = t1.reserved_facture
+			left join export_facture ef1 on ef1.code = t1.complete_facture order by status asc, t1.date desc";
 		$result = mysql_query ( $qry, $this->connection );
 		$array_total = array (2 => "Total" );
 		$this->commonService->generateJSDatatableComplex ( $result, customerreservationdatatable, 5, 'asc', $array_total );
 		$this->commonService->generateJqueryDatatable ( $result, customerreservationdatatable, $this->buildArrayReservationParameter () );
 	}
 	function buildArrayReservationParameter() {
-		return array ("counter_colum" => "No", "name,tel" => "Khách Hàng,name", "amount" => "Tổng", "date" => "Ngày đặt", "description,complete_date" => "Desc,description", "reservation_status" => "Trạng thái" );
+		return array ("counter_colum" => "No", "name,tel,dat_o_shop,tra_o_shop,facture_reserved,facture_complete" => "Khách Hàng,name", "amount" => "Tổng", "date" => "Ngày đặt", "description,complete_date" => "Desc,description", "reservation_status" => "Trạng thái" );
 	}
 	function listOrderDefault() {
 		$qry = "SELECT t1.*,REPLACE(t1.description,'\'','') as new_description,t2.name as product_name,datediff(now(),t1.date) as diff,
