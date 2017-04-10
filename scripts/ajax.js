@@ -2834,7 +2834,7 @@ function saveExport() {
 		success : function(data) {
 
 			//if (data.startsWith('?shop=')) {
-			if (data != "error") {
+			if (data.startsWith('{')) {
 
 				operationSuccess();
 				location.reload();
