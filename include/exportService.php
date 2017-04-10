@@ -320,8 +320,10 @@ class ExportService {
 		}
 		
 		$this->commitOrRollback ( $flag );
-		//echo "?shop=shop".$shopid;
-		echo json_encode($paramsArray);
+		echo "?shop=".$shopid."&facture=".$export_facture_code."&final_total=".$paramsArray['final_total'];
+		//$paramsArray['facture'] = $export_facture_code;
+		//$paramsArray['shopid'] = $shopid;
+		//echo json_encode($paramsArray);
 	}
 	function commitOrRollback($flag) {
 		if ($flag == false) {

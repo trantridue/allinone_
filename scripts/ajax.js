@@ -2833,8 +2833,8 @@ function saveExport() {
 
 		success : function(data) {
 
-			//if (data.startsWith('?shop=')) {
-			if (data.startsWith('{')) {
+			if (data.startsWith('?shop=')) {
+			//if (data.startsWith('{')) {
 
 				operationSuccess();
 				location.reload();
@@ -2858,11 +2858,22 @@ function saveExport() {
 
 }
 function callbackExport(data) {
-	alert(data);
-	var url='./mail/sendMail.php?data=' + data;
+	//alert(data);
+	//var url='./mail/sendMail.php?data=' + processUrlStringEncode(data);
+	//alert(url);
+	var url='./mail/sendMail.php' + data;
+	
 	var request = new XMLHttpRequest();
 	request.open("GET", url, true);
+	request.onreadystatechange = function()
+	{
+		if(http.readyState == 4 && http.status == 200) {
+			alert(request.responseText);
+		}
+	}	
 	request.send(null);
+	
+	//window.location.href=url;
 }
 function validateEditUserForm() {
 	var flag = true;
