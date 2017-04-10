@@ -23,7 +23,8 @@ $mail->setFrom("trantridue@gmail.com");
 $subject= "Shop ".$shopid." bán được : " .$final_total. "K " . "(lúc : ".date("Y-m-d H:i:s").")";
 $mail->Subject = "=?UTF-8?B?".base64_encode($subject)."?=";
 $mail->Body = "Chi tiet hoa don so : ". $export_facture_code. " (đang được xử lý)";
-$mail->AddAddress("dtrantri.fr@gmail.com");
+$mail->AddAddress("trantridue@gmail.com");
+$mail->AddAddress("zabuza.vn@gmail.com");
 
  if(!$mail->send()) {
     echo "Mailer Error: " . $mail->ErrorInfo;
