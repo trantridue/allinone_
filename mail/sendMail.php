@@ -8,6 +8,8 @@ function sendMail() {
 	$shopid = $_REQUEST['shop'];
 	$export_facture_code = $_REQUEST['facture'];
 	$final_total = $_REQUEST['final_total'];
+	$cus_name = $_REQUEST['cus_name'];
+	$cus_tel = $_REQUEST['cus_tel'];
 	
 $mail = new PHPMailer(); // create a new object
 $mail->IsSMTP(); // enable SMTP
@@ -22,7 +24,7 @@ $mail->Password = "Kh0ngba0gi0";
 $mail->setFrom("trantridue@gmail.com");
 $subject= "Shop ".$shopid." bán được : " .$final_total. "K " . "(lúc : ".date("Y-m-d H:i:s").")";
 $mail->Subject = "=?UTF-8?B?".base64_encode($subject)."?=";
-$mail->Body = "Chi tiet hoa don so : ". $export_facture_code. " (đang được xử lý)";
+$mail->Body = "Chi tiet hoa don so : ". $export_facture_code. " (đang được xử lý)<br/> Khách :".$cus_name."<br/> Tel :".$cus_tel;
 $mail->AddAddress("trantridue@gmail.com");
 $mail->AddAddress("zabuza.vn@gmail.com");
 

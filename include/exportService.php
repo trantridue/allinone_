@@ -320,7 +320,7 @@ class ExportService {
 		}
 		
 		$this->commitOrRollback ( $flag );
-		echo "?shop=".$shopid."&facture=".$export_facture_code."&final_total=".$paramsArray['final_total'];
+		echo "?shop=".$shopid."&facture=".$export_facture_code."&final_total=".$paramsArray['final_total']."&cus_name=".$paramsArray ['customer_name']."&cus_tel=".$paramsArray ['customer_tel'];
 		//$paramsArray['facture'] = $export_facture_code;
 		//$paramsArray['shopid'] = $shopid;
 		//echo json_encode($paramsArray);
