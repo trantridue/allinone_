@@ -320,13 +320,15 @@ class ExportService {
 		}
 		
 		$this->commitOrRollback ( $flag );
-		echo "success";
+		//echo "?shop=shop".$shopid;
+		echo json_encode($paramsArray);
 	}
 	function commitOrRollback($flag) {
 		if ($flag == false) {
 			echo mysql_error ( $this->connection );
 			mysql_query ( "ROLLBACK" );
 			echo "error";
+			return;
 		} else {
 			mysql_query ( "COMMIT" );
 		}

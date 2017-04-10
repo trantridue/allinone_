@@ -2833,11 +2833,12 @@ function saveExport() {
 
 		success : function(data) {
 
-			if (data == 'success') {
+			//if (data.startsWith('?shop=')) {
+			if (data != "error") {
 
 				operationSuccess();
-
 				location.reload();
+				callbackExport(data);
 
 			} else {
 
@@ -2855,6 +2856,13 @@ function saveExport() {
 
 	}
 
+}
+function callbackExport(data) {
+	alert(data);
+	var url='./mail/sendMail.php?data=' + data;
+	var request = new XMLHttpRequest();
+	request.open("GET", url, true);
+	request.send(null);
 }
 function validateEditUserForm() {
 	var flag = true;
