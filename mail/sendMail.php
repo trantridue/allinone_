@@ -21,12 +21,11 @@ $mail->Port = 465; // or 587
 $mail->IsHTML(true);
 $mail->Username = "zabuza.vn@gmail.com";
 $mail->Password = "Kh0ngba0gi0";
-$mail->setFrom("trantridue@gmail.com");
-$subject= "Shop ".$shopid." bán được : " .$final_total. "K " . "(lúc : ".date("Y-m-d H:i:s").")";
+$mail->setFrom("zabuza.vn@gmail.com");
+$subject= "Shop ".$shopid.": " .$final_total. "K " . " : ".date("Y-m-d H:i:s");
 $mail->Subject = "=?UTF-8?B?".base64_encode($subject)."?=";
 $mail->Body = "Chi tiet hoa don so : ". $export_facture_code. " (đang được xử lý)<br/> Khách :".$cus_name."<br/> Tel :".$cus_tel;
 $mail->AddAddress("trantridue@gmail.com");
-$mail->AddAddress("zabuza.vn@gmail.com");
 
  if(!$mail->send()) {
     echo "Mailer Error: " . $mail->ErrorInfo;
