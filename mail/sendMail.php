@@ -26,8 +26,9 @@ function sendMail() {
 		."</tr>";
 	$counter = 0;
 	for($i = 1; $i <= $export_number_row; $i ++) {
-		$counter = $counter + 1;
+		
 		if($_REQUEST['productcode_' . $i] != '') {
+			$counter = $counter + 1;
 			$detail = $detail."<tr>"
 			."<td>".$counter."</td>"
 			."<td>".$_REQUEST['productcode_' . $i]."</td>"
