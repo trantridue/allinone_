@@ -222,6 +222,8 @@ class ExportService {
 		//8. Export_facture_product
 		$qryExport_facture_product = "insert into export_facture_product (product_code,quantity,export_price,export_facture_code) values ";
 		$nbrRowExportReal = 0;
+		$callbackdetail = "";
+		
 		for($i = 1; $i <= $paramsArray ['export_number_row']; $i ++) {
 			if ($paramsArray ['productcode_' . $i] != '') {
 				$nbrRowExportReal ++;
@@ -229,6 +231,11 @@ class ExportService {
 				," . $paramsArray ['quantity_' . $i] . "
 				," . $paramsArray ['exportprice_' . $i] . "
 				,'" . $export_facture_code . "'),";
+				$callbackdetail = $callbackdetail
+				.'&productcode_' . $i.'='.$paramsArray ['productcode_' . $i]
+				.'&quantity_' . $i.'='.$paramsArray ['quantity_' . $i]
+				.'&exportprice_' . $i.'='.$paramsArray ['exportprice_' . $i]
+				.'&salebyproduct_' . $i.'='.$paramsArray ['salebyproduct_' . $i];
 			}
 		}
 		//9. Process return
@@ -320,7 +327,13 @@ class ExportService {
 		}
 		
 		$this->commitOrRollback ( $flag );
-		echo "?shop=".$shopid."&facture=".$export_facture_code."&final_total=".$paramsArray['final_total']."&cus_name=".$paramsArray ['customer_name']."&cus_tel=".$paramsArray ['customer_tel'];
+		echo "?shop=".$shopid
+		."&export_facture_code=".$export_facture_code
+		."&final_total=".$paramsArray['final_total']
+		."&customer_name=".$paramsArray ['customer_name']
+		."&customer_tel=".$paramsArray ['customer_tel']
+		."&export_number_row=".$paramsArray ['export_number_row']
+		.$callbackdetail;
 		//$paramsArray['facture'] = $export_facture_code;
 		//$paramsArray['shopid'] = $shopid;
 		//echo json_encode($paramsArray);

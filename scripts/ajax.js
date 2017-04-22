@@ -2832,7 +2832,7 @@ function saveExport() {
 		url : urls,
 
 		success : function(data) {
-
+			alert(data);
 			if (data.startsWith('?shop=')) {
 			//if (data.startsWith('{')) {
 
