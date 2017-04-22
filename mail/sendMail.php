@@ -14,15 +14,19 @@ function sendMail() {
 	$customer_name = $_REQUEST['customer_name'];
 	$customer_tel = $_REQUEST['customer_tel'];
 	$export_number_row = $_REQUEST['export_number_row'];
+	$customer_description = $_REQUEST['customer_description'];
+	$export_date = $_REQUEST['export_date'];
 	$site = $_SERVER['HTTP_HOST'];
 	
 	$detail = "<table style='border-collapse: collapse;border:1'>"
 		."<tr>"
-		."<td width='10%'>TT</td>"
-		."<td width='20%'>Mã</td>"
-		."<td width='10%'>SL</td>"
-		."<td width='20%'>Giá bán</td>"
-		."<td>Sale</td>"
+		."<td width='5%'>TT</td>"
+		."<td width='10%'>Mã</td>"
+		."<td>Tên</td>"
+		."<td width='5%'>SL</td>"
+		."<td width='5%'>Gốc</td>"
+		."<td width='5%'>Bán</td>"
+		."<td width='5%'>Sale</td>"
 		."</tr>";
 	$counter = 0;
 	for($i = 1; $i <= $export_number_row; $i ++) {
@@ -32,7 +36,9 @@ function sendMail() {
 			$detail = $detail."<tr>"
 			."<td>".$counter."</td>"
 			."<td>".$_REQUEST['productcode_' . $i]."</td>"
+			."<td>".$_REQUEST['hide_productname_' . $i]."</td>"
 			."<td>".$_REQUEST['quantity_' . $i]."</td>"
+			."<td>".$_REQUEST['hide_exportpostedprice_' . $i]."</td>"
 			."<td>".$_REQUEST['exportprice_' . $i]."</td>"
 			."<td>".$_REQUEST['salebyproduct_' . $i]."</td>"
 			."</tr>";
@@ -59,6 +65,8 @@ $mail->Subject = "=?UTF-8?B?".base64_encode($subject)."?=";
 $mail->Body = "Hóa đơn : ". $export_facture_code
 ."<br/> Khách :".$customer_name
 ."<br/> Tel :".$customer_tel
+."<br/> Description :".$customer_description
+."<br/> Date :".$export_date
 ."<hr>".$detail."<hr>"
 ."<br/> Send From : ".$site;
 

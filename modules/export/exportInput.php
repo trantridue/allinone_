@@ -17,6 +17,9 @@ $(document).ready(function(){
 			$("#productname_<?php
 	echo $i;
 	?>").html(ui.item.name);
+	$("#hide_productname_<?php
+	echo $i;
+	?>").val(ui.item.name);
 			<?php
 	if ($commonService->isAdmin ()) {
 		?>
@@ -41,6 +44,9 @@ $(document).ready(function(){
 			$("#exportpostedprice_<?php
 	echo $i;
 	?>").html(ui.item.posted_price);
+	$("#hide_exportpostedprice_<?php
+	echo $i;
+	?>").val(ui.item.posted_price);
 			$("#exportprice_" + <?php
 	echo $i;
 	?>).prop("title",ui.item.price);
@@ -87,7 +93,9 @@ for($i = 1; $i <= $rowNum; $i ++) {
 	?>" /></td>
 		<td><label id="productname_<?php
 	echo $i;
-	?>"></label></td>
+	?>"></label><input type="text" id="hide_productname_<?php
+	echo $i;
+	?>" style="display:none;"/></td>
 		<td><input type="number" id="quantity_<?php
 	echo $i;
 	?>"
@@ -97,7 +105,9 @@ for($i = 1; $i <= $rowNum; $i ++) {
 		<td style="text-align: center;"><label
 			id="exportpostedprice_<?php
 	echo $i;
-	?>"></label></td>
+	?>"></label><input type="text" id="hide_exportpostedprice_<?php
+	echo $i;
+	?>" style="display:none;"/></td>
 		<td><input style="text-align: center;" type="number" class="number50"
 			size="2" onpaste="return false;" id="exportprice_<?php
 	echo $i;

@@ -235,6 +235,8 @@ class ExportService {
 				.'&productcode_' . $i.'='.$paramsArray ['productcode_' . $i]
 				.'&quantity_' . $i.'='.$paramsArray ['quantity_' . $i]
 				.'&exportprice_' . $i.'='.$paramsArray ['exportprice_' . $i]
+				.'&hide_productname_' . $i.'='.$paramsArray ['hide_productname_' . $i]
+				.'&hide_exportpostedprice_' . $i.'='.$paramsArray ['hide_exportpostedprice_' . $i]
 				.'&salebyproduct_' . $i.'='.$paramsArray ['salebyproduct_' . $i];
 			}
 		}
@@ -333,6 +335,8 @@ class ExportService {
 		."&customer_name=".$paramsArray ['customer_name']
 		."&customer_tel=".$paramsArray ['customer_tel']
 		."&export_number_row=".$paramsArray ['export_number_row']
+		."&customer_description=".$paramsArray ['customer_description']
+		."&export_date=".$paramsArray ['export_date']
 		.$callbackdetail;
 		//$paramsArray['facture'] = $export_facture_code;
 		//$paramsArray['shopid'] = $shopid;
