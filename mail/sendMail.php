@@ -1,6 +1,9 @@
 <?php
 require_once('class.phpmailer.php');
 require_once('class.smtp.php');
+require_once ("../include/constant.php");
+require_once ("../include/reportService.php");
+require_once ("../include/commonService.php");
 
 function sendMail() {
 	//$data = json_decode($_REQUEST['data']);
@@ -36,6 +39,9 @@ function sendMail() {
 	}
 	$detail = $detail . "</table>";
 	
+$commonService = new CommonService ();
+$reportService = new ReportService ( hostname, username, password, database,$commonService );
+
 $mail = new PHPMailer(); // create a new object
 $mail->IsSMTP(); // enable SMTP
 $mail->SMTPDebug = 1; // debugging: 1 = errors and messages, 2 = messages only
@@ -47,7 +53,7 @@ $mail->IsHTML(true);
 $mail->Username = "zabuza.vn@gmail.com";
 $mail->Password = "Kh0ngba0gi0";
 $mail->setFrom("zabuza.vn@gmail.com");
-$subject= "Shop ".$shopid.": " .$final_total. "K " . " : ".date("Y-m-d H:i:s");
+$subject= "Shop ".$shopid." : " .$final_total. " : ".$reportService->getAmountToDay();
 $mail->Subject = "=?UTF-8?B?".base64_encode($subject)."?=";
 $mail->Body = "Hóa đơn : ". $export_facture_code
 ."<br/> Khách :".$customer_name
