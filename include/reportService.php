@@ -793,5 +793,13 @@ function generateCustomer($datefrom, $dateto, $charttype, $charttime, $shop_id, 
 		$this->commonService->generateJSDatatableSimple ( 'efficient_product', 0, 'asc' );
 		$this->commonService->generateJqueryDatatable ( $result, 'efficient_product', $array_column );
 	}
+	function getAmountById($id) {
+		$qry = "select * from money_inout where id = ". $id;
+		
+		$result = mysql_query ( $qry, $this->connection );
+		while ( $rows = mysql_fetch_array ( $result ) ) {
+			return $rows ['amount'];
+		}
+	}
 }
 ?>

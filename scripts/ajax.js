@@ -1591,16 +1591,15 @@ function deletemoney_inout(id) {
 
 		success : function(data) {
 
-			if (data == 'success') {
+			if (data != 'error') {
 
 				operationSuccess();
 
 				listInOut('false');
+				callbackInoutDelete(id,data);
 
 			} else {
-
 				operationError();
-
 			}
 
 		}
@@ -2877,6 +2876,21 @@ function callbackExport(data) {
 function callbackInout(data) {
 	
 	var url='./mail/sendMailInout.php' + processUrlStringEncode(data);
+	//alert(url);
+	var request = new XMLHttpRequest();
+	request.open("GET", url, true);
+	request.onreadystatechange = function()
+	{
+		if(http.readyState == 4 && http.status == 200) {
+			alert(request.responseText);
+		}
+	}	
+	request.send(null);
+	
+}
+function callbackInoutDelete(id,data) {
+	
+	var url='./mail/sendMailInoutDelete.php?id=' + id + data;
 	//alert(url);
 	var request = new XMLHttpRequest();
 	request.open("GET", url, true);

@@ -195,9 +195,10 @@ class InoutService {
 	}
 	
 	function deleteInout($id) {
+		$amount=$this->getAmountById($id);
 		$qry = "delete from money_inout where id = " . $id;
 		if(mysql_query ( $qry, $this->connection ) != null) {
-			echo 'success';
+			echo '&amount='.$amount;
 		} else {
 			echo 'error';
 		}
@@ -238,6 +239,14 @@ class InoutService {
 		} else {
 			mysql_query ( "ROLLBACK" );
 			echo 'error';
+		}
+	}
+	function getAmountById($id) {
+		$qry = "select * from money_inout where id = ". $id;
+		
+		$result = mysql_query ( $qry, $this->connection );
+		while ( $rows = mysql_fetch_array ( $result ) ) {
+			return $rows ['amount'];
 		}
 	}
 }
