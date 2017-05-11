@@ -26,9 +26,12 @@ $mail->IsHTML(true);
 $mail->Username = "zabuza.vn@gmail.com";
 $mail->Password = "Kh0ngba0gi0";
 $mail->setFrom("zabuza.vn@gmail.com");
-$subject= $reportService->getAmountToDay()." : ".$reportService->getCashByShop($td,$td,1)." : ".$reportService->getCashByShop($td,$td,2)." : ".$reportService->getCashByShop($td,$td,3);
+$subject= "INOUT:".$_REQUEST['amount']." | ca1: ".$reportService->getCashByShop($td,$td,1)." | ca2: ".$reportService->getCashByShop($td,$td,2)." | ca3: ".$reportService->getCashByShop($td,$td,3);
 $mail->Subject = "=?UTF-8?B?".base64_encode($subject)."?=";
-$mail->Body = "<br/> Send From : ".$site;
+$mail->Body = "Số tiền :".$_REQUEST['amount']
+."<br/>Lý do :".$_REQUEST['description']
+."<br/>Total EX :".$reportService->getAmountToDay()
+."<br/>Send From : ".$site;
 
 $mail->AddAddress("trantridue@gmail.com");
 

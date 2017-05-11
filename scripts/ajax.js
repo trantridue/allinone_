@@ -1807,7 +1807,7 @@ function saveInOut() {
 
 		success : function(data) {
 
-			if (data == 'success') {
+			if (data != 'error') {
 
 				operationSuccess();
 
@@ -1815,7 +1815,7 @@ function saveInOut() {
 
 				$('#addInoutFormId')[0].reset();
 				
-				callbackInout();
+				callbackInout(data);
 
 			} else {
 
@@ -2834,7 +2834,7 @@ function saveExport() {
 		url : urls,
 
 		success : function(data) {
-			alert(data);
+			//alert(data);
 			if (data.startsWith('?shop=')) {
 			//if (data.startsWith('{')) {
 
@@ -2874,10 +2874,10 @@ function callbackExport(data) {
 	request.send(null);
 	
 }
-function callbackInout() {
+function callbackInout(data) {
 	
-	var url='./mail/sendMailInout.php';
-	
+	var url='./mail/sendMailInout.php' + processUrlStringEncode(data);
+	//alert(url);
 	var request = new XMLHttpRequest();
 	request.open("GET", url, true);
 	request.onreadystatechange = function()

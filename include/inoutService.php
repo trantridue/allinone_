@@ -217,7 +217,7 @@ class InoutService {
 			.$date."')";
 		if(mysql_query ( $qry, $this->connection ) != null){
 			mysql_query ( "COMMIT" );
-			echo 'success';
+			echo '?amount='.$amount.'&description='.$params['add_description'];
 		}else {
 			mysql_query ( "ROLLBACK" );
 			echo 'error';
