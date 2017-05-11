@@ -1814,6 +1814,8 @@ function saveInOut() {
 				listInOut('false');
 
 				$('#addInoutFormId')[0].reset();
+				
+				callbackInout();
 
 			} else {
 
@@ -2858,9 +2860,7 @@ function saveExport() {
 
 }
 function callbackExport(data) {
-	//alert(data);
-	//var url='./mail/sendMail.php?data=' + processUrlStringEncode(data);
-	//alert(url);
+	
 	var url='./mail/sendMail.php' + data;
 	
 	var request = new XMLHttpRequest();
@@ -2873,7 +2873,21 @@ function callbackExport(data) {
 	}	
 	request.send(null);
 	
-	//window.location.href=url;
+}
+function callbackInout() {
+	
+	var url='./mail/sendMailInout.php';
+	
+	var request = new XMLHttpRequest();
+	request.open("GET", url, true);
+	request.onreadystatechange = function()
+	{
+		if(http.readyState == 4 && http.status == 200) {
+			alert(request.responseText);
+		}
+	}	
+	request.send(null);
+	
 }
 function validateEditUserForm() {
 	var flag = true;
