@@ -68,9 +68,9 @@ $mail->Body = "Hóa đơn : ". $export_facture_code
 ."<br/> Description :".$customer_description
 ."<br/> Date :".$export_date
 ."<hr>".$detail."<hr>"
-."<br/> Shop 1 : ".$reportService->getCashByShop($td,$td,1);
-."<br/> Shop 2 : ".$reportService->getCashByShop($td,$td,2);
-."<br/> Shop 3 : ".$reportService->getCashByShop($td,$td,3);
+."<br/> Shop 1 : ".$reportService->getCashByShop($td,$td,1)
+."<br/> Shop 2 : ".$reportService->getCashByShop($td,$td,2)
+."<br/> Shop 3 : ".$reportService->getCashByShop($td,$td,3)
 ."<br/> Send From : ".$site;
 
 $mail->AddAddress("trantridue@gmail.com");
